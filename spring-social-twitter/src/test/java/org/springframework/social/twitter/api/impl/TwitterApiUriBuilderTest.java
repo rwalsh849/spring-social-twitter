@@ -33,8 +33,9 @@ public class TwitterApiUriBuilderTest {
 	
 	@Test
 	public void build_specificHosts() {
-		URI result1 = new TwitterApiUriBuilder().forStandardApi().withResource("any.json").build();
-		URI result2 = new TwitterApiUriBuilder().forAdCampaignsApi().withResource("any.json").build();
+		String anyResource = "any.json";
+		URI result1 = new TwitterApiUriBuilder().forStandardApi().withResource(anyResource).build();
+		URI result2 = new TwitterApiUriBuilder().forAdCampaignsApi().withResource(anyResource).build();
 		assertThat(result1.getHost(), not(equalTo(result2.getHost())));
 	}
 	
