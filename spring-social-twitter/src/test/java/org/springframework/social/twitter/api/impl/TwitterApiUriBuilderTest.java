@@ -17,7 +17,6 @@ package org.springframework.social.twitter.api.impl;
 
 import static org.hamcrest.CoreMatchers.equalTo;
 import static org.hamcrest.CoreMatchers.not;
-import static org.hamcrest.CoreMatchers.nullValue;
 import static org.junit.Assert.assertThat;
 import static org.junit.Assert.fail;
 
@@ -25,6 +24,7 @@ import java.net.URI;
 import java.util.Arrays;
 
 import org.junit.Test;
+import org.springframework.social.NotAuthorizedException;
 
 /**
  * @author Hudson Mendes
@@ -37,6 +37,16 @@ public class TwitterApiUriBuilderTest {
 		URI result1 = new TwitterApiUriBuilder().forStandardApi().withResource(anyResource).build();
 		URI result2 = new TwitterApiUriBuilder().forAdCampaignsApi().withResource(anyResource).build();
 		assertThat(result1.getHost(), not(equalTo(result2.getHost())));
+	}
+	
+	@Test(expected = IllegalArgumentException.class)
+	public void build_fails_missingResource() {
+		new TwitterApiUriBuilder().build();
+	}
+	
+	@Test(expected = IllegalArgumentException.class)
+	public void build_fails_invalidResource() {
+		new TwitterApiUriBuilder().withResource((String) null).build();
 	}
 	
 	@Test
