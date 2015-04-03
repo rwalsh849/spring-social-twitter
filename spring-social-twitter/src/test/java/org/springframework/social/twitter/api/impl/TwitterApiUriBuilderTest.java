@@ -15,7 +15,14 @@
  */
 package org.springframework.social.twitter.api.impl;
 
-import static org.junit.Assert.*;
+import static org.hamcrest.CoreMatchers.equalTo;
+import static org.hamcrest.CoreMatchers.not;
+import static org.hamcrest.CoreMatchers.nullValue;
+import static org.junit.Assert.assertThat;
+import static org.junit.Assert.fail;
+
+import java.net.URI;
+import java.util.Arrays;
 
 import org.junit.Test;
 
@@ -41,7 +48,16 @@ public class TwitterApiUriBuilderTest {
 	
 	@Test
 	public void buildUri_adCampaignsApi_resourceOnly() {
-		fail("Not implemented");
+		TwitterApiUriAdCampaignResource resource1 = TwitterApiUriAdCampaignResource.ACCOUNT;
+		URI result1 = new TwitterApiUriBuilder().forAdCampaignsApi().withResource(resource1).build();
+		
+		TwitterApiUriAdCampaignResource resource2 = TwitterApiUriAdCampaignResource.CAMPAIGN;
+		URI result2 = new TwitterApiUriBuilder().forAdCampaignsApi().withResource(resource2).build();
+		
+		assertThat(result1, not(nullValue()));
+		assertThat(versionFreePath(result1.getPath()), equalTo(resource1.getValue()));
+		assertThat(versionFreePath(result2.getPath()), equalTo(resource2.getValue()));
+		assertThat(result1.getPath(), not(equalTo(result2.getPath())));
 	}
 	
 	@Test
@@ -54,4 +70,20 @@ public class TwitterApiUriBuilderTest {
 		fail("Not implemented");
 	}
 	
+	private String versionFreePath(String path) {
+		String splitter = "/";
+		StringBuilder newPath = new StringBuilder();
+		Arrays.stream(path.split(splitter))
+			.filter(frag -> !frag.isEmpty())
+			.skip(1)
+			.forEach(frag -> {
+				if (newPath.length() != 0) {
+					newPath.append(splitter);
+				}
+				
+				newPath.append(frag);
+			});
+		
+		return newPath.toString();
+	}
 }
