@@ -32,41 +32,47 @@ import org.junit.Test;
 public class TwitterApiUriBuilderTest {
 	
 	@Test
-	public void buildUri_standardApi_resourceOnly() {
+	public void build_specificHosts() {
+		URI result1 = new TwitterApiUriBuilder().forStandardApi().withResource("any.json").build();
+		URI result2 = new TwitterApiUriBuilder().forAdCampaignsApi().withResource("any.json").build();
+		assertThat(result1.getHost(), not(equalTo(result2.getHost())));
+	}
+	
+	@Test
+	public void build_standardApi_resourceOnly() {
 		fail("Not implemented");
 	}
 	
 	@Test
-	public void buildUri_standardApi_oneArgument() {
+	public void build_standardApi_oneArgument() {
 		fail("Not implemented");
 	}
 	
 	@Test
-	public void buildUri_standardApi_multipleArguments() {
+	public void build_standardApi_multipleArguments() {
 		fail("Not implemented");
 	}
 	
 	@Test
-	public void buildUri_adCampaignsApi_resourceOnly() {
+	public void build_adCampaignsApi_resourceOnly() {
 		TwitterApiUriAdCampaignResource resource1 = TwitterApiUriAdCampaignResource.ACCOUNT;
 		URI result1 = new TwitterApiUriBuilder().forAdCampaignsApi().withResource(resource1).build();
 		
 		TwitterApiUriAdCampaignResource resource2 = TwitterApiUriAdCampaignResource.CAMPAIGN;
 		URI result2 = new TwitterApiUriBuilder().forAdCampaignsApi().withResource(resource2).build();
 		
-		assertThat(result1, not(nullValue()));
 		assertThat(versionFreePath(result1.getPath()), equalTo(resource1.getValue()));
 		assertThat(versionFreePath(result2.getPath()), equalTo(resource2.getValue()));
 		assertThat(result1.getPath(), not(equalTo(result2.getPath())));
 	}
 	
 	@Test
-	public void buildUri_adCampaignsApi_oneArgument() {
+	public void build_adCampaignsApi_oneArgument() {
 		fail("Not implemented");
 	}
 	
 	@Test
-	public void buildUri_adCampaignsApi_multipleArguments() {
+	public void build_adCampaignsApi_multipleArguments() {
 		fail("Not implemented");
 	}
 	
