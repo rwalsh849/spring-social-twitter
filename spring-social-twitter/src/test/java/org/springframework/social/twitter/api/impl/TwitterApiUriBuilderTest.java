@@ -24,7 +24,6 @@ import java.net.URI;
 import java.util.Arrays;
 
 import org.junit.Test;
-import org.springframework.social.NotAuthorizedException;
 
 /**
  * @author Hudson Mendes
