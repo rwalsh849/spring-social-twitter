@@ -32,6 +32,13 @@ import org.springframework.social.NotAuthorizedException;
 public class TwitterApiUriBuilderTest {
 	
 	@Test
+	public void build_standardHost() {
+		String anyResource = "any.json";
+		URI standardResult = new TwitterApiUriBuilder().withResource(anyResource).build();
+		assertThat(standardResult.getHost(), equalTo("api.twitter.com"));
+	}
+	
+	@Test
 	public void build_specificHosts() {
 		String anyResource = "any.json";
 		URI result1 = new TwitterApiUriBuilder().forStandardApi().withResource(anyResource).build();
