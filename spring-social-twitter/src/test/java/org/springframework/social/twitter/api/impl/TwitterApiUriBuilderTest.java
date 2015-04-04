@@ -25,6 +25,8 @@ import java.net.URI;
 import java.util.Arrays;
 
 import org.junit.Test;
+import org.springframework.util.LinkedMultiValueMap;
+import org.springframework.util.MultiValueMap;
 
 /**
  * @author Hudson Mendes
@@ -74,36 +76,58 @@ public class TwitterApiUriBuilderTest {
 		String anyResource = "standard_api_resource.js";
 		String argName = "argument_name";
 		String argValue = "argument_value";
-		URI result1 = new TwitterApiUriBuilder()
+		URI result = new TwitterApiUriBuilder()
 				.withResource(anyResource)
 				.withArgument(argName, argValue)
 				.build();
 		
-		assertThat(result1, not(nullValue()));
-		assertThat(versionFreePath(result1.getPath()), equalTo(anyResource));
-		assertThat(result1.getQuery(), equalTo(argName + "=" + argValue));
+		assertThat(result, not(nullValue()));
+		assertThat(versionFreePath(result.getPath()), equalTo(anyResource));
+		assertThat(result.getQuery(), equalTo(argName + "=" + argValue));
 	}
 	
 	@Test
 	public void build_multipleArguments_chained() {
 		String anyResource = "standard_api_resource.js";
-		String argName = "argument_name";
-		String argValue = "argument_value";
-		URI result1 = new TwitterApiUriBuilder()
+		URI result = new TwitterApiUriBuilder()
 				.withResource(anyResource)
-				.withArgument(argName + "_1", argValue + "_1")
-				.withArgument(argName + "_2", argValue + "_2")
-				.withArgument(argName + "_3", argValue + "_3")
+				.withArgument("argument_name_1", "argument_value_1")
+				.withArgument("argument_name_2", "argument_value_2")
+				.withArgument("argument_name_3", "argument_value_3")
 				.build();
 		
 		String chainedQuery =
-				argName + "_1" + "=" + argValue + "_1" + "&" +
-				argName + "_2" + "=" + argValue + "_2" + "&" +
-				argName + "_3" + "=" + argValue + "_3";
+				"argument_name_1" + "=" + "argument_value_1" + "&" +
+				"argument_name_2" + "=" + "argument_value_2" + "&" +
+				"argument_name_3" + "=" + "argument_value_3";
 		
-		assertThat(result1, not(nullValue()));
-		assertThat(versionFreePath(result1.getPath()), equalTo(anyResource));
-		assertThat(result1.getQuery(), equalTo(chainedQuery));
+		assertThat(result, not(nullValue()));
+		assertThat(versionFreePath(result.getPath()), equalTo(anyResource));
+		assertThat(result.getQuery(), equalTo(chainedQuery));
+	}
+	
+	@Test
+	public void build_multipleArguments_array() {
+		String anyResource = "standard_api_resource.js";
+		
+		MultiValueMap<String, String> arguments = new LinkedMultiValueMap<>();
+		arguments.add("argument_name_A", "argument_value_A");
+		arguments.add("argument_name_B", "argument_value_B");
+		arguments.add("argument_name_C", "argument_value_C");
+		
+		URI result = new TwitterApiUriBuilder()
+				.withResource(anyResource)
+				.withArgument(arguments)
+				.build();
+		
+		String chainedQuery =
+				"argument_name_A" + "=" + "argument_value_A" + "&" +
+				"argument_name_B" + "=" + "argument_value_B" + "&" +
+				"argument_name_C" + "=" + "argument_value_C";
+		
+		assertThat(result, not(nullValue()));
+		assertThat(versionFreePath(result.getPath()), equalTo(anyResource));
+		assertThat(result.getQuery(), equalTo(chainedQuery));
 	}
 	
 	private String versionFreePath(String path) {
