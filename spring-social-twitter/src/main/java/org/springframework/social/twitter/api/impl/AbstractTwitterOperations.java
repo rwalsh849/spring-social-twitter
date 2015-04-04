@@ -51,22 +51,36 @@ class AbstractTwitterOperations {
 		}
 	}
 	
+	/*
+	 * @deprecated use the {@link TwitterApiUriBuilder} instead. with the builder, you may build URIs for the AdCampaign API as well.
+	 */
+	@Deprecated
 	protected URI buildUri(String path) {
-		return buildUri(path, EMPTY_PARAMETERS);
+		return new TwitterApiUriBuilder()
+			.withResource(path)
+			.build();
 	}
 	
+	/*
+	 * @deprecated use the {@link TwitterApiUriBuilder} instead. with the builder, you may build URIs for the AdCampaign API as well.
+	 */
+	@Deprecated
 	protected URI buildUri(String path, String parameterName, String parameterValue) {
-		MultiValueMap<String, String> parameters = new LinkedMultiValueMap<String, String>();
-		parameters.set(parameterName, parameterValue);
-		return buildUri(path, parameters);
+		return new TwitterApiUriBuilder()
+			.withResource(path)
+			.withArgument(parameterName, parameterValue)
+			.build();
 	}
 	
+	/*
+	 * @deprecated use the {@link TwitterApiUriBuilder} instead. with the builder, you may build URIs for the AdCampaign API as well.
+	 */
+	@Deprecated
 	protected URI buildUri(String path, MultiValueMap<String, String> parameters) {
-		return URIBuilder.fromUri(API_URL_BASE + path).queryParams(parameters).build();
+		return new TwitterApiUriBuilder()
+			.withResource(path)
+			.withArgument(parameters)
+			.build();
 	}
-	
-	private static final String API_URL_BASE = "https://api.twitter.com/1.1/";
-
-	private static final LinkedMultiValueMap<String, String> EMPTY_PARAMETERS = new LinkedMultiValueMap<String, String>();
 
 }
