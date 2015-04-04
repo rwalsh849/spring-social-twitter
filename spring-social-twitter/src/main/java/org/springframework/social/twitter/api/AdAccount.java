@@ -45,10 +45,10 @@ public class AdAccount extends TwitterObject implements Serializable {
 	private final LocalDateTime createdAt;
 	private final LocalDateTime updatedAt;
 	private final String salt;
-	private final AdAccountApprovalStatus approvalStatus;
+	private final ContentApprovalStatus approvalStatus;
 	private final Boolean deleted;
 	
-	public AdAccount(String id, String name, TimeZone timezone, LocalDateTime timeZoneSwitchAt, LocalDateTime createdAt, LocalDateTime updatedAt, String salt, AdAccountApprovalStatus approvalStatus, Boolean deleted) {
+	public AdAccount(String id, String name, TimeZone timezone, LocalDateTime timeZoneSwitchAt, LocalDateTime createdAt, LocalDateTime updatedAt, String salt, ContentApprovalStatus approvalStatus, Boolean deleted) {
 		this.id = id;
 		this.name = name;
 		this.timezone = timezone;
@@ -88,7 +88,7 @@ public class AdAccount extends TwitterObject implements Serializable {
 		return salt;
 	}
 
-	public AdAccountApprovalStatus getApprovalStatus() {
+	public ContentApprovalStatus getApprovalStatus() {
 		return approvalStatus;
 	}
 

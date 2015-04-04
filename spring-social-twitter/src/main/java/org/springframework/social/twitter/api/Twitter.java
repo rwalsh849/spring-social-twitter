@@ -71,6 +71,11 @@ public interface Twitter extends ApiBinding {
 	 * @return the portion of the Twitter API containing the user operations.
 	 */
 	UserOperations userOperations();
+	
+	/**
+	 * @return the portion of the Twitter API containing the advertising campaign operations.
+	 */
+	AdvertisingOperations advertisingOperations();
 
 	/**
 	 * Returns the underlying {@link RestOperations} object allowing for consumption of Twitter endpoints that may not be otherwise covered by the API binding.

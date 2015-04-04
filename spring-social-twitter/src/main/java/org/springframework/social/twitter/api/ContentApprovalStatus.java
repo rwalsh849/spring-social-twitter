@@ -19,6 +19,6 @@ package org.springframework.social.twitter.api;
  * Enumeration of stats that an Advertising account may be in.
  * @author Hudson Mendes
  */
-public enum AdAccountApprovalStatus {
+public enum ContentApprovalStatus {
 	ACCEPTED
 }

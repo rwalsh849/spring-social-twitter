@@ -20,6 +20,7 @@ import org.springframework.http.converter.json.MappingJackson2HttpMessageConvert
 import org.springframework.social.oauth1.AbstractOAuth1ApiBinding;
 import org.springframework.social.oauth2.OAuth2Operations;
 import org.springframework.social.oauth2.OAuth2Template;
+import org.springframework.social.twitter.api.AdvertisingOperations;
 import org.springframework.social.twitter.api.BlockOperations;
 import org.springframework.social.twitter.api.DirectMessageOperations;
 import org.springframework.social.twitter.api.FriendOperations;
@@ -65,6 +66,8 @@ public class TwitterTemplate extends AbstractOAuth1ApiBinding implements Twitter
 	private GeoOperations geoOperations;
 
 	private StreamingOperations streamOperations;
+	
+	private AdvertisingOperations advertisingOperations;
 	
 	private RestTemplate clientRestTemplate = null;
 	
@@ -141,6 +144,10 @@ public class TwitterTemplate extends AbstractOAuth1ApiBinding implements Twitter
 	public StreamingOperations streamingOperations() {
 		return streamOperations;
 	}
+	
+	public AdvertisingOperations advertisingOperations() {
+		return advertisingOperations;
+	}
 
 	public RestOperations restOperations() {
 		return getRestTemplate();
@@ -197,6 +204,7 @@ public class TwitterTemplate extends AbstractOAuth1ApiBinding implements Twitter
 		this.blockOperations = new BlockTemplate(getRestTemplate(), isAuthorized(),isAuthorizedForApp());
 		this.geoOperations = new GeoTemplate(getRestTemplate(), isAuthorized(), isAuthorizedForApp());
 		this.streamOperations = new StreamingTemplate(getRestTemplate(), isAuthorized(), isAuthorizedForApp());
+		this.advertisingOperations = new AdvertisingTemplate(getRestTemplate(), isAuthorized(), isAuthorized());
 	}
 	
 	private boolean isAuthorizedForApp() {

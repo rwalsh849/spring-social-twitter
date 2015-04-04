@@ -41,7 +41,7 @@ class TwitterApiUriBuilder {
 	public TwitterApiUriBuilder forAdCampaignsApi() { this.baseLocation = AD_CAMPAIGN_API_URL_BASE; return this; }
 	
 	public TwitterApiUriBuilder withResource(String resource) { this.resource = resource; return this; }
-	public TwitterApiUriBuilder withResource(TwitterApiUriAdCampaignResource resource) { this.resource = resource.getValue(); return this; }
+	public TwitterApiUriBuilder withResource(TwitterApiUriAdvertisingResource resource) { this.resource = resource.getValue(); return this; }
 	public TwitterApiUriBuilder withArgument(String argument, Object value) { this.parameters.add(argument, value.toString()); return this; }
 	public TwitterApiUriBuilder withArgument(MultiValueMap<String, String> arguments) { this.parameters.putAll(arguments); return this; }
 	
