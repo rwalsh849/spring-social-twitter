@@ -18,8 +18,6 @@ package org.springframework.social.twitter.api.impl;
 import java.net.URI;
 
 import org.springframework.social.MissingAuthorizationException;
-import org.springframework.social.support.URIBuilder;
-import org.springframework.util.LinkedMultiValueMap;
 import org.springframework.util.MultiValueMap;
 
 class AbstractTwitterOperations {
