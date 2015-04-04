@@ -15,10 +15,8 @@
  */
 package org.springframework.social.twitter.api;
 
-import java.io.Serializable;
 import java.time.LocalDateTime;
-
-import org.springframework.social.twitter.api.AccountSettings.TimeZone;
+import java.util.TimeZone;
 
 /**
  * Represents an Advertising Account
@@ -35,27 +33,25 @@ import org.springframework.social.twitter.api.AccountSettings.TimeZone;
  * 
  * @author Hudson Mendes
  */
-public class AdAccount extends TwitterObject implements Serializable {
-	private static final long serialVersionUID = 1L;
-
+public class AdAccount extends TwitterObject {
 	private final String id;
 	private final String name;
-	private final TimeZone timezone;
-	private final LocalDateTime timeZoneSwitchAt;
-	private final LocalDateTime createdAt;
-	private final LocalDateTime updatedAt;
 	private final String salt;
+	private final TimeZone timeZone;
+	private final String timeZoneSwitchAt;
+	private final String createdAt;
+	private final LocalDateTime updatedAt;
 	private final ContentApprovalStatus approvalStatus;
 	private final Boolean deleted;
 	
-	public AdAccount(String id, String name, TimeZone timezone, LocalDateTime timeZoneSwitchAt, LocalDateTime createdAt, LocalDateTime updatedAt, String salt, ContentApprovalStatus approvalStatus, Boolean deleted) {
+	public AdAccount(String id, String name, String salt, TimeZone timeZone, String timeZoneSwitchAt, String createdAt, LocalDateTime updatedAt, ContentApprovalStatus approvalStatus, Boolean deleted) {
 		this.id = id;
 		this.name = name;
-		this.timezone = timezone;
+		this.salt = salt;
+		this.timeZone = timeZone;
 		this.timeZoneSwitchAt = timeZoneSwitchAt;
 		this.createdAt = createdAt;
 		this.updatedAt = updatedAt;
-		this.salt = salt;
 		this.approvalStatus = approvalStatus;
 		this.deleted = deleted;
 	}
@@ -67,25 +63,25 @@ public class AdAccount extends TwitterObject implements Serializable {
 	public String getName() {
 		return name;
 	}
-
-	public TimeZone getTimezone() {
-		return timezone;
+	
+	public String getSalt() {
+		return salt;
 	}
 
-	public LocalDateTime getTimeZoneSwitchAt() {
+	public TimeZone getTimeZone() {
+		return timeZone;
+	}
+
+	public String getTimeZoneSwitchAt() {
 		return timeZoneSwitchAt;
 	}
 
-	public LocalDateTime getCreatedAt() {
+	public String getCreatedAt() {
 		return createdAt;
 	}
 
 	public LocalDateTime getUpdatedAt() {
 		return updatedAt;
-	}
-
-	public String getSalt() {
-		return salt;
 	}
 
 	public ContentApprovalStatus getApprovalStatus() {

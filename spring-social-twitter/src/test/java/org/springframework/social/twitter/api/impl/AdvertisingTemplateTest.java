@@ -27,14 +27,9 @@ import java.time.Month;
 import java.util.List;
 import java.util.TimeZone;
 
-import jdk.management.resource.internal.ApproverGroup;
-
 import org.junit.Test;
-import org.springframework.format.datetime.joda.LocalDateParser;
-import org.springframework.format.datetime.joda.LocalDateTimeParser;
 import org.springframework.social.twitter.api.AdAccount;
 import org.springframework.social.twitter.api.ContentApprovalStatus;
-import org.springframework.social.twitter.api.DirectMessage;
 
 /**
  * @author Hudson mendes
@@ -43,7 +38,8 @@ public class AdvertisingTemplateTest extends AbstractTwitterApiTest {
 
 	@Test
 	public void getAccounts() {
-		mockServer.expect(requestTo("https://ads-api.twitter.com/0/accounts"))
+		mockServer
+			.expect(requestTo("https://ads-api.twitter.com/0/accounts"))
 			.andExpect(method(GET))
 			.andRespond(withSuccess(jsonResource("ad-accounts"), APPLICATION_JSON));
 
@@ -52,26 +48,26 @@ public class AdvertisingTemplateTest extends AbstractTwitterApiTest {
 	}
 	
 	private void assertAdAccountContents(List<AdAccount> accounts) {
-		assertEquals(4, accounts.size());
+		assertEquals(2, accounts.size());
 		
 		assertEquals("l0l0l0", accounts.get(0).getId());
 		assertEquals("h1234jasd", accounts.get(0).getName());
 		assertEquals("699169a7693e571000000fef0ef0ef09", accounts.get(0).getSalt());
-		assertEquals(TimeZone.getTimeZone("America/Los_Angeles"), accounts.get(0).getTimezone());
+		assertEquals(ContentApprovalStatus.ACCEPTED, accounts.get(0).getApprovalStatus());
+		assertEquals(TimeZone.getTimeZone("America/Los_Angeles"), accounts.get(0).getTimeZone());
 		assertEquals(LocalDateTime.of(2013,Month.MAY,22,07,00,00), accounts.get(0).getTimeZoneSwitchAt());
 		assertEquals(LocalDateTime.of(2013,Month.MARCH,05,21,57,11), accounts.get(0).getCreatedAt());
 		assertEquals(LocalDateTime.of(2015,Month.FEBRUARY,21,03,15,30), accounts.get(0).getUpdatedAt());
-		assertEquals(ContentApprovalStatus.ACCEPTED, accounts.get(0).getApprovalStatus());
 		assertEquals(false, accounts.get(0).isDeleted());
 		
 		assertEquals("l1l1l1", accounts.get(0).getId());
 		assertEquals("test02483", accounts.get(0).getName());
 		assertEquals("abababababababababababababababab", accounts.get(0).getSalt());
-		assertEquals(TimeZone.getTimeZone("America/Los_Angeles"), accounts.get(0).getTimezone());
+		assertEquals(ContentApprovalStatus.ACCEPTED, accounts.get(0).getApprovalStatus());
+		assertEquals(TimeZone.getTimeZone("America/Los_Angeles"), accounts.get(0).getTimeZone());
 		assertEquals(LocalDateTime.of(2013,Month.JANUARY,01,01,01,01), accounts.get(0).getTimeZoneSwitchAt());
 		assertEquals(LocalDateTime.of(2011,Month.JANUARY,01,01,01,01), accounts.get(0).getCreatedAt());
 		assertEquals(LocalDateTime.of(2012,Month.JANUARY,01,01,01,01), accounts.get(0).getUpdatedAt());
-		assertEquals(ContentApprovalStatus.ACCEPTED, accounts.get(0).getApprovalStatus());
 		assertEquals(false, accounts.get(0).isDeleted());
 	}
 	

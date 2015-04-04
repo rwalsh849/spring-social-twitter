@@ -33,7 +33,7 @@ class TwitterApiUriBuilder {
 	private static final String STANDARD_API_URL_BASE = "https://api.twitter.com/1.1/";
 	private static final String AD_CAMPAIGN_API_URL_BASE = "https://ads-api.twitter.com/0/";
 	
-	private final MultiValueMap<String, String> parameters = new LinkedMultiValueMap<>();
+	private final MultiValueMap<String, String> parameters = new LinkedMultiValueMap<String, String>();
 	private String resource;
 	private String baseLocation = STANDARD_API_URL_BASE;
 	

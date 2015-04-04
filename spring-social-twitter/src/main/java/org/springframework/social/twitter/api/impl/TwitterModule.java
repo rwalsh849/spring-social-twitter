@@ -16,6 +16,7 @@
 package org.springframework.social.twitter.api.impl;
 
 import org.springframework.social.twitter.api.AccountSettings;
+import org.springframework.social.twitter.api.AdAccount;
 import org.springframework.social.twitter.api.DirectMessage;
 import org.springframework.social.twitter.api.Entities;
 import org.springframework.social.twitter.api.HashTagEntity;
@@ -63,10 +64,14 @@ class TwitterModule extends SimpleModule {
 		context.setMixInAnnotations(MediaEntity.class, MediaEntityMixin.class);
 		context.setMixInAnnotations(MentionEntity.class, MentionEntityMixin.class);
 		context.setMixInAnnotations(UrlEntity.class, UrlEntityMixin.class);
+		
+		context.setMixInAnnotations(AdAccount.class, AdAccountMixin.class);
+		
 		context.setMixInAnnotations(AccountSettings.class, AccountSettingsMixin.class);
 		context.setMixInAnnotations(AccountSettings.TimeZone.class, AccountSettingsMixin.TimeZoneMixin.class);
 		context.setMixInAnnotations(AccountSettings.SleepTime.class, AccountSettingsMixin.SleepTimeMixin.class);
 		context.setMixInAnnotations(AccountSettings.TrendLocation.class, AccountSettingsMixin.TrendLocationMixin.class);
+		
 		context.setMixInAnnotations(OEmbedTweet.class, OEmbedTweetMixin.class);
 	}
 
