@@ -57,7 +57,7 @@ public class TwitterApiUriBuilderTest {
 	}
 	
 	@Test
-	public void build_standardApi_resourceOnly() {
+	public void build_resourceOnly() {
 		String resource1 = "standard_api_resource_1.js";
 		URI result1 = new TwitterApiUriBuilder().forStandardApi().withResource(resource1).build();
 		
@@ -70,12 +70,11 @@ public class TwitterApiUriBuilderTest {
 	}
 	
 	@Test
-	public void build_standardApi_oneArgument() {
+	public void build_oneArgument() {
 		String anyResource = "standard_api_resource.js";
 		String argName = "argument_name";
 		String argValue = "argument_value";
 		URI result1 = new TwitterApiUriBuilder()
-				.forStandardApi()
 				.withResource(anyResource)
 				.withArgument(argName, argValue)
 				.build();
@@ -86,31 +85,25 @@ public class TwitterApiUriBuilderTest {
 	}
 	
 	@Test
-	public void build_standardApi_multipleArguments() {
-		fail("Not implemented");
-	}
-	
-	@Test
-	public void build_adCampaignsApi_resourceOnly() {
-		TwitterApiUriAdCampaignResource resource1 = TwitterApiUriAdCampaignResource.ACCOUNT;
-		URI result1 = new TwitterApiUriBuilder().forAdCampaignsApi().withResource(resource1).build();
+	public void build_multipleArguments_chained() {
+		String anyResource = "standard_api_resource.js";
+		String argName = "argument_name";
+		String argValue = "argument_value";
+		URI result1 = new TwitterApiUriBuilder()
+				.withResource(anyResource)
+				.withArgument(argName + "_1", argValue + "_1")
+				.withArgument(argName + "_2", argValue + "_2")
+				.withArgument(argName + "_3", argValue + "_3")
+				.build();
 		
-		TwitterApiUriAdCampaignResource resource2 = TwitterApiUriAdCampaignResource.CAMPAIGN;
-		URI result2 = new TwitterApiUriBuilder().forAdCampaignsApi().withResource(resource2).build();
+		String chainedQuery =
+				argName + "_1" + "=" + argValue + "_1" + "&" +
+				argName + "_2" + "=" + argValue + "_2" + "&" +
+				argName + "_3" + "=" + argValue + "_3";
 		
-		assertThat(versionFreePath(result1.getPath()), equalTo(resource1.getValue()));
-		assertThat(versionFreePath(result2.getPath()), equalTo(resource2.getValue()));
-		assertThat(result1.getPath(), not(equalTo(result2.getPath())));
-	}
-	
-	@Test
-	public void build_adCampaignsApi_oneArgument() {
-		fail("Not implemented");
-	}
-	
-	@Test
-	public void build_adCampaignsApi_multipleArguments() {
-		fail("Not implemented");
+		assertThat(result1, not(nullValue()));
+		assertThat(versionFreePath(result1.getPath()), equalTo(anyResource));
+		assertThat(result1.getQuery(), equalTo(chainedQuery));
 	}
 	
 	private String versionFreePath(String path) {
