@@ -38,13 +38,13 @@ public class AdAccount extends TwitterObject {
 	private final String name;
 	private final String salt;
 	private final TimeZone timeZone;
-	private final String timeZoneSwitchAt;
-	private final String createdAt;
+	private final LocalDateTime timeZoneSwitchAt;
+	private final LocalDateTime createdAt;
 	private final LocalDateTime updatedAt;
 	private final ContentApprovalStatus approvalStatus;
 	private final Boolean deleted;
 	
-	public AdAccount(String id, String name, String salt, TimeZone timeZone, String timeZoneSwitchAt, String createdAt, LocalDateTime updatedAt, ContentApprovalStatus approvalStatus, Boolean deleted) {
+	public AdAccount(String id, String name, String salt, TimeZone timeZone, LocalDateTime timeZoneSwitchAt, LocalDateTime createdAt, LocalDateTime updatedAt, ContentApprovalStatus approvalStatus, Boolean deleted) {
 		this.id = id;
 		this.name = name;
 		this.salt = salt;
@@ -72,11 +72,11 @@ public class AdAccount extends TwitterObject {
 		return timeZone;
 	}
 
-	public String getTimeZoneSwitchAt() {
+	public LocalDateTime getTimeZoneSwitchAt() {
 		return timeZoneSwitchAt;
 	}
 
-	public String getCreatedAt() {
+	public LocalDateTime getCreatedAt() {
 		return createdAt;
 	}
 

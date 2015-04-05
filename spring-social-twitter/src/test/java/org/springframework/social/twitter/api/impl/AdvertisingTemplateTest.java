@@ -60,14 +60,14 @@ public class AdvertisingTemplateTest extends AbstractTwitterApiTest {
 		assertEquals(LocalDateTime.of(2015,Month.FEBRUARY,21,03,15,30), accounts.get(0).getUpdatedAt());
 		assertEquals(false, accounts.get(0).isDeleted());
 		
-		assertEquals("l1l1l1", accounts.get(0).getId());
-		assertEquals("test02483", accounts.get(0).getName());
-		assertEquals("abababababababababababababababab", accounts.get(0).getSalt());
-		assertEquals(ContentApprovalStatus.ACCEPTED, accounts.get(0).getApprovalStatus());
-		assertEquals(TimeZone.getTimeZone("America/Los_Angeles"), accounts.get(0).getTimeZone());
-		assertEquals(LocalDateTime.of(2013,Month.JANUARY,01,01,01,01), accounts.get(0).getTimeZoneSwitchAt());
-		assertEquals(LocalDateTime.of(2011,Month.JANUARY,01,01,01,01), accounts.get(0).getCreatedAt());
-		assertEquals(LocalDateTime.of(2012,Month.JANUARY,01,01,01,01), accounts.get(0).getUpdatedAt());
+		assertEquals("l1l1l1", accounts.get(1).getId());
+		assertEquals("test02483", accounts.get(1).getName());
+		assertEquals("abababababababababababababababab", accounts.get(1).getSalt());
+		assertEquals(ContentApprovalStatus.ACCEPTED, accounts.get(1).getApprovalStatus());
+		assertEquals(TimeZone.getTimeZone("America/Los_Angeles"), accounts.get(1).getTimeZone());
+		assertEquals(LocalDateTime.of(2013,Month.JANUARY,01,01,01,01), accounts.get(1).getTimeZoneSwitchAt());
+		assertEquals(LocalDateTime.of(2011,Month.JANUARY,01,01,01,01), accounts.get(1).getCreatedAt());
+		assertEquals(LocalDateTime.of(2012,Month.JANUARY,01,01,01,01), accounts.get(1).getUpdatedAt());
 		assertEquals(false, accounts.get(0).isDeleted());
 	}
 	

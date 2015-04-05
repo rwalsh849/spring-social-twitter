@@ -18,11 +18,11 @@ package org.springframework.social.twitter.api.impl;
 import java.time.LocalDateTime;
 import java.util.TimeZone;
 
-import org.springframework.format.datetime.joda.LocalDateTimeParser;
 import org.springframework.social.twitter.api.AdAccount;
 import org.springframework.social.twitter.api.ContentApprovalStatus;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
@@ -40,9 +40,9 @@ abstract class AdAccountMixin extends TwitterObjectMixin {
 			@JsonProperty("name") String name, 
 			@JsonProperty("salt") String salt, 
 			@JsonProperty("timezone") TimeZone timeZone, 
-			@JsonProperty("timezone_switch_at") String timeZoneSwitchAt,
-			@JsonProperty("created_at") String createdAt,
-			@JsonProperty("updated_at") @JsonDeserialize(using=LocalDateTimeDeserializer.class) LocalDateTime updatedAt,
+			@JsonProperty("timezone_switch_at") @JsonDeserialize(using=LocalDateTimeDeserializer.class) @JsonFormat(pattern="yyyy-MM-dd'T'HH:mm:ssZ") LocalDateTime timeZoneSwitchAt,
+			@JsonProperty("created_at") @JsonDeserialize(using=LocalDateTimeDeserializer.class) @JsonFormat(pattern="yyyy-MM-dd'T'HH:mm:ssZ") LocalDateTime createdAt,
+			@JsonProperty("updated_at") @JsonDeserialize(using=LocalDateTimeDeserializer.class) @JsonFormat(pattern="yyyy-MM-dd'T'HH:mm:ssZ") LocalDateTime updatedAt,
 			@JsonProperty("approval_status") ContentApprovalStatus approvalStatus,
 			@JsonProperty("deleted") Boolean deleted) {}
 	
