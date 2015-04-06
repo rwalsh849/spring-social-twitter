@@ -34,4 +34,11 @@ public interface AdvertisingOperations {
 	 */
 	List<AdAccount> getAccounts();
 	
+	/**
+	 * Retrieves a list of all advertising campaigns linked to a particular {@link AdAccount}.  
+	 * @return a list of {@link AdCampaign}
+	 * @throws ApiException if there is an error while communicating with Twitter.
+	 * @throws MissingAuthorizationException if TwitterTemplate was not created with OAuth credentials.
+	 */
+	List<AdCampaign> getCampaigns(String accountId);
 }

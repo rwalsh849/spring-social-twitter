@@ -16,6 +16,9 @@
 package org.springframework.social.twitter.api.impl;
 
 import java.net.URI;
+import java.util.ArrayList;
+import java.util.Iterator;
+import java.util.List;
 
 import org.springframework.social.support.URIBuilder;
 import org.springframework.util.Assert;
@@ -58,7 +61,31 @@ class TwitterApiUriBuilder {
 	}
 	
 	private String makeFullyQualifiedResourcePath() {
-		return trimUriPart(this.baseLocation) + "/" + trimUriPart(this.resource); 
+		String qualifiedPath = qualifyPath();
+		return replaceImplicitArguments(qualifiedPath); 
+	}
+	
+	private String replaceImplicitArguments(String path) {
+		
+		String finalPath = path;
+		List<String> toRemove = new ArrayList<String>();
+		
+		for (Iterator<String> i = this.parameters.keySet().iterator(); i.hasNext();) {
+			String key = i.next();
+			String argName = (":" + key).toLowerCase();
+			if (path.toLowerCase().contains(argName)) {
+				String argValue = this.parameters.get(key).stream().findFirst().get();
+				finalPath = finalPath.replace(argName, argValue);
+				toRemove.add(key);
+			}
+		}
+		
+		toRemove.forEach(key -> this.parameters.remove(key));
+		return finalPath;
+	}
+	
+	private String qualifyPath() {
+		return trimUriPart(this.baseLocation) + "/" + trimUriPart(this.resource);
 	}
 	
 	private String trimUriPart(String part) {

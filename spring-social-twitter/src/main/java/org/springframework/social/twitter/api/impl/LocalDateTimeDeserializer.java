@@ -14,6 +14,8 @@ import com.fasterxml.jackson.databind.DeserializationContext;
 import com.fasterxml.jackson.databind.JsonDeserializer;
 
 public class LocalDateTimeDeserializer extends JsonDeserializer<LocalDateTime> {
+	private static final ZoneId utc = ZoneId.of("UTC");
+	
 	@Override
 	public LocalDateTime deserialize(JsonParser p, DeserializationContext ctxt)
 			throws IOException, JsonProcessingException {
@@ -22,10 +24,8 @@ public class LocalDateTimeDeserializer extends JsonDeserializer<LocalDateTime> {
 		 * Very ugly fix to get the damn date in ISO format working
 		 * I'm still trying to figure out a better solution. 
 		 */
-		String raw = p.getText();
-		Instant instant = Instant.parse(raw);
-		ZoneId zone = ZoneId.of("UTC");
-		return LocalDateTime.ofInstant(instant, zone);
+		Instant instant = Instant.parse(p.getText());
+		return LocalDateTime.ofInstant(instant, utc);
 	}
 
 }

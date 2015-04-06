@@ -29,6 +29,7 @@ import java.util.TimeZone;
 
 import org.junit.Test;
 import org.springframework.social.twitter.api.AdAccount;
+import org.springframework.social.twitter.api.AdCampaign;
 import org.springframework.social.twitter.api.ContentApprovalStatus;
 
 /**
@@ -45,6 +46,18 @@ public class AdvertisingTemplateTest extends AbstractTwitterApiTest {
 
 		List<AdAccount> accounts = twitter.advertisingOperations().getAccounts();
 		assertAdAccountContents(accounts);
+	}
+	
+	@Test
+	public void getCampaigns() {
+		String mockedAccountId = "0ga0yn";
+		mockServer
+			.expect(requestTo("https://ads-api.twitter.com/0/accounts/" + mockedAccountId + "/campaigns"))
+			.andExpect(method(GET))
+			.andRespond(withSuccess(jsonResource("ad-campaigns"), APPLICATION_JSON));
+	
+		List<AdCampaign> campaigns = twitter.advertisingOperations().getCampaigns(mockedAccountId);
+		assertAdCampaignContents(campaigns);
 	}
 	
 	private void assertAdAccountContents(List<AdAccount> accounts) {
@@ -69,6 +82,15 @@ public class AdvertisingTemplateTest extends AbstractTwitterApiTest {
 		assertEquals(LocalDateTime.of(2011,Month.JANUARY,01,01,01,01), accounts.get(1).getCreatedAt());
 		assertEquals(LocalDateTime.of(2012,Month.JANUARY,01,01,01,01), accounts.get(1).getUpdatedAt());
 		assertEquals(false, accounts.get(0).isDeleted());
+	}
+	
+	private void assertAdCampaignContents(List<AdCampaign> campaigns) {
+		assertEquals(1, campaigns.size());
+		
+		assertEquals("1850jm", campaigns.get(0).getId());
+		assertEquals("C1-oldlalala-generic", campaigns.get(0).getName());
+		assertEquals("0ga0yn", campaigns.get(0).getAccountId());
+		assertEquals("USD", campaigns.get(0).getCurrency());
 	}
 	
 }

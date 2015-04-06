@@ -15,9 +15,11 @@
  */
 package org.springframework.social.twitter.api.impl;
 
+import java.net.URI;
 import java.util.List;
 
 import org.springframework.social.twitter.api.AdAccount;
+import org.springframework.social.twitter.api.AdCampaign;
 import org.springframework.social.twitter.api.AdvertisingOperations;
 import org.springframework.web.client.RestTemplate;
 
@@ -35,12 +37,21 @@ public class AdvertisingTemplate extends AbstractTwitterOperations implements
 		this.restTemplate = restTemplate;
 	}
 	
+	@Override
 	public List<AdAccount> getAccounts() {
 		requireUserAuthorization();
 		TwitterApiUriAdvertisingResource resource = TwitterApiUriAdvertisingResource.ACCOUNT;
-		AdAccountList data = restTemplate.getForObject(
-				new TwitterApiUriBuilder().forAdCampaignsApi().withResource(resource).build(),
-				AdAccountList.class);
+		URI resourceUri = new TwitterApiUriBuilder().forAdCampaignsApi().withResource(resource).build();
+		AdAccountList data = restTemplate.getForObject(resourceUri, AdAccountList.class);
+		return data.getList();
+	}
+
+	@Override
+	public List<AdCampaign> getCampaigns(String accountId) {
+		requireUserAuthorization();
+		TwitterApiUriAdvertisingResource resource = TwitterApiUriAdvertisingResource.CAMPAIGN;
+		URI resourceUri = new TwitterApiUriBuilder().forAdCampaignsApi().withResource(resource).withArgument("account_id", accountId).build();
+		AdCampaignList data = restTemplate.getForObject(resourceUri, AdCampaignList.class);
 		return data.getList();
 	}
 

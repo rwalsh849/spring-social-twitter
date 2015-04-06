@@ -72,7 +72,7 @@ public class TwitterApiUriBuilderTest {
 	
 	@Test
 	public void build_oneArgument() {
-		String anyResource = "standard_api_resource.js";
+		String anyResource = "standard_api_resource.json";
 		String argName = "argument_name";
 		String argValue = "argument_value";
 		URI result = new TwitterApiUriBuilder()
@@ -87,7 +87,7 @@ public class TwitterApiUriBuilderTest {
 	
 	@Test
 	public void build_multipleArguments_chained() {
-		String anyResource = "standard_api_resource.js";
+		String anyResource = "standard_api_resource.json";
 		URI result = new TwitterApiUriBuilder()
 				.withResource(anyResource)
 				.withArgument("argument_name_1", "argument_value_1")
@@ -107,7 +107,7 @@ public class TwitterApiUriBuilderTest {
 	
 	@Test
 	public void build_multipleArguments_array() {
-		String anyResource = "standard_api_resource.js";
+		String anyResource = "standard_api_resource.json";
 		
 		MultiValueMap<String, String> arguments = new LinkedMultiValueMap<>();
 		arguments.add("argument_name_A", "argument_value_A");
@@ -127,6 +127,25 @@ public class TwitterApiUriBuilderTest {
 		assertThat(result, not(nullValue()));
 		assertThat(versionFreePath(result.getPath()), equalTo(anyResource));
 		assertThat(result.getQuery(), equalTo(chainedQuery));
+	}
+	
+	@Test
+	public void build_implicitArguments_array() {
+		String anyResource = "user/:implicit_id/standard_api_resource.json";
+		String implicitArgumentName = "implicit_id";
+		String implicitArgumentValue = "831hgk";
+		
+		MultiValueMap<String, String> arguments = new LinkedMultiValueMap<>();
+		arguments.add(implicitArgumentName, implicitArgumentValue);
+		
+		URI result = new TwitterApiUriBuilder()
+				.withResource(anyResource)
+				.withArgument(arguments)
+				.build();
+		
+		String expectedQuery = anyResource.replace(":" + implicitArgumentName, implicitArgumentValue);
+		assertThat(result, not(nullValue()));
+		assertThat(versionFreePath(result.getPath()), equalTo(expectedQuery));
 	}
 	
 	private String versionFreePath(String path) {
