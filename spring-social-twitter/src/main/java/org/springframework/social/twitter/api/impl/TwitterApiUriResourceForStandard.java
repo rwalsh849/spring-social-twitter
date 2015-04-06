@@ -10,7 +10,19 @@ public enum TwitterApiUriResourceForStandard {
 	DIRECTMESSAGES_SENT("direct_messages/sent.json"),
 	DIRECTMESSAGES_SHOW("direct_messages/show.json"),
 	DIRECTMESSAGES_NEW("direct_messages/new.json"),
-	DIRECTMESSAGES_DESTROY("direct_messages/destroy.json");
+	DIRECTMESSAGES_DESTROY("direct_messages/destroy.json"),
+	
+	FRIENDS("friends/list.json"),
+	FRIENDS_IDS("friends/ids.json"),
+	
+	FOLLOWERS("followers/list.json"),
+	FOLLOWERS_IDS("followers/ids.json"),
+	
+	FRIENDSHIPS_CREATE("friendships/create.json"),
+	FRIENDSHIPS_DESTROY("friendships/destroy.json"),
+	FRIENDSHIPS_UPDATE("friendships/update.json"),
+	FRIENDSHIPS_INCOMING("friendships/incoming.json"),
+	FRIENDSHIPS_OUTGOING("friendships/outgoing.json");
 	
 	private final String name;
 	
