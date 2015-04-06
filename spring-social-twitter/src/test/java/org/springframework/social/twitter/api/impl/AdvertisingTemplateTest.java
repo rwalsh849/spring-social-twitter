@@ -15,13 +15,17 @@
  */
 package org.springframework.social.twitter.api.impl;
 
+import static org.hamcrest.CoreMatchers.hasItem;
+import static org.hamcrest.CoreMatchers.not;
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertThat;
 import static org.springframework.http.HttpMethod.GET;
 import static org.springframework.http.MediaType.APPLICATION_JSON;
 import static org.springframework.test.web.client.match.MockRestRequestMatchers.method;
 import static org.springframework.test.web.client.match.MockRestRequestMatchers.requestTo;
 import static org.springframework.test.web.client.response.MockRestResponseCreators.withSuccess;
 
+import java.math.BigDecimal;
 import java.time.LocalDateTime;
 import java.time.Month;
 import java.util.List;
@@ -30,7 +34,8 @@ import java.util.TimeZone;
 import org.junit.Test;
 import org.springframework.social.twitter.api.AdAccount;
 import org.springframework.social.twitter.api.AdCampaign;
-import org.springframework.social.twitter.api.ContentApprovalStatus;
+import org.springframework.social.twitter.api.ApprovalStatus;
+import org.springframework.social.twitter.api.ReasonNotServable;
 
 /**
  * @author Hudson mendes
@@ -66,7 +71,7 @@ public class AdvertisingTemplateTest extends AbstractTwitterApiTest {
 		assertEquals("l0l0l0", accounts.get(0).getId());
 		assertEquals("h1234jasd", accounts.get(0).getName());
 		assertEquals("699169a7693e571000000fef0ef0ef09", accounts.get(0).getSalt());
-		assertEquals(ContentApprovalStatus.ACCEPTED, accounts.get(0).getApprovalStatus());
+		assertEquals(ApprovalStatus.ACCEPTED, accounts.get(0).getApprovalStatus());
 		assertEquals(TimeZone.getTimeZone("America/Los_Angeles"), accounts.get(0).getTimeZone());
 		assertEquals(LocalDateTime.of(2013,Month.MAY,22,07,00,00), accounts.get(0).getTimeZoneSwitchAt());
 		assertEquals(LocalDateTime.of(2013,Month.MARCH,05,21,57,11), accounts.get(0).getCreatedAt());
@@ -76,7 +81,7 @@ public class AdvertisingTemplateTest extends AbstractTwitterApiTest {
 		assertEquals("l1l1l1", accounts.get(1).getId());
 		assertEquals("test02483", accounts.get(1).getName());
 		assertEquals("abababababababababababababababab", accounts.get(1).getSalt());
-		assertEquals(ContentApprovalStatus.ACCEPTED, accounts.get(1).getApprovalStatus());
+		assertEquals(ApprovalStatus.ACCEPTED, accounts.get(1).getApprovalStatus());
 		assertEquals(TimeZone.getTimeZone("America/Los_Angeles"), accounts.get(1).getTimeZone());
 		assertEquals(LocalDateTime.of(2013,Month.JANUARY,01,01,01,01), accounts.get(1).getTimeZoneSwitchAt());
 		assertEquals(LocalDateTime.of(2011,Month.JANUARY,01,01,01,01), accounts.get(1).getCreatedAt());
@@ -91,6 +96,23 @@ public class AdvertisingTemplateTest extends AbstractTwitterApiTest {
 		assertEquals("C1-oldlalala-generic", campaigns.get(0).getName());
 		assertEquals("0ga0yn", campaigns.get(0).getAccountId());
 		assertEquals("USD", campaigns.get(0).getCurrency());
+		
+		assertEquals(new BigDecimal(45.00), campaigns.get(0).getTotalBudget());
+		assertEquals(new BigDecimal(10.00), campaigns.get(0).getDailyBudget());
+		
+		assertEquals(LocalDateTime.of(2014, Month.MAY, 15, 00, 12, 00), campaigns.get(0).getStartTime());
+		assertEquals(LocalDateTime.of(2014, Month.MAY, 16, 22, 00, 00), campaigns.get(0).getEndTime());
+		assertEquals(LocalDateTime.of(2014, Month.MAY, 15, 01, 17, 47), campaigns.get(0).getCreatedAt());
+		assertEquals(LocalDateTime.of(2014, Month.MAY, 16, 20, 41, 38), campaigns.get(0).getUpdatedAt());
+		
+		assertThat(campaigns.get(0).getReasonsNotServable(), not(hasItem(ReasonNotServable.DELETED)));
+		assertThat(campaigns.get(0).getReasonsNotServable(), hasItem(ReasonNotServable.EXPIRED));
+		assertThat(campaigns.get(0).getReasonsNotServable(), hasItem(ReasonNotServable.PAUSED_BY_ADVERTISER));
+		
+		assertEquals(true, campaigns.get(0).isStandardDelivery());
+		assertEquals(false, campaigns.get(0).isServable());
+		assertEquals(true, campaigns.get(0).isPaused());
+		assertEquals(false, campaigns.get(0).isDeleted());
 	}
 	
 }

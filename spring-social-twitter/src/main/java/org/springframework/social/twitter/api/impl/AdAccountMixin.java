@@ -19,7 +19,7 @@ import java.time.LocalDateTime;
 import java.util.TimeZone;
 
 import org.springframework.social.twitter.api.AdAccount;
-import org.springframework.social.twitter.api.ContentApprovalStatus;
+import org.springframework.social.twitter.api.ApprovalStatus;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonFormat;
@@ -43,7 +43,7 @@ abstract class AdAccountMixin extends TwitterObjectMixin {
 			@JsonProperty("timezone_switch_at") @JsonDeserialize(using=LocalDateTimeDeserializer.class) @JsonFormat(pattern="yyyy-MM-dd'T'HH:mm:ssZ") LocalDateTime timeZoneSwitchAt,
 			@JsonProperty("created_at") @JsonDeserialize(using=LocalDateTimeDeserializer.class) @JsonFormat(pattern="yyyy-MM-dd'T'HH:mm:ssZ") LocalDateTime createdAt,
 			@JsonProperty("updated_at") @JsonDeserialize(using=LocalDateTimeDeserializer.class) @JsonFormat(pattern="yyyy-MM-dd'T'HH:mm:ssZ") LocalDateTime updatedAt,
-			@JsonProperty("approval_status") ContentApprovalStatus approvalStatus,
+			@JsonProperty("approval_status") ApprovalStatus approvalStatus,
 			@JsonProperty("deleted") Boolean deleted) {}
 	
 }

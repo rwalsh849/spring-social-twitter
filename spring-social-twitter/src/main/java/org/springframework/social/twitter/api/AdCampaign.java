@@ -1,4 +1,7 @@
 package org.springframework.social.twitter.api;
+
+import java.math.BigDecimal;
+import java.time.LocalDateTime;
 /*
  * Copyright 2014 the original author or authors.
  *
@@ -14,6 +17,7 @@ package org.springframework.social.twitter.api;
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+import java.util.List;
 
 /**
  * Represents an Advertising Campaign run for a particular {@link AdAccount}. 
@@ -24,12 +28,47 @@ public class AdCampaign extends TwitterObject {
 	private final String name;
 	private final String accountId;
 	private final String currency;
+	private final String fundingInstrumentId;
+	private final BigDecimal totalBudget;
+	private final BigDecimal dailyBudget;
+	private final LocalDateTime startTime;
+	private final LocalDateTime endTime;
+	private final LocalDateTime createdAt;
+	private final LocalDateTime updatedAt;
+	private final List<ReasonNotServable> reasonsNotServable;
+	private final Boolean standardDelivery;
+	private final Boolean paused;
+	private final Boolean servable;
+	private final Boolean deleted;
 	
-	public AdCampaign(String id, String name, String accountId, String currency) {
+	public AdCampaign(
+			String id, String name, String accountId, String currency,
+			String fundingInstrumentId, BigDecimal totalBudget, BigDecimal dailyBudget,
+			LocalDateTime startTime, LocalDateTime endTime,
+			LocalDateTime createdAt, LocalDateTime updatedAt,
+			List<ReasonNotServable> reasonsNotServable,
+			Boolean standardDelivery, Boolean paused, Boolean servable, Boolean deleted) {
+		
 		this.id = id;
 		this.name = name;
 		this.accountId = accountId;
 		this.currency = currency;
+		this.fundingInstrumentId = fundingInstrumentId;
+		
+		this.totalBudget = totalBudget;
+		this.dailyBudget = dailyBudget;
+		
+		this.startTime = startTime;
+		this.endTime = endTime;
+		this.createdAt = createdAt;
+		this.updatedAt = updatedAt;
+		
+		this.reasonsNotServable = reasonsNotServable;
+		
+		this.standardDelivery = standardDelivery; 
+		this.paused = paused;
+		this.servable = servable;
+		this.deleted = deleted;
 	}
 
 	public String getId() {
@@ -46,5 +85,53 @@ public class AdCampaign extends TwitterObject {
 
 	public String getCurrency() {
 		return currency;
+	}
+
+	public String getFundingInstrumentId() {
+		return fundingInstrumentId;
+	}
+
+	public BigDecimal getTotalBudget() {
+		return totalBudget;
+	}
+
+	public BigDecimal getDailyBudget() {
+		return dailyBudget;
+	}
+
+	public LocalDateTime getStartTime() {
+		return startTime;
+	}
+
+	public LocalDateTime getEndTime() {
+		return endTime;
+	}
+
+	public LocalDateTime getCreatedAt() {
+		return createdAt;
+	}
+
+	public LocalDateTime getUpdatedAt() {
+		return updatedAt;
+	}
+
+	public List<ReasonNotServable> getReasonsNotServable() {
+		return reasonsNotServable;
+	}
+
+	public Boolean isStandardDelivery() {
+		return standardDelivery;
+	}
+
+	public Boolean isPaused() {
+		return paused;
+	}
+
+	public Boolean isServable() {
+		return servable;
+	}
+
+	public Boolean isDeleted() {
+		return deleted;
 	}
 }

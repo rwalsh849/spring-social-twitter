@@ -41,10 +41,10 @@ public class AdAccount extends TwitterObject {
 	private final LocalDateTime timeZoneSwitchAt;
 	private final LocalDateTime createdAt;
 	private final LocalDateTime updatedAt;
-	private final ContentApprovalStatus approvalStatus;
+	private final ApprovalStatus approvalStatus;
 	private final Boolean deleted;
 	
-	public AdAccount(String id, String name, String salt, TimeZone timeZone, LocalDateTime timeZoneSwitchAt, LocalDateTime createdAt, LocalDateTime updatedAt, ContentApprovalStatus approvalStatus, Boolean deleted) {
+	public AdAccount(String id, String name, String salt, TimeZone timeZone, LocalDateTime timeZoneSwitchAt, LocalDateTime createdAt, LocalDateTime updatedAt, ApprovalStatus approvalStatus, Boolean deleted) {
 		this.id = id;
 		this.name = name;
 		this.salt = salt;
@@ -84,7 +84,7 @@ public class AdAccount extends TwitterObject {
 		return updatedAt;
 	}
 
-	public ContentApprovalStatus getApprovalStatus() {
+	public ApprovalStatus getApprovalStatus() {
 		return approvalStatus;
 	}
 

@@ -15,11 +15,17 @@
  */
 package org.springframework.social.twitter.api.impl;
 
+import java.math.BigDecimal;
+import java.time.LocalDateTime;
+import java.util.List;
+
 import org.springframework.social.twitter.api.AdCampaign;
+import org.springframework.social.twitter.api.ReasonNotServable;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 
 /**
  * Mixin class for adding Jackson annotations to {@link AdCampaign}.
@@ -30,8 +36,20 @@ abstract class AdCampaignMixin extends TwitterObjectMixin {
 	
 	@JsonCreator
 	AdCampaignMixin(
-			@JsonProperty("id") String id, 
-			@JsonProperty("name") String name, 
+			@JsonProperty("id") String id,
+			@JsonProperty("name") String name,
 			@JsonProperty("account_id") String accountId,
-			@JsonProperty("currency") String currency) {}
+			@JsonProperty("currency") String currency,
+			@JsonProperty("funding_instrument_id") String fundingInstrumentId,
+			@JsonProperty("total_budget_amount_local_micro") @JsonDeserialize(using=BigDecimalMicroAmountDeserializer.class) BigDecimal totalBudget,
+			@JsonProperty("daily_budget_amount_local_micro") @JsonDeserialize(using=BigDecimalMicroAmountDeserializer.class) BigDecimal dailyBudget,
+			@JsonProperty("start_time") @JsonDeserialize(using=LocalDateTimeDeserializer.class) LocalDateTime startTime,
+			@JsonProperty("end_time") @JsonDeserialize(using=LocalDateTimeDeserializer.class) LocalDateTime endTime,
+			@JsonProperty("created_at") @JsonDeserialize(using=LocalDateTimeDeserializer.class) LocalDateTime createdAt,
+			@JsonProperty("updated_at") @JsonDeserialize(using=LocalDateTimeDeserializer.class) LocalDateTime updatedAt,
+			@JsonProperty("reasons_not_servable") List<ReasonNotServable> reasonsNotServable,
+			@JsonProperty("standard_delivery") Boolean standardDelivery,
+			@JsonProperty("paused") Boolean paused,
+			@JsonProperty("servable") Boolean servable,
+			@JsonProperty("deleted") Boolean deleted) {}
 }
