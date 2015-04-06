@@ -6,11 +6,11 @@ public enum TwitterApiUriAdvertisingResource {
 	
 	private final String name;
 	
-	TwitterApiUriAdvertisingResource(String name) {
-		this.name = name;
+	TwitterApiUriAdvertisingResource(String path) {
+		this.name = path;
 	}
 	
-	public String getValue() {
+	public String getPath() {
 		return this.name;
 	}
 }
