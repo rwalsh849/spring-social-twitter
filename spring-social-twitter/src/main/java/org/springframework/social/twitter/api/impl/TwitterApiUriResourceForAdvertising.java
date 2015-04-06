@@ -1,12 +1,12 @@
 package org.springframework.social.twitter.api.impl;
 
-public enum TwitterApiUriAdvertisingResource {
+public enum TwitterApiUriResourceForAdvertising {
 	ACCOUNT("accounts"),
 	CAMPAIGN("accounts/:account_id/campaigns");
 	
 	private final String name;
 	
-	TwitterApiUriAdvertisingResource(String path) {
+	TwitterApiUriResourceForAdvertising(String path) {
 		this.name = path;
 	}
 	

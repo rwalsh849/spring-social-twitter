@@ -40,7 +40,7 @@ public class AdvertisingTemplate extends AbstractTwitterOperations implements
 	@Override
 	public List<AdAccount> getAccounts() {
 		requireUserAuthorization();
-		TwitterApiUriAdvertisingResource resource = TwitterApiUriAdvertisingResource.ACCOUNT;
+		TwitterApiUriResourceForAdvertising resource = TwitterApiUriResourceForAdvertising.ACCOUNT;
 		URI resourceUri = new TwitterApiUriBuilder().forAdCampaignsApi().withResource(resource).build();
 		AdAccountList data = restTemplate.getForObject(resourceUri, AdAccountList.class);
 		return data.getList();
@@ -49,7 +49,7 @@ public class AdvertisingTemplate extends AbstractTwitterOperations implements
 	@Override
 	public List<AdCampaign> getCampaigns(String accountId) {
 		requireUserAuthorization();
-		TwitterApiUriAdvertisingResource resource = TwitterApiUriAdvertisingResource.CAMPAIGN;
+		TwitterApiUriResourceForAdvertising resource = TwitterApiUriResourceForAdvertising.CAMPAIGN;
 		URI resourceUri = new TwitterApiUriBuilder().forAdCampaignsApi().withResource(resource).withArgument("account_id", accountId).build();
 		AdCampaignList data = restTemplate.getForObject(resourceUri, AdCampaignList.class);
 		return data.getList();

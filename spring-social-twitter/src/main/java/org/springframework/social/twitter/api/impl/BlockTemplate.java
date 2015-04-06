@@ -16,6 +16,8 @@
 package org.springframework.social.twitter.api.impl;
 
 
+import java.net.URI;
+
 import org.springframework.social.twitter.api.BlockOperations;
 import org.springframework.social.twitter.api.CursoredList;
 import org.springframework.social.twitter.api.TwitterProfile;
@@ -40,28 +42,32 @@ class BlockTemplate extends AbstractTwitterOperations implements BlockOperations
 		requireUserAuthorization();
 		MultiValueMap<String, String> request = new LinkedMultiValueMap<String, String>();
 		request.set("user_id", String.valueOf(userId));
-		return restTemplate.postForObject(buildUri("blocks/create.json"), request, TwitterProfile.class);
+		URI resourceUri = new TwitterApiUriBuilder().withResource(TwitterApiUriResourceForStandard.BLOCKS_CREATE).build();
+		return restTemplate.postForObject(resourceUri, request, TwitterProfile.class);
 	}
 	
 	public TwitterProfile block(String screenName) {
 		requireUserAuthorization();
 		MultiValueMap<String, String> request = new LinkedMultiValueMap<String, String>();
 		request.set("screen_name", screenName);
-		return restTemplate.postForObject(buildUri("blocks/create.json"), request, TwitterProfile.class);
+		URI resourceUri = new TwitterApiUriBuilder().withResource(TwitterApiUriResourceForStandard.BLOCKS_CREATE).build();
+		return restTemplate.postForObject(resourceUri, request, TwitterProfile.class);
 	}
 	
 	public TwitterProfile unblock(long userId) {
 		requireUserAuthorization();
 		MultiValueMap<String, String> request = new LinkedMultiValueMap<String, String>();
 		request.set("user_id", String.valueOf(userId));
-		return restTemplate.postForObject(buildUri("blocks/destroy.json"), request, TwitterProfile.class);
+		URI resourceUri = new TwitterApiUriBuilder().withResource(TwitterApiUriResourceForStandard.BLOCKS_DESTROY).build();
+		return restTemplate.postForObject(resourceUri, request, TwitterProfile.class);
 	}
 	
 	public TwitterProfile unblock(String screenName) {
 		requireUserAuthorization();
 		MultiValueMap<String, String> request = new LinkedMultiValueMap<String, String>();
 		request.set("screen_name", screenName);
-		return restTemplate.postForObject(buildUri("blocks/destroy.json"), request, TwitterProfile.class);
+		URI resourceUri = new TwitterApiUriBuilder().withResource(TwitterApiUriResourceForStandard.BLOCKS_DESTROY).build();
+		return restTemplate.postForObject(resourceUri, request, TwitterProfile.class);
 	}
 	
 	public CursoredList<TwitterProfile> getBlockedUsers() {
@@ -72,7 +78,8 @@ class BlockTemplate extends AbstractTwitterOperations implements BlockOperations
 		requireUserAuthorization();
 		LinkedMultiValueMap<String, String> parameters = new LinkedMultiValueMap<String, String>();
 		parameters.set("cursor", String.valueOf(cursor));
-		return restTemplate.getForObject(buildUri("blocks/list.json", parameters), CursoredTwitterProfileUsersList.class).getList();
+		URI resourceUri = new TwitterApiUriBuilder().withResource(TwitterApiUriResourceForStandard.BLOCKS).withArgument(parameters).build();
+		return restTemplate.getForObject(resourceUri, CursoredTwitterProfileUsersList.class).getList();
 	}
 
 	public CursoredList<Long> getBlockedUserIds() {
@@ -83,7 +90,8 @@ class BlockTemplate extends AbstractTwitterOperations implements BlockOperations
 		requireUserAuthorization();
 		LinkedMultiValueMap<String, String> parameters = new LinkedMultiValueMap<String, String>();
 		parameters.set("cursor", String.valueOf(cursor));
-		return restTemplate.getForObject(buildUri("blocks/ids.json", parameters), CursoredLongList.class).getList();
+		URI resourceUri = new TwitterApiUriBuilder().withResource(TwitterApiUriResourceForStandard.BLOCKS_IDS).withArgument(parameters).build();
+		return restTemplate.getForObject(resourceUri, CursoredLongList.class).getList();
 	}
 
 }
