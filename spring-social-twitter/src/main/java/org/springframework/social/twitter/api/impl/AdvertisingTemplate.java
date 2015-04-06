@@ -41,7 +41,7 @@ public class AdvertisingTemplate extends AbstractTwitterOperations implements
 	public List<AdAccount> getAccounts() {
 		requireUserAuthorization();
 		TwitterApiUriResourceForAdvertising resource = TwitterApiUriResourceForAdvertising.ACCOUNT;
-		URI resourceUri = new TwitterApiUriBuilder().forAdCampaignsApi().withResource(resource).build();
+		URI resourceUri = new TwitterApiUriBuilder().withResource(resource).build();
 		AdAccountList data = restTemplate.getForObject(resourceUri, AdAccountList.class);
 		return data.getList();
 	}
@@ -50,7 +50,7 @@ public class AdvertisingTemplate extends AbstractTwitterOperations implements
 	public List<AdCampaign> getCampaigns(String accountId) {
 		requireUserAuthorization();
 		TwitterApiUriResourceForAdvertising resource = TwitterApiUriResourceForAdvertising.CAMPAIGN;
-		URI resourceUri = new TwitterApiUriBuilder().forAdCampaignsApi().withResource(resource).withArgument("account_id", accountId).build();
+		URI resourceUri = new TwitterApiUriBuilder().withResource(resource).withArgument("account_id", accountId).build();
 		AdCampaignList data = restTemplate.getForObject(resourceUri, AdCampaignList.class);
 		return data.getList();
 	}

@@ -15,6 +15,7 @@
  */
 package org.springframework.social.twitter.api.impl;
 
+import java.net.URI;
 import java.util.List;
 
 import org.springframework.social.twitter.api.DirectMessage;
@@ -47,7 +48,8 @@ class DirectMessageTemplate extends AbstractTwitterOperations implements DirectM
 	public List<DirectMessage> getDirectMessagesReceived(int page, int pageSize, long sinceId, long maxId) {
 		requireUserAuthorization();
 		MultiValueMap<String, String> parameters = PagingUtils.buildPagingParametersWithCount(page, pageSize, sinceId, maxId);
-		return restTemplate.getForObject(buildUri("direct_messages.json", parameters), DirectMessageList.class);
+		URI resourceUri = new TwitterApiUriBuilder().withResource(TwitterApiUriResourceForStandard.DIRECTMESSAGES).withArgument(parameters).build();
+		return restTemplate.getForObject(resourceUri, DirectMessageList.class);
 	}
 
 	public List<DirectMessage> getDirectMessagesSent() {
@@ -61,12 +63,14 @@ class DirectMessageTemplate extends AbstractTwitterOperations implements DirectM
 	public List<DirectMessage> getDirectMessagesSent(int page, int pageSize, long sinceId, long maxId) {
 		requireUserAuthorization();
 		MultiValueMap<String, String> parameters = PagingUtils.buildPagingParametersWithCount(page, pageSize, sinceId, maxId);
-		return restTemplate.getForObject(buildUri("direct_messages/sent.json", parameters), DirectMessageList.class);
+		URI resourceUri = new TwitterApiUriBuilder().withResource(TwitterApiUriResourceForStandard.DIRECTMESSAGES_SENT).withArgument(parameters).build();
+		return restTemplate.getForObject(resourceUri, DirectMessageList.class);
 	}
 	
 	public DirectMessage getDirectMessage(long id) {
 		requireUserAuthorization();
-		return restTemplate.getForObject(buildUri("direct_messages/show.json", "id", String.valueOf(id)), DirectMessage.class);
+		URI resourceUri = new TwitterApiUriBuilder().withResource(TwitterApiUriResourceForStandard.DIRECTMESSAGES_SHOW).withArgument("id", String.valueOf(id)).build();
+		return restTemplate.getForObject(resourceUri, DirectMessage.class);
 	}
 
 	public DirectMessage sendDirectMessage(String toScreenName, String text) {
@@ -74,7 +78,8 @@ class DirectMessageTemplate extends AbstractTwitterOperations implements DirectM
 		MultiValueMap<String, Object> data = new LinkedMultiValueMap<String, Object>();
 		data.add("screen_name", String.valueOf(toScreenName));
 		data.add("text", text);
-		return restTemplate.postForObject(buildUri("direct_messages/new.json"), data, DirectMessage.class);
+		URI resourceUri = new TwitterApiUriBuilder().withResource(TwitterApiUriResourceForStandard.DIRECTMESSAGES_NEW).build();
+		return restTemplate.postForObject(resourceUri, data, DirectMessage.class);
 	}
 
 	public DirectMessage sendDirectMessage(long toUserId, String text) {
@@ -82,14 +87,16 @@ class DirectMessageTemplate extends AbstractTwitterOperations implements DirectM
 		MultiValueMap<String, Object> data = new LinkedMultiValueMap<String, Object>();
 		data.add("user_id", String.valueOf(toUserId));
 		data.add("text", text);
-		return restTemplate.postForObject(buildUri("direct_messages/new.json"), data, DirectMessage.class);
+		URI resourceUri = new TwitterApiUriBuilder().withResource(TwitterApiUriResourceForStandard.DIRECTMESSAGES_NEW).build();
+		return restTemplate.postForObject(resourceUri, data, DirectMessage.class);
 	}
 
 	public void deleteDirectMessage(long messageId) {
 		requireUserAuthorization();
 		MultiValueMap<String, Object> data = new LinkedMultiValueMap<String, Object>();
 		data.add("id", String.valueOf(messageId));
-		restTemplate.postForObject(buildUri("direct_messages/destroy.json"), data, DirectMessage.class);
+		URI resourceUri = new TwitterApiUriBuilder().withResource(TwitterApiUriResourceForStandard.DIRECTMESSAGES_DESTROY).build();
+		restTemplate.postForObject(resourceUri, data, DirectMessage.class);
 	}
 	
 }
