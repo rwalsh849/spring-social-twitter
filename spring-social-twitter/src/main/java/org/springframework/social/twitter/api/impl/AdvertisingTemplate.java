@@ -17,7 +17,6 @@ package org.springframework.social.twitter.api.impl;
 
 import java.math.BigDecimal;
 import java.net.URI;
-import java.time.Instant;
 import java.time.LocalDateTime;
 import java.time.ZoneOffset;
 import java.util.List;
