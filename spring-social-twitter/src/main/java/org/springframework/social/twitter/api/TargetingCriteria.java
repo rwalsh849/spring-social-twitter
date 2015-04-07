@@ -34,14 +34,14 @@ public class TargetingCriteria extends TwitterObject {
 	private final String advertisingGroupId;
 	private final String name;
 	private final TargetingType targetingType;
-	private final Long targetingValue;
+	private final String targetingValue;
 	private final Boolean deleted;
 	private final LocalDateTime createdAt;
 	private final LocalDateTime updatedAt;
 	
 	public TargetingCriteria(
 			String id, String accountId, String advertisingGroupId, String name,
-			TargetingType targetingType, Long targetingValue,
+			TargetingType targetingType, String targetingValue,
 			Boolean deleted, LocalDateTime createdAt, LocalDateTime updatedAt) {
 		
 		this.id = id;
@@ -77,7 +77,7 @@ public class TargetingCriteria extends TwitterObject {
 		return targetingType;
 	}
 
-	public Long getTargetingValue() {
+	public String getTargetingValue() {
 		return targetingValue;
 	}
 
