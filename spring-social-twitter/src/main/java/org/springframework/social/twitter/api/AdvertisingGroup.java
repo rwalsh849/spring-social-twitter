@@ -118,11 +118,11 @@ public class AdvertisingGroup extends TwitterObject {
 		return bidAmount;
 	}
 
-	public Boolean getPaused() {
+	public Boolean isPaused() {
 		return paused;
 	}
 
-	public Boolean getDeleted() {
+	public Boolean isDeleted() {
 		return deleted;
 	}
 
