@@ -171,18 +171,37 @@ public class AdvertisingTemplateTest extends AbstractTwitterApiTest {
 	}
 	
 	private void assertFundingInstrumentContents(List<FundingInstrument> fundingInstruments) {
-		assertEquals(1, fundingInstruments.size());
+		assertEquals(2, fundingInstruments.size());
 		
 		assertEquals("hw6ie", fundingInstruments.get(0).getId());
 		assertEquals(FundingInstrumentType.CREDIT_CARD, fundingInstruments.get(0).getType());
 		assertEquals("hkk5", fundingInstruments.get(0).getAccountId());
 		assertEquals("MasterCard ending in 1234", fundingInstruments.get(0).getDescription());
+		assertEquals("USD", fundingInstruments.get(0).getCurrency());
 		assertEquals(new BigDecimal(1000.00), fundingInstruments.get(0).getCreditLimit());
+		assertEquals(null, fundingInstruments.get(0).getCreditRemaining());
 		assertEquals(new BigDecimal(100.00), fundingInstruments.get(0).getFundedAmount());
 		assertEquals(LocalDateTime.of(2012, Month.NOVEMBER, 8, 02, 31, 46), fundingInstruments.get(0).getStartTime());
 		assertEquals(null, fundingInstruments.get(0).getEndTime());
 		assertEquals(LocalDateTime.of(2012, Month.NOVEMBER, 8, 02, 31, 46), fundingInstruments.get(0).getCreatedAt());
 		assertEquals(LocalDateTime.of(2012, Month.NOVEMBER, 20, 23, 20, 35), fundingInstruments.get(0).getUpdatedAt());
+		assertEquals(false, fundingInstruments.get(0).isCancelled());
+		assertEquals(true, fundingInstruments.get(0).isDeleted());
+		
+		assertEquals("i1234", fundingInstruments.get(1).getId());
+		assertEquals(FundingInstrumentType.CREDIT_LINE, fundingInstruments.get(1).getType());
+		assertEquals("hkk5", fundingInstruments.get(1).getAccountId());
+		assertEquals("FakeNike - Credit Line", fundingInstruments.get(1).getDescription());
+		assertEquals("GBP", fundingInstruments.get(1).getCurrency());
+		assertEquals(new BigDecimal(150000.00), fundingInstruments.get(1).getCreditLimit());
+		assertEquals(new BigDecimal(123661.919751), fundingInstruments.get(1).getCreditRemaining());
+		assertEquals(new BigDecimal(0.00), fundingInstruments.get(1).getFundedAmount());
+		assertEquals(LocalDateTime.of(2013, Month.MAY, 30, 04, 00, 00), fundingInstruments.get(1).getStartTime());
+		assertEquals(null, fundingInstruments.get(1).getEndTime());
+		assertEquals(LocalDateTime.of(2013, Month.MAY, 30, 18, 16, 38), fundingInstruments.get(1).getCreatedAt());
+		assertEquals(LocalDateTime.of(2013, Month.MAY, 30, 18, 16, 38), fundingInstruments.get(1).getUpdatedAt());
+		assertEquals(false, fundingInstruments.get(1).isCancelled());
+		assertEquals(false, fundingInstruments.get(1).isDeleted());
 	}
 	
 	private void asserSingleAdCampaignContents(Campaign campaign) {

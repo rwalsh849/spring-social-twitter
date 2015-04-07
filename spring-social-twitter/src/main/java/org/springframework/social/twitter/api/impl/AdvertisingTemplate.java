@@ -62,7 +62,14 @@ public class AdvertisingTemplate extends AbstractTwitterOperations implements Ad
 	
 	@Override
 	public List<FundingInstrument> getFundingInstruments(String accountId) {
-		throw new UnsupportedOperationException("Not implemented!");
+		requireUserAuthorization();
+		TwitterApiUriResourceForAdvertising resource = TwitterApiUriResourceForAdvertising.FUNDING_INSTRUMENTS;
+		LinkedMultiValueMap<String, String> parameters = new LinkedMultiValueMap<String, String>();
+		parameters.set("account_id", accountId);
+		parameters.set("with_deleted", "true");
+		URI resourceUri = new TwitterApiUriBuilder().withResource(resource).withArgument(parameters).build();
+		FundingInstrumentList data = restTemplate.getForObject(resourceUri, FundingInstrumentList.class);
+		return data.getList();
 	}
 
 	@Override

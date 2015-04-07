@@ -39,7 +39,7 @@ public class BigDecimalMicroAmountDeserializer extends JsonDeserializer<BigDecim
 			throws IOException, JsonProcessingException {
 		
 		Long microAmount = new Long(p.getText());
-		return new BigDecimal(microAmount / 1000000);
+		return new BigDecimal(microAmount / 1000000.00);
 	}
 
 }
