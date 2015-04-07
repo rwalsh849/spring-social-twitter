@@ -15,6 +15,8 @@
  */
 package org.springframework.social.twitter.api;
 
+import java.math.BigDecimal;
+import java.time.LocalDateTime;
 import java.util.List;
 
 import org.springframework.social.ApiException;
@@ -41,4 +43,16 @@ public interface AdvertisingOperations {
 	 * @throws MissingAuthorizationException if TwitterTemplate was not created with OAuth credentials.
 	 */
 	List<AdCampaign> getCampaigns(String accountId);
+	
+	/**
+	 * Creates a {@link AdCampaign} for a {@link AdAccount} referenced by its 'accountId'.
+	 * @return an instance of {@link AdCampaign} which refers to the campaign created in the procedure.
+	 * @throws ApiException if there is an error while communicating with Twitter.
+	 * @throws MissingAuthorizationException if TwitterTemplate was not created with OAuth credentials.
+	 */
+	AdCampaign createCampaign(
+			String name, String accountId, String currency,
+			String fundingInstrumentId, BigDecimal totalBudget, BigDecimal dailyBudget,
+			LocalDateTime startTime, LocalDateTime endTime,
+			Boolean standardDelivery, Boolean paused);
 }

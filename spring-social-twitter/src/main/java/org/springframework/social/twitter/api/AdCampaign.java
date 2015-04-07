@@ -2,6 +2,7 @@ package org.springframework.social.twitter.api;
 
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 /*
  * Copyright 2014 the original author or authors.
  *
@@ -38,7 +39,6 @@ public class AdCampaign extends TwitterObject {
 	private final List<ReasonNotServable> reasonsNotServable;
 	private final Boolean standardDelivery;
 	private final Boolean paused;
-	private final Boolean servable;
 	private final Boolean deleted;
 	
 	public AdCampaign(
@@ -47,7 +47,7 @@ public class AdCampaign extends TwitterObject {
 			LocalDateTime startTime, LocalDateTime endTime,
 			LocalDateTime createdAt, LocalDateTime updatedAt,
 			List<ReasonNotServable> reasonsNotServable,
-			Boolean standardDelivery, Boolean paused, Boolean servable, Boolean deleted) {
+			Boolean standardDelivery, Boolean paused, Boolean deleted) {
 		
 		this.id = id;
 		this.name = name;
@@ -63,11 +63,10 @@ public class AdCampaign extends TwitterObject {
 		this.createdAt = createdAt;
 		this.updatedAt = updatedAt;
 		
-		this.reasonsNotServable = reasonsNotServable;
+		this.reasonsNotServable = reasonsNotServable != null ? reasonsNotServable : new ArrayList<ReasonNotServable>();
 		
 		this.standardDelivery = standardDelivery; 
 		this.paused = paused;
-		this.servable = servable;
 		this.deleted = deleted;
 	}
 
@@ -128,6 +127,7 @@ public class AdCampaign extends TwitterObject {
 	}
 
 	public Boolean isServable() {
+		Boolean servable = reasonsNotServable.isEmpty();
 		return servable;
 	}
 

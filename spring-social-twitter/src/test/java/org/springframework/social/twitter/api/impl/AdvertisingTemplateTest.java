@@ -17,17 +17,26 @@ package org.springframework.social.twitter.api.impl;
 
 import static org.hamcrest.CoreMatchers.hasItem;
 import static org.hamcrest.CoreMatchers.not;
+import static org.hamcrest.Matchers.empty;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertThat;
 import static org.springframework.http.HttpMethod.GET;
+import static org.springframework.http.HttpMethod.POST;
 import static org.springframework.http.MediaType.APPLICATION_JSON;
+import static org.springframework.test.web.client.match.MockRestRequestMatchers.content;
 import static org.springframework.test.web.client.match.MockRestRequestMatchers.method;
 import static org.springframework.test.web.client.match.MockRestRequestMatchers.requestTo;
 import static org.springframework.test.web.client.response.MockRestResponseCreators.withSuccess;
 
+import java.io.UnsupportedEncodingException;
 import java.math.BigDecimal;
+import java.net.URI;
+import java.net.URLEncoder;
+import java.time.Instant;
 import java.time.LocalDateTime;
 import java.time.Month;
+import java.time.ZoneOffset;
+import java.time.format.DateTimeFormatter;
 import java.util.List;
 import java.util.TimeZone;
 
@@ -63,6 +72,41 @@ public class AdvertisingTemplateTest extends AbstractTwitterApiTest {
 	
 		List<AdCampaign> campaigns = twitter.advertisingOperations().getCampaigns(mockedAccountId);
 		assertAdCampaignContents(campaigns);
+	}
+	
+	@Test
+	public void createCampaign() throws UnsupportedEncodingException {
+		String doesntMatterString = "doesn-matter";
+		BigDecimal doesntMatterDecimal = new BigDecimal(1.00);
+		LocalDateTime doesntMatterDate = LocalDateTime.now();
+		Boolean doesntMatterBool = false; 
+		String mockedAccountId = "1ga1yn";
+		
+		String chainedPostContent = 
+				"name=" + doesntMatterString + "&" +
+				"account_id=" + mockedAccountId + "&" +
+				"currency=" + doesntMatterString + "&" +
+				"funding_instrument_id=" + doesntMatterString + "&" +
+				"total_budget_amount_local_micro=" + doesntMatterDecimal.multiply(new BigDecimal(1000000L)) + "&" +
+				"daily_budget_amount_local_micro=" + doesntMatterDecimal.multiply(new BigDecimal(1000000L)) + "&" +
+				"start_time=" + URLEncoder.encode(doesntMatterDate.toInstant(ZoneOffset.UTC).toString(),"UTF-8") + "&" +
+				"end_time=" + URLEncoder.encode(doesntMatterDate.plusDays(1).toInstant(ZoneOffset.UTC).toString(),"UTF-8") + "&" +
+				"standard_delivery=" + doesntMatterBool + "&" +
+				"paused=" + !doesntMatterBool;
+		
+		mockServer
+			.expect(requestTo("https://ads-api.twitter.com/0/accounts/" + mockedAccountId + "/campaigns"))
+			.andExpect(method(POST))
+			.andExpect(content().string(chainedPostContent))
+			.andRespond(withSuccess(jsonResource("ad-campaigns-create"), APPLICATION_JSON));
+		
+		AdCampaign campaign = twitter.advertisingOperations().createCampaign(
+				doesntMatterString, mockedAccountId, doesntMatterString, doesntMatterString,
+				doesntMatterDecimal, doesntMatterDecimal,
+				doesntMatterDate, doesntMatterDate.plusDays(1),
+				doesntMatterBool, !doesntMatterBool);
+		
+		asserSingleAdCampaignContents(campaign);
 	}
 	
 	private void assertAdAccountContents(List<AdAccount> accounts) {
@@ -113,6 +157,26 @@ public class AdvertisingTemplateTest extends AbstractTwitterApiTest {
 		assertEquals(false, campaigns.get(0).isServable());
 		assertEquals(true, campaigns.get(0).isPaused());
 		assertEquals(false, campaigns.get(0).isDeleted());
+	}
+	
+	private void asserSingleAdCampaignContents(AdCampaign campaign) {
+		assertEquals("92ph", campaign.getId());
+		assertEquals("My First Campaign", campaign.getName());
+		assertEquals("1ga1yn", campaign.getAccountId());
+		assertEquals("USD", campaign.getCurrency());
+		assertEquals("yyyy", campaign.getFundingInstrumentId());
+		
+		assertEquals(new BigDecimal(500.00), campaign.getTotalBudget());
+		assertEquals(new BigDecimal(40.00), campaign.getDailyBudget());
+		
+		assertEquals(LocalDateTime.of(2015, Month.FEBRUARY, 9, 00, 00, 00), campaign.getStartTime());
+		assertEquals(null, campaign.getEndTime());
+		
+		assertThat(campaign.getReasonsNotServable(), empty());
+		assertEquals(true, campaign.isStandardDelivery());
+		assertEquals(false, campaign.isPaused());
+		assertEquals(true, campaign.isServable());
+		assertEquals(false, campaign.isDeleted());
 	}
 	
 }

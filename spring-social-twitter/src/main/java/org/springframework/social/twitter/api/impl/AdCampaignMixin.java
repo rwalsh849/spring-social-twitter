@@ -50,6 +50,5 @@ abstract class AdCampaignMixin extends TwitterObjectMixin {
 			@JsonProperty("reasons_not_servable") List<ReasonNotServable> reasonsNotServable,
 			@JsonProperty("standard_delivery") Boolean standardDelivery,
 			@JsonProperty("paused") Boolean paused,
-			@JsonProperty("servable") Boolean servable,
 			@JsonProperty("deleted") Boolean deleted) {}
 }
