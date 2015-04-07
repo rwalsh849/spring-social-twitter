@@ -16,13 +16,46 @@
 package org.springframework.social.twitter.api;
 
 /**
+ * Defines the type of targeting criteria.
+ * Oposite to many enumerators, this enum IS NOT documented in a separate place.
+ * Its documentation was scavengered from:
+ * https://dev.twitter.com/ads/reference/post/accounts/%3Aaccount_id/targeting_criteria 
+ * 
  * @author Hudson Mendes
  */
 public enum TargetingType {
-	AGE_18_TO_24,
-	AGE_25_TO_34,
-	AGE_35_TO_44,
-	AGE_45_TO_54,
-	AGE_55_TO_64,
-	AGE_OVER_65
+	AGE,
+	FOLLOWERS_OF_USER,
+	SIMILAR_TO_FOLLOWERS_OF_USER,
+	INTEREST,
+	LOCATION,
+	PLATFORM,
+	PLATFORM_VERSION,
+	DEVICE,
+	WIFI_ONLY,
+	GENDER,
+	TV_CHANNEL,
+	TV_GENRE,
+	TV_SHOW,
+	TV_SHOW_AIRING_RESTRICTED,
+	NETWORK_OPERATOR,
+	NETWORK_ACTIVATION_DURATION_LT,
+	NETWORK_ACTIVATION_DURATION_GTE,
+	
+	BROAD_KEYWORD,
+	UNORDERED_KEYWORD,
+	PHRASE_KEYWORD,
+	EXACT_KEYWORD,
+	NEGATIVE_PHRASE_KEYWORD,
+	NEGATIVE_UNORDERED_KEYWORD,
+	NEGATIVE_EXACT_KEYWORD,
+	
+	TAILORED_AUDIENCE,
+
+	BEHAVIOR,
+	NEGATIVE_BEHAVIOR,
+	BEHAVIOR_EXPANDED,
+	
+	APP_STORE_CATEGORY,
+	APP_STORE_CATEGORY_LOOKALIKE
 }

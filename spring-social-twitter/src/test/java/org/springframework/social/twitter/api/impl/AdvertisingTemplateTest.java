@@ -41,6 +41,8 @@ import org.junit.Test;
 import org.springframework.social.twitter.api.AdvertisingAccount;
 import org.springframework.social.twitter.api.Campaign;
 import org.springframework.social.twitter.api.ApprovalStatus;
+import org.springframework.social.twitter.api.FundingInstrument;
+import org.springframework.social.twitter.api.FundingInstrumentType;
 import org.springframework.social.twitter.api.ReasonNotServable;
 
 /**
@@ -68,7 +70,19 @@ public class AdvertisingTemplateTest extends AbstractTwitterApiTest {
 			.andRespond(withSuccess(jsonResource("ad-campaigns"), APPLICATION_JSON));
 	
 		List<Campaign> campaigns = twitter.advertisingOperations().getCampaigns(mockedAccountId);
-		assertAdCampaignContents(campaigns);
+		assertCampaignContents(campaigns);
+	}
+	
+	@Test
+	public void getFundingInstruments() {
+		String mockedAccountId = "hkk5";
+		mockServer
+			.expect(requestTo("https://ads-api.twitter.com/0/accounts/" + mockedAccountId + "/funding_instruments?with_deleted=true"))
+			.andExpect(method(GET))
+			.andRespond(withSuccess(jsonResource("ad-funding-instruments"), APPLICATION_JSON));
+	
+		List<FundingInstrument> fundingInstruments = twitter.advertisingOperations().getFundingInstruments(mockedAccountId);
+		assertFundingInstrumentContents(fundingInstruments);
 	}
 	
 	@Test
@@ -130,7 +144,7 @@ public class AdvertisingTemplateTest extends AbstractTwitterApiTest {
 		assertEquals(false, accounts.get(0).isDeleted());
 	}
 	
-	private void assertAdCampaignContents(List<Campaign> campaigns) {
+	private void assertCampaignContents(List<Campaign> campaigns) {
 		assertEquals(1, campaigns.size());
 		
 		assertEquals("1850jm", campaigns.get(0).getId());
@@ -154,6 +168,21 @@ public class AdvertisingTemplateTest extends AbstractTwitterApiTest {
 		assertEquals(false, campaigns.get(0).isServable());
 		assertEquals(true, campaigns.get(0).isPaused());
 		assertEquals(false, campaigns.get(0).isDeleted());
+	}
+	
+	private void assertFundingInstrumentContents(List<FundingInstrument> fundingInstruments) {
+		assertEquals(1, fundingInstruments.size());
+		
+		assertEquals("hw6ie", fundingInstruments.get(0).getId());
+		assertEquals(FundingInstrumentType.CREDIT_CARD, fundingInstruments.get(0).getType());
+		assertEquals("hkk5", fundingInstruments.get(0).getAccountId());
+		assertEquals("MasterCard ending in 1234", fundingInstruments.get(0).getDescription());
+		assertEquals(new BigDecimal(1000.00), fundingInstruments.get(0).getCreditLimit());
+		assertEquals(new BigDecimal(100.00), fundingInstruments.get(0).getFundedAmount());
+		assertEquals(LocalDateTime.of(2012, Month.NOVEMBER, 8, 02, 31, 46), fundingInstruments.get(0).getStartTime());
+		assertEquals(null, fundingInstruments.get(0).getEndTime());
+		assertEquals(LocalDateTime.of(2012, Month.NOVEMBER, 8, 02, 31, 46), fundingInstruments.get(0).getCreatedAt());
+		assertEquals(LocalDateTime.of(2012, Month.NOVEMBER, 20, 23, 20, 35), fundingInstruments.get(0).getUpdatedAt());
 	}
 	
 	private void asserSingleAdCampaignContents(Campaign campaign) {

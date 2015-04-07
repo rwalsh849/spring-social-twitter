@@ -24,6 +24,7 @@ import java.util.List;
 import org.springframework.social.twitter.api.AdvertisingAccount;
 import org.springframework.social.twitter.api.Campaign;
 import org.springframework.social.twitter.api.AdvertisingOperations;
+import org.springframework.social.twitter.api.FundingInstrument;
 import org.springframework.util.LinkedMultiValueMap;
 import org.springframework.util.MultiValueMap;
 import org.springframework.web.client.RestTemplate;
@@ -57,6 +58,11 @@ public class AdvertisingTemplate extends AbstractTwitterOperations implements Ad
 		URI resourceUri = new TwitterApiUriBuilder().withResource(resource).withArgument("account_id", accountId).build();
 		CampaignList data = restTemplate.getForObject(resourceUri, CampaignList.class);
 		return data.getList();
+	}
+	
+	@Override
+	public List<FundingInstrument> getFundingInstruments(String accountId) {
+		throw new UnsupportedOperationException("Not implemented!");
 	}
 
 	@Override
