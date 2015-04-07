@@ -94,11 +94,11 @@ public class FundingInstrument extends TwitterObject {
 		return description;
 	}
 
-	public Boolean getCancelled() {
+	public Boolean isCancelled() {
 		return cancelled;
 	}
 
-	public Boolean getDeleted() {
+	public Boolean isDeleted() {
 		return deleted;
 	}
 
