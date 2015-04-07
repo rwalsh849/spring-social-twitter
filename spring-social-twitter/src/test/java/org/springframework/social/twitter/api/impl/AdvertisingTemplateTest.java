@@ -38,8 +38,8 @@ import java.util.List;
 import java.util.TimeZone;
 
 import org.junit.Test;
-import org.springframework.social.twitter.api.AdAccount;
-import org.springframework.social.twitter.api.AdCampaign;
+import org.springframework.social.twitter.api.AdvertisingAccount;
+import org.springframework.social.twitter.api.Campaign;
 import org.springframework.social.twitter.api.ApprovalStatus;
 import org.springframework.social.twitter.api.ReasonNotServable;
 
@@ -55,7 +55,7 @@ public class AdvertisingTemplateTest extends AbstractTwitterApiTest {
 			.andExpect(method(GET))
 			.andRespond(withSuccess(jsonResource("ad-accounts"), APPLICATION_JSON));
 
-		List<AdAccount> accounts = twitter.advertisingOperations().getAccounts();
+		List<AdvertisingAccount> accounts = twitter.advertisingOperations().getAccounts();
 		assertAdAccountContents(accounts);
 	}
 	
@@ -67,7 +67,7 @@ public class AdvertisingTemplateTest extends AbstractTwitterApiTest {
 			.andExpect(method(GET))
 			.andRespond(withSuccess(jsonResource("ad-campaigns"), APPLICATION_JSON));
 	
-		List<AdCampaign> campaigns = twitter.advertisingOperations().getCampaigns(mockedAccountId);
+		List<Campaign> campaigns = twitter.advertisingOperations().getCampaigns(mockedAccountId);
 		assertAdCampaignContents(campaigns);
 	}
 	
@@ -97,7 +97,7 @@ public class AdvertisingTemplateTest extends AbstractTwitterApiTest {
 			.andExpect(content().string(chainedPostContent))
 			.andRespond(withSuccess(jsonResource("ad-campaigns-create"), APPLICATION_JSON));
 		
-		AdCampaign campaign = twitter.advertisingOperations().createCampaign(
+		Campaign campaign = twitter.advertisingOperations().createCampaign(
 				doesntMatterString, mockedAccountId, doesntMatterString, doesntMatterString,
 				doesntMatterDecimal, doesntMatterDecimal,
 				doesntMatterDate, doesntMatterDate.plusDays(1),
@@ -106,7 +106,7 @@ public class AdvertisingTemplateTest extends AbstractTwitterApiTest {
 		asserSingleAdCampaignContents(campaign);
 	}
 	
-	private void assertAdAccountContents(List<AdAccount> accounts) {
+	private void assertAdAccountContents(List<AdvertisingAccount> accounts) {
 		assertEquals(2, accounts.size());
 		
 		assertEquals("l0l0l0", accounts.get(0).getId());
@@ -130,7 +130,7 @@ public class AdvertisingTemplateTest extends AbstractTwitterApiTest {
 		assertEquals(false, accounts.get(0).isDeleted());
 	}
 	
-	private void assertAdCampaignContents(List<AdCampaign> campaigns) {
+	private void assertAdCampaignContents(List<Campaign> campaigns) {
 		assertEquals(1, campaigns.size());
 		
 		assertEquals("1850jm", campaigns.get(0).getId());
@@ -156,7 +156,7 @@ public class AdvertisingTemplateTest extends AbstractTwitterApiTest {
 		assertEquals(false, campaigns.get(0).isDeleted());
 	}
 	
-	private void asserSingleAdCampaignContents(AdCampaign campaign) {
+	private void asserSingleAdCampaignContents(Campaign campaign) {
 		assertEquals("92ph", campaign.getId());
 		assertEquals("My First Campaign", campaign.getName());
 		assertEquals("1ga1yn", campaign.getAccountId());

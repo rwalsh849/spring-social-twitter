@@ -18,7 +18,7 @@ package org.springframework.social.twitter.api.impl;
 import java.time.LocalDateTime;
 import java.util.TimeZone;
 
-import org.springframework.social.twitter.api.AdAccount;
+import org.springframework.social.twitter.api.AdvertisingAccount;
 import org.springframework.social.twitter.api.ApprovalStatus;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
@@ -28,14 +28,14 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 
 /**
- * Mixin class for adding Jackson annotations to {@link AdAccount}.
+ * Mixin class for adding Jackson annotations to {@link AdvertisingAccount}.
  * @author Hudson Mendes
  */
 @JsonIgnoreProperties(ignoreUnknown = true)
-abstract class AdAccountMixin extends TwitterObjectMixin {
+abstract class AdvertisingAccountMixin extends TwitterObjectMixin {
 	
 	@JsonCreator
-	AdAccountMixin(
+	AdvertisingAccountMixin(
 			@JsonProperty("id") String id, 
 			@JsonProperty("name") String name, 
 			@JsonProperty("salt") String salt, 

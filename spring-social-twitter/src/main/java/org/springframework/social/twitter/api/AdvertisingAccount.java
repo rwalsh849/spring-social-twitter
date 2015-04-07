@@ -33,7 +33,7 @@ import java.util.TimeZone;
  * 
  * @author Hudson Mendes
  */
-public class AdAccount extends TwitterObject {
+public class AdvertisingAccount extends TwitterObject {
 	private final String id;
 	private final String name;
 	private final String salt;
@@ -44,7 +44,7 @@ public class AdAccount extends TwitterObject {
 	private final ApprovalStatus approvalStatus;
 	private final Boolean deleted;
 	
-	public AdAccount(String id, String name, String salt, TimeZone timeZone, LocalDateTime timeZoneSwitchAt, LocalDateTime createdAt, LocalDateTime updatedAt, ApprovalStatus approvalStatus, Boolean deleted) {
+	public AdvertisingAccount(String id, String name, String salt, TimeZone timeZone, LocalDateTime timeZoneSwitchAt, LocalDateTime createdAt, LocalDateTime updatedAt, ApprovalStatus approvalStatus, Boolean deleted) {
 		this.id = id;
 		this.name = name;
 		this.salt = salt;

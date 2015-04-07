@@ -15,33 +15,30 @@
  */
 package org.springframework.social.twitter.api.impl;
 
-import java.util.ArrayList;
 import java.util.List;
 
-import org.springframework.social.twitter.api.AdAccount;
+import org.springframework.social.twitter.api.AdvertisingAccount;
+import org.springframework.social.twitter.api.Campaign;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
-
 /**
- * Typed list of advertising accounts. This helps Jackson know what type to deserialize list content into.
+ * Typed list of {@link Campaign} related to a {@link AdvertisingAccount}
+ * This helps Jackson know what type to deserialize list content into.
  * @author Hudson Mendes
  */
 @JsonIgnoreProperties(ignoreUnknown=true)
-class AdAccountList {
-	private final List<AdAccount> list;
-
+public class CampaignList {
+	private final List<Campaign> list;
+	
 	@JsonCreator
-	public AdAccountList(@JsonProperty("data") List<AdAccount> list) {
-		this.list = new ArrayList<AdAccount>(list);
-	}
-
-	@JsonIgnore
-	public List<AdAccount> getList() {
-		return this.list;
+	public CampaignList(@JsonProperty("data") List<Campaign> list) {
+		this.list = list;
 	}
 	
+	public List<Campaign> getList() {
+		return this.list;
+	}
 }

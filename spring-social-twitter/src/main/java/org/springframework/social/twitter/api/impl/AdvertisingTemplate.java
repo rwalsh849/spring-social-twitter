@@ -21,8 +21,8 @@ import java.time.LocalDateTime;
 import java.time.ZoneOffset;
 import java.util.List;
 
-import org.springframework.social.twitter.api.AdAccount;
-import org.springframework.social.twitter.api.AdCampaign;
+import org.springframework.social.twitter.api.AdvertisingAccount;
+import org.springframework.social.twitter.api.Campaign;
 import org.springframework.social.twitter.api.AdvertisingOperations;
 import org.springframework.util.LinkedMultiValueMap;
 import org.springframework.util.MultiValueMap;
@@ -42,25 +42,25 @@ public class AdvertisingTemplate extends AbstractTwitterOperations implements Ad
 	}
 	
 	@Override
-	public List<AdAccount> getAccounts() {
+	public List<AdvertisingAccount> getAccounts() {
 		requireUserAuthorization();
 		TwitterApiUriResourceForAdvertising resource = TwitterApiUriResourceForAdvertising.ACCOUNT;
 		URI resourceUri = new TwitterApiUriBuilder().withResource(resource).build();
-		AdAccountList data = restTemplate.getForObject(resourceUri, AdAccountList.class);
+		AdvertisingAccountList data = restTemplate.getForObject(resourceUri, AdvertisingAccountList.class);
 		return data.getList();
 	}
 
 	@Override
-	public List<AdCampaign> getCampaigns(String accountId) {
+	public List<Campaign> getCampaigns(String accountId) {
 		requireUserAuthorization();
 		TwitterApiUriResourceForAdvertising resource = TwitterApiUriResourceForAdvertising.CAMPAIGN;
 		URI resourceUri = new TwitterApiUriBuilder().withResource(resource).withArgument("account_id", accountId).build();
-		AdCampaignList data = restTemplate.getForObject(resourceUri, AdCampaignList.class);
+		CampaignList data = restTemplate.getForObject(resourceUri, CampaignList.class);
 		return data.getList();
 	}
 
 	@Override
-	public AdCampaign createCampaign(
+	public Campaign createCampaign(
 			String name, String accountId, String currency, String fundingInstrumentId,
 			BigDecimal totalBudget, BigDecimal dailyBudget,
 			LocalDateTime startTime, LocalDateTime endTime,
@@ -83,7 +83,7 @@ public class AdvertisingTemplate extends AbstractTwitterOperations implements Ad
 		data.add("standard_delivery", standardDelivery.toString());
 		data.add("paused", paused.toString());
 		
-		AdCampaignResult result = restTemplate.postForObject(resourceUri, data, AdCampaignResult.class);
+		CampaignResult result = restTemplate.postForObject(resourceUri, data, CampaignResult.class);
 		return result.getCampaign();
 	}
 

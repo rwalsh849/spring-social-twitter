@@ -30,27 +30,27 @@ public interface AdvertisingOperations {
 	
 	/**
 	 * Retrieves a list of all advertising accounts to which the authenticating user has access.  
-	 * @return a list of {@link AdAccount}
+	 * @return a list of {@link AdvertisingAccount}
 	 * @throws ApiException if there is an error while communicating with Twitter.
 	 * @throws MissingAuthorizationException if TwitterTemplate was not created with OAuth credentials.
 	 */
-	List<AdAccount> getAccounts();
+	List<AdvertisingAccount> getAccounts();
 	
 	/**
-	 * Retrieves a list of all advertising campaigns linked to a particular {@link AdAccount}.  
-	 * @return a list of {@link AdCampaign}
+	 * Retrieves a list of all advertising campaigns linked to a particular {@link AdvertisingAccount}.  
+	 * @return a list of {@link Campaign}
 	 * @throws ApiException if there is an error while communicating with Twitter.
 	 * @throws MissingAuthorizationException if TwitterTemplate was not created with OAuth credentials.
 	 */
-	List<AdCampaign> getCampaigns(String accountId);
+	List<Campaign> getCampaigns(String accountId);
 	
 	/**
-	 * Creates a {@link AdCampaign} for a {@link AdAccount} referenced by its 'accountId'.
-	 * @return an instance of {@link AdCampaign} which refers to the campaign created in the procedure.
+	 * Creates a {@link Campaign} for a {@link AdvertisingAccount} referenced by its 'accountId'.
+	 * @return an instance of {@link Campaign} which refers to the campaign created in the procedure.
 	 * @throws ApiException if there is an error while communicating with Twitter.
 	 * @throws MissingAuthorizationException if TwitterTemplate was not created with OAuth credentials.
 	 */
-	AdCampaign createCampaign(
+	Campaign createCampaign(
 			String name, String accountId, String currency,
 			String fundingInstrumentId, BigDecimal totalBudget, BigDecimal dailyBudget,
 			LocalDateTime startTime, LocalDateTime endTime,

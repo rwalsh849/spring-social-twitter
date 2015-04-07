@@ -21,10 +21,10 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * Represents an Advertising Campaign run for a particular {@link AdAccount}. 
+ * Represents an Advertising Campaign run for a particular {@link AdvertisingAccount}. 
  * @author Hudson Mendes
  */
-public class AdCampaign extends TwitterObject {
+public class Campaign extends TwitterObject {
 	private final String id;
 	private final String name;
 	private final String accountId;
@@ -41,7 +41,7 @@ public class AdCampaign extends TwitterObject {
 	private final Boolean paused;
 	private final Boolean deleted;
 	
-	public AdCampaign(
+	public Campaign(
 			String id, String name, String accountId, String currency,
 			String fundingInstrumentId, BigDecimal totalBudget, BigDecimal dailyBudget,
 			LocalDateTime startTime, LocalDateTime endTime,

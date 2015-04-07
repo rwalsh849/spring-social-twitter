@@ -19,7 +19,7 @@ import java.math.BigDecimal;
 import java.time.LocalDateTime;
 import java.util.List;
 
-import org.springframework.social.twitter.api.AdCampaign;
+import org.springframework.social.twitter.api.Campaign;
 import org.springframework.social.twitter.api.ReasonNotServable;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
@@ -28,14 +28,14 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 
 /**
- * Mixin class for adding Jackson annotations to {@link AdCampaign}.
+ * Mixin class for adding Jackson annotations to {@link Campaign}.
  * @author Hudson Mendes
  */
 @JsonIgnoreProperties(ignoreUnknown = true)
-abstract class AdCampaignMixin extends TwitterObjectMixin {
+abstract class CampaignMixin extends TwitterObjectMixin {
 	
 	@JsonCreator
-	AdCampaignMixin(
+	CampaignMixin(
 			@JsonProperty("id") String id,
 			@JsonProperty("name") String name,
 			@JsonProperty("account_id") String accountId,
