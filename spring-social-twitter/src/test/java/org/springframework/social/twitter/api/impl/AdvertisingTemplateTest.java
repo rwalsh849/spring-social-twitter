@@ -20,6 +20,7 @@ import static org.hamcrest.CoreMatchers.not;
 import static org.hamcrest.Matchers.empty;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertThat;
+import static org.springframework.http.HttpMethod.DELETE;
 import static org.springframework.http.HttpMethod.GET;
 import static org.springframework.http.HttpMethod.POST;
 import static org.springframework.http.HttpMethod.PUT;
@@ -40,8 +41,8 @@ import java.util.TimeZone;
 
 import org.junit.Test;
 import org.springframework.social.twitter.api.AdvertisingAccount;
-import org.springframework.social.twitter.api.Campaign;
 import org.springframework.social.twitter.api.ApprovalStatus;
+import org.springframework.social.twitter.api.Campaign;
 import org.springframework.social.twitter.api.FundingInstrument;
 import org.springframework.social.twitter.api.FundingInstrumentType;
 import org.springframework.social.twitter.api.ReasonNotServable;
@@ -85,18 +86,6 @@ public class AdvertisingTemplateTest extends AbstractTwitterApiTest {
 	
 		List<Campaign> campaigns = twitter.advertisingOperations().getCampaigns(mockedAccountId);
 		assertCampaignContents(campaigns);
-	}
-	
-	@Test
-	public void getFundingInstruments() {
-		String mockedAccountId = "hkk5";
-		mockServer
-			.expect(requestTo("https://ads-api.twitter.com/0/accounts/" + mockedAccountId + "/funding_instruments?with_deleted=true"))
-			.andExpect(method(GET))
-			.andRespond(withSuccess(jsonResource("ad-funding-instruments"), APPLICATION_JSON));
-	
-		List<FundingInstrument> fundingInstruments = twitter.advertisingOperations().getFundingInstruments(mockedAccountId);
-		assertFundingInstrumentContents(fundingInstruments);
 	}
 	
 	@Test
@@ -175,6 +164,30 @@ public class AdvertisingTemplateTest extends AbstractTwitterApiTest {
 					.activeBetween(doesntMatterDate, doesntMatterDate.plusDays(3))
 					.withStandardDelivery(!doesntMatterBool)
 					.unpaused());
+	}
+	
+	@Test
+	public void deleteCampaign() {
+		String mockedAccountId = "0ga0yn";
+		String mockedCampaignId = "92ph";
+		mockServer
+			.expect(requestTo("https://ads-api.twitter.com/0/accounts/" + mockedAccountId + "/campaigns/" + mockedCampaignId))
+			.andExpect(method(DELETE))
+			.andRespond(withSuccess());
+	
+		twitter.advertisingOperations().deleteCampaign(mockedAccountId, mockedCampaignId);
+	}
+	
+	@Test
+	public void getFundingInstruments() {
+		String mockedAccountId = "hkk5";
+		mockServer
+			.expect(requestTo("https://ads-api.twitter.com/0/accounts/" + mockedAccountId + "/funding_instruments?with_deleted=true"))
+			.andExpect(method(GET))
+			.andRespond(withSuccess(jsonResource("ad-funding-instruments"), APPLICATION_JSON));
+	
+		List<FundingInstrument> fundingInstruments = twitter.advertisingOperations().getFundingInstruments(mockedAccountId);
+		assertFundingInstrumentContents(fundingInstruments);
 	}
 	
 	private void assertAdAccountContents(List<AdvertisingAccount> accounts) {

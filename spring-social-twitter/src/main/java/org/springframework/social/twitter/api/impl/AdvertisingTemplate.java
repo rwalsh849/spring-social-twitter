@@ -69,24 +69,12 @@ public class AdvertisingTemplate extends AbstractTwitterOperations implements Ad
 	}
 	
 	@Override
-	public List<FundingInstrument> getFundingInstruments(String accountId) {
-		requireUserAuthorization();
-		TwitterApiUriResourceForAdvertising resource = TwitterApiUriResourceForAdvertising.FUNDING_INSTRUMENTS;
-		LinkedMultiValueMap<String, String> parameters = new LinkedMultiValueMap<String, String>();
-		parameters.set("account_id", accountId);
-		parameters.set("with_deleted", "true");
-		URI resourceUri = new TwitterApiUriBuilder().withResource(resource).withArgument(parameters).build();
-		FundingInstrumentList data = restTemplate.getForObject(resourceUri, FundingInstrumentList.class);
-		return data.getList();
-	}
-
-	@Override
 	public Campaign createCampaign(String accountId, CampaignData data) {
 		requireUserAuthorization();
 		TwitterApiUriResourceForAdvertising resource = TwitterApiUriResourceForAdvertising.CAMPAIGNS;
 		URI resourceUri = new TwitterApiUriBuilder().withResource(resource).withArgument("account_id", accountId).build();
-		MultiValueMap<String, Object> params = data.toRequestParameters();
-		CampaignResult result = restTemplate.postForObject(resourceUri, params, CampaignResult.class);
+		MultiValueMap<String, Object> bodyData = data.toRequestParameters();
+		CampaignResult result = restTemplate.postForObject(resourceUri, bodyData, CampaignResult.class);
 		return result.getCampaign();
 	}
 
@@ -98,7 +86,31 @@ public class AdvertisingTemplate extends AbstractTwitterOperations implements Ad
 		parameters.set("account_id", accountId);
 		parameters.set("id", id);
 		URI resourceUri = new TwitterApiUriBuilder().withResource(resource).withArgument(parameters).build();
-		MultiValueMap<String, Object> params = data.toRequestParameters();
-		restTemplate.put(resourceUri, params);
+		MultiValueMap<String, Object> bodyData = data.toRequestParameters();
+		restTemplate.put(resourceUri, bodyData);
 	}
+	
+	@Override
+	public void deleteCampaign(String accountId, String id) {
+		requireUserAuthorization();
+		TwitterApiUriResourceForAdvertising resource = TwitterApiUriResourceForAdvertising.CAMPAIGN;
+		LinkedMultiValueMap<String, String> parameters = new LinkedMultiValueMap<String, String>();
+		parameters.set("account_id", accountId);
+		parameters.set("id", id);
+		URI resourceUri = new TwitterApiUriBuilder().withResource(resource).withArgument(parameters).build();
+		restTemplate.delete(resourceUri);
+	}
+	
+	@Override
+	public List<FundingInstrument> getFundingInstruments(String accountId) {
+		requireUserAuthorization();
+		TwitterApiUriResourceForAdvertising resource = TwitterApiUriResourceForAdvertising.FUNDING_INSTRUMENTS;
+		LinkedMultiValueMap<String, String> parameters = new LinkedMultiValueMap<String, String>();
+		parameters.set("account_id", accountId);
+		parameters.set("with_deleted", "true");
+		URI resourceUri = new TwitterApiUriBuilder().withResource(resource).withArgument(parameters).build();
+		FundingInstrumentList data = restTemplate.getForObject(resourceUri, FundingInstrumentList.class);
+		return data.getList();
+	}
+	
 }

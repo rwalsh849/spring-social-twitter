@@ -52,14 +52,6 @@ public interface AdvertisingOperations {
 	List<Campaign> getCampaigns(String accountId);
 	
 	/**
-	 * Retrieves a list of all {@link FundingInstrument} linked to a particular {@link AdvertisingAccount}.  
-	 * @return a list of {@link FundingInstrument}
-	 * @throws ApiException if there is an error while communicating with Twitter.
-	 * @throws MissingAuthorizationException if TwitterTemplate was not created with OAuth credentials.
-	 */
-	List<FundingInstrument> getFundingInstruments(String accountId);
-	
-	/**
 	 * Creates a {@link Campaign} for a {@link AdvertisingAccount} referenced by its 'accountId'.
 	 * @return an instance of {@link Campaign} which refers to the campaign created in the procedure.
 	 * @throws ApiException if there is an error while communicating with Twitter.
@@ -69,9 +61,23 @@ public interface AdvertisingOperations {
 	
 	/**
 	 * Updates a {@link Campaign} for a {@link AdvertisingAccount} found by its campaignId.
-	 * @return an instance of {@link Campaign} which refers to the campaign updated in the procedure.
 	 * @throws ApiException if there is an error while communicating with Twitter.
 	 * @throws MissingAuthorizationException if TwitterTemplate was not created with OAuth credentials.
 	 */
 	void updateCampaign(String accountId, String id, CampaignData data);
+	
+	/**
+	 * Deletes a {@link Campaign} related to an {@link AdvertisingAccount} found by its campaignId.
+	 * @throws ApiException if there is an error while communicating with Twitter.
+	 * @throws MissingAuthorizationException if TwitterTemplate was not created with OAuth credentials.
+	 */
+	void deleteCampaign(String accountId, String id);
+	
+	/**
+	 * Retrieves a list of all {@link FundingInstrument} linked to a particular {@link AdvertisingAccount}.  
+	 * @return a list of {@link FundingInstrument}
+	 * @throws ApiException if there is an error while communicating with Twitter.
+	 * @throws MissingAuthorizationException if TwitterTemplate was not created with OAuth credentials.
+	 */
+	List<FundingInstrument> getFundingInstruments(String accountId);
 }
