@@ -94,12 +94,11 @@ public class AdvertisingTemplateTest extends AbstractTwitterApiTest {
 		String mockedAccountId = "1ga1yn";
 		
 		String chainedPostContent = 
-				"account_id=" + mockedAccountId + "&" +
 				"name=" + doesntMatterString + "&" +
 				"currency=" + doesntMatterString + "&" +
 				"funding_instrument_id=" + doesntMatterString + "&" +
 				"total_budget_amount_local_micro=" + doesntMatterDecimal.multiply(new BigDecimal(1000000L)) + "&" +
-				"daily_budget_amount_local_micro=" + doesntMatterDecimal.multiply(new BigDecimal(1000000L)) + "&" +
+				"daily_budget_amount_local_micro=" + doesntMatterDecimal.add(new BigDecimal(15)).multiply(new BigDecimal(1000000L)) + "&" +
 				"start_time=" + URLEncoder.encode(doesntMatterDate.toInstant(ZoneOffset.UTC).toString(),"UTF-8") + "&" +
 				"end_time=" + URLEncoder.encode(doesntMatterDate.plusDays(1).toInstant(ZoneOffset.UTC).toString(),"UTF-8") + "&" +
 				"standard_delivery=" + doesntMatterBool + "&" +
@@ -117,7 +116,7 @@ public class AdvertisingTemplateTest extends AbstractTwitterApiTest {
 					.withName(doesntMatterString)
 					.withCurrency(doesntMatterString)
 					.withFundingInstrument(doesntMatterString)
-					.withBudget(doesntMatterDecimal.multiply(new BigDecimal(1000000L)), doesntMatterDecimal.multiply(new BigDecimal(1000000L)))
+					.withBudget(doesntMatterDecimal, doesntMatterDecimal.add(new BigDecimal(15)))
 					.activeBetween(doesntMatterDate, doesntMatterDate.plusDays(1))
 					.withStandardDelivery(doesntMatterBool)
 					.paused());

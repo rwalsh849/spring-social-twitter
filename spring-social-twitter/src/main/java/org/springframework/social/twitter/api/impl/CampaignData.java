@@ -130,6 +130,7 @@ public class CampaignData {
 		return params;
 	}
 	
+	@SuppressWarnings("rawtypes")
 	private void appendParameter(
 			MultiValueMap<String, Object> params, 
 			String name,
@@ -137,17 +138,14 @@ public class CampaignData {
 		
 		if (value == null) return;
 		if (value instanceof String && ((String) value).isEmpty()) return;
-		
-		Boolean isArray = value.getClass().isArray();
-		if (isArray && Array.getLength(value) == 0) return;
-		
-		if (isArray) {
+		if (value instanceof ArrayList && ((ArrayList) value).size() == 0) return;
+		if (value instanceof ArrayList) {
 			for (int i = 0; i < Array.getLength(value); i++) {
 				params.add(name, Array.get(value, i));
 			}
 		}
 		else {
-			params.set(name, value);
+			params.set(name, value.toString());
 		}
 			
 	}
