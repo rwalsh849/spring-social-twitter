@@ -26,20 +26,20 @@ import java.util.List;
  */
 public class Campaign extends TwitterObject {
 	private final String id;
-	private final String name;
 	private final String accountId;
+	private final String name;
 	private final String currency;
 	private final String fundingInstrumentId;
 	private final BigDecimal totalBudget;
 	private final BigDecimal dailyBudget;
 	private final LocalDateTime startTime;
 	private final LocalDateTime endTime;
-	private final LocalDateTime createdAt;
-	private final LocalDateTime updatedAt;
 	private final List<ReasonNotServable> reasonsNotServable;
 	private final Boolean standardDelivery;
 	private final Boolean paused;
 	private final Boolean deleted;
+	private final LocalDateTime createdAt;
+	private final LocalDateTime updatedAt;
 	
 	public Campaign(
 			String id, String name, String accountId, String currency,

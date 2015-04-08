@@ -15,12 +15,11 @@
  */
 package org.springframework.social.twitter.api;
 
-import java.math.BigDecimal;
-import java.time.LocalDateTime;
 import java.util.List;
 
 import org.springframework.social.ApiException;
 import org.springframework.social.MissingAuthorizationException;
+import org.springframework.social.twitter.api.impl.CampaignData;
 
 /**
  * Interface defining the operations for advertising operations.
@@ -35,6 +34,14 @@ public interface AdvertisingOperations {
 	 * @throws MissingAuthorizationException if TwitterTemplate was not created with OAuth credentials.
 	 */
 	List<AdvertisingAccount> getAccounts();
+	
+	/**
+	 * Retrieves a {@link Campaign} linked to a particular {@link AdvertisingAccount}.  
+	 * @return an instance of {@link Campaign}
+	 * @throws ApiException if there is an error while communicating with Twitter.
+	 * @throws MissingAuthorizationException if TwitterTemplate was not created with OAuth credentials.
+	 */
+	Campaign getCampaign(String accountId, String id);
 	
 	/**
 	 * Retrieves a list of all {@link Campaign} linked to a particular {@link AdvertisingAccount}.  
@@ -58,9 +65,13 @@ public interface AdvertisingOperations {
 	 * @throws ApiException if there is an error while communicating with Twitter.
 	 * @throws MissingAuthorizationException if TwitterTemplate was not created with OAuth credentials.
 	 */
-	Campaign createCampaign(
-			String name, String accountId, String currency,
-			String fundingInstrumentId, BigDecimal totalBudget, BigDecimal dailyBudget,
-			LocalDateTime startTime, LocalDateTime endTime,
-			Boolean standardDelivery, Boolean paused);
+	Campaign createCampaign(String accountId, CampaignData data);
+	
+	/**
+	 * Updates a {@link Campaign} for a {@link AdvertisingAccount} found by its campaignId.
+	 * @return an instance of {@link Campaign} which refers to the campaign updated in the procedure.
+	 * @throws ApiException if there is an error while communicating with Twitter.
+	 * @throws MissingAuthorizationException if TwitterTemplate was not created with OAuth credentials.
+	 */
+	Campaign updateCampaign(String accountId, String id, CampaignData data);
 }

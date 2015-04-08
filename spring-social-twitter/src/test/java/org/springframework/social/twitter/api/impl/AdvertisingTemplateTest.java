@@ -94,8 +94,8 @@ public class AdvertisingTemplateTest extends AbstractTwitterApiTest {
 		String mockedAccountId = "1ga1yn";
 		
 		String chainedPostContent = 
-				"name=" + doesntMatterString + "&" +
 				"account_id=" + mockedAccountId + "&" +
+				"name=" + doesntMatterString + "&" +
 				"currency=" + doesntMatterString + "&" +
 				"funding_instrument_id=" + doesntMatterString + "&" +
 				"total_budget_amount_local_micro=" + doesntMatterDecimal.multiply(new BigDecimal(1000000L)) + "&" +
@@ -112,10 +112,15 @@ public class AdvertisingTemplateTest extends AbstractTwitterApiTest {
 			.andRespond(withSuccess(jsonResource("ad-campaigns-create"), APPLICATION_JSON));
 		
 		Campaign campaign = twitter.advertisingOperations().createCampaign(
-				doesntMatterString, mockedAccountId, doesntMatterString, doesntMatterString,
-				doesntMatterDecimal, doesntMatterDecimal,
-				doesntMatterDate, doesntMatterDate.plusDays(1),
-				doesntMatterBool, !doesntMatterBool);
+				mockedAccountId,
+				new CampaignData()
+					.withName(doesntMatterString)
+					.withCurrency(doesntMatterString)
+					.withFundingInstrument(doesntMatterString)
+					.withBudget(doesntMatterDecimal.multiply(new BigDecimal(1000000L)), doesntMatterDecimal.multiply(new BigDecimal(1000000L)))
+					.activeBetween(doesntMatterDate, doesntMatterDate.plusDays(1))
+					.withStandardDelivery(doesntMatterBool)
+					.paused());
 		
 		asserSingleAdCampaignContents(campaign);
 	}
