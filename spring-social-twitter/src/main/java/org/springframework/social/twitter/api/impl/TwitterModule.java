@@ -22,6 +22,7 @@ import org.springframework.social.twitter.api.DirectMessage;
 import org.springframework.social.twitter.api.Entities;
 import org.springframework.social.twitter.api.FundingInstrument;
 import org.springframework.social.twitter.api.HashTagEntity;
+import org.springframework.social.twitter.api.LineItem;
 import org.springframework.social.twitter.api.MediaEntity;
 import org.springframework.social.twitter.api.MentionEntity;
 import org.springframework.social.twitter.api.OEmbedTweet;
@@ -69,6 +70,7 @@ class TwitterModule extends SimpleModule {
 		
 		context.setMixInAnnotations(AdvertisingAccount.class, AdvertisingAccountMixin.class);
 		context.setMixInAnnotations(FundingInstrument.class, FundingInstrumentMixin.class);
+		context.setMixInAnnotations(LineItem.class, LineItemMixin.class);
 		context.setMixInAnnotations(Campaign.class, CampaignMixin.class);
 		
 		context.setMixInAnnotations(AccountSettings.class, AccountSettingsMixin.class);

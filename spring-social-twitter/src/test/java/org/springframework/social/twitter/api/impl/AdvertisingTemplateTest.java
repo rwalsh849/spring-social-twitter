@@ -32,6 +32,7 @@ import static org.springframework.test.web.client.response.MockRestResponseCreat
 
 import java.io.UnsupportedEncodingException;
 import java.math.BigDecimal;
+import java.math.MathContext;
 import java.net.URLEncoder;
 import java.time.LocalDateTime;
 import java.time.Month;
@@ -41,10 +42,15 @@ import java.util.TimeZone;
 
 import org.junit.Test;
 import org.springframework.social.twitter.api.AdvertisingAccount;
+import org.springframework.social.twitter.api.AdvertisingObjetive;
+import org.springframework.social.twitter.api.AdvertisingPlacementType;
+import org.springframework.social.twitter.api.AdvertisingSentiment;
 import org.springframework.social.twitter.api.ApprovalStatus;
 import org.springframework.social.twitter.api.Campaign;
 import org.springframework.social.twitter.api.FundingInstrument;
 import org.springframework.social.twitter.api.FundingInstrumentType;
+import org.springframework.social.twitter.api.LineItem;
+import org.springframework.social.twitter.api.LineItemOptimization;
 import org.springframework.social.twitter.api.ReasonNotServable;
 
 /**
@@ -190,6 +196,18 @@ public class AdvertisingTemplateTest extends AbstractTwitterApiTest {
 		assertFundingInstrumentContents(fundingInstruments);
 	}
 	
+	@Test
+	public void getLineItems() {
+		String mockedAccountId = "hkk5";
+		mockServer
+			.expect(requestTo("https://ads-api.twitter.com/0/accounts/" + mockedAccountId + "/line_items"))
+			.andExpect(method(GET))
+			.andRespond(withSuccess(jsonResource("line-items"), APPLICATION_JSON));
+	
+		List<LineItem> lineItems = twitter.advertisingOperations().getLineItems(mockedAccountId);
+		assertLineItemContents(lineItems);
+	}
+	
 	private void assertAdAccountContents(List<AdvertisingAccount> accounts) {
 		assertEquals(2, accounts.size());
 		
@@ -283,14 +301,35 @@ public class AdvertisingTemplateTest extends AbstractTwitterApiTest {
 		assertEquals("hkk5", fundingInstruments.get(1).getAccountId());
 		assertEquals("FakeNike - Credit Line", fundingInstruments.get(1).getDescription());
 		assertEquals("GBP", fundingInstruments.get(1).getCurrency());
-		assertEquals(new BigDecimal(150000.00), fundingInstruments.get(1).getCreditLimit());
-		assertEquals(new BigDecimal(123661.919751), fundingInstruments.get(1).getCreditRemaining());
-		assertEquals(new BigDecimal(0.00), fundingInstruments.get(1).getFundedAmount());
+		assertEquals(new BigDecimal(150000.00).round(MathContext.DECIMAL32), fundingInstruments.get(1).getCreditLimit());
+		assertEquals(new BigDecimal(123661.919751).round(MathContext.DECIMAL32), fundingInstruments.get(1).getCreditRemaining());
+		assertEquals(new BigDecimal(0.00).round(MathContext.DECIMAL32), fundingInstruments.get(1).getFundedAmount());
 		assertEquals(LocalDateTime.of(2013, Month.MAY, 30, 04, 00, 00), fundingInstruments.get(1).getStartTime());
 		assertEquals(null, fundingInstruments.get(1).getEndTime());
 		assertEquals(LocalDateTime.of(2013, Month.MAY, 30, 18, 16, 38), fundingInstruments.get(1).getCreatedAt());
 		assertEquals(LocalDateTime.of(2013, Month.MAY, 30, 18, 16, 38), fundingInstruments.get(1).getUpdatedAt());
 		assertEquals(false, fundingInstruments.get(1).isCancelled());
 		assertEquals(false, fundingInstruments.get(1).isDeleted());
+	}
+	
+	private void assertLineItemContents(List<LineItem> lineItems) {
+		assertEquals(1, lineItems.size());
+		
+		assertEquals("5woz", lineItems.get(0).getId());
+		assertEquals("hkk5", lineItems.get(0).getAccountId());
+		assertEquals("7jem", lineItems.get(0).getCampaignId());
+		assertEquals("USD", lineItems.get(0).getCurrency());
+		assertEquals(AdvertisingPlacementType.PROMOTED_TWEETS_FOR_TIMELINES, lineItems.get(0).getPlacementType());
+		assertEquals(AdvertisingObjetive.TWEET_ENGAGEMENTS, lineItems.get(0).getObjective());
+		assertEquals(AdvertisingSentiment.POSITIVE_ONLY, lineItems.get(0).getIncludeSentiment());
+		assertEquals(LineItemOptimization.DEFAULT, lineItems.get(0).getOptimization());
+		assertEquals(null, lineItems.get(0).getTotalBudgetAmount());
+		assertEquals(new BigDecimal(0.69).round(MathContext.DECIMAL32), lineItems.get(0).getBidAmount());
+		assertEquals(null, lineItems.get(0).getSuggestedHighCpeBid());
+		assertEquals(null, lineItems.get(0).getSuggestedLowCpeBid());
+		assertEquals(false, lineItems.get(0).isPaused());
+		assertEquals(true, lineItems.get(0).isDeleted());
+		assertEquals(LocalDateTime.of(2012, Month.NOVEMBER, 20, 23, 29, 10), lineItems.get(0).getCreatedAt());
+		assertEquals(LocalDateTime.of(2012, Month.DECEMBER, 06, 00, 53, 57), lineItems.get(0).getUpdatedAt());
 	}
 }

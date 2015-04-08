@@ -18,7 +18,7 @@ package org.springframework.social.twitter.api;
 /**
  * @author Hudson Mendes
  */
-public enum AdvertisingGroupOptimization {
+public enum LineItemOptimization {
 	DEFAULT,
 	WEBSITE_CONVERSIONS
 }

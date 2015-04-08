@@ -17,6 +17,7 @@ package org.springframework.social.twitter.api.impl;
 
 import java.io.IOException;
 import java.math.BigDecimal;
+import java.math.MathContext;
 
 import com.fasterxml.jackson.core.JsonParser;
 import com.fasterxml.jackson.core.JsonProcessingException;
@@ -39,7 +40,7 @@ public class BigDecimalMicroAmountDeserializer extends JsonDeserializer<BigDecim
 			throws IOException, JsonProcessingException {
 		
 		Long microAmount = new Long(p.getText());
-		return new BigDecimal(microAmount / 1000000.00);
+		return new BigDecimal(microAmount / 1000000.00).round(MathContext.DECIMAL32);
 	}
 
 }

@@ -34,29 +34,43 @@ import java.util.Optional;
  * 
  * @author Hudson Mendes
  */
-public class AdvertisingGroup extends TwitterObject {
+public class LineItem extends TwitterObject {
 	private final String id;
 	private final String accountId;
 	private final String campaignId;
 	private final String currency;
 	private final AdvertisingPlacementType placementType;
 	private final AdvertisingObjetive objective;
-	private final Optional<AdvertisingSentiment> includeSentiment;
-	private final AdvertisingGroupOptimization optimization;
+	private final AdvertisingSentiment includeSentiment;
+	private final LineItemOptimization optimization;
+	
 	private final BigDecimal totalBudgetAmount;
 	private final BigDecimal bidAmount;
+	private final BigDecimal suggestedHighCpeBid;
+	private final BigDecimal suggestedLowCpeBid;
+	
 	private final Boolean paused;
 	private final Boolean deleted; 
 	private final LocalDateTime createdAt;
 	private final LocalDateTime updatedAt;
 	
-	public AdvertisingGroup(
-			String id, String accountId, String campaignId, String currency,
-			AdvertisingPlacementType placementType, AdvertisingObjetive objective,
-			Optional<AdvertisingSentiment> includeSentiment, AdvertisingGroupOptimization optimization,
-			BigDecimal totalBudgetAmount, BigDecimal bidAmount,
-			Boolean paused, Boolean deleted,
-			LocalDateTime createdAt, LocalDateTime updatedAt) {
+	public LineItem(
+			String id,
+			String accountId,
+			String campaignId,
+			String currency,
+			AdvertisingPlacementType placementType,
+			AdvertisingObjetive objective,
+			AdvertisingSentiment includeSentiment,
+			LineItemOptimization optimization,
+			BigDecimal totalBudgetAmount,
+			BigDecimal bidAmount,
+			BigDecimal suggestedHighCpeBid,
+			BigDecimal suggestedLowCpeBid,
+			Boolean paused,
+			Boolean deleted,
+			LocalDateTime createdAt,
+			LocalDateTime updatedAt) {
 		
 		this.id = id;
 		this.accountId = accountId;
@@ -70,6 +84,8 @@ public class AdvertisingGroup extends TwitterObject {
 		
 		this.totalBudgetAmount = totalBudgetAmount;
 		this.bidAmount = bidAmount;
+		this.suggestedHighCpeBid = suggestedHighCpeBid;
+		this.suggestedLowCpeBid = suggestedLowCpeBid;
 		
 		this.paused = paused;
 		this.deleted = deleted;
@@ -102,11 +118,11 @@ public class AdvertisingGroup extends TwitterObject {
 		return objective;
 	}
 
-	public Optional<AdvertisingSentiment> getIncludeSentiment() {
+	public AdvertisingSentiment getIncludeSentiment() {
 		return includeSentiment;
 	}
 
-	public AdvertisingGroupOptimization getOptimization() {
+	public LineItemOptimization getOptimization() {
 		return optimization;
 	}
 
@@ -116,6 +132,14 @@ public class AdvertisingGroup extends TwitterObject {
 
 	public BigDecimal getBidAmount() {
 		return bidAmount;
+	}
+
+	public BigDecimal getSuggestedHighCpeBid() {
+		return suggestedHighCpeBid;
+	}
+
+	public BigDecimal getSuggestedLowCpeBid() {
+		return suggestedLowCpeBid;
 	}
 
 	public Boolean isPaused() {

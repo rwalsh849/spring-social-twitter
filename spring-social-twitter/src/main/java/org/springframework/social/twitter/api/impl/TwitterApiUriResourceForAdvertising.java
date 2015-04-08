@@ -6,7 +6,9 @@ public enum TwitterApiUriResourceForAdvertising {
 	CAMPAIGNS("accounts/:account_id/campaigns"),
 	CAMPAIGN("accounts/:account_id/campaigns/:id"),
 	
-	FUNDING_INSTRUMENTS("accounts/:account_id/funding_instruments");
+	FUNDING_INSTRUMENTS("accounts/:account_id/funding_instruments"),
+	
+	LINE_ITEMS("accounts/:account_id/line_items");
 	
 	private final String name;
 	

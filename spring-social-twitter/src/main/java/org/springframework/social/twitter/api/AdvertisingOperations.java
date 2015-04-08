@@ -80,4 +80,12 @@ public interface AdvertisingOperations {
 	 * @throws MissingAuthorizationException if TwitterTemplate was not created with OAuth credentials.
 	 */
 	List<FundingInstrument> getFundingInstruments(String accountId);
+	
+	/**
+	 * Retrieves a list of all {@link LineItem} linked to a particular {@link AdvertisingAccount}.  
+	 * @return a list of {@link LineItem}
+	 * @throws ApiException if there is an error while communicating with Twitter.
+	 * @throws MissingAuthorizationException if TwitterTemplate was not created with OAuth credentials.
+	 */
+	List<LineItem> getLineItems(String accountId);
 }

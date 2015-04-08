@@ -22,6 +22,7 @@ import org.springframework.social.twitter.api.AdvertisingAccount;
 import org.springframework.social.twitter.api.AdvertisingOperations;
 import org.springframework.social.twitter.api.Campaign;
 import org.springframework.social.twitter.api.FundingInstrument;
+import org.springframework.social.twitter.api.LineItem;
 import org.springframework.util.LinkedMultiValueMap;
 import org.springframework.util.MultiValueMap;
 import org.springframework.web.client.RestTemplate;
@@ -110,6 +111,15 @@ public class AdvertisingTemplate extends AbstractTwitterOperations implements Ad
 		parameters.set("with_deleted", "true");
 		URI resourceUri = new TwitterApiUriBuilder().withResource(resource).withArgument(parameters).build();
 		FundingInstrumentList data = restTemplate.getForObject(resourceUri, FundingInstrumentList.class);
+		return data.getList();
+	}
+
+	@Override
+	public List<LineItem> getLineItems(String accountId) {
+		requireUserAuthorization();
+		TwitterApiUriResourceForAdvertising resource = TwitterApiUriResourceForAdvertising.LINE_ITEMS;
+		URI resourceUri = new TwitterApiUriBuilder().withResource(resource).withArgument("account_id", accountId).build();
+		LineItemList data = restTemplate.getForObject(resourceUri, LineItemList.class);
 		return data.getList();
 	}
 	
