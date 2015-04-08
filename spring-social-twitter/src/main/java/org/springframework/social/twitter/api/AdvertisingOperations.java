@@ -73,5 +73,5 @@ public interface AdvertisingOperations {
 	 * @throws ApiException if there is an error while communicating with Twitter.
 	 * @throws MissingAuthorizationException if TwitterTemplate was not created with OAuth credentials.
 	 */
-	Campaign updateCampaign(String accountId, String id, CampaignData data);
+	void updateCampaign(String accountId, String id, CampaignData data);
 }

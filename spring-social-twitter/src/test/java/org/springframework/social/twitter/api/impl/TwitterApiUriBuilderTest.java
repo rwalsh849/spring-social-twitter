@@ -41,7 +41,7 @@ public class TwitterApiUriBuilderTest {
 	
 	@Test
 	public void build_automaticHosts() {
-		URI result1 = new TwitterApiUriBuilder().withResource(TwitterApiUriResourceForAdvertising.ACCOUNT).build();
+		URI result1 = new TwitterApiUriBuilder().withResource(TwitterApiUriResourceForAdvertising.ACCOUNTS).build();
 		URI result2 = new TwitterApiUriBuilder().withResource(TwitterApiUriResourceForStandard.BLOCKS).build();
 		assertThat(result1.getHost(), not(equalTo(result2.getHost())));
 	}

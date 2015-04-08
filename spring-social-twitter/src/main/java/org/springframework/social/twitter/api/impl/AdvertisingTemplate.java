@@ -41,7 +41,7 @@ public class AdvertisingTemplate extends AbstractTwitterOperations implements Ad
 	@Override
 	public List<AdvertisingAccount> getAccounts() {
 		requireUserAuthorization();
-		TwitterApiUriResourceForAdvertising resource = TwitterApiUriResourceForAdvertising.ACCOUNT;
+		TwitterApiUriResourceForAdvertising resource = TwitterApiUriResourceForAdvertising.ACCOUNTS;
 		URI resourceUri = new TwitterApiUriBuilder().withResource(resource).build();
 		AdvertisingAccountList data = restTemplate.getForObject(resourceUri, AdvertisingAccountList.class);
 		return data.getList();
@@ -49,13 +49,20 @@ public class AdvertisingTemplate extends AbstractTwitterOperations implements Ad
 	
 	@Override
 	public Campaign getCampaign(String accountId, String id) {
-		throw new UnsupportedOperationException("Not implemented");
+		requireUserAuthorization();
+		TwitterApiUriResourceForAdvertising resource = TwitterApiUriResourceForAdvertising.CAMPAIGN;
+		LinkedMultiValueMap<String, String> parameters = new LinkedMultiValueMap<String, String>();
+		parameters.set("account_id", accountId);
+		parameters.set("id", id);
+		URI resourceUri = new TwitterApiUriBuilder().withResource(resource).withArgument(parameters).build();
+		CampaignResult data = restTemplate.getForObject(resourceUri, CampaignResult.class);
+		return data.getCampaign();
 	}
 
 	@Override
 	public List<Campaign> getCampaigns(String accountId) {
 		requireUserAuthorization();
-		TwitterApiUriResourceForAdvertising resource = TwitterApiUriResourceForAdvertising.CAMPAIGN;
+		TwitterApiUriResourceForAdvertising resource = TwitterApiUriResourceForAdvertising.CAMPAIGNS;
 		URI resourceUri = new TwitterApiUriBuilder().withResource(resource).withArgument("account_id", accountId).build();
 		CampaignList data = restTemplate.getForObject(resourceUri, CampaignList.class);
 		return data.getList();
@@ -76,7 +83,7 @@ public class AdvertisingTemplate extends AbstractTwitterOperations implements Ad
 	@Override
 	public Campaign createCampaign(String accountId, CampaignData data) {
 		requireUserAuthorization();
-		TwitterApiUriResourceForAdvertising resource = TwitterApiUriResourceForAdvertising.CAMPAIGN;
+		TwitterApiUriResourceForAdvertising resource = TwitterApiUriResourceForAdvertising.CAMPAIGNS;
 		URI resourceUri = new TwitterApiUriBuilder().withResource(resource).withArgument("account_id", accountId).build();
 		MultiValueMap<String, Object> params = data.toRequestParameters();
 		CampaignResult result = restTemplate.postForObject(resourceUri, params, CampaignResult.class);
@@ -84,12 +91,14 @@ public class AdvertisingTemplate extends AbstractTwitterOperations implements Ad
 	}
 
 	@Override
-	public Campaign updateCampaign(String accountId, String id, CampaignData data) {
+	public void updateCampaign(String accountId, String id, CampaignData data) {
 		requireUserAuthorization();
 		TwitterApiUriResourceForAdvertising resource = TwitterApiUriResourceForAdvertising.CAMPAIGN;
-		URI resourceUri = new TwitterApiUriBuilder().withResource(resource).withArgument("account_id", accountId).build();
+		LinkedMultiValueMap<String, String> parameters = new LinkedMultiValueMap<String, String>();
+		parameters.set("account_id", accountId);
+		parameters.set("id", id);
+		URI resourceUri = new TwitterApiUriBuilder().withResource(resource).withArgument(parameters).build();
 		MultiValueMap<String, Object> params = data.toRequestParameters();
 		restTemplate.put(resourceUri, params);
-		return this.getCampaign(accountId, id);
 	}
 }

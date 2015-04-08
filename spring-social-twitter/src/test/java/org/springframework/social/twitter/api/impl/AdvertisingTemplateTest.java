@@ -22,6 +22,7 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertThat;
 import static org.springframework.http.HttpMethod.GET;
 import static org.springframework.http.HttpMethod.POST;
+import static org.springframework.http.HttpMethod.PUT;
 import static org.springframework.http.MediaType.APPLICATION_JSON;
 import static org.springframework.test.web.client.match.MockRestRequestMatchers.content;
 import static org.springframework.test.web.client.match.MockRestRequestMatchers.method;
@@ -59,6 +60,19 @@ public class AdvertisingTemplateTest extends AbstractTwitterApiTest {
 
 		List<AdvertisingAccount> accounts = twitter.advertisingOperations().getAccounts();
 		assertAdAccountContents(accounts);
+	}
+
+	@Test
+	public void getCampaign() {
+		String mockedAccountId = "0ga0yn";
+		String mockedCampaignId = "92ph";
+		mockServer
+			.expect(requestTo("https://ads-api.twitter.com/0/accounts/" + mockedAccountId + "/campaigns/" + mockedCampaignId))
+			.andExpect(method(GET))
+			.andRespond(withSuccess(jsonResource("ad-campaigns-single"), APPLICATION_JSON));
+	
+		Campaign campaign = twitter.advertisingOperations().getCampaign(mockedAccountId, mockedCampaignId);
+		assertSingleCampaignContents(campaign);
 	}
 	
 	@Test
@@ -108,7 +122,7 @@ public class AdvertisingTemplateTest extends AbstractTwitterApiTest {
 			.expect(requestTo("https://ads-api.twitter.com/0/accounts/" + mockedAccountId + "/campaigns"))
 			.andExpect(method(POST))
 			.andExpect(content().string(chainedPostContent))
-			.andRespond(withSuccess(jsonResource("ad-campaigns-create"), APPLICATION_JSON));
+			.andRespond(withSuccess(jsonResource("ad-campaigns-single"), APPLICATION_JSON));
 		
 		Campaign campaign = twitter.advertisingOperations().createCampaign(
 				mockedAccountId,
@@ -121,7 +135,46 @@ public class AdvertisingTemplateTest extends AbstractTwitterApiTest {
 					.withStandardDelivery(doesntMatterBool)
 					.paused());
 		
-		asserSingleAdCampaignContents(campaign);
+		assertSingleCampaignContents(campaign);
+	}
+	
+	@Test
+	public void updateCampaign() throws UnsupportedEncodingException {
+		String doesntMatterString = "doesn-matter-altered";
+		BigDecimal doesntMatterDecimal = new BigDecimal(2.00);
+		LocalDateTime doesntMatterDate = LocalDateTime.now();
+		Boolean doesntMatterBool = false; 
+		String mockedCampaignId = "92ph";
+		String mockedAccountId = "1ga1yn";
+		
+		String chainedPostContent = 
+				"name=" + doesntMatterString + "&" +
+				"currency=" + doesntMatterString + "&" +
+				"funding_instrument_id=" + doesntMatterString + "&" +
+				"total_budget_amount_local_micro=" + doesntMatterDecimal.multiply(new BigDecimal(1000000L)) + "&" +
+				"daily_budget_amount_local_micro=" + doesntMatterDecimal.add(new BigDecimal(3)).multiply(new BigDecimal(1000000L)) + "&" +
+				"start_time=" + URLEncoder.encode(doesntMatterDate.toInstant(ZoneOffset.UTC).toString(),"UTF-8") + "&" +
+				"end_time=" + URLEncoder.encode(doesntMatterDate.plusDays(3).toInstant(ZoneOffset.UTC).toString(),"UTF-8") + "&" +
+				"standard_delivery=" + !doesntMatterBool + "&" +
+				"paused=" + doesntMatterBool;
+		
+		mockServer
+			.expect(requestTo("https://ads-api.twitter.com/0/accounts/" + mockedAccountId + "/campaigns/" + mockedCampaignId))
+			.andExpect(method(PUT))
+			.andExpect(content().string(chainedPostContent))
+			.andRespond(withSuccess());
+		
+		twitter.advertisingOperations().updateCampaign(
+				mockedAccountId,
+				mockedCampaignId,
+				new CampaignData()
+					.withName(doesntMatterString)
+					.withCurrency(doesntMatterString)
+					.withFundingInstrument(doesntMatterString)
+					.withBudget(doesntMatterDecimal, doesntMatterDecimal.add(new BigDecimal(3)))
+					.activeBetween(doesntMatterDate, doesntMatterDate.plusDays(3))
+					.withStandardDelivery(!doesntMatterBool)
+					.unpaused());
 	}
 	
 	private void assertAdAccountContents(List<AdvertisingAccount> accounts) {
@@ -174,6 +227,26 @@ public class AdvertisingTemplateTest extends AbstractTwitterApiTest {
 		assertEquals(false, campaigns.get(0).isDeleted());
 	}
 	
+	private void assertSingleCampaignContents(Campaign campaign) {
+		assertEquals("1ga1yn", campaign.getAccountId());
+		assertEquals("92ph", campaign.getId());
+		assertEquals("My First Campaign", campaign.getName());
+		assertEquals("USD", campaign.getCurrency());
+		assertEquals("yyyy", campaign.getFundingInstrumentId());
+		
+		assertEquals(new BigDecimal(500.00), campaign.getTotalBudget());
+		assertEquals(new BigDecimal(40.00), campaign.getDailyBudget());
+		
+		assertEquals(LocalDateTime.of(2015, Month.FEBRUARY, 9, 00, 00, 00), campaign.getStartTime());
+		assertEquals(null, campaign.getEndTime());
+		
+		assertThat(campaign.getReasonsNotServable(), empty());
+		assertEquals(true, campaign.isStandardDelivery());
+		assertEquals(false, campaign.isPaused());
+		assertEquals(true, campaign.isServable());
+		assertEquals(false, campaign.isDeleted());
+	}	
+	
 	private void assertFundingInstrumentContents(List<FundingInstrument> fundingInstruments) {
 		assertEquals(2, fundingInstruments.size());
 		
@@ -207,25 +280,4 @@ public class AdvertisingTemplateTest extends AbstractTwitterApiTest {
 		assertEquals(false, fundingInstruments.get(1).isCancelled());
 		assertEquals(false, fundingInstruments.get(1).isDeleted());
 	}
-	
-	private void asserSingleAdCampaignContents(Campaign campaign) {
-		assertEquals("92ph", campaign.getId());
-		assertEquals("My First Campaign", campaign.getName());
-		assertEquals("1ga1yn", campaign.getAccountId());
-		assertEquals("USD", campaign.getCurrency());
-		assertEquals("yyyy", campaign.getFundingInstrumentId());
-		
-		assertEquals(new BigDecimal(500.00), campaign.getTotalBudget());
-		assertEquals(new BigDecimal(40.00), campaign.getDailyBudget());
-		
-		assertEquals(LocalDateTime.of(2015, Month.FEBRUARY, 9, 00, 00, 00), campaign.getStartTime());
-		assertEquals(null, campaign.getEndTime());
-		
-		assertThat(campaign.getReasonsNotServable(), empty());
-		assertEquals(true, campaign.isStandardDelivery());
-		assertEquals(false, campaign.isPaused());
-		assertEquals(true, campaign.isServable());
-		assertEquals(false, campaign.isDeleted());
-	}
-	
 }

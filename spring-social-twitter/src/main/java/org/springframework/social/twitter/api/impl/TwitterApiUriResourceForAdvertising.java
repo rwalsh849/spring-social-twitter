@@ -1,8 +1,11 @@
 package org.springframework.social.twitter.api.impl;
 
 public enum TwitterApiUriResourceForAdvertising {
-	ACCOUNT("accounts"),
-	CAMPAIGN("accounts/:account_id/campaigns"),
+	ACCOUNTS("accounts"),
+	
+	CAMPAIGNS("accounts/:account_id/campaigns"),
+	CAMPAIGN("accounts/:account_id/campaigns/:id"),
+	
 	FUNDING_INSTRUMENTS("accounts/:account_id/funding_instruments");
 	
 	private final String name;
