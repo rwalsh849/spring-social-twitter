@@ -200,12 +200,25 @@ public class AdvertisingTemplateTest extends AbstractTwitterApiTest {
 	public void getLineItems() {
 		String mockedAccountId = "hkk5";
 		mockServer
-			.expect(requestTo("https://ads-api.twitter.com/0/accounts/" + mockedAccountId + "/line_items"))
+			.expect(requestTo("https://ads-api.twitter.com/0/accounts/" + mockedAccountId + "/line_items?with_deleted=true"))
 			.andExpect(method(GET))
 			.andRespond(withSuccess(jsonResource("line-items"), APPLICATION_JSON));
 	
 		List<LineItem> lineItems = twitter.advertisingOperations().getLineItems(mockedAccountId);
 		assertLineItemContents(lineItems);
+	}
+	
+	@Test
+	public void getLineItem() {
+		String mockedAccountId = "hkk5";
+		String mockedLineItem = "5woz";
+		mockServer
+			.expect(requestTo("https://ads-api.twitter.com/0/accounts/" + mockedAccountId + "/line_items/" + mockedLineItem))
+			.andExpect(method(GET))
+			.andRespond(withSuccess(jsonResource("line-items-single"), APPLICATION_JSON));
+	
+		LineItem lineItems = twitter.advertisingOperations().getLineItem(mockedAccountId, mockedLineItem);
+		assertSingleLineItemContents(lineItems);
 	}
 	
 	private void assertAdAccountContents(List<AdvertisingAccount> accounts) {
@@ -331,5 +344,24 @@ public class AdvertisingTemplateTest extends AbstractTwitterApiTest {
 		assertEquals(true, lineItems.get(0).isDeleted());
 		assertEquals(LocalDateTime.of(2012, Month.NOVEMBER, 20, 23, 29, 10), lineItems.get(0).getCreatedAt());
 		assertEquals(LocalDateTime.of(2012, Month.DECEMBER, 06, 00, 53, 57), lineItems.get(0).getUpdatedAt());
+	}
+	
+	private void assertSingleLineItemContents(LineItem lineItem) {
+		assertEquals("69ob", lineItem.getId());
+		assertEquals("hkk5", lineItem.getAccountId());
+		assertEquals("7wdy", lineItem.getCampaignId());
+		assertEquals("GBP", lineItem.getCurrency());
+		assertEquals(AdvertisingPlacementType.PROMOTED_ACCOUNT, lineItem.getPlacementType());
+		assertEquals(AdvertisingObjetive.FOLLOWERS, lineItem.getObjective());
+		assertEquals(null, lineItem.getIncludeSentiment());
+		assertEquals(LineItemOptimization.DEFAULT, lineItem.getOptimization());
+		assertEquals(null, lineItem.getTotalBudgetAmount());
+		assertEquals(new BigDecimal(1.75).round(MathContext.DECIMAL32), lineItem.getBidAmount());
+		assertEquals(null, lineItem.getSuggestedHighCpeBid());
+		assertEquals(null, lineItem.getSuggestedLowCpeBid());
+		assertEquals(false, lineItem.isPaused());
+		assertEquals(false, lineItem.isDeleted());
+		assertEquals(LocalDateTime.of(2012, Month.NOVEMBER, 30, 22, 58, 11), lineItem.getCreatedAt());
+		assertEquals(LocalDateTime.of(2012, Month.NOVEMBER, 30, 22, 58, 11), lineItem.getUpdatedAt());
 	}
 }

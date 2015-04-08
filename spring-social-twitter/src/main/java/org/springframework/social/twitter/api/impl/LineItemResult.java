@@ -15,27 +15,27 @@
  */
 package org.springframework.social.twitter.api.impl;
 
-import org.springframework.social.twitter.api.Campaign;
+import org.springframework.social.twitter.api.LineItem;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 /**
- * {@link Campaign} resulted from GET (single) and POST operations.
+ * {@link LineItem} resulted from GET (single) and POST operations.
  * This helps Jackson know what type to deserialize list content into.
  * @author Hudson Mendes
  */
 @JsonIgnoreProperties(ignoreUnknown=true)
-public class CampaignResult {
-	private final Campaign campaign;
+public class LineItemResult {
+	private final LineItem lineItem;
 
 	@JsonCreator
-	public CampaignResult(@JsonProperty("data") Campaign campaign) {
-		this.campaign = campaign;
+	public LineItemResult(@JsonProperty("data") LineItem lineItem) {
+		this.lineItem = lineItem;
 	}
 	
-	public Campaign getCampaign() {
-		return this.campaign;
+	public LineItem getLineItem() {
+		return this.lineItem;
 	}
 }

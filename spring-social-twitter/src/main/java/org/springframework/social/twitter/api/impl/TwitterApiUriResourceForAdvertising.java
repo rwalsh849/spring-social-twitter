@@ -8,7 +8,8 @@ public enum TwitterApiUriResourceForAdvertising {
 	
 	FUNDING_INSTRUMENTS("accounts/:account_id/funding_instruments"),
 	
-	LINE_ITEMS("accounts/:account_id/line_items");
+	LINE_ITEMS("accounts/:account_id/line_items"),
+	LINE_ITEM("accounts/:account_id/line_items/:id");
 	
 	private final String name;
 	

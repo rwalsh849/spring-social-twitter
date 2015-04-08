@@ -118,9 +118,24 @@ public class AdvertisingTemplate extends AbstractTwitterOperations implements Ad
 	public List<LineItem> getLineItems(String accountId) {
 		requireUserAuthorization();
 		TwitterApiUriResourceForAdvertising resource = TwitterApiUriResourceForAdvertising.LINE_ITEMS;
-		URI resourceUri = new TwitterApiUriBuilder().withResource(resource).withArgument("account_id", accountId).build();
+		LinkedMultiValueMap<String, String> parameters = new LinkedMultiValueMap<String, String>();
+		parameters.set("account_id", accountId);
+		parameters.set("with_deleted", "true");
+		URI resourceUri = new TwitterApiUriBuilder().withResource(resource).withArgument(parameters).build();
 		LineItemList data = restTemplate.getForObject(resourceUri, LineItemList.class);
 		return data.getList();
+	}
+
+	@Override
+	public LineItem getLineItem(String accountId, String id) {
+		requireUserAuthorization();
+		TwitterApiUriResourceForAdvertising resource = TwitterApiUriResourceForAdvertising.LINE_ITEM;
+		LinkedMultiValueMap<String, String> parameters = new LinkedMultiValueMap<String, String>();
+		parameters.set("account_id", accountId);
+		parameters.set("id", id);
+		URI resourceUri = new TwitterApiUriBuilder().withResource(resource).withArgument(parameters).build();
+		LineItemResult data = restTemplate.getForObject(resourceUri, LineItemResult.class);
+		return data.getLineItem();
 	}
 	
 }
