@@ -16,7 +16,6 @@
 package org.springframework.social.twitter.api.impl;
 
 import java.math.BigDecimal;
-import java.time.ZoneOffset;
 
 import org.springframework.social.twitter.api.AdvertisingObjective;
 import org.springframework.social.twitter.api.AdvertisingPlacementType;

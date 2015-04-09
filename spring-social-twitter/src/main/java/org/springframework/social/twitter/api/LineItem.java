@@ -17,7 +17,6 @@ package org.springframework.social.twitter.api;
 
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
-import java.util.Optional;
 
 /**
  * Represents an Advertising Group (also known as Line Item).

@@ -24,7 +24,6 @@ import java.util.List;
 
 import org.springframework.social.twitter.api.Campaign;
 import org.springframework.social.twitter.api.ReasonNotServable;
-import org.springframework.social.twitter.api.TransferingData;
 import org.springframework.util.LinkedMultiValueMap;
 import org.springframework.util.MultiValueMap;
 
