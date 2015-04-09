@@ -270,6 +270,51 @@ public class AdvertisingTemplateTest extends AbstractTwitterApiTest {
 		assertSingleLineItemContents(lineItems);
 	}
 	
+	@Test
+	public void updateLineItem() {
+		String mockedAccountId = "hkk5";
+		String mockedLineItemId = "l13r";
+		String doesntMatterString = "doesn-matter-altered";
+		BigDecimal doesntMatterDecimal = new BigDecimal(2.00);
+		Boolean doesntMatterBool = true;
+		
+		String chainedPostContent = 
+				"campaign_id=" + doesntMatterString + "&" +
+				"currency=" + doesntMatterString + "&" +
+				"placement_type=" + AdvertisingPlacementType.PROMOTED_TWEETS_FOR_TIMELINES + "&" +
+				"objective=" +  AdvertisingObjective.FOLLOWERS + "&" +
+				"include_sentiment=" + AdvertisingSentiment.ALL + "&" +
+				"optimization=" + LineItemOptimization.DEFAULT + "&" +
+				"total_budget_amount=" + doesntMatterDecimal.multiply(new BigDecimal(1000000L)) + "&" +
+				"bid_amount=" + doesntMatterDecimal.multiply(new BigDecimal(1000000L)) + "&" +
+				"suggested_high_cpe_bid=" + doesntMatterDecimal.add(new BigDecimal(10)).multiply(new BigDecimal(1000000L)) + "&" +
+				"suggested_low_cpe_bid=" + doesntMatterDecimal.multiply(new BigDecimal(1000000L)) + "&" +
+				"paused=" + !doesntMatterBool + "&" +
+				"deleted=" + doesntMatterBool;
+		
+		mockServer
+			.expect(requestTo("https://ads-api.twitter.com/0/accounts/" + mockedAccountId + "/line_items/" + mockedLineItemId))
+			.andExpect(method(PUT))
+			.andExpect(content().string(chainedPostContent))
+			.andRespond(withSuccess(jsonResource("line-items-single"), APPLICATION_JSON));
+	
+		twitter.advertisingOperations().updateLineItem(
+				mockedAccountId,
+				mockedLineItemId,
+				new LineItemData()
+					.withCampaign(doesntMatterString)
+					.withCurrency(doesntMatterString)
+					.withTotalBudget(doesntMatterDecimal)
+					.withBidAmount(doesntMatterDecimal)
+					.withSuggestedCpeBid(doesntMatterDecimal, doesntMatterDecimal.add(new BigDecimal(10)))
+					.withPlacementType(AdvertisingPlacementType.PROMOTED_TWEETS_FOR_TIMELINES)
+					.withObjective(AdvertisingObjective.FOLLOWERS)
+					.optimizingFor(LineItemOptimization.DEFAULT)
+					.includingSentiment(AdvertisingSentiment.ALL)
+					.unpaused()
+					.deleted());
+	}
+	
 	private void assertAdAccountContents(List<AdvertisingAccount> accounts) {
 		assertEquals(2, accounts.size());
 		

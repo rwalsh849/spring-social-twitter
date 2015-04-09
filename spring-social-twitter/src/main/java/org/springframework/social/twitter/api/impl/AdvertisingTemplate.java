@@ -148,5 +148,17 @@ public class AdvertisingTemplate extends AbstractTwitterOperations implements Ad
 		LineItemResult result = restTemplate.postForObject(resourceUri, bodyData, LineItemResult.class);
 		return result.getLineItem();
 	}
+
+	@Override
+	public void updateLineItem(String accountId, String id, TransferingData data) {
+		requireUserAuthorization();
+		TwitterApiUriResourceForAdvertising resource = TwitterApiUriResourceForAdvertising.LINE_ITEM;
+		LinkedMultiValueMap<String, String> parameters = new LinkedMultiValueMap<String, String>();
+		parameters.set("account_id", accountId);
+		parameters.set("id", id);
+		URI resourceUri = new TwitterApiUriBuilder().withResource(resource).withArgument(parameters).build();
+		MultiValueMap<String, Object> bodyData = data.toRequestParameters();
+		restTemplate.put(resourceUri, bodyData);
+	}
 	
 }

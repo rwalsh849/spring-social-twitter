@@ -102,5 +102,13 @@ public interface AdvertisingOperations {
 	 * @throws ApiException if there is an error while communicating with Twitter.
 	 * @throws MissingAuthorizationException if TwitterTemplate was not created with OAuth credentials.
 	 */
-	LineItem createLineItem(String accountId, TransferingData data); 
+	LineItem createLineItem(String accountId, TransferingData data);
+	
+	/**
+	 * Updtes {@link LineItem} linked to a particular {@link AdvertisingAccount} referred to by its id.  
+	 * @return an instance of {@link LineItem}
+	 * @throws ApiException if there is an error while communicating with Twitter.
+	 * @throws MissingAuthorizationException if TwitterTemplate was not created with OAuth credentials.
+	 */
+	void updateLineItem(String accountId, String id, TransferingData data); 
 }
