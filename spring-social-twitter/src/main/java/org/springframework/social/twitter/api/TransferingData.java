@@ -15,16 +15,19 @@
  */
 package org.springframework.social.twitter.api;
 
+import org.springframework.util.MultiValueMap;
+
 /**
- * @author Hudson Mendes
+ * Generic data transfering contract that can be used to build
+ * request parameters transfering data specially for POST and PUT
+ * operations in Api endpoints.
+ * 
+ * This helps eliminate dependencies that the "api" package may
+ * have to the "api.impl" package since contracts by definition
+ * should not be coupled to implementations.
+ * 
+ * @author Hudson mendes
  */
-public enum AdvertisingObjetive {
-	APP_ENGAGEMENTS,
-	APP_INSTALLS,
-	FOLLOWERS,
-	LEAD_GENERATION,
-	TWEET_ENGAGEMENTS,
-	VIDEO_VIEWS,
-	WEBSITE_CLICKS,
-	CUSTOM
+public interface TransferingData {
+	public MultiValueMap<String, Object> toRequestParameters();
 }

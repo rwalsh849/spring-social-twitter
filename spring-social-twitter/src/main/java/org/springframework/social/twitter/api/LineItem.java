@@ -40,7 +40,7 @@ public class LineItem extends TwitterObject {
 	private final String campaignId;
 	private final String currency;
 	private final AdvertisingPlacementType placementType;
-	private final AdvertisingObjetive objective;
+	private final AdvertisingObjective objective;
 	private final AdvertisingSentiment includeSentiment;
 	private final LineItemOptimization optimization;
 	
@@ -60,7 +60,7 @@ public class LineItem extends TwitterObject {
 			String campaignId,
 			String currency,
 			AdvertisingPlacementType placementType,
-			AdvertisingObjetive objective,
+			AdvertisingObjective objective,
 			AdvertisingSentiment includeSentiment,
 			LineItemOptimization optimization,
 			BigDecimal totalBudgetAmount,
@@ -114,7 +114,7 @@ public class LineItem extends TwitterObject {
 		return placementType;
 	}
 
-	public AdvertisingObjetive getObjective() {
+	public AdvertisingObjective getObjective() {
 		return objective;
 	}
 

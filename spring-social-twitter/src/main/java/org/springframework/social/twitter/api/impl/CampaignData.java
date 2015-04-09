@@ -15,7 +15,6 @@
  */
 package org.springframework.social.twitter.api.impl;
 
-import java.lang.reflect.Array;
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
 import java.time.ZoneOffset;
@@ -25,6 +24,7 @@ import java.util.List;
 
 import org.springframework.social.twitter.api.Campaign;
 import org.springframework.social.twitter.api.ReasonNotServable;
+import org.springframework.social.twitter.api.TransferingData;
 import org.springframework.util.LinkedMultiValueMap;
 import org.springframework.util.MultiValueMap;
 
@@ -34,9 +34,7 @@ import org.springframework.util.MultiValueMap;
  * 
  * @author Hudson Mendes
  */
-public class CampaignData {
-	private static final BigDecimal MICRO_MULTIPLIER = new BigDecimal(1000000);
-	
+public class CampaignData extends PostDataBuilder {
 	private String name;
 	private String currency;
 	private String fundingInstrumentId;
@@ -47,6 +45,7 @@ public class CampaignData {
 	private final List<ReasonNotServable> reasonsNotServable;
 	private Boolean standardDelivery = true;
 	private Boolean paused = false;
+	private Boolean deleted = false;
 
 	public CampaignData() {
 		this.reasonsNotServable = new ArrayList<ReasonNotServable>();
@@ -110,6 +109,17 @@ public class CampaignData {
 		return this;
 	}
 	
+	public CampaignData deleted() {
+		this.deleted = true;
+		return this;
+	}
+	
+	public CampaignData active() {
+		this.deleted = false;
+		return this;
+	}
+	
+	@Override
 	public MultiValueMap<String, Object> toRequestParameters() {
 		MultiValueMap<String, Object> params = new LinkedMultiValueMap<String, Object>();
 		
@@ -117,41 +127,18 @@ public class CampaignData {
 		appendParameter(params, "currency", this.currency);
 		appendParameter(params, "funding_instrument_id", this.fundingInstrumentId);
 		
-		appendParameter(params, "total_budget_amount_local_micro", translateBigDecimalIntoMicro(this.totalBudget).toString());
-		appendParameter(params, "daily_budget_amount_local_micro", translateBigDecimalIntoMicro(this.dailyBudget).toString());
+		appendParameter(params, "total_budget_amount_local_micro", translateBigDecimalIntoMicro(this.totalBudget));
+		appendParameter(params, "daily_budget_amount_local_micro", translateBigDecimalIntoMicro(this.dailyBudget));
 		
-		if (this.startTime != null) appendParameter(params, "start_time", this.startTime.toInstant(ZoneOffset.UTC).toString());
-		if (this.endTime != null) appendParameter(params, "end_time", this.endTime.toInstant(ZoneOffset.UTC).toString());
+		if (this.startTime != null) appendParameter(params, "start_time", this.startTime.toInstant(ZoneOffset.UTC));
+		if (this.endTime != null) appendParameter(params, "end_time", this.endTime.toInstant(ZoneOffset.UTC));
 		
 		appendParameter(params, "reasons_not_servable", this.reasonsNotServable);
 		appendParameter(params, "standard_delivery", this.standardDelivery);
 		appendParameter(params, "paused", this.paused);
+		appendParameter(params, "deleted", this.deleted);
 				
 		return params;
 	}
 	
-	@SuppressWarnings("rawtypes")
-	private void appendParameter(
-			MultiValueMap<String, Object> params, 
-			String name,
-			Object value) {
-		
-		if (value == null) return;
-		if (value instanceof String && ((String) value).isEmpty()) return;
-		if (value instanceof ArrayList && ((ArrayList) value).size() == 0) return;
-		if (value instanceof ArrayList) {
-			for (int i = 0; i < Array.getLength(value); i++) {
-				params.add(name, Array.get(value, i));
-			}
-		}
-		else {
-			params.set(name, value.toString());
-		}
-			
-	}
-	
-	private Long translateBigDecimalIntoMicro(BigDecimal value) {
-		if (value == null) return new Long(0);
-		return value.multiply(MICRO_MULTIPLIER).longValue();
-	}
 }

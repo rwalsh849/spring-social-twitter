@@ -23,6 +23,7 @@ import org.springframework.social.twitter.api.AdvertisingOperations;
 import org.springframework.social.twitter.api.Campaign;
 import org.springframework.social.twitter.api.FundingInstrument;
 import org.springframework.social.twitter.api.LineItem;
+import org.springframework.social.twitter.api.TransferingData;
 import org.springframework.util.LinkedMultiValueMap;
 import org.springframework.util.MultiValueMap;
 import org.springframework.web.client.RestTemplate;
@@ -70,7 +71,7 @@ public class AdvertisingTemplate extends AbstractTwitterOperations implements Ad
 	}
 	
 	@Override
-	public Campaign createCampaign(String accountId, CampaignData data) {
+	public Campaign createCampaign(String accountId, TransferingData data) {
 		requireUserAuthorization();
 		TwitterApiUriResourceForAdvertising resource = TwitterApiUriResourceForAdvertising.CAMPAIGNS;
 		URI resourceUri = new TwitterApiUriBuilder().withResource(resource).withArgument("account_id", accountId).build();
@@ -80,7 +81,7 @@ public class AdvertisingTemplate extends AbstractTwitterOperations implements Ad
 	}
 
 	@Override
-	public void updateCampaign(String accountId, String id, CampaignData data) {
+	public void updateCampaign(String accountId, String id, TransferingData data) {
 		requireUserAuthorization();
 		TwitterApiUriResourceForAdvertising resource = TwitterApiUriResourceForAdvertising.CAMPAIGN;
 		LinkedMultiValueMap<String, String> parameters = new LinkedMultiValueMap<String, String>();
@@ -136,6 +137,16 @@ public class AdvertisingTemplate extends AbstractTwitterOperations implements Ad
 		URI resourceUri = new TwitterApiUriBuilder().withResource(resource).withArgument(parameters).build();
 		LineItemResult data = restTemplate.getForObject(resourceUri, LineItemResult.class);
 		return data.getLineItem();
+	}
+
+	@Override
+	public LineItem createLineItem(String accountId, TransferingData data) {
+		requireUserAuthorization();
+		TwitterApiUriResourceForAdvertising resource = TwitterApiUriResourceForAdvertising.LINE_ITEMS;
+		URI resourceUri = new TwitterApiUriBuilder().withResource(resource).withArgument("account_id", accountId).build();
+		MultiValueMap<String, Object> bodyData = data.toRequestParameters();
+		LineItemResult result = restTemplate.postForObject(resourceUri, bodyData, LineItemResult.class);
+		return result.getLineItem();
 	}
 	
 }

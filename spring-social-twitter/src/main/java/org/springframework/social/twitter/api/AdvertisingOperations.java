@@ -19,7 +19,6 @@ import java.util.List;
 
 import org.springframework.social.ApiException;
 import org.springframework.social.MissingAuthorizationException;
-import org.springframework.social.twitter.api.impl.CampaignData;
 
 /**
  * Interface defining the operations for advertising operations.
@@ -57,14 +56,14 @@ public interface AdvertisingOperations {
 	 * @throws ApiException if there is an error while communicating with Twitter.
 	 * @throws MissingAuthorizationException if TwitterTemplate was not created with OAuth credentials.
 	 */
-	Campaign createCampaign(String accountId, CampaignData data);
+	Campaign createCampaign(String accountId, TransferingData data);
 	
 	/**
 	 * Updates a {@link Campaign} for a {@link AdvertisingAccount} found by its campaignId.
 	 * @throws ApiException if there is an error while communicating with Twitter.
 	 * @throws MissingAuthorizationException if TwitterTemplate was not created with OAuth credentials.
 	 */
-	void updateCampaign(String accountId, String id, CampaignData data);
+	void updateCampaign(String accountId, String id, TransferingData data);
 	
 	/**
 	 * Deletes a {@link Campaign} related to an {@link AdvertisingAccount} found by its campaignId.
@@ -96,4 +95,12 @@ public interface AdvertisingOperations {
 	 * @throws MissingAuthorizationException if TwitterTemplate was not created with OAuth credentials.
 	 */
 	LineItem getLineItem(String accountId, String id);
+	
+	/**
+	 * Creates {@link LineItem} linked to a particular {@link AdvertisingAccount}.  
+	 * @return an instance of {@link LineItem}
+	 * @throws ApiException if there is an error while communicating with Twitter.
+	 * @throws MissingAuthorizationException if TwitterTemplate was not created with OAuth credentials.
+	 */
+	LineItem createLineItem(String accountId, TransferingData data); 
 }

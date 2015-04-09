@@ -19,7 +19,7 @@ import java.math.BigDecimal;
 import java.time.LocalDateTime;
 import java.util.Optional;
 
-import org.springframework.social.twitter.api.AdvertisingObjetive;
+import org.springframework.social.twitter.api.AdvertisingObjective;
 import org.springframework.social.twitter.api.AdvertisingPlacementType;
 import org.springframework.social.twitter.api.AdvertisingSentiment;
 import org.springframework.social.twitter.api.LineItem;
@@ -44,7 +44,7 @@ abstract class LineItemMixin extends TwitterObjectMixin {
 			@JsonProperty("campaign_id") String campaignId,
 			@JsonProperty("currency") String currency,
 			@JsonProperty("placement_type") AdvertisingPlacementType placementType,
-			@JsonProperty("objective") AdvertisingObjetive objective,
+			@JsonProperty("objective") AdvertisingObjective objective,
 			@JsonProperty("include_sentiment") AdvertisingSentiment includeSentiment,
 			@JsonProperty("optimization") LineItemOptimization optimization,
 			@JsonProperty("total_buget_amount_local_micro") @JsonDeserialize(using=BigDecimalMicroAmountDeserializer.class) BigDecimal totalBudgetAmount,

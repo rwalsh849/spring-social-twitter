@@ -42,7 +42,7 @@ import java.util.TimeZone;
 
 import org.junit.Test;
 import org.springframework.social.twitter.api.AdvertisingAccount;
-import org.springframework.social.twitter.api.AdvertisingObjetive;
+import org.springframework.social.twitter.api.AdvertisingObjective;
 import org.springframework.social.twitter.api.AdvertisingPlacementType;
 import org.springframework.social.twitter.api.AdvertisingSentiment;
 import org.springframework.social.twitter.api.ApprovalStatus;
@@ -111,7 +111,8 @@ public class AdvertisingTemplateTest extends AbstractTwitterApiTest {
 				"start_time=" + URLEncoder.encode(doesntMatterDate.toInstant(ZoneOffset.UTC).toString(),"UTF-8") + "&" +
 				"end_time=" + URLEncoder.encode(doesntMatterDate.plusDays(1).toInstant(ZoneOffset.UTC).toString(),"UTF-8") + "&" +
 				"standard_delivery=" + doesntMatterBool + "&" +
-				"paused=" + !doesntMatterBool;
+				"paused=" + !doesntMatterBool + "&" +
+				"deleted=" + !doesntMatterBool;
 		
 		mockServer
 			.expect(requestTo("https://ads-api.twitter.com/0/accounts/" + mockedAccountId + "/campaigns"))
@@ -128,7 +129,8 @@ public class AdvertisingTemplateTest extends AbstractTwitterApiTest {
 					.withBudget(doesntMatterDecimal, doesntMatterDecimal.add(new BigDecimal(15)))
 					.activeBetween(doesntMatterDate, doesntMatterDate.plusDays(1))
 					.withStandardDelivery(doesntMatterBool)
-					.paused());
+					.paused()
+					.deleted());
 		
 		assertSingleCampaignContents(campaign);
 	}
@@ -151,7 +153,8 @@ public class AdvertisingTemplateTest extends AbstractTwitterApiTest {
 				"start_time=" + URLEncoder.encode(doesntMatterDate.toInstant(ZoneOffset.UTC).toString(),"UTF-8") + "&" +
 				"end_time=" + URLEncoder.encode(doesntMatterDate.plusDays(3).toInstant(ZoneOffset.UTC).toString(),"UTF-8") + "&" +
 				"standard_delivery=" + !doesntMatterBool + "&" +
-				"paused=" + doesntMatterBool;
+				"paused=" + doesntMatterBool + "&" +
+				"deleted=" + doesntMatterBool;
 		
 		mockServer
 			.expect(requestTo("https://ads-api.twitter.com/0/accounts/" + mockedAccountId + "/campaigns/" + mockedCampaignId))
@@ -169,7 +172,8 @@ public class AdvertisingTemplateTest extends AbstractTwitterApiTest {
 					.withBudget(doesntMatterDecimal, doesntMatterDecimal.add(new BigDecimal(3)))
 					.activeBetween(doesntMatterDate, doesntMatterDate.plusDays(3))
 					.withStandardDelivery(!doesntMatterBool)
-					.unpaused());
+					.unpaused()
+					.active());
 	}
 	
 	@Test
@@ -218,6 +222,51 @@ public class AdvertisingTemplateTest extends AbstractTwitterApiTest {
 			.andRespond(withSuccess(jsonResource("line-items-single"), APPLICATION_JSON));
 	
 		LineItem lineItems = twitter.advertisingOperations().getLineItem(mockedAccountId, mockedLineItem);
+		assertSingleLineItemContents(lineItems);
+	}
+	
+	@Test
+	public void createLineItem() {
+		String mockedAccountId = "hkk5";
+		String doesntMatterString = "doesn-matter-altered";
+		BigDecimal doesntMatterDecimal = new BigDecimal(1.00);
+		Boolean doesntMatterBool = false;
+		
+		String chainedPostContent = 
+				"campaign_id=" + doesntMatterString + "&" +
+				"currency=" + doesntMatterString + "&" +
+				"placement_type=" + AdvertisingPlacementType.PROMOTED_TWEETS_FOR_SEARCH + "&" +
+				"objective=" +  AdvertisingObjective.APP_INSTALLS + "&" +
+				"include_sentiment=" + AdvertisingSentiment.POSITIVE_ONLY + "&" +
+				"optimization=" + LineItemOptimization.WEBSITE_CONVERSIONS + "&" +
+				"total_budget_amount=" + doesntMatterDecimal.multiply(new BigDecimal(1000000L)) + "&" +
+				"bid_amount=" + doesntMatterDecimal.multiply(new BigDecimal(1000000L)) + "&" +
+				"suggested_high_cpe_bid=" + doesntMatterDecimal.add(new BigDecimal(10)).multiply(new BigDecimal(1000000L)) + "&" +
+				"suggested_low_cpe_bid=" + doesntMatterDecimal.multiply(new BigDecimal(1000000L)) + "&" +
+				"paused=" + !doesntMatterBool + "&" +
+				"deleted=" + doesntMatterBool;
+		
+		mockServer
+			.expect(requestTo("https://ads-api.twitter.com/0/accounts/" + mockedAccountId + "/line_items"))
+			.andExpect(method(POST))
+			.andExpect(content().string(chainedPostContent))
+			.andRespond(withSuccess(jsonResource("line-items-single"), APPLICATION_JSON));
+	
+		LineItem lineItems = twitter.advertisingOperations().createLineItem(
+				mockedAccountId,
+				new LineItemData()
+					.withCampaign(doesntMatterString)
+					.withCurrency(doesntMatterString)
+					.withTotalBudget(doesntMatterDecimal)
+					.withBidAmount(doesntMatterDecimal)
+					.withSuggestedCpeBid(doesntMatterDecimal, doesntMatterDecimal.add(new BigDecimal(10)))
+					.withPlacementType(AdvertisingPlacementType.PROMOTED_TWEETS_FOR_SEARCH)
+					.withObjective(AdvertisingObjective.APP_INSTALLS)
+					.optimizingFor(LineItemOptimization.WEBSITE_CONVERSIONS)
+					.includingSentiment(AdvertisingSentiment.POSITIVE_ONLY)
+					.paused()
+					.active());
+		
 		assertSingleLineItemContents(lineItems);
 	}
 	
@@ -333,7 +382,7 @@ public class AdvertisingTemplateTest extends AbstractTwitterApiTest {
 		assertEquals("7jem", lineItems.get(0).getCampaignId());
 		assertEquals("USD", lineItems.get(0).getCurrency());
 		assertEquals(AdvertisingPlacementType.PROMOTED_TWEETS_FOR_TIMELINES, lineItems.get(0).getPlacementType());
-		assertEquals(AdvertisingObjetive.TWEET_ENGAGEMENTS, lineItems.get(0).getObjective());
+		assertEquals(AdvertisingObjective.TWEET_ENGAGEMENTS, lineItems.get(0).getObjective());
 		assertEquals(AdvertisingSentiment.POSITIVE_ONLY, lineItems.get(0).getIncludeSentiment());
 		assertEquals(LineItemOptimization.DEFAULT, lineItems.get(0).getOptimization());
 		assertEquals(null, lineItems.get(0).getTotalBudgetAmount());
@@ -352,7 +401,7 @@ public class AdvertisingTemplateTest extends AbstractTwitterApiTest {
 		assertEquals("7wdy", lineItem.getCampaignId());
 		assertEquals("GBP", lineItem.getCurrency());
 		assertEquals(AdvertisingPlacementType.PROMOTED_ACCOUNT, lineItem.getPlacementType());
-		assertEquals(AdvertisingObjetive.FOLLOWERS, lineItem.getObjective());
+		assertEquals(AdvertisingObjective.FOLLOWERS, lineItem.getObjective());
 		assertEquals(null, lineItem.getIncludeSentiment());
 		assertEquals(LineItemOptimization.DEFAULT, lineItem.getOptimization());
 		assertEquals(null, lineItem.getTotalBudgetAmount());
