@@ -24,6 +24,15 @@ public enum TwitterApiUriResourceForStandard {
 	FRIENDSHIPS_INCOMING("friendships/incoming.json"),
 	FRIENDSHIPS_OUTGOING("friendships/outgoing.json"),
 	
+	LISTS("lists/list.json"),
+	LISTS_SHOW("lists/show.json"),
+	LISTS_CREATE("lists/create.json"),
+	LISTS_UPDATE("lists/update.json"),
+	LISTS_DESTROY("lists/destroy.json"),
+	LISTS_STATUSES("lists/statuses.json"),
+	LISTS_MEMBERS("lists/members.json"),
+	LISTS_MEMBERS_CREATE_ALL("lists/members/create_all.json"),
+	
 	GEO_ID("geo/id/:place_id.json"),
 	GEO_PLACE("geo/place.json"),
 	GEO_SEARCH("geo/search.json"),

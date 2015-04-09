@@ -44,30 +44,46 @@ class ListTemplate extends AbstractTwitterOperations implements ListOperations {
 	
 	public List<UserList> getLists() {
 		requireUserAuthorization();
-		return restTemplate.getForObject(buildUri("lists/list.json"), UserSubscriptionList.class);
+		TwitterApiUriResourceForStandard resource = TwitterApiUriResourceForStandard.LISTS;
+		URI resourceUri = new TwitterApiUriBuilder().withResource(resource).build();
+		return restTemplate.getForObject(resourceUri, UserSubscriptionList.class);
 	}
 	
 	public List<UserList> getLists(long userId) {
 		requireEitherUserOrAppAuthorization();
-		return restTemplate.getForObject(buildUri("lists/list.json", "user_id", String.valueOf(userId)), UserSubscriptionList.class);
+		TwitterApiUriResourceForStandard resource = TwitterApiUriResourceForStandard.LISTS;
+		MultiValueMap<String, String> parameters = new LinkedMultiValueMap<String, String>();
+		parameters.set("user_id", String.valueOf(userId));
+		URI resourceUri = new TwitterApiUriBuilder().withResource(resource).withArgument(parameters).build();
+		return restTemplate.getForObject(resourceUri, UserSubscriptionList.class);
 	}
 	
 	public List<UserList> getLists(String screenName) {
 		requireEitherUserOrAppAuthorization();
-		return restTemplate.getForObject(buildUri("lists/list.json", "screen_name", String.valueOf(screenName)), UserSubscriptionList.class);
+		TwitterApiUriResourceForStandard resource = TwitterApiUriResourceForStandard.LISTS;
+		MultiValueMap<String, String> parameters = new LinkedMultiValueMap<String, String>();
+		parameters.set("screen_name", String.valueOf(screenName));
+		URI resourceUri = new TwitterApiUriBuilder().withResource(resource).withArgument(parameters).build();
+		return restTemplate.getForObject(resourceUri, UserSubscriptionList.class);
 	}
 
 	public UserList getList(long listId) {
 		requireUserAuthorization();
-		return restTemplate.getForObject(buildUri("lists/show.json", "list_id", String.valueOf(listId)), UserList.class);
+		TwitterApiUriResourceForStandard resource = TwitterApiUriResourceForStandard.LISTS_SHOW;
+		MultiValueMap<String, String> parameters = new LinkedMultiValueMap<String, String>();
+		parameters.set("list_id", String.valueOf(listId));
+		URI resourceUri = new TwitterApiUriBuilder().withResource(resource).withArgument(parameters).build();
+		return restTemplate.getForObject(resourceUri, UserList.class);
 	}
 
 	public UserList getList(String screenName, String listSlug) {
 		requireEitherUserOrAppAuthorization();
-		LinkedMultiValueMap<String, String> parameters = new LinkedMultiValueMap<String, String>();
+		TwitterApiUriResourceForStandard resource = TwitterApiUriResourceForStandard.LISTS_SHOW;
+		MultiValueMap<String, String> parameters = new LinkedMultiValueMap<String, String>();
 		parameters.set("owner_screen_name", screenName);
 		parameters.set("slug", listSlug);
-		return restTemplate.getForObject(buildUri("lists/show.json", parameters), UserList.class);
+		URI resourceUri = new TwitterApiUriBuilder().withResource(resource).withArgument(parameters).build();
+		return restTemplate.getForObject(resourceUri, UserList.class);
 	}
 
 	public List<Tweet> getListStatuses(long listId) {
@@ -80,10 +96,12 @@ class ListTemplate extends AbstractTwitterOperations implements ListOperations {
 
 	public List<Tweet> getListStatuses(long listId, int pageSize, long sinceId, long maxId) {
 		requireEitherUserOrAppAuthorization();
+		TwitterApiUriResourceForStandard resource = TwitterApiUriResourceForStandard.LISTS_STATUSES;
 		MultiValueMap<String, String> parameters = PagingUtils.buildPagingParametersWithCount(pageSize, sinceId, maxId);
 		parameters.set("list_id", String.valueOf(listId));
 		parameters.set("include_entities", "true");
-		return restTemplate.getForObject(buildUri("lists/statuses.json", parameters), TweetList.class);
+		URI resourceUri = new TwitterApiUriBuilder().withResource(resource).withArgument(parameters).build();
+		return restTemplate.getForObject(resourceUri, TweetList.class);
 	}
 
 	public List<Tweet> getListStatuses(String screenName, String listSlug) {
@@ -96,69 +114,87 @@ class ListTemplate extends AbstractTwitterOperations implements ListOperations {
 
 	public List<Tweet> getListStatuses(String screenName, String listSlug, int pageSize, long sinceId, long maxId) {
 		requireEitherUserOrAppAuthorization();
+		TwitterApiUriResourceForStandard resource = TwitterApiUriResourceForStandard.LISTS_STATUSES;
 		MultiValueMap<String, String> parameters = PagingUtils.buildPagingParametersWithCount(pageSize, sinceId, maxId);
 		parameters.set("owner_screen_name", screenName);
 		parameters.set("slug", listSlug);
 		parameters.set("include_entities", "true");
-		return restTemplate.getForObject(buildUri("lists/statuses.json", parameters), TweetList.class);
+		URI resourceUri = new TwitterApiUriBuilder().withResource(resource).withArgument(parameters).build();
+		return restTemplate.getForObject(resourceUri, TweetList.class);
 	}
 
 	public UserList createList(String name, String description, boolean isPublic) {	
 		requireUserAuthorization();
-		MultiValueMap<String, Object> request = buildListDataMap(name, description, isPublic);
-		return restTemplate.postForObject(buildUri("lists/create.json"), request, UserList.class);
+		TwitterApiUriResourceForStandard resource = TwitterApiUriResourceForStandard.LISTS_CREATE;
+		URI resourceUri = new TwitterApiUriBuilder().withResource(resource).build();
+		MultiValueMap<String, Object> bodyData = buildListDataMap(name, description, isPublic);
+		return restTemplate.postForObject(resourceUri, bodyData, UserList.class);
 	}
 
 	public UserList updateList(long listId, String name, String description, boolean isPublic) {
 		requireUserAuthorization();
-		MultiValueMap<String, Object> request = buildListDataMap(name, description, isPublic);
-		request.set("list_id", String.valueOf(listId));
-		return restTemplate.postForObject(buildUri("lists/update.json"), request, UserList.class);
+		TwitterApiUriResourceForStandard resource = TwitterApiUriResourceForStandard.LISTS_UPDATE;
+		URI resourceUri = new TwitterApiUriBuilder().withResource(resource).build();
+		MultiValueMap<String, Object> bodyData = buildListDataMap(name, description, isPublic);
+		bodyData.set("list_id", String.valueOf(listId));
+		return restTemplate.postForObject(resourceUri, bodyData, UserList.class);
 	}
 
 	public void deleteList(long listId) {
 		requireUserAuthorization();
-		MultiValueMap<String, Object> request = new LinkedMultiValueMap<String, Object>();
-		request.set("list_id", String.valueOf(listId));
-		restTemplate.postForObject(buildUri("lists/destroy.json"), request, UserList.class);
+		TwitterApiUriResourceForStandard resource = TwitterApiUriResourceForStandard.LISTS_DESTROY;
+		URI resourceUri = new TwitterApiUriBuilder().withResource(resource).build();
+		MultiValueMap<String, Object> bodyData = new LinkedMultiValueMap<String, Object>();
+		bodyData.set("list_id", String.valueOf(listId));
+		restTemplate.postForObject(resourceUri, bodyData, UserList.class);
 	}
 
 	public CursoredList<TwitterProfile> getListMembers(long listId) {
 		requireEitherUserOrAppAuthorization();
-		return restTemplate.getForObject(buildUri("lists/members.json", "list_id", String.valueOf(listId)), TwitterProfileUsersList.class).getList();
+		TwitterApiUriResourceForStandard resource = TwitterApiUriResourceForStandard.LISTS_MEMBERS;
+		URI resourceUri = new TwitterApiUriBuilder().withResource(resource).withArgument("list_id", String.valueOf(listId)).build();
+		return restTemplate.getForObject(resourceUri, TwitterProfileUsersList.class).getList();
 	}
 
 	public CursoredList<TwitterProfile> getListMembersInCursor(long listId, long cursor) {
 		requireEitherUserOrAppAuthorization();
-		MultiValueMap<String, String> request = new LinkedMultiValueMap<String, String>();
-		request.set("list_id", String.valueOf(listId));
-		request.set("cursor", String.valueOf(cursor));
-		return restTemplate.getForObject(buildUri("lists/members.json", request), TwitterProfileUsersList.class).getList();
+		TwitterApiUriResourceForStandard resource = TwitterApiUriResourceForStandard.LISTS_MEMBERS;
+		MultiValueMap<String, String> parameters = new LinkedMultiValueMap<String, String>();
+		parameters.set("list_id", String.valueOf(listId));
+		parameters.set("cursor", String.valueOf(cursor));
+		URI resourceUri = new TwitterApiUriBuilder().withResource(resource).withArgument(parameters).build();
+		return restTemplate.getForObject(resourceUri, TwitterProfileUsersList.class).getList();
 	}
 
 	public CursoredList<TwitterProfile> getListMembers(String screenName, String listSlug) {
 		requireEitherUserOrAppAuthorization();
+		TwitterApiUriResourceForStandard resource = TwitterApiUriResourceForStandard.LISTS_MEMBERS;
 		LinkedMultiValueMap<String, String> parameters = new LinkedMultiValueMap<String, String>();
 		parameters.set("owner_screen_name", screenName);
 		parameters.set("slug", listSlug);
-		return restTemplate.getForObject(buildUri("lists/members.json", parameters), TwitterProfileUsersList.class).getList();
+		URI resourceUri = new TwitterApiUriBuilder().withResource(resource).withArgument(parameters).build();
+		return restTemplate.getForObject(resourceUri, TwitterProfileUsersList.class).getList();
 	}
 
 	public CursoredList<TwitterProfile> getListMembersInCursor(String screenName, String listSlug, long cursor) {
 		requireEitherUserOrAppAuthorization();
+		TwitterApiUriResourceForStandard resource = TwitterApiUriResourceForStandard.LISTS_MEMBERS;
 		LinkedMultiValueMap<String, String> parameters = new LinkedMultiValueMap<String, String>();
 		parameters.set("owner_screen_name", screenName);
 		parameters.set("slug", listSlug);
 		parameters.set("cursor", String.valueOf(cursor));
-		return restTemplate.getForObject(buildUri("lists/members.json", parameters), TwitterProfileUsersList.class).getList();
+		URI resourceUri = new TwitterApiUriBuilder().withResource(resource).withArgument(parameters).build();
+		return restTemplate.getForObject(resourceUri, TwitterProfileUsersList.class).getList();
 	}
 
 	public UserList addToList(long listId, long... newMemberIds) {
 		requireUserAuthorization();
-		MultiValueMap<String, Object> request = new LinkedMultiValueMap<String, Object>();
-		request.set("user_id", ArrayUtils.join(newMemberIds));
-		request.set("list_id", String.valueOf(listId));
-		return restTemplate.postForObject(buildUri("lists/members/create_all.json"), request, UserList.class);
+		TwitterApiUriResourceForStandard resource = TwitterApiUriResourceForStandard.LISTS_MEMBERS_CREATE_ALL;
+		URI resourceUri = new TwitterApiUriBuilder().withResource(resource).build();
+		MultiValueMap<String, Object> bodyData = new LinkedMultiValueMap<String, Object>();
+		bodyData.set("user_id", ArrayUtils.join(newMemberIds));
+		bodyData.set("list_id", String.valueOf(listId));
+		return restTemplate.postForObject(resourceUri, bodyData, UserList.class);
 	}
 
 	public UserList addToList(long listId, String... newMemberScreenNames) {
