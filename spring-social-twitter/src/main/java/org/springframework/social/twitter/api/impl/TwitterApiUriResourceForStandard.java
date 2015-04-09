@@ -22,7 +22,13 @@ public enum TwitterApiUriResourceForStandard {
 	FRIENDSHIPS_DESTROY("friendships/destroy.json"),
 	FRIENDSHIPS_UPDATE("friendships/update.json"),
 	FRIENDSHIPS_INCOMING("friendships/incoming.json"),
-	FRIENDSHIPS_OUTGOING("friendships/outgoing.json");
+	FRIENDSHIPS_OUTGOING("friendships/outgoing.json"),
+	
+	GEO_ID("geo/id/:place_id.json"),
+	GEO_PLACE("geo/place.json"),
+	GEO_SEARCH("geo/search.json"),
+	GEO_SIMILAR_PLACES("geo/similar_places.json"),
+	GEO_REVERSE_GEOCODE("geo/reverse_geocode.json");
 	
 	private final String name;
 	
