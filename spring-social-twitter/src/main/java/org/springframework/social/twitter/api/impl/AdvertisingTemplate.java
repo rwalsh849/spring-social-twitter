@@ -55,7 +55,7 @@ public class AdvertisingTemplate extends AbstractTwitterOperations implements Ad
 		TwitterApiUriResourceForAdvertising resource = TwitterApiUriResourceForAdvertising.CAMPAIGN;
 		LinkedMultiValueMap<String, String> parameters = new LinkedMultiValueMap<String, String>();
 		parameters.set("account_id", accountId);
-		parameters.set("id", id);
+		parameters.set("campaign_id", id);
 		URI resourceUri = new TwitterApiUriBuilder().withResource(resource).withArgument(parameters).build();
 		CampaignResult data = restTemplate.getForObject(resourceUri, CampaignResult.class);
 		return data.getCampaign();
@@ -86,7 +86,7 @@ public class AdvertisingTemplate extends AbstractTwitterOperations implements Ad
 		TwitterApiUriResourceForAdvertising resource = TwitterApiUriResourceForAdvertising.CAMPAIGN;
 		LinkedMultiValueMap<String, String> parameters = new LinkedMultiValueMap<String, String>();
 		parameters.set("account_id", accountId);
-		parameters.set("id", id);
+		parameters.set("campaign_id", id);
 		URI resourceUri = new TwitterApiUriBuilder().withResource(resource).withArgument(parameters).build();
 		MultiValueMap<String, Object> bodyData = data.toRequestParameters();
 		restTemplate.put(resourceUri, bodyData);
@@ -98,7 +98,7 @@ public class AdvertisingTemplate extends AbstractTwitterOperations implements Ad
 		TwitterApiUriResourceForAdvertising resource = TwitterApiUriResourceForAdvertising.CAMPAIGN;
 		LinkedMultiValueMap<String, String> parameters = new LinkedMultiValueMap<String, String>();
 		parameters.set("account_id", accountId);
-		parameters.set("id", id);
+		parameters.set("campaign_id", id);
 		URI resourceUri = new TwitterApiUriBuilder().withResource(resource).withArgument(parameters).build();
 		restTemplate.delete(resourceUri);
 	}
@@ -133,7 +133,7 @@ public class AdvertisingTemplate extends AbstractTwitterOperations implements Ad
 		TwitterApiUriResourceForAdvertising resource = TwitterApiUriResourceForAdvertising.LINE_ITEM;
 		LinkedMultiValueMap<String, String> parameters = new LinkedMultiValueMap<String, String>();
 		parameters.set("account_id", accountId);
-		parameters.set("id", id);
+		parameters.set("line_item_id", id);
 		URI resourceUri = new TwitterApiUriBuilder().withResource(resource).withArgument(parameters).build();
 		LineItemResult data = restTemplate.getForObject(resourceUri, LineItemResult.class);
 		return data.getLineItem();
@@ -155,10 +155,21 @@ public class AdvertisingTemplate extends AbstractTwitterOperations implements Ad
 		TwitterApiUriResourceForAdvertising resource = TwitterApiUriResourceForAdvertising.LINE_ITEM;
 		LinkedMultiValueMap<String, String> parameters = new LinkedMultiValueMap<String, String>();
 		parameters.set("account_id", accountId);
-		parameters.set("id", id);
+		parameters.set("line_item_id", id);
 		URI resourceUri = new TwitterApiUriBuilder().withResource(resource).withArgument(parameters).build();
 		MultiValueMap<String, Object> bodyData = data.toRequestParameters();
 		restTemplate.put(resourceUri, bodyData);
+	}
+
+	@Override
+	public void deleteLineItem(String accountId, String id) {
+		requireUserAuthorization();
+		TwitterApiUriResourceForAdvertising resource = TwitterApiUriResourceForAdvertising.LINE_ITEM;
+		LinkedMultiValueMap<String, String> parameters = new LinkedMultiValueMap<String, String>();
+		parameters.set("account_id", accountId);
+		parameters.set("line_item_id", id);
+		URI resourceUri = new TwitterApiUriBuilder().withResource(resource).withArgument(parameters).build();
+		restTemplate.delete(resourceUri);
 	}
 	
 }

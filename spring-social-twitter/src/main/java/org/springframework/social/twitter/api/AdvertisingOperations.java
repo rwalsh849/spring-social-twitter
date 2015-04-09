@@ -128,5 +128,14 @@ public interface AdvertisingOperations {
 	 * @throws ApiException if there is an error while communicating with Twitter.
 	 * @throws MissingAuthorizationException if TwitterTemplate was not created with OAuth credentials.
 	 */
-	void updateLineItem(String accountId, String id, TransferingData data); 
+	void updateLineItem(String accountId, String id, TransferingData data);
+	
+	/**
+	 * Deletes a {@link LineItem} related to an {@link AdvertisingAccount} found by its campaignId.
+	 * @param accountId identifies the account of which line item we wish to delete.
+	 * @param id identifies the line item that we desire to delete.
+	 * @throws ApiException if there is an error while communicating with Twitter.
+	 * @throws MissingAuthorizationException if TwitterTemplate was not created with OAuth credentials.
+	 */
+	void deleteLineItem(String accountId, String id);
 }
