@@ -17,6 +17,7 @@ package org.springframework.social.twitter.api;
 
 import org.springframework.social.ApiBinding;
 import org.springframework.social.twitter.api.domain.operations.advertising.AdvertisingOperations;
+import org.springframework.social.twitter.api.domain.operations.advertising.CampaignOperations;
 import org.springframework.social.twitter.api.domain.operations.advertising.LineItemOperations;
 import org.springframework.social.twitter.api.domain.operations.advertising.TargetingCriteriaOperations;
 import org.springframework.social.twitter.api.domain.operations.standard.BlockOperations;
@@ -88,6 +89,11 @@ public interface Twitter extends ApiBinding {
 	 * @return the portion of the Twitter ADS API containing the advertising operations.
 	 */
 	AdvertisingOperations advertisingOperations();
+	
+	/**
+	 * @return the portion of the Twitter ADS API containing the campaign operations.
+	 */
+	CampaignOperations campaignOperations();
 	
 	/**
 	 * @return the portion of the Twitter ADS API containing the line items operations.
