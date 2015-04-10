@@ -19,9 +19,7 @@ import java.util.List;
 
 import org.springframework.social.ApiException;
 import org.springframework.social.MissingAuthorizationException;
-import org.springframework.social.twitter.api.domain.models.TransferingData;
 import org.springframework.social.twitter.api.domain.models.advertising.AdvertisingAccount;
-import org.springframework.social.twitter.api.domain.models.advertising.Campaign;
 import org.springframework.social.twitter.api.domain.models.advertising.FundingInstrument;
 
 /**

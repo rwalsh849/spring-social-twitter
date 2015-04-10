@@ -15,40 +15,26 @@
  */
 package org.springframework.social.twitter.api.impl.advertising;
 
-import static org.hamcrest.CoreMatchers.hasItem;
-import static org.hamcrest.CoreMatchers.not;
-import static org.hamcrest.Matchers.empty;
 import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertThat;
-import static org.springframework.http.HttpMethod.DELETE;
 import static org.springframework.http.HttpMethod.GET;
-import static org.springframework.http.HttpMethod.POST;
-import static org.springframework.http.HttpMethod.PUT;
 import static org.springframework.http.MediaType.APPLICATION_JSON;
-import static org.springframework.test.web.client.match.MockRestRequestMatchers.content;
 import static org.springframework.test.web.client.match.MockRestRequestMatchers.method;
 import static org.springframework.test.web.client.match.MockRestRequestMatchers.requestTo;
 import static org.springframework.test.web.client.response.MockRestResponseCreators.withSuccess;
 
-import java.io.UnsupportedEncodingException;
 import java.math.BigDecimal;
 import java.math.MathContext;
-import java.net.URLEncoder;
 import java.time.LocalDateTime;
 import java.time.Month;
-import java.time.ZoneOffset;
 import java.util.List;
 import java.util.TimeZone;
 
 import org.junit.Test;
 import org.springframework.social.twitter.api.domain.models.advertising.AdvertisingAccount;
-import org.springframework.social.twitter.api.domain.models.advertising.Campaign;
 import org.springframework.social.twitter.api.domain.models.advertising.FundingInstrument;
 import org.springframework.social.twitter.api.domain.models.advertising.FundingInstrumentType;
-import org.springframework.social.twitter.api.domain.models.advertising.ReasonNotServable;
 import org.springframework.social.twitter.api.domain.models.standard.ApprovalStatus;
 import org.springframework.social.twitter.api.impl.AbstractTwitterApiTest;
-import org.springframework.social.twitter.api.impl.advertising.builders.CampaignDataBuilder;
 
 /**
  * @author Hudson mendes
