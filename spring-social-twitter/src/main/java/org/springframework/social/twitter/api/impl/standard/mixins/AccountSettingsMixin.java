@@ -17,9 +17,9 @@ package org.springframework.social.twitter.api.impl.standard.mixins;
 
 import java.util.List;
 
-import org.springframework.social.twitter.api.common.models.standard.AccountSettings.SleepTime;
-import org.springframework.social.twitter.api.common.models.standard.AccountSettings.TimeZone;
-import org.springframework.social.twitter.api.common.models.standard.AccountSettings.TrendLocation;
+import org.springframework.social.twitter.api.domain.models.standard.AccountSettings.SleepTime;
+import org.springframework.social.twitter.api.domain.models.standard.AccountSettings.TimeZone;
+import org.springframework.social.twitter.api.domain.models.standard.AccountSettings.TrendLocation;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;

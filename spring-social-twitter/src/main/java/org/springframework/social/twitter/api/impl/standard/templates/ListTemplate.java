@@ -20,8 +20,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.social.ResourceNotFoundException;
-import org.springframework.social.twitter.api.common.models.standard.CursoredList;
-import org.springframework.social.twitter.api.common.operations.ListOperations;
+import org.springframework.social.twitter.api.domain.models.standard.CursoredList;
+import org.springframework.social.twitter.api.domain.operations.ListOperations;
 import org.springframework.social.twitter.api.impl.common.builders.TwitterApiUriBuilder;
 import org.springframework.social.twitter.api.impl.common.builders.TwitterApiUriResourceForStandard;
 import org.springframework.social.twitter.api.impl.common.templates.AbstractTwitterTemplate;

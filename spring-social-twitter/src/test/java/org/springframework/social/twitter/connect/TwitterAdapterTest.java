@@ -24,7 +24,7 @@ import org.junit.Test;
 import org.mockito.Mockito;
 import org.springframework.social.connect.UserProfile;
 import org.springframework.social.twitter.api.Twitter;
-import org.springframework.social.twitter.api.common.operations.UserOperations;
+import org.springframework.social.twitter.api.domain.operations.UserOperations;
 import org.springframework.social.twitter.api.impl.standard.models.TwitterProfile;
 import org.springframework.web.client.ResourceAccessException;
 

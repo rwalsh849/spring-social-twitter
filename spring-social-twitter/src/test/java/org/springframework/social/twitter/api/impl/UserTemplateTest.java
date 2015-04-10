@@ -25,7 +25,7 @@ import java.util.List;
 import java.util.Map;
 
 import org.junit.Test;
-import org.springframework.social.twitter.api.common.models.standard.AccountSettings;
+import org.springframework.social.twitter.api.domain.models.standard.AccountSettings;
 import org.springframework.social.twitter.api.impl.standard.builders.AccountSettingsData;
 import org.springframework.social.twitter.api.impl.standard.models.RateLimitStatus;
 import org.springframework.social.twitter.api.impl.standard.models.ResourceFamily;

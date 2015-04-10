@@ -15,7 +15,7 @@
  */
 package org.springframework.social.twitter.api.impl.standard.models;
 
-import org.springframework.social.twitter.api.common.models.standard.FilterStreamParameters;
+import org.springframework.social.twitter.api.domain.models.standard.FilterStreamParameters;
 import org.springframework.util.LinkedMultiValueMap;
 import org.springframework.util.MultiValueMap;
 

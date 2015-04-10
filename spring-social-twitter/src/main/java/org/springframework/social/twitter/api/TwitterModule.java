@@ -15,15 +15,15 @@
  */
 package org.springframework.social.twitter.api;
 
-import org.springframework.social.twitter.api.common.models.advertising.AdvertisingAccount;
-import org.springframework.social.twitter.api.common.models.advertising.Campaign;
-import org.springframework.social.twitter.api.common.models.advertising.FundingInstrument;
-import org.springframework.social.twitter.api.common.models.advertising.LineItem;
-import org.springframework.social.twitter.api.common.models.advertising.TargetingCriteria;
-import org.springframework.social.twitter.api.common.models.standard.AccountSettings;
-import org.springframework.social.twitter.api.common.models.standard.DirectMessage;
-import org.springframework.social.twitter.api.common.models.standard.Entities;
-import org.springframework.social.twitter.api.common.models.standard.HashTagEntity;
+import org.springframework.social.twitter.api.domain.models.advertising.AdvertisingAccount;
+import org.springframework.social.twitter.api.domain.models.advertising.Campaign;
+import org.springframework.social.twitter.api.domain.models.advertising.FundingInstrument;
+import org.springframework.social.twitter.api.domain.models.advertising.LineItem;
+import org.springframework.social.twitter.api.domain.models.advertising.TargetingCriteria;
+import org.springframework.social.twitter.api.domain.models.standard.AccountSettings;
+import org.springframework.social.twitter.api.domain.models.standard.DirectMessage;
+import org.springframework.social.twitter.api.domain.models.standard.Entities;
+import org.springframework.social.twitter.api.domain.models.standard.HashTagEntity;
 import org.springframework.social.twitter.api.impl.advertising.mixins.AdvertisingAccountMixin;
 import org.springframework.social.twitter.api.impl.advertising.mixins.CampaignMixin;
 import org.springframework.social.twitter.api.impl.advertising.mixins.FundingInstrumentMixin;

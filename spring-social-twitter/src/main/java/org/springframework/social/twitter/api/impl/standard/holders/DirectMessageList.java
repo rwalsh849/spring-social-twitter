@@ -17,7 +17,7 @@ package org.springframework.social.twitter.api.impl.standard.holders;
 
 import java.util.ArrayList;
 
-import org.springframework.social.twitter.api.common.models.standard.DirectMessage;
+import org.springframework.social.twitter.api.domain.models.standard.DirectMessage;
 
 
 /**

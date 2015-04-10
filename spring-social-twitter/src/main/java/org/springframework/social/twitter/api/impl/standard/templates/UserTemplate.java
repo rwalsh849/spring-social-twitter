@@ -18,8 +18,8 @@ package org.springframework.social.twitter.api.impl.standard.templates;
 import java.util.List;
 import java.util.Map;
 
-import org.springframework.social.twitter.api.common.models.standard.AccountSettings;
-import org.springframework.social.twitter.api.common.operations.UserOperations;
+import org.springframework.social.twitter.api.domain.models.standard.AccountSettings;
+import org.springframework.social.twitter.api.domain.operations.UserOperations;
 import org.springframework.social.twitter.api.impl.common.templates.AbstractTwitterTemplate;
 import org.springframework.social.twitter.api.impl.common.utils.ArrayUtils;
 import org.springframework.social.twitter.api.impl.common.utils.PagingUtils;

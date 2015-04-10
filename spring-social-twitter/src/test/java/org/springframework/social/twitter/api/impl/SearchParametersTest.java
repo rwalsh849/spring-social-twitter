@@ -26,7 +26,7 @@ import java.text.SimpleDateFormat;
 import java.util.List;
 
 import org.junit.Test;
-import org.springframework.social.twitter.api.common.models.standard.GeoCode;
+import org.springframework.social.twitter.api.domain.models.standard.GeoCode;
 import org.springframework.social.twitter.api.impl.standard.models.SearchParameters;
 import org.springframework.social.twitter.api.impl.standard.models.SearchResults;
 import org.springframework.social.twitter.api.impl.standard.models.Tweet;

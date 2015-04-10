@@ -18,7 +18,7 @@ package org.springframework.social.twitter.api.impl.standard.models;
 import java.io.Serializable;
 import java.util.Date;
 
-import org.springframework.social.twitter.api.common.models.standard.Entities;
+import org.springframework.social.twitter.api.domain.models.standard.Entities;
 
 /**
  * Represents a Twitter status update (e.g., a "tweet").

@@ -17,7 +17,7 @@ package org.springframework.social.twitter.api.impl.standard.models;
 
 import java.util.Date;
 
-import org.springframework.social.twitter.api.common.models.standard.GeoCode;
+import org.springframework.social.twitter.api.domain.models.standard.GeoCode;
 
 /**
  * Twitter search parameters.

@@ -22,8 +22,8 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-import org.springframework.social.twitter.api.common.models.advertising.Campaign;
-import org.springframework.social.twitter.api.common.models.advertising.ReasonNotServable;
+import org.springframework.social.twitter.api.domain.models.advertising.Campaign;
+import org.springframework.social.twitter.api.domain.models.advertising.ReasonNotServable;
 import org.springframework.social.twitter.api.impl.common.builders.TransferingDataBuilder;
 import org.springframework.util.LinkedMultiValueMap;
 import org.springframework.util.MultiValueMap;

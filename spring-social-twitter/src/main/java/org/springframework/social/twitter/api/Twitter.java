@@ -16,16 +16,16 @@
 package org.springframework.social.twitter.api;
 
 import org.springframework.social.ApiBinding;
-import org.springframework.social.twitter.api.common.operations.AdvertisingOperations;
-import org.springframework.social.twitter.api.common.operations.BlockOperations;
-import org.springframework.social.twitter.api.common.operations.DirectMessageOperations;
-import org.springframework.social.twitter.api.common.operations.FriendOperations;
-import org.springframework.social.twitter.api.common.operations.GeoOperations;
-import org.springframework.social.twitter.api.common.operations.ListOperations;
-import org.springframework.social.twitter.api.common.operations.SearchOperations;
-import org.springframework.social.twitter.api.common.operations.StreamingOperations;
-import org.springframework.social.twitter.api.common.operations.TimelineOperations;
-import org.springframework.social.twitter.api.common.operations.UserOperations;
+import org.springframework.social.twitter.api.domain.operations.AdvertisingOperations;
+import org.springframework.social.twitter.api.domain.operations.BlockOperations;
+import org.springframework.social.twitter.api.domain.operations.DirectMessageOperations;
+import org.springframework.social.twitter.api.domain.operations.FriendOperations;
+import org.springframework.social.twitter.api.domain.operations.GeoOperations;
+import org.springframework.social.twitter.api.domain.operations.ListOperations;
+import org.springframework.social.twitter.api.domain.operations.SearchOperations;
+import org.springframework.social.twitter.api.domain.operations.StreamingOperations;
+import org.springframework.social.twitter.api.domain.operations.TimelineOperations;
+import org.springframework.social.twitter.api.domain.operations.UserOperations;
 import org.springframework.web.client.RestOperations;
 
 

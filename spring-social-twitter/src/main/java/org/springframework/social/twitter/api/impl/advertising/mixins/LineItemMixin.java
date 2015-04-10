@@ -18,11 +18,11 @@ package org.springframework.social.twitter.api.impl.advertising.mixins;
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
 
-import org.springframework.social.twitter.api.common.models.advertising.AdvertisingObjective;
-import org.springframework.social.twitter.api.common.models.advertising.AdvertisingPlacementType;
-import org.springframework.social.twitter.api.common.models.advertising.AdvertisingSentiment;
-import org.springframework.social.twitter.api.common.models.advertising.LineItem;
-import org.springframework.social.twitter.api.common.models.advertising.LineItemOptimization;
+import org.springframework.social.twitter.api.domain.models.advertising.AdvertisingObjective;
+import org.springframework.social.twitter.api.domain.models.advertising.AdvertisingPlacementType;
+import org.springframework.social.twitter.api.domain.models.advertising.AdvertisingSentiment;
+import org.springframework.social.twitter.api.domain.models.advertising.LineItem;
+import org.springframework.social.twitter.api.domain.models.advertising.LineItemOptimization;
 import org.springframework.social.twitter.api.impl.advertising.deserializers.BigDecimalMicroAmountDeserializer;
 import org.springframework.social.twitter.api.impl.common.deserializers.LocalDateTimeDeserializer;
 import org.springframework.social.twitter.api.impl.standard.mixins.TwitterObjectMixin;

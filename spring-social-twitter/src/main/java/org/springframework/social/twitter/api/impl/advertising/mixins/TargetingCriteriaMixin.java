@@ -17,8 +17,8 @@ package org.springframework.social.twitter.api.impl.advertising.mixins;
 
 import java.time.LocalDateTime;
 
-import org.springframework.social.twitter.api.common.models.advertising.TargetingCriteria;
-import org.springframework.social.twitter.api.common.models.advertising.TargetingType;
+import org.springframework.social.twitter.api.domain.models.advertising.TargetingCriteria;
+import org.springframework.social.twitter.api.domain.models.advertising.TargetingType;
 import org.springframework.social.twitter.api.impl.common.deserializers.LocalDateTimeDeserializer;
 import org.springframework.social.twitter.api.impl.standard.mixins.TwitterObjectMixin;
 

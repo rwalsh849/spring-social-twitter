@@ -20,7 +20,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import org.springframework.social.twitter.api.common.operations.GeoOperations;
+import org.springframework.social.twitter.api.domain.operations.GeoOperations;
 
 import com.fasterxml.jackson.annotation.JsonAnySetter;
 

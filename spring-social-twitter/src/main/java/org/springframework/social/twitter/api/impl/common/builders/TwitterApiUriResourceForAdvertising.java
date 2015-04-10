@@ -12,7 +12,7 @@ public enum TwitterApiUriResourceForAdvertising {
 	LINE_ITEM("accounts/:account_id/line_items/:line_item_id"),
 	
 	TARGETING_CRITERIAS("accounts/:account_id/targeting_criteria"),
-	TARGETING_CRITERIA("accounts/:account_id/targeting_criteria/:target_criteria_id");
+	TARGETING_CRITERIA("accounts/:account_id/targeting_criteria/:targeting_criteria_id");
 	
 	private final String name;
 	

@@ -19,8 +19,8 @@ import java.math.BigDecimal;
 import java.time.LocalDateTime;
 import java.util.List;
 
-import org.springframework.social.twitter.api.common.models.advertising.Campaign;
-import org.springframework.social.twitter.api.common.models.advertising.ReasonNotServable;
+import org.springframework.social.twitter.api.domain.models.advertising.Campaign;
+import org.springframework.social.twitter.api.domain.models.advertising.ReasonNotServable;
 import org.springframework.social.twitter.api.impl.advertising.deserializers.BigDecimalMicroAmountDeserializer;
 import org.springframework.social.twitter.api.impl.common.deserializers.LocalDateTimeDeserializer;
 import org.springframework.social.twitter.api.impl.standard.mixins.TwitterObjectMixin;

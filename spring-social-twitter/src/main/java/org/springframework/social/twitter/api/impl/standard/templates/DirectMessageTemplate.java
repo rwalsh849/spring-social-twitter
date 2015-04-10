@@ -18,8 +18,8 @@ package org.springframework.social.twitter.api.impl.standard.templates;
 import java.net.URI;
 import java.util.List;
 
-import org.springframework.social.twitter.api.common.models.standard.DirectMessage;
-import org.springframework.social.twitter.api.common.operations.DirectMessageOperations;
+import org.springframework.social.twitter.api.domain.models.standard.DirectMessage;
+import org.springframework.social.twitter.api.domain.operations.DirectMessageOperations;
 import org.springframework.social.twitter.api.impl.common.builders.TwitterApiUriBuilder;
 import org.springframework.social.twitter.api.impl.common.builders.TwitterApiUriResourceForStandard;
 import org.springframework.social.twitter.api.impl.common.templates.AbstractTwitterTemplate;

@@ -41,19 +41,19 @@ import java.util.List;
 import java.util.TimeZone;
 
 import org.junit.Test;
-import org.springframework.social.twitter.api.common.models.advertising.AdvertisingAccount;
-import org.springframework.social.twitter.api.common.models.advertising.AdvertisingObjective;
-import org.springframework.social.twitter.api.common.models.advertising.AdvertisingPlacementType;
-import org.springframework.social.twitter.api.common.models.advertising.AdvertisingSentiment;
-import org.springframework.social.twitter.api.common.models.advertising.Campaign;
-import org.springframework.social.twitter.api.common.models.advertising.FundingInstrument;
-import org.springframework.social.twitter.api.common.models.advertising.FundingInstrumentType;
-import org.springframework.social.twitter.api.common.models.advertising.LineItem;
-import org.springframework.social.twitter.api.common.models.advertising.LineItemOptimization;
-import org.springframework.social.twitter.api.common.models.advertising.ReasonNotServable;
-import org.springframework.social.twitter.api.common.models.advertising.TargetingCriteria;
-import org.springframework.social.twitter.api.common.models.advertising.TargetingType;
-import org.springframework.social.twitter.api.common.models.standard.ApprovalStatus;
+import org.springframework.social.twitter.api.domain.models.advertising.AdvertisingAccount;
+import org.springframework.social.twitter.api.domain.models.advertising.AdvertisingObjective;
+import org.springframework.social.twitter.api.domain.models.advertising.AdvertisingPlacementType;
+import org.springframework.social.twitter.api.domain.models.advertising.AdvertisingSentiment;
+import org.springframework.social.twitter.api.domain.models.advertising.Campaign;
+import org.springframework.social.twitter.api.domain.models.advertising.FundingInstrument;
+import org.springframework.social.twitter.api.domain.models.advertising.FundingInstrumentType;
+import org.springframework.social.twitter.api.domain.models.advertising.LineItem;
+import org.springframework.social.twitter.api.domain.models.advertising.LineItemOptimization;
+import org.springframework.social.twitter.api.domain.models.advertising.ReasonNotServable;
+import org.springframework.social.twitter.api.domain.models.advertising.TargetingCriteria;
+import org.springframework.social.twitter.api.domain.models.advertising.TargetingType;
+import org.springframework.social.twitter.api.domain.models.standard.ApprovalStatus;
 import org.springframework.social.twitter.api.impl.advertising.builders.CampaignDataBuilder;
 import org.springframework.social.twitter.api.impl.advertising.builders.LineItemDataBuilder;
 import org.springframework.social.twitter.api.impl.advertising.builders.TargetingCriteriaDataBuilder;
@@ -384,6 +384,35 @@ public class AdvertisingTemplateTest extends AbstractTwitterApiTest {
 					.active());
 		
 		assertSingleTargetingCriteriaContents(criteria);
+	}
+	
+	@Test
+	public void updateTargetingCriteria() {
+		String mockedAccountId = "hkk5";
+		String mockedTargetingCriteriaId = "2rqqn";
+		String doesntMatterString = "doesnt-matter";
+		Boolean doesntMatterBool = false;
+		String chainedPostContent = 
+				"line_item_id=" + doesntMatterString + "&" +
+				"name=" + doesntMatterString + "&" +
+				"targeting_type=" + TargetingType.APP_STORE_CATEGORY + "&" +
+				"targeting_value=" +  doesntMatterString + "&" +
+				"deleted=" + doesntMatterBool;
+		
+		mockServer
+			.expect(requestTo("https://ads-api.twitter.com/0/accounts/" + mockedAccountId + "/targeting_criteria/" + mockedTargetingCriteriaId))
+			.andExpect(method(PUT))
+			.andExpect(content().string(chainedPostContent))
+			.andRespond(withSuccess(jsonResource("ad-targetingcriteria-single"), APPLICATION_JSON));
+	
+		twitter.advertisingOperations().updateTargetingCriteria(
+				mockedAccountId,
+				mockedTargetingCriteriaId,
+				new TargetingCriteriaDataBuilder()
+					.withLineItem(doesntMatterString)
+					.withName(doesntMatterString)
+					.targeting(TargetingType.APP_STORE_CATEGORY, doesntMatterString)
+					.active());
 	}
 	
 	private void assertAdAccountContents(List<AdvertisingAccount> accounts) {

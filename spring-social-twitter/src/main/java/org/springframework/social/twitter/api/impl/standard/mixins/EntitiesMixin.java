@@ -17,7 +17,7 @@ package org.springframework.social.twitter.api.impl.standard.mixins;
 
 import java.util.List;
 
-import org.springframework.social.twitter.api.common.models.standard.HashTagEntity;
+import org.springframework.social.twitter.api.domain.models.standard.HashTagEntity;
 import org.springframework.social.twitter.api.impl.standard.models.MediaEntity;
 import org.springframework.social.twitter.api.impl.standard.models.MentionEntity;
 import org.springframework.social.twitter.api.impl.standard.models.UrlEntity;

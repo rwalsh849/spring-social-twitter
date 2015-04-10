@@ -20,13 +20,13 @@ import java.util.List;
 import org.springframework.core.ParameterizedTypeReference;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpMethod;
-import org.springframework.social.twitter.api.common.models.TransferingData;
-import org.springframework.social.twitter.api.common.models.advertising.AdvertisingAccount;
-import org.springframework.social.twitter.api.common.models.advertising.Campaign;
-import org.springframework.social.twitter.api.common.models.advertising.FundingInstrument;
-import org.springframework.social.twitter.api.common.models.advertising.LineItem;
-import org.springframework.social.twitter.api.common.models.advertising.TargetingCriteria;
-import org.springframework.social.twitter.api.common.operations.AdvertisingOperations;
+import org.springframework.social.twitter.api.domain.models.TransferingData;
+import org.springframework.social.twitter.api.domain.models.advertising.AdvertisingAccount;
+import org.springframework.social.twitter.api.domain.models.advertising.Campaign;
+import org.springframework.social.twitter.api.domain.models.advertising.FundingInstrument;
+import org.springframework.social.twitter.api.domain.models.advertising.LineItem;
+import org.springframework.social.twitter.api.domain.models.advertising.TargetingCriteria;
+import org.springframework.social.twitter.api.domain.operations.AdvertisingOperations;
 import org.springframework.social.twitter.api.impl.common.builders.TwitterApiUriBuilder;
 import org.springframework.social.twitter.api.impl.common.builders.TwitterApiUriResourceForAdvertising;
 import org.springframework.social.twitter.api.impl.common.holders.DataListHolder;
@@ -230,7 +230,7 @@ public class AdvertisingTemplate extends AbstractTwitterTemplate implements Adve
 				new TwitterApiUriBuilder()
 					.withResource(TwitterApiUriResourceForAdvertising.TARGETING_CRITERIA)
 					.withArgument("account_id", accountId)
-					.withArgument("target_criteria_id", id)
+					.withArgument("targeting_criteria_id", id)
 					.build(),
 				HttpMethod.GET,
 				null,
@@ -250,6 +250,18 @@ public class AdvertisingTemplate extends AbstractTwitterTemplate implements Adve
 				new HttpEntity<MultiValueMap<String, Object>>(data.toRequestParameters()),
 				new ParameterizedTypeReference<DataSingleHolder<TargetingCriteria>>(){}
 			).getBody().getData();
+	}
+	
+	@Override
+	public void updateTargetingCriteria(String accountId, String id, TransferingData data) {
+		requireUserAuthorization();
+		restTemplate.put(
+				new TwitterApiUriBuilder()
+					.withResource(TwitterApiUriResourceForAdvertising.TARGETING_CRITERIA)
+					.withArgument("account_id", accountId)
+					.withArgument("targeting_criteria_id", id)
+					.build(),
+				data.toRequestParameters());
 	}
 	
 }

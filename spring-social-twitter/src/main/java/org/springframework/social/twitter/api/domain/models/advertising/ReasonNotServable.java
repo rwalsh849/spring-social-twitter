@@ -1,0 +1,15 @@
+package org.springframework.social.twitter.api.domain.models.advertising;
+
+public enum ReasonNotServable {
+	ACCOUNT_REJECTED,
+	ACCOUNT_UNDER_REVIEW,
+	AWAITING_APPROVAL_BY_ADVERTISER,
+	BUDGET_EXHAUSTED,
+	CONTENT_REVIEW_PROBLEM,
+	DELETED,
+	EXPIRED,
+	FUNDING_PROBLEM,
+	INCOMPLETE,
+	PAUSED_BY_ADVERTISER,
+	STARTS_IN_FUTURE
+}

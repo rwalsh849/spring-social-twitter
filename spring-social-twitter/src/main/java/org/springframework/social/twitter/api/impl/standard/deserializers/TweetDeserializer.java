@@ -26,7 +26,7 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import org.springframework.social.twitter.api.TwitterModule;
-import org.springframework.social.twitter.api.common.models.standard.Entities;
+import org.springframework.social.twitter.api.domain.models.standard.Entities;
 import org.springframework.social.twitter.api.impl.standard.models.TickerSymbolEntity;
 import org.springframework.social.twitter.api.impl.standard.models.Tweet;
 import org.springframework.social.twitter.api.impl.standard.models.TwitterProfile;

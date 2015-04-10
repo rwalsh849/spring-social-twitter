@@ -29,7 +29,7 @@ import org.springframework.core.io.ByteArrayResource;
 import org.springframework.core.io.Resource;
 import org.springframework.social.DuplicateStatusException;
 import org.springframework.social.OperationNotPermittedException;
-import org.springframework.social.twitter.api.common.models.standard.Entities;
+import org.springframework.social.twitter.api.domain.models.standard.Entities;
 import org.springframework.social.twitter.api.impl.common.exceptions.MessageTooLongException;
 import org.springframework.social.twitter.api.impl.standard.models.OEmbedOptions;
 import org.springframework.social.twitter.api.impl.standard.models.OEmbedTweet;

@@ -17,7 +17,7 @@ package org.springframework.social.twitter.api.impl.common.holders;
 
 import java.util.List;
 
-import org.springframework.social.twitter.api.common.models.standard.CursoredList;
+import org.springframework.social.twitter.api.domain.models.standard.CursoredList;
 import org.springframework.social.twitter.api.impl.standard.models.TwitterProfile;
 
 import com.fasterxml.jackson.annotation.JsonCreator;

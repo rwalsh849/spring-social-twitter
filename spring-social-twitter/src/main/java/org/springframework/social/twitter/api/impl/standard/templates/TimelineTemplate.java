@@ -19,7 +19,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.core.io.Resource;
-import org.springframework.social.twitter.api.common.operations.TimelineOperations;
+import org.springframework.social.twitter.api.domain.operations.TimelineOperations;
 import org.springframework.social.twitter.api.impl.common.templates.AbstractTwitterTemplate;
 import org.springframework.social.twitter.api.impl.common.utils.PagingUtils;
 import org.springframework.social.twitter.api.impl.standard.models.OEmbedOptions;

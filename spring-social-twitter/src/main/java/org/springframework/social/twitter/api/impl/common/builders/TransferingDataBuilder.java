@@ -19,7 +19,7 @@ import java.lang.reflect.Array;
 import java.math.BigDecimal;
 import java.util.ArrayList;
 
-import org.springframework.social.twitter.api.common.models.TransferingData;
+import org.springframework.social.twitter.api.domain.models.TransferingData;
 import org.springframework.util.MultiValueMap;
 
 /**
