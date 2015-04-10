@@ -225,8 +225,8 @@ public class AdvertisingTemplateTest extends AbstractTwitterApiTest {
 			.andExpect(method(GET))
 			.andRespond(withSuccess(jsonResource("line-items-single"), APPLICATION_JSON));
 	
-		LineItem lineItems = twitter.advertisingOperations().getLineItem(mockedAccountId, mockedLineItem);
-		assertSingleLineItemContents(lineItems);
+		LineItem lineItem = twitter.advertisingOperations().getLineItem(mockedAccountId, mockedLineItem);
+		assertSingleLineItemContents(lineItem);
 	}
 	
 	@Test
@@ -256,7 +256,7 @@ public class AdvertisingTemplateTest extends AbstractTwitterApiTest {
 			.andExpect(content().string(chainedPostContent))
 			.andRespond(withSuccess(jsonResource("line-items-single"), APPLICATION_JSON));
 	
-		LineItem lineItems = twitter.advertisingOperations().createLineItem(
+		LineItem lineItem = twitter.advertisingOperations().createLineItem(
 				mockedAccountId,
 				new LineItemDataBuilder()
 					.withCampaign(doesntMatterString)
@@ -271,7 +271,7 @@ public class AdvertisingTemplateTest extends AbstractTwitterApiTest {
 					.paused()
 					.active());
 		
-		assertSingleLineItemContents(lineItems);
+		assertSingleLineItemContents(lineItem);
 	}
 	
 	@Test
@@ -335,12 +335,25 @@ public class AdvertisingTemplateTest extends AbstractTwitterApiTest {
 	public void getTargetingCriterias() {
 		String mockedAccountId = "hkk5";
 		mockServer
-			.expect(requestTo("https://ads-api.twitter.com/0/accounts/" + mockedAccountId + "/targeting_criterias?with_deleted=true"))
+			.expect(requestTo("https://ads-api.twitter.com/0/accounts/" + mockedAccountId + "/targeting_criteria?with_deleted=true"))
 			.andExpect(method(GET))
 			.andRespond(withSuccess(jsonResource("ad-targeting-criteria"), APPLICATION_JSON));
 	
 		List<TargetingCriteria> targetingCriterias = twitter.advertisingOperations().getTargetingCriterias(mockedAccountId);
 		assertTargetCriteriaContents(targetingCriterias);
+	}
+	
+	@Test
+	public void getTargetingCriteria() {
+		String mockedAccountId = "hkk5";
+		String mockedTargetingCriteriaId = "2rqqn";
+		mockServer
+			.expect(requestTo("https://ads-api.twitter.com/0/accounts/" + mockedAccountId + "/targeting_criteria/" + mockedTargetingCriteriaId))
+			.andExpect(method(GET))
+			.andRespond(withSuccess(jsonResource("ad-targetingcriteria-single"), APPLICATION_JSON));
+	
+		TargetingCriteria criteria = twitter.advertisingOperations().getTargetingCriteria(mockedAccountId, mockedTargetingCriteriaId);
+		assertSingleTargetingCriteriaContents(criteria);
 	}
 	
 	private void assertAdAccountContents(List<AdvertisingAccount> accounts) {
@@ -529,5 +542,17 @@ public class AdvertisingTemplateTest extends AbstractTwitterApiTest {
 		assertEquals(true, criterias.get(3).isDeleted());
 		assertEquals(LocalDateTime.of(2012, Month.DECEMBER, 05, 05, 11, 15), criterias.get(3).getCreatedAt());
 		assertEquals(LocalDateTime.of(2012, Month.DECEMBER, 06, 05, 11, 15), criterias.get(3).getUpdatedAt());
+	}
+	
+	private void assertSingleTargetingCriteriaContents(TargetingCriteria criteria) {
+		assertEquals("2rqqn", criteria.getId());
+		assertEquals("hkk5", criteria.getAccountId());
+		assertEquals("6zva", criteria.getLineItemId());
+		assertEquals("Portland OR, US", criteria.getName());
+		assertEquals(TargetingType.LOCATION, criteria.getTargetingType());
+		assertEquals("b6b8d75a320f81d9", criteria.getTargetingValue());
+		assertEquals(false, criteria.isDeleted());
+		assertEquals(LocalDateTime.of(2012, Month.DECEMBER, 13, 22, 51, 32), criteria.getCreatedAt());
+		assertEquals(LocalDateTime.of(2012, Month.DECEMBER, 13, 22, 51, 32), criteria.getUpdatedAt());
 	}
 }

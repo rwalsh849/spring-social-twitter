@@ -151,4 +151,12 @@ public interface AdvertisingOperations {
 	 * @return a list of {@link TargetingCriteria}. 
 	 */
 	List<TargetingCriteria> getTargetingCriterias(String accountId);
+	
+	/**
+	 * Retrieves a {@link TargetingCriteria} related to an {@link AdvertisingAccount} referred to by its id.
+	 * @param accountId identifies the account of which target criteria we wish to fetch. 
+	 * @param id identifies the target criteria that will be retrieved.
+	 * @return an instance of {@link TargetingCriteria}
+	 */
+	TargetingCriteria getTargetingCriteria(String accountId, String id);
 }
