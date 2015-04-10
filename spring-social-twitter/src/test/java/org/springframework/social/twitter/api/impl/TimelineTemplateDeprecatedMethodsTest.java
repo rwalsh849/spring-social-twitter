@@ -23,8 +23,8 @@ import static org.springframework.test.web.client.response.MockRestResponseCreat
 import org.junit.Test;
 import org.springframework.core.io.ByteArrayResource;
 import org.springframework.core.io.Resource;
-import org.springframework.social.twitter.api.StatusDetails;
-import org.springframework.social.twitter.api.Tweet;
+import org.springframework.social.twitter.api.impl.standard.models.StatusDetails;
+import org.springframework.social.twitter.api.impl.standard.models.Tweet;
 
 
 /**

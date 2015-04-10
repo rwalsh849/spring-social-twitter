@@ -16,6 +16,16 @@
 package org.springframework.social.twitter.api;
 
 import org.springframework.social.ApiBinding;
+import org.springframework.social.twitter.api.common.operations.AdvertisingOperations;
+import org.springframework.social.twitter.api.common.operations.BlockOperations;
+import org.springframework.social.twitter.api.common.operations.DirectMessageOperations;
+import org.springframework.social.twitter.api.common.operations.FriendOperations;
+import org.springframework.social.twitter.api.common.operations.GeoOperations;
+import org.springframework.social.twitter.api.common.operations.ListOperations;
+import org.springframework.social.twitter.api.common.operations.SearchOperations;
+import org.springframework.social.twitter.api.common.operations.StreamingOperations;
+import org.springframework.social.twitter.api.common.operations.TimelineOperations;
+import org.springframework.social.twitter.api.common.operations.UserOperations;
 import org.springframework.web.client.RestOperations;
 
 

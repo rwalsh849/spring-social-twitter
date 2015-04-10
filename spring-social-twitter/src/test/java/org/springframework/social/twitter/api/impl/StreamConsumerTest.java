@@ -21,6 +21,9 @@ import java.net.ConnectException;
 
 import org.junit.Test;
 import org.springframework.http.HttpStatus;
+import org.springframework.social.twitter.api.impl.standard.exceptions.StreamCreationException;
+import org.springframework.social.twitter.api.impl.standard.streaming.StreamReader;
+import org.springframework.social.twitter.api.impl.standard.streaming.ThreadedStreamConsumer;
 
 public class StreamConsumerTest {
 	

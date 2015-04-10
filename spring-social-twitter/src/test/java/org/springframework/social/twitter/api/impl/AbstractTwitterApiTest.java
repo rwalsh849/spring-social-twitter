@@ -22,11 +22,12 @@ import java.util.List;
 import org.junit.Before;
 import org.springframework.core.io.ClassPathResource;
 import org.springframework.core.io.Resource;
-import org.springframework.social.twitter.api.Entities;
-import org.springframework.social.twitter.api.HashTagEntity;
-import org.springframework.social.twitter.api.MentionEntity;
-import org.springframework.social.twitter.api.Tweet;
-import org.springframework.social.twitter.api.UrlEntity;
+import org.springframework.social.twitter.api.common.models.standard.Entities;
+import org.springframework.social.twitter.api.common.models.standard.HashTagEntity;
+import org.springframework.social.twitter.api.impl.standard.models.MentionEntity;
+import org.springframework.social.twitter.api.impl.standard.models.Tweet;
+import org.springframework.social.twitter.api.impl.standard.models.UrlEntity;
+import org.springframework.social.twitter.api.impl.standard.templates.TwitterTemplate;
 import org.springframework.test.web.client.MockRestServiceServer;
 
 public abstract class AbstractTwitterApiTest {

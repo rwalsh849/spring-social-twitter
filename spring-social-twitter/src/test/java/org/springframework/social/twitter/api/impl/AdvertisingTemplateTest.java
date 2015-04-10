@@ -41,17 +41,21 @@ import java.util.List;
 import java.util.TimeZone;
 
 import org.junit.Test;
-import org.springframework.social.twitter.api.AdvertisingAccount;
-import org.springframework.social.twitter.api.AdvertisingObjective;
-import org.springframework.social.twitter.api.AdvertisingPlacementType;
-import org.springframework.social.twitter.api.AdvertisingSentiment;
-import org.springframework.social.twitter.api.ApprovalStatus;
-import org.springframework.social.twitter.api.Campaign;
-import org.springframework.social.twitter.api.FundingInstrument;
-import org.springframework.social.twitter.api.FundingInstrumentType;
-import org.springframework.social.twitter.api.LineItem;
-import org.springframework.social.twitter.api.LineItemOptimization;
-import org.springframework.social.twitter.api.ReasonNotServable;
+import org.springframework.social.twitter.api.common.models.advertising.AdvertisingAccount;
+import org.springframework.social.twitter.api.common.models.advertising.AdvertisingObjective;
+import org.springframework.social.twitter.api.common.models.advertising.AdvertisingPlacementType;
+import org.springframework.social.twitter.api.common.models.advertising.AdvertisingSentiment;
+import org.springframework.social.twitter.api.common.models.advertising.Campaign;
+import org.springframework.social.twitter.api.common.models.advertising.FundingInstrument;
+import org.springframework.social.twitter.api.common.models.advertising.FundingInstrumentType;
+import org.springframework.social.twitter.api.common.models.advertising.LineItem;
+import org.springframework.social.twitter.api.common.models.advertising.LineItemOptimization;
+import org.springframework.social.twitter.api.common.models.advertising.ReasonNotServable;
+import org.springframework.social.twitter.api.common.models.advertising.TargetingCriteria;
+import org.springframework.social.twitter.api.common.models.advertising.TargetingType;
+import org.springframework.social.twitter.api.common.models.standard.ApprovalStatus;
+import org.springframework.social.twitter.api.impl.advertising.builders.CampaignDataBuilder;
+import org.springframework.social.twitter.api.impl.advertising.builders.LineItemDataBuilder;
 
 /**
  * @author Hudson mendes
@@ -61,7 +65,7 @@ public class AdvertisingTemplateTest extends AbstractTwitterApiTest {
 	@Test
 	public void getAccounts() {
 		mockServer
-			.expect(requestTo("https://ads-api.twitter.com/0/accounts"))
+			.expect(requestTo("https://ads-api.twitter.com/0/accounts?with_deleted=true"))
 			.andExpect(method(GET))
 			.andRespond(withSuccess(jsonResource("ad-accounts"), APPLICATION_JSON));
 
@@ -86,7 +90,7 @@ public class AdvertisingTemplateTest extends AbstractTwitterApiTest {
 	public void getCampaigns() {
 		String mockedAccountId = "0ga0yn";
 		mockServer
-			.expect(requestTo("https://ads-api.twitter.com/0/accounts/" + mockedAccountId + "/campaigns"))
+			.expect(requestTo("https://ads-api.twitter.com/0/accounts/" + mockedAccountId + "/campaigns?with_deleted=true"))
 			.andExpect(method(GET))
 			.andRespond(withSuccess(jsonResource("ad-campaigns"), APPLICATION_JSON));
 	
@@ -122,7 +126,7 @@ public class AdvertisingTemplateTest extends AbstractTwitterApiTest {
 		
 		Campaign campaign = twitter.advertisingOperations().createCampaign(
 				mockedAccountId,
-				new CampaignData()
+				new CampaignDataBuilder()
 					.withName(doesntMatterString)
 					.withCurrency(doesntMatterString)
 					.withFundingInstrument(doesntMatterString)
@@ -165,7 +169,7 @@ public class AdvertisingTemplateTest extends AbstractTwitterApiTest {
 		twitter.advertisingOperations().updateCampaign(
 				mockedAccountId,
 				mockedCampaignId,
-				new CampaignData()
+				new CampaignDataBuilder()
 					.withName(doesntMatterString)
 					.withCurrency(doesntMatterString)
 					.withFundingInstrument(doesntMatterString)
@@ -254,7 +258,7 @@ public class AdvertisingTemplateTest extends AbstractTwitterApiTest {
 	
 		LineItem lineItems = twitter.advertisingOperations().createLineItem(
 				mockedAccountId,
-				new LineItemData()
+				new LineItemDataBuilder()
 					.withCampaign(doesntMatterString)
 					.withCurrency(doesntMatterString)
 					.withTotalBudget(doesntMatterDecimal)
@@ -301,7 +305,7 @@ public class AdvertisingTemplateTest extends AbstractTwitterApiTest {
 		twitter.advertisingOperations().updateLineItem(
 				mockedAccountId,
 				mockedLineItemId,
-				new LineItemData()
+				new LineItemDataBuilder()
 					.withCampaign(doesntMatterString)
 					.withCurrency(doesntMatterString)
 					.withTotalBudget(doesntMatterDecimal)
@@ -325,6 +329,18 @@ public class AdvertisingTemplateTest extends AbstractTwitterApiTest {
 			.andRespond(withSuccess());
 	
 		twitter.advertisingOperations().deleteLineItem(mockedAccountId, mockedLineItemId);
+	}
+	
+	@Test
+	public void getTargetingCriterias() {
+		String mockedAccountId = "hkk5";
+		mockServer
+			.expect(requestTo("https://ads-api.twitter.com/0/accounts/" + mockedAccountId + "/targeting_criterias?with_deleted=true"))
+			.andExpect(method(GET))
+			.andRespond(withSuccess(jsonResource("ad-targeting-criteria"), APPLICATION_JSON));
+	
+		List<TargetingCriteria> targetingCriterias = twitter.advertisingOperations().getTargetingCriterias(mockedAccountId);
+		assertTargetCriteriaContents(targetingCriterias);
 	}
 	
 	private void assertAdAccountContents(List<AdvertisingAccount> accounts) {
@@ -469,5 +485,49 @@ public class AdvertisingTemplateTest extends AbstractTwitterApiTest {
 		assertEquals(false, lineItem.isDeleted());
 		assertEquals(LocalDateTime.of(2012, Month.NOVEMBER, 30, 22, 58, 11), lineItem.getCreatedAt());
 		assertEquals(LocalDateTime.of(2012, Month.NOVEMBER, 30, 22, 58, 11), lineItem.getUpdatedAt());
+	}
+	
+	private void assertTargetCriteriaContents(List<TargetingCriteria> criterias) {
+		assertEquals(4, criterias.size());
+		
+		assertEquals("2kzxf", criterias.get(0).getId());
+		assertEquals("hkk5", criterias.get(0).getAccountId());
+		assertEquals("69ob", criterias.get(0).getLineItemId());
+		assertEquals("episod", criterias.get(0).getName());
+		assertEquals(TargetingType.SIMILAR_TO_FOLLOWERS_OF_USER, criterias.get(0).getTargetingType());
+		assertEquals("819797", criterias.get(0).getTargetingValue());
+		assertEquals(false, criterias.get(0).isDeleted());
+		assertEquals(LocalDateTime.of(2012, Month.NOVEMBER, 30, 22, 58, 11), criterias.get(0).getCreatedAt());
+		assertEquals(LocalDateTime.of(2012, Month.NOVEMBER, 30, 22, 58, 11), criterias.get(0).getUpdatedAt());
+		
+		assertEquals("2kzxi", criterias.get(1).getId());
+		assertEquals("hkk5", criterias.get(1).getAccountId());
+		assertEquals("69ob", criterias.get(1).getLineItemId());
+		assertEquals("matrixsynth", criterias.get(1).getName());
+		assertEquals(TargetingType.SIMILAR_TO_FOLLOWERS_OF_USER, criterias.get(1).getTargetingType());
+		assertEquals("22231561", criterias.get(1).getTargetingValue());
+		assertEquals(false, criterias.get(1).isDeleted());
+		assertEquals(LocalDateTime.of(2012, Month.NOVEMBER, 30, 22, 58, 12), criterias.get(1).getCreatedAt());
+		assertEquals(LocalDateTime.of(2012, Month.NOVEMBER, 30, 22, 58, 12), criterias.get(1).getUpdatedAt());
+		
+		assertEquals("2kzxj", criterias.get(2).getId());
+		assertEquals("hkk5", criterias.get(2).getAccountId());
+		assertEquals("69ob", criterias.get(2).getLineItemId());
+		assertEquals("Horse_ebooks", criterias.get(2).getName());
+		assertEquals(TargetingType.SIMILAR_TO_FOLLOWERS_OF_USER, criterias.get(2).getTargetingType());
+		assertEquals("174958347", criterias.get(2).getTargetingValue());
+		assertEquals(false, criterias.get(2).isDeleted());
+		assertEquals(LocalDateTime.of(2012, Month.NOVEMBER, 30, 22, 58, 12), criterias.get(2).getCreatedAt());
+		assertEquals(LocalDateTime.of(2012, Month.NOVEMBER, 30, 22, 58, 12), criterias.get(2).getUpdatedAt());
+		
+		assertEquals("2mq7j", criterias.get(3).getId());
+		assertEquals("hkk5", criterias.get(3).getAccountId());
+		assertEquals("69ob", criterias.get(3).getLineItemId());
+		assertEquals("righteous dude", criterias.get(3).getName());
+		assertEquals(TargetingType.PHRASE_KEYWORD, criterias.get(3).getTargetingType());
+		assertEquals("righteous dude", criterias.get(3).getTargetingValue());
+		assertEquals(true, criterias.get(3).isDeleted());
+		assertEquals(LocalDateTime.of(2012, Month.DECEMBER, 05, 05, 11, 15), criterias.get(3).getCreatedAt());
+		assertEquals(LocalDateTime.of(2012, Month.DECEMBER, 06, 05, 11, 15), criterias.get(3).getUpdatedAt());
 	}
 }
