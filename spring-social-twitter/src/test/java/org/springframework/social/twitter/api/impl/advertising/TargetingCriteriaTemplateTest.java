@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.springframework.social.twitter.api.impl;
+package org.springframework.social.twitter.api.impl.advertising;
 
 import static org.junit.Assert.assertEquals;
 import static org.springframework.http.HttpMethod.DELETE;
@@ -33,6 +33,7 @@ import java.util.List;
 import org.junit.Test;
 import org.springframework.social.twitter.api.domain.models.advertising.TargetingCriteria;
 import org.springframework.social.twitter.api.domain.models.advertising.TargetingType;
+import org.springframework.social.twitter.api.impl.AbstractTwitterApiTest;
 import org.springframework.social.twitter.api.impl.advertising.builders.TargetingCriteriaDataBuilder;
 
 /**

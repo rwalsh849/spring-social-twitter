@@ -24,9 +24,7 @@ import org.springframework.social.twitter.api.domain.models.TransferingData;
 import org.springframework.social.twitter.api.domain.models.advertising.AdvertisingAccount;
 import org.springframework.social.twitter.api.domain.models.advertising.Campaign;
 import org.springframework.social.twitter.api.domain.models.advertising.FundingInstrument;
-import org.springframework.social.twitter.api.domain.models.advertising.LineItem;
-import org.springframework.social.twitter.api.domain.models.advertising.TargetingCriteria;
-import org.springframework.social.twitter.api.domain.operations.AdvertisingOperations;
+import org.springframework.social.twitter.api.domain.operations.advertising.AdvertisingOperations;
 import org.springframework.social.twitter.api.impl.common.builders.TwitterApiUriBuilder;
 import org.springframework.social.twitter.api.impl.common.builders.TwitterApiUriResourceForAdvertising;
 import org.springframework.social.twitter.api.impl.common.holders.DataListHolder;
@@ -140,72 +138,6 @@ public class AdvertisingTemplate extends AbstractTwitterTemplate implements Adve
 				null,
 				new ParameterizedTypeReference<DataListHolder<FundingInstrument>>(){}
 			).getBody().getData();
-	}
-
-	@Override
-	public List<LineItem> getLineItems(String accountId) {
-		requireUserAuthorization();
-		return restTemplate.exchange(
-				new TwitterApiUriBuilder()
-					.withResource(TwitterApiUriResourceForAdvertising.LINE_ITEMS)
-					.withArgument("account_id", accountId)
-					.withArgument("with_deleted", "true")
-					.build(),
-				HttpMethod.GET,
-				null,
-				new ParameterizedTypeReference<DataListHolder<LineItem>>(){}
-			).getBody().getData();
-	}
-
-	@Override
-	public LineItem getLineItem(String accountId, String id) {
-		requireUserAuthorization();
-		return restTemplate.exchange(
-				new TwitterApiUriBuilder()
-					.withResource(TwitterApiUriResourceForAdvertising.LINE_ITEM)
-					.withArgument("account_id", accountId)
-					.withArgument("line_item_id", id)
-					.build(),
-				HttpMethod.GET,
-				null,
-				new ParameterizedTypeReference<DataSingleHolder<LineItem>>(){}
-			).getBody().getData();
-	}
-
-	@Override
-	public LineItem createLineItem(String accountId, TransferingData data) {
-		requireUserAuthorization();
-		return restTemplate.exchange(
-				new TwitterApiUriBuilder()
-					.withResource(TwitterApiUriResourceForAdvertising.LINE_ITEMS)
-					.withArgument("account_id", accountId)
-					.build(),
-				HttpMethod.POST,
-				new HttpEntity<MultiValueMap<String, Object>>(data.toRequestParameters()),
-				new ParameterizedTypeReference<DataSingleHolder<LineItem>>(){}
-			).getBody().getData();
-	}
-
-	@Override
-	public void updateLineItem(String accountId, String id, TransferingData data) {
-		requireUserAuthorization();
-		restTemplate.put(
-				new TwitterApiUriBuilder()
-					.withResource(TwitterApiUriResourceForAdvertising.LINE_ITEM)
-					.withArgument("account_id", accountId)
-					.withArgument("line_item_id", id)
-					.build(),
-				data.toRequestParameters());
-	}
-
-	@Override
-	public void deleteLineItem(String accountId, String id) {
-		requireUserAuthorization();
-		restTemplate.delete(new TwitterApiUriBuilder()
-			.withResource(TwitterApiUriResourceForAdvertising.LINE_ITEM)
-			.withArgument("account_id", accountId)
-			.withArgument("line_item_id", id)
-			.build());
 	}
 	
 }

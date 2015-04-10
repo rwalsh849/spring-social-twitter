@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.springframework.social.twitter.api.impl;
+package org.springframework.social.twitter.api.impl.standard;
 
 import static org.springframework.http.HttpMethod.*;
 import static org.springframework.http.MediaType.*;
@@ -23,6 +23,7 @@ import static org.springframework.test.web.client.response.MockRestResponseCreat
 import org.junit.Test;
 import org.springframework.core.io.ByteArrayResource;
 import org.springframework.core.io.Resource;
+import org.springframework.social.twitter.api.impl.AbstractTwitterApiTest;
 import org.springframework.social.twitter.api.impl.standard.models.StatusDetails;
 import org.springframework.social.twitter.api.impl.standard.models.Tweet;
 

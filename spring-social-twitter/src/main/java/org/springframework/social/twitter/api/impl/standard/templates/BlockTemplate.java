@@ -19,7 +19,7 @@ package org.springframework.social.twitter.api.impl.standard.templates;
 import java.net.URI;
 
 import org.springframework.social.twitter.api.domain.models.standard.CursoredList;
-import org.springframework.social.twitter.api.domain.operations.BlockOperations;
+import org.springframework.social.twitter.api.domain.operations.standard.BlockOperations;
 import org.springframework.social.twitter.api.impl.common.builders.TwitterApiUriBuilder;
 import org.springframework.social.twitter.api.impl.common.builders.TwitterApiUriResourceForStandard;
 import org.springframework.social.twitter.api.impl.common.holders.CursoredLongList;

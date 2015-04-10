@@ -19,7 +19,7 @@ import java.net.URI;
 import java.util.List;
 
 import org.springframework.social.twitter.api.domain.models.standard.DirectMessage;
-import org.springframework.social.twitter.api.domain.operations.DirectMessageOperations;
+import org.springframework.social.twitter.api.domain.operations.standard.DirectMessageOperations;
 import org.springframework.social.twitter.api.impl.common.builders.TwitterApiUriBuilder;
 import org.springframework.social.twitter.api.impl.common.builders.TwitterApiUriResourceForStandard;
 import org.springframework.social.twitter.api.impl.common.templates.AbstractTwitterTemplate;

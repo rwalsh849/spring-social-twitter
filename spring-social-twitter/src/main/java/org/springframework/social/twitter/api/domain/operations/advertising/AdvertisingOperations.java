@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.springframework.social.twitter.api.domain.operations;
+package org.springframework.social.twitter.api.domain.operations.advertising;
 
 import java.util.List;
 
@@ -23,8 +23,6 @@ import org.springframework.social.twitter.api.domain.models.TransferingData;
 import org.springframework.social.twitter.api.domain.models.advertising.AdvertisingAccount;
 import org.springframework.social.twitter.api.domain.models.advertising.Campaign;
 import org.springframework.social.twitter.api.domain.models.advertising.FundingInstrument;
-import org.springframework.social.twitter.api.domain.models.advertising.LineItem;
-import org.springframework.social.twitter.api.domain.models.advertising.TargetingCriteria;
 
 /**
  * Interface defining the operations for advertising operations.
@@ -97,51 +95,4 @@ public interface AdvertisingOperations {
 	 */
 	List<FundingInstrument> getFundingInstruments(String accountId);
 	
-	/**
-	 * Retrieves a list of all {@link LineItem} linked to a particular {@link AdvertisingAccount}.
-	 * @param accountId identifies the account for which we want to get the line items.  
-	 * @return a list of {@link LineItem}
-	 * @throws ApiException if there is an error while communicating with Twitter.
-	 * @throws MissingAuthorizationException if TwitterTemplate was not created with OAuth credentials.
-	 */
-	List<LineItem> getLineItems(String accountId);
-	
-	/**
-	 * Retrieves a {@link LineItem} linked to a particular {@link AdvertisingAccount} referred to by its id.
-	 * @param accountId identifies the account for which we wish to get the particular line item.
-	 * @param id identifies which line id we wish to retrieve.   
-	 * @return an instance of {@link LineItem}
-	 * @throws ApiException if there is an error while communicating with Twitter.
-	 * @throws MissingAuthorizationException if TwitterTemplate was not created with OAuth credentials.
-	 */
-	LineItem getLineItem(String accountId, String id);
-	
-	/**
-	 * Creates {@link LineItem} linked to a particular {@link AdvertisingAccount}.
-	 * @param accountId identifies the account for which we want to create a line item.
-	 * @param data is the request data builder that will generate the request body for the operation.   
-	 * @return an instance of {@link LineItem}
-	 * @throws ApiException if there is an error while communicating with Twitter.
-	 * @throws MissingAuthorizationException if TwitterTemplate was not created with OAuth credentials.
-	 */
-	LineItem createLineItem(String accountId, TransferingData data);
-	
-	/**
-	 * Updates {@link LineItem} linked to a particular {@link AdvertisingAccount} referred to by its id.
-	 * @param accountId identifies the account for which we want to update a line item.
-	 * @param id identifies which line id we wish to update.
-	 * @param data is the request data builder that will generate the request body for the operation.  
-	 * @throws ApiException if there is an error while communicating with Twitter.
-	 * @throws MissingAuthorizationException if TwitterTemplate was not created with OAuth credentials.
-	 */
-	void updateLineItem(String accountId, String id, TransferingData data);
-	
-	/**
-	 * Deletes a {@link LineItem} related to an {@link AdvertisingAccount} found by its campaignId.
-	 * @param accountId identifies the account of which line item we wish to delete.
-	 * @param id identifies the line item that we desire to delete.
-	 * @throws ApiException if there is an error while communicating with Twitter.
-	 * @throws MissingAuthorizationException if TwitterTemplate was not created with OAuth credentials.
-	 */
-	void deleteLineItem(String accountId, String id);
 }

@@ -18,7 +18,7 @@ package org.springframework.social.twitter.api.impl.standard.templates;
 import java.net.URI;
 import java.util.List;
 
-import org.springframework.social.twitter.api.domain.operations.GeoOperations;
+import org.springframework.social.twitter.api.domain.operations.standard.GeoOperations;
 import org.springframework.social.twitter.api.impl.common.builders.TwitterApiUriBuilder;
 import org.springframework.social.twitter.api.impl.common.builders.TwitterApiUriResourceForStandard;
 import org.springframework.social.twitter.api.impl.common.templates.AbstractTwitterTemplate;

@@ -30,7 +30,7 @@ import org.springframework.http.client.ClientHttpRequest;
 import org.springframework.http.client.ClientHttpRequestFactory;
 import org.springframework.http.client.ClientHttpResponse;
 import org.springframework.social.twitter.api.domain.models.standard.FilterStreamParameters;
-import org.springframework.social.twitter.api.domain.operations.StreamingOperations;
+import org.springframework.social.twitter.api.domain.operations.standard.StreamingOperations;
 import org.springframework.social.twitter.api.impl.common.templates.AbstractTwitterTemplate;
 import org.springframework.social.twitter.api.impl.standard.exceptions.StreamCreationException;
 import org.springframework.social.twitter.api.impl.standard.models.Stream;

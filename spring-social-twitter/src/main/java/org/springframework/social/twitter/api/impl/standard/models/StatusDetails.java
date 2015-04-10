@@ -17,7 +17,7 @@ package org.springframework.social.twitter.api.impl.standard.models;
 
 import java.util.Map;
 
-import org.springframework.social.twitter.api.domain.operations.TimelineOperations;
+import org.springframework.social.twitter.api.domain.operations.standard.TimelineOperations;
 import org.springframework.util.LinkedMultiValueMap;
 import org.springframework.util.MultiValueMap;
 

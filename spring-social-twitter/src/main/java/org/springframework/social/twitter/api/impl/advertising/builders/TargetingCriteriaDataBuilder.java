@@ -4,7 +4,6 @@ import org.springframework.social.twitter.api.domain.models.advertising.Targetin
 import org.springframework.social.twitter.api.impl.common.builders.TransferingDataBuilder;
 import org.springframework.util.LinkedMultiValueMap;
 import org.springframework.util.MultiValueMap;
-import org.springframework.web.bind.support.DefaultDataBinderFactory;
 
 public class TargetingCriteriaDataBuilder extends TransferingDataBuilder {
 	private String lineItemId;

@@ -15,7 +15,7 @@
  */
 package org.springframework.social.twitter.api.impl.standard.models;
 
-import org.springframework.social.twitter.api.domain.operations.GeoOperations;
+import org.springframework.social.twitter.api.domain.operations.standard.GeoOperations;
 
 /**
  * Represents a new place that could be created. 

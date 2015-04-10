@@ -19,7 +19,7 @@ import static org.springframework.social.twitter.api.impl.common.utils.SearchPar
 
 import java.util.List;
 
-import org.springframework.social.twitter.api.domain.operations.SearchOperations;
+import org.springframework.social.twitter.api.domain.operations.standard.SearchOperations;
 import org.springframework.social.twitter.api.impl.common.templates.AbstractTwitterTemplate;
 import org.springframework.social.twitter.api.impl.standard.holders.LocalTrendsHolder;
 import org.springframework.social.twitter.api.impl.standard.holders.SavedSearchList;

@@ -16,17 +16,18 @@
 package org.springframework.social.twitter.api;
 
 import org.springframework.social.ApiBinding;
-import org.springframework.social.twitter.api.domain.operations.AdvertisingOperations;
-import org.springframework.social.twitter.api.domain.operations.BlockOperations;
-import org.springframework.social.twitter.api.domain.operations.DirectMessageOperations;
-import org.springframework.social.twitter.api.domain.operations.FriendOperations;
-import org.springframework.social.twitter.api.domain.operations.GeoOperations;
-import org.springframework.social.twitter.api.domain.operations.ListOperations;
-import org.springframework.social.twitter.api.domain.operations.SearchOperations;
-import org.springframework.social.twitter.api.domain.operations.StreamingOperations;
-import org.springframework.social.twitter.api.domain.operations.TargetingCriteriaOperations;
-import org.springframework.social.twitter.api.domain.operations.TimelineOperations;
-import org.springframework.social.twitter.api.domain.operations.UserOperations;
+import org.springframework.social.twitter.api.domain.operations.advertising.AdvertisingOperations;
+import org.springframework.social.twitter.api.domain.operations.advertising.LineItemOperations;
+import org.springframework.social.twitter.api.domain.operations.advertising.TargetingCriteriaOperations;
+import org.springframework.social.twitter.api.domain.operations.standard.BlockOperations;
+import org.springframework.social.twitter.api.domain.operations.standard.DirectMessageOperations;
+import org.springframework.social.twitter.api.domain.operations.standard.FriendOperations;
+import org.springframework.social.twitter.api.domain.operations.standard.GeoOperations;
+import org.springframework.social.twitter.api.domain.operations.standard.ListOperations;
+import org.springframework.social.twitter.api.domain.operations.standard.SearchOperations;
+import org.springframework.social.twitter.api.domain.operations.standard.StreamingOperations;
+import org.springframework.social.twitter.api.domain.operations.standard.TimelineOperations;
+import org.springframework.social.twitter.api.domain.operations.standard.UserOperations;
 import org.springframework.web.client.RestOperations;
 
 
@@ -87,6 +88,11 @@ public interface Twitter extends ApiBinding {
 	 * @return the portion of the Twitter ADS API containing the advertising operations.
 	 */
 	AdvertisingOperations advertisingOperations();
+	
+	/**
+	 * @return the portion of the Twitter ADS API containing the line items operations.
+	 */
+	LineItemOperations lineItemOperations();
 	
 	/**
 	 * @return the portion of the Twitter ADS API containing the targeting criteria operations.

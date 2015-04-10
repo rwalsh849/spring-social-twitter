@@ -19,7 +19,7 @@ import java.net.URI;
 import java.util.Map;
 
 import org.springframework.social.twitter.api.domain.models.standard.CursoredList;
-import org.springframework.social.twitter.api.domain.operations.FriendOperations;
+import org.springframework.social.twitter.api.domain.operations.standard.FriendOperations;
 import org.springframework.social.twitter.api.impl.common.builders.TwitterApiUriBuilder;
 import org.springframework.social.twitter.api.impl.common.builders.TwitterApiUriResourceForStandard;
 import org.springframework.social.twitter.api.impl.common.holders.CursoredLongList;

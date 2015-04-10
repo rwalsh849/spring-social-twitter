@@ -21,8 +21,8 @@ import org.springframework.core.ParameterizedTypeReference;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpMethod;
 import org.springframework.social.twitter.api.domain.models.TransferingData;
-import org.springframework.social.twitter.api.domain.models.advertising.TargetingCriteria;
-import org.springframework.social.twitter.api.domain.operations.advertising.TargetingCriteriaOperations;
+import org.springframework.social.twitter.api.domain.models.advertising.LineItem;
+import org.springframework.social.twitter.api.domain.operations.advertising.LineItemOperations;
 import org.springframework.social.twitter.api.impl.common.builders.TwitterApiUriBuilder;
 import org.springframework.social.twitter.api.impl.common.builders.TwitterApiUriResourceForAdvertising;
 import org.springframework.social.twitter.api.impl.common.holders.DataListHolder;
@@ -31,81 +31,77 @@ import org.springframework.social.twitter.api.impl.common.templates.AbstractTwit
 import org.springframework.util.MultiValueMap;
 import org.springframework.web.client.RestTemplate;
 
-/**
- * Implementation of {@link TargetingCriteriaOperations}, providing a binding to Twitter's direct message-oriented REST resources.
- * @author Hudson Mendes
- */
-public class TargetingCriteriaTemplate extends AbstractTwitterTemplate implements TargetingCriteriaOperations {
+public class LineItemTemplate extends AbstractTwitterTemplate implements LineItemOperations {
 	private final RestTemplate restTemplate;
 
-	public TargetingCriteriaTemplate(RestTemplate restTemplate, boolean isAuthorizedForUser, boolean isAuthorizedForApp) {
+	public LineItemTemplate(RestTemplate restTemplate, boolean isAuthorizedForUser, boolean isAuthorizedForApp) {
 		super(isAuthorizedForUser, isAuthorizedForApp);
 		this.restTemplate = restTemplate;
 	}
 	
 	@Override
-	public List<TargetingCriteria> getTargetingCriterias(String accountId) {
+	public List<LineItem> getLineItems(String accountId) {
 		requireUserAuthorization();
 		return restTemplate.exchange(
 				new TwitterApiUriBuilder()
-					.withResource(TwitterApiUriResourceForAdvertising.TARGETING_CRITERIAS)
+					.withResource(TwitterApiUriResourceForAdvertising.LINE_ITEMS)
 					.withArgument("account_id", accountId)
 					.withArgument("with_deleted", "true")
 					.build(),
 				HttpMethod.GET,
 				null,
-				new ParameterizedTypeReference<DataListHolder<TargetingCriteria>>(){}
+				new ParameterizedTypeReference<DataListHolder<LineItem>>(){}
 			).getBody().getData();
 	}
 
 	@Override
-	public TargetingCriteria getTargetingCriteria(String accountId, String id) {
+	public LineItem getLineItem(String accountId, String id) {
 		requireUserAuthorization();
 		return restTemplate.exchange(
 				new TwitterApiUriBuilder()
-					.withResource(TwitterApiUriResourceForAdvertising.TARGETING_CRITERIA)
+					.withResource(TwitterApiUriResourceForAdvertising.LINE_ITEM)
 					.withArgument("account_id", accountId)
-					.withArgument("targeting_criteria_id", id)
+					.withArgument("line_item_id", id)
 					.build(),
 				HttpMethod.GET,
 				null,
-				new ParameterizedTypeReference<DataSingleHolder<TargetingCriteria>>(){}
+				new ParameterizedTypeReference<DataSingleHolder<LineItem>>(){}
 			).getBody().getData();
 	}
 
 	@Override
-	public TargetingCriteria createTargetingCriteria(String accountId, TransferingData data) {
+	public LineItem createLineItem(String accountId, TransferingData data) {
 		requireUserAuthorization();
 		return restTemplate.exchange(
 				new TwitterApiUriBuilder()
-					.withResource(TwitterApiUriResourceForAdvertising.TARGETING_CRITERIAS)
+					.withResource(TwitterApiUriResourceForAdvertising.LINE_ITEMS)
 					.withArgument("account_id", accountId)
 					.build(),
 				HttpMethod.POST,
 				new HttpEntity<MultiValueMap<String, Object>>(data.toRequestParameters()),
-				new ParameterizedTypeReference<DataSingleHolder<TargetingCriteria>>(){}
+				new ParameterizedTypeReference<DataSingleHolder<LineItem>>(){}
 			).getBody().getData();
 	}
-	
+
 	@Override
-	public void updateTargetingCriteria(String accountId, String id, TransferingData data) {
+	public void updateLineItem(String accountId, String id, TransferingData data) {
 		requireUserAuthorization();
 		restTemplate.put(
 				new TwitterApiUriBuilder()
-					.withResource(TwitterApiUriResourceForAdvertising.TARGETING_CRITERIA)
+					.withResource(TwitterApiUriResourceForAdvertising.LINE_ITEM)
 					.withArgument("account_id", accountId)
-					.withArgument("targeting_criteria_id", id)
+					.withArgument("line_item_id", id)
 					.build(),
 				data.toRequestParameters());
 	}
 
 	@Override
-	public void deleteTargetingCriteria(String accountId, String id) {
+	public void deleteLineItem(String accountId, String id) {
 		requireUserAuthorization();
 		restTemplate.delete(new TwitterApiUriBuilder()
-			.withResource(TwitterApiUriResourceForAdvertising.TARGETING_CRITERIA)
+			.withResource(TwitterApiUriResourceForAdvertising.LINE_ITEM)
 			.withArgument("account_id", accountId)
-			.withArgument("targeting_criteria_id", id)
+			.withArgument("line_item_id", id)
 			.build());
 	}
 	
