@@ -177,4 +177,13 @@ public interface AdvertisingOperations {
 	 * @throws MissingAuthorizationException if TwitterTemplate was not created with OAuth credentials.
 	 */
 	void updateTargetingCriteria(String accountId, String id, TransferingData data);
+	
+	/**
+	 * Deletes a {@link TargetingCriteria} related to an {@link AdvertisingAccount} found by its campaignId.
+	 * @param accountId identifies the account of which targeting criteria we wish to delete.
+	 * @param id identifies the targeting criteria that we desire to delete.
+	 * @throws ApiException if there is an error while communicating with Twitter.
+	 * @throws MissingAuthorizationException if TwitterTemplate was not created with OAuth credentials.
+	 */
+	void deleteTargetingCriteria(String accountId, String id);
 }

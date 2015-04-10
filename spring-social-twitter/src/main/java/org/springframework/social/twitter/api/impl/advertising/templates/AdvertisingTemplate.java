@@ -263,5 +263,15 @@ public class AdvertisingTemplate extends AbstractTwitterTemplate implements Adve
 					.build(),
 				data.toRequestParameters());
 	}
+
+	@Override
+	public void deleteTargetingCriteria(String accountId, String id) {
+		requireUserAuthorization();
+		restTemplate.delete(new TwitterApiUriBuilder()
+			.withResource(TwitterApiUriResourceForAdvertising.TARGETING_CRITERIA)
+			.withArgument("account_id", accountId)
+			.withArgument("targeting_criteria_id", id)
+			.build());
+	}
 	
 }

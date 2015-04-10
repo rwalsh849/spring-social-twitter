@@ -415,6 +415,18 @@ public class AdvertisingTemplateTest extends AbstractTwitterApiTest {
 					.active());
 	}
 	
+	@Test
+	public void deleteTargetingCriteria() {
+		String mockedAccountId = "0ga0yn";
+		String mockedLineItemId = "92ph";
+		mockServer
+			.expect(requestTo("https://ads-api.twitter.com/0/accounts/" + mockedAccountId + "/targeting_criteria/" + mockedLineItemId))
+			.andExpect(method(DELETE))
+			.andRespond(withSuccess());
+	
+		twitter.advertisingOperations().deleteTargetingCriteria(mockedAccountId, mockedLineItemId);
+	}
+	
 	private void assertAdAccountContents(List<AdvertisingAccount> accounts) {
 		assertEquals(2, accounts.size());
 		
