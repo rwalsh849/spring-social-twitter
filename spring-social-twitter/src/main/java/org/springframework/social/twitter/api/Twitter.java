@@ -24,6 +24,7 @@ import org.springframework.social.twitter.api.domain.operations.GeoOperations;
 import org.springframework.social.twitter.api.domain.operations.ListOperations;
 import org.springframework.social.twitter.api.domain.operations.SearchOperations;
 import org.springframework.social.twitter.api.domain.operations.StreamingOperations;
+import org.springframework.social.twitter.api.domain.operations.TargetingCriteriaOperations;
 import org.springframework.social.twitter.api.domain.operations.TimelineOperations;
 import org.springframework.social.twitter.api.domain.operations.UserOperations;
 import org.springframework.web.client.RestOperations;
@@ -83,9 +84,14 @@ public interface Twitter extends ApiBinding {
 	UserOperations userOperations();
 	
 	/**
-	 * @return the portion of the Twitter API containing the advertising campaign operations.
+	 * @return the portion of the Twitter ADS API containing the advertising operations.
 	 */
 	AdvertisingOperations advertisingOperations();
+	
+	/**
+	 * @return the portion of the Twitter ADS API containing the targeting criteria operations.
+	 */
+	TargetingCriteriaOperations targetingCriteriaOperations();
 
 	/**
 	 * Returns the underlying {@link RestOperations} object allowing for consumption of Twitter endpoints that may not be otherwise covered by the API binding.

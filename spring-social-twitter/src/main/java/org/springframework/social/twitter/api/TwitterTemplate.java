@@ -28,9 +28,11 @@ import org.springframework.social.twitter.api.domain.operations.GeoOperations;
 import org.springframework.social.twitter.api.domain.operations.ListOperations;
 import org.springframework.social.twitter.api.domain.operations.SearchOperations;
 import org.springframework.social.twitter.api.domain.operations.StreamingOperations;
+import org.springframework.social.twitter.api.domain.operations.TargetingCriteriaOperations;
 import org.springframework.social.twitter.api.domain.operations.TimelineOperations;
 import org.springframework.social.twitter.api.domain.operations.UserOperations;
 import org.springframework.social.twitter.api.impl.advertising.templates.AdvertisingTemplate;
+import org.springframework.social.twitter.api.impl.advertising.templates.TargetingCriteriaTemplate;
 import org.springframework.social.twitter.api.impl.common.exceptions.TwitterErrorHandler;
 import org.springframework.social.twitter.api.impl.common.templates.ClientAuthorizedTwitterTemplate;
 import org.springframework.social.twitter.api.impl.standard.converters.TwitterEscapingFormHttpMessageConverter;
@@ -80,6 +82,8 @@ public class TwitterTemplate extends AbstractOAuth1ApiBinding implements Twitter
 	private StreamingOperations streamOperations;
 	
 	private AdvertisingOperations advertisingOperations;
+	
+	private TargetingCriteriaOperations targetingCriteriaOperations;
 	
 	private RestTemplate clientRestTemplate = null;
 	
@@ -160,6 +164,10 @@ public class TwitterTemplate extends AbstractOAuth1ApiBinding implements Twitter
 	public AdvertisingOperations advertisingOperations() {
 		return advertisingOperations;
 	}
+	
+	public TargetingCriteriaOperations targetingCriteriaOperations() {
+		return targetingCriteriaOperations;
+	}
 
 	public RestOperations restOperations() {
 		return getRestTemplate();
@@ -216,7 +224,9 @@ public class TwitterTemplate extends AbstractOAuth1ApiBinding implements Twitter
 		this.blockOperations = new BlockTemplate(getRestTemplate(), isAuthorized(),isAuthorizedForApp());
 		this.geoOperations = new GeoTemplate(getRestTemplate(), isAuthorized(), isAuthorizedForApp());
 		this.streamOperations = new StreamingTemplate(getRestTemplate(), isAuthorized(), isAuthorizedForApp());
+		
 		this.advertisingOperations = new AdvertisingTemplate(getRestTemplate(), isAuthorized(), isAuthorized());
+		this.targetingCriteriaOperations = new TargetingCriteriaTemplate(getRestTemplate(), isAuthorized(), isAuthorized());
 	}
 	
 	private boolean isAuthorizedForApp() {

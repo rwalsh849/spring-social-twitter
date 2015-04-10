@@ -144,46 +144,4 @@ public interface AdvertisingOperations {
 	 * @throws MissingAuthorizationException if TwitterTemplate was not created with OAuth credentials.
 	 */
 	void deleteLineItem(String accountId, String id);
-	
-	/**
-	 * Retrieves a list of {@link TargetingCriteria} related to an {@link AdvertisingAccount}. 
-	 * @param accountId identifies the account for which we want to retrieve targeting criteria.
-	 * @return a list of {@link TargetingCriteria}. 
-	 */
-	List<TargetingCriteria> getTargetingCriterias(String accountId);
-	
-	/**
-	 * Retrieves a {@link TargetingCriteria} related to an {@link AdvertisingAccount} referred to by its id.
-	 * @param accountId identifies the account of which target criteria we wish to fetch. 
-	 * @param id identifies the target criteria that will be retrieved.
-	 * @return an instance of {@link TargetingCriteria}
-	 */
-	TargetingCriteria getTargetingCriteria(String accountId, String id);
-	
-	/**
-	 * Creates a {@link TargetingCriteria} related to an {@link AdvertisingAccount}
-	 * @param accountId identifies the account for which the targeting criteria will be created.
-	 * @param data defines the parameters that we shall use to generate the targeting criteria  
-	 * @return an instance of {@link TargetingCriteria}
-	 */
-	TargetingCriteria createTargetingCriteria(String accountId, TransferingData data);
-
-	/**
-	 * Updates {@link TargetingCriteria} linked to a particular {@link AdvertisingAccount} referred to by its id.
-	 * @param accountId identifies the account for which we want to update a targeting criteria.
-	 * @param id identifies which line id we wish to update.
-	 * @param data is the request data builder that will generate the request body for the operation.  
-	 * @throws ApiException if there is an error while communicating with Twitter.
-	 * @throws MissingAuthorizationException if TwitterTemplate was not created with OAuth credentials.
-	 */
-	void updateTargetingCriteria(String accountId, String id, TransferingData data);
-	
-	/**
-	 * Deletes a {@link TargetingCriteria} related to an {@link AdvertisingAccount} found by its campaignId.
-	 * @param accountId identifies the account of which targeting criteria we wish to delete.
-	 * @param id identifies the targeting criteria that we desire to delete.
-	 * @throws ApiException if there is an error while communicating with Twitter.
-	 * @throws MissingAuthorizationException if TwitterTemplate was not created with OAuth credentials.
-	 */
-	void deleteTargetingCriteria(String accountId, String id);
 }
