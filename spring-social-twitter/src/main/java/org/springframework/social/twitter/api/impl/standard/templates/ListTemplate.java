@@ -40,7 +40,7 @@ import org.springframework.web.client.RestTemplate;
  * Implementation of {@link ListOperations}, providing a binding to Twitter's list-oriented REST resources.
  * @author Craig Walls
  */
-class ListTemplate extends AbstractTwitterTemplate implements ListOperations {
+public class ListTemplate extends AbstractTwitterTemplate implements ListOperations {
 	
 	private final RestTemplate restTemplate;
 					

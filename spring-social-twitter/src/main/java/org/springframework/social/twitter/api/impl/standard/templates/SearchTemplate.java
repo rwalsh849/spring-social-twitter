@@ -36,7 +36,7 @@ import org.springframework.web.client.RestTemplate;
  * Implementation of {@link SearchOperations}, providing a binding to Twitter's search and trend-oriented REST resources.
  * @author Craig Walls
  */
-class SearchTemplate extends AbstractTwitterTemplate implements SearchOperations {
+public class SearchTemplate extends AbstractTwitterTemplate implements SearchOperations {
 
 	private final RestTemplate restTemplate;
 

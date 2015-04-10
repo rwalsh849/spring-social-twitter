@@ -35,7 +35,7 @@ import org.springframework.web.client.RestTemplate;
  * Implementation of {@link TimelineOperations}, providing a binding to Twitter's tweet and timeline-oriented REST resources.
  * @author Craig Walls
  */
-class TimelineTemplate extends AbstractTwitterTemplate implements TimelineOperations {
+public class TimelineTemplate extends AbstractTwitterTemplate implements TimelineOperations {
 	
 	private final RestTemplate restTemplate;
 

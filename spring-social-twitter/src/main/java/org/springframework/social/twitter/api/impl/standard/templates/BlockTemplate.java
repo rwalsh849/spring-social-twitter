@@ -34,7 +34,7 @@ import org.springframework.web.client.RestTemplate;
  * Implementation of {@link BlockOperations}, providing a binding to Twitter's block REST resources.
  * @author Craig Walls
  */
-class BlockTemplate extends AbstractTwitterTemplate implements BlockOperations {
+public class BlockTemplate extends AbstractTwitterTemplate implements BlockOperations {
 	
 	private final RestTemplate restTemplate;
 					

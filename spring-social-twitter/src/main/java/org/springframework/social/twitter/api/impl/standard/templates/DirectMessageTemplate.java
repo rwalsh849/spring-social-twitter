@@ -33,7 +33,7 @@ import org.springframework.web.client.RestTemplate;
  * Implementation of {@link DirectMessageOperations}, providing a binding to Twitter's direct message-oriented REST resources.
  * @author Craig Walls
  */
-class DirectMessageTemplate extends AbstractTwitterTemplate implements DirectMessageOperations {
+public class DirectMessageTemplate extends AbstractTwitterTemplate implements DirectMessageOperations {
 	
 	private final RestTemplate restTemplate;
 

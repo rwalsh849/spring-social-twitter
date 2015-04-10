@@ -13,15 +13,13 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.springframework.social.twitter.api.impl.standard.templates;
+package org.springframework.social.twitter.api;
 
 import org.springframework.http.converter.FormHttpMessageConverter;
 import org.springframework.http.converter.json.MappingJackson2HttpMessageConverter;
 import org.springframework.social.oauth1.AbstractOAuth1ApiBinding;
 import org.springframework.social.oauth2.OAuth2Operations;
 import org.springframework.social.oauth2.OAuth2Template;
-import org.springframework.social.twitter.api.Twitter;
-import org.springframework.social.twitter.api.TwitterModule;
 import org.springframework.social.twitter.api.common.operations.AdvertisingOperations;
 import org.springframework.social.twitter.api.common.operations.BlockOperations;
 import org.springframework.social.twitter.api.common.operations.DirectMessageOperations;
@@ -36,6 +34,15 @@ import org.springframework.social.twitter.api.impl.advertising.templates.Adverti
 import org.springframework.social.twitter.api.impl.common.exceptions.TwitterErrorHandler;
 import org.springframework.social.twitter.api.impl.common.templates.ClientAuthorizedTwitterTemplate;
 import org.springframework.social.twitter.api.impl.standard.converters.TwitterEscapingFormHttpMessageConverter;
+import org.springframework.social.twitter.api.impl.standard.templates.BlockTemplate;
+import org.springframework.social.twitter.api.impl.standard.templates.DirectMessageTemplate;
+import org.springframework.social.twitter.api.impl.standard.templates.FriendTemplate;
+import org.springframework.social.twitter.api.impl.standard.templates.GeoTemplate;
+import org.springframework.social.twitter.api.impl.standard.templates.ListTemplate;
+import org.springframework.social.twitter.api.impl.standard.templates.SearchTemplate;
+import org.springframework.social.twitter.api.impl.standard.templates.StreamingTemplate;
+import org.springframework.social.twitter.api.impl.standard.templates.TimelineTemplate;
+import org.springframework.social.twitter.api.impl.standard.templates.UserTemplate;
 import org.springframework.util.Assert;
 import org.springframework.web.client.RestOperations;
 import org.springframework.web.client.RestTemplate;

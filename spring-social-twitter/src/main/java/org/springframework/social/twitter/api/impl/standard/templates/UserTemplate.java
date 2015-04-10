@@ -39,7 +39,7 @@ import org.springframework.web.client.RestTemplate;
  * Implementation of the {@link UserOperations} interface providing binding to Twitters' user-oriented REST resources.
  * @author Craig Walls
  */
-class UserTemplate extends AbstractTwitterTemplate implements UserOperations {
+public class UserTemplate extends AbstractTwitterTemplate implements UserOperations {
 	
 	private final RestTemplate restTemplate;
 

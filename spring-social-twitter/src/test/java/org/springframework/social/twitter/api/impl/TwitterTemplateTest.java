@@ -18,7 +18,7 @@ package org.springframework.social.twitter.api.impl;
 import static org.junit.Assert.*;
 
 import org.junit.Test;
-import org.springframework.social.twitter.api.impl.standard.templates.TwitterTemplate;
+import org.springframework.social.twitter.api.TwitterTemplate;
 
 public class TwitterTemplateTest {
 	
