@@ -159,4 +159,12 @@ public interface AdvertisingOperations {
 	 * @return an instance of {@link TargetingCriteria}
 	 */
 	TargetingCriteria getTargetingCriteria(String accountId, String id);
+	
+	/**
+	 * Creates a {@link TargetingCriteria} related to an {@link AdvertisingAccount}
+	 * @param accountId identifies the account for which the targeting criteria will be created.
+	 * @param data defines the parameters that we shall use to generate the targeting criteria  
+	 * @return an instance of {@link TargetingCriteria}
+	 */
+	TargetingCriteria createTargetingCriteria(String accountId, TransferingData data);
 }

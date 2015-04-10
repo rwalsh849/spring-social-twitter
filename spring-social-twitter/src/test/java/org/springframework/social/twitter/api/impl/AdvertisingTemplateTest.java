@@ -56,6 +56,7 @@ import org.springframework.social.twitter.api.common.models.advertising.Targetin
 import org.springframework.social.twitter.api.common.models.standard.ApprovalStatus;
 import org.springframework.social.twitter.api.impl.advertising.builders.CampaignDataBuilder;
 import org.springframework.social.twitter.api.impl.advertising.builders.LineItemDataBuilder;
+import org.springframework.social.twitter.api.impl.advertising.builders.TargetingCriteriaDataBuilder;
 
 /**
  * @author Hudson mendes
@@ -353,6 +354,35 @@ public class AdvertisingTemplateTest extends AbstractTwitterApiTest {
 			.andRespond(withSuccess(jsonResource("ad-targetingcriteria-single"), APPLICATION_JSON));
 	
 		TargetingCriteria criteria = twitter.advertisingOperations().getTargetingCriteria(mockedAccountId, mockedTargetingCriteriaId);
+		assertSingleTargetingCriteriaContents(criteria);
+	}
+	
+	@Test
+	public void createTargetingCriteria() {
+		String mockedAccountId = "hkk5";
+		String doesntMatterString = "doesnt-matter";
+		Boolean doesntMatterBool = false;
+		String chainedPostContent = 
+				"line_item_id=" + doesntMatterString + "&" +
+				"name=" + doesntMatterString + "&" +
+				"targeting_type=" + TargetingType.APP_STORE_CATEGORY + "&" +
+				"targeting_value=" +  doesntMatterString + "&" +
+				"deleted=" + doesntMatterBool;
+		
+		mockServer
+			.expect(requestTo("https://ads-api.twitter.com/0/accounts/" + mockedAccountId + "/targeting_criteria"))
+			.andExpect(method(POST))
+			.andExpect(content().string(chainedPostContent))
+			.andRespond(withSuccess(jsonResource("ad-targetingcriteria-single"), APPLICATION_JSON));
+	
+		TargetingCriteria criteria = twitter.advertisingOperations().createTargetingCriteria(
+				mockedAccountId,
+				new TargetingCriteriaDataBuilder()
+					.withLineItem(doesntMatterString)
+					.withName(doesntMatterString)
+					.targeting(TargetingType.APP_STORE_CATEGORY, doesntMatterString)
+					.active());
+		
 		assertSingleTargetingCriteriaContents(criteria);
 	}
 	

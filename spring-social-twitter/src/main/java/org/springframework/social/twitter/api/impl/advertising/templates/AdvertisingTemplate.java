@@ -237,5 +237,19 @@ public class AdvertisingTemplate extends AbstractTwitterTemplate implements Adve
 				new ParameterizedTypeReference<DataSingleHolder<TargetingCriteria>>(){}
 			).getBody().getData();
 	}
+
+	@Override
+	public TargetingCriteria createTargetingCriteria(String accountId, TransferingData data) {
+		requireUserAuthorization();
+		return restTemplate.exchange(
+				new TwitterApiUriBuilder()
+					.withResource(TwitterApiUriResourceForAdvertising.TARGETING_CRITERIAS)
+					.withArgument("account_id", accountId)
+					.build(),
+				HttpMethod.POST,
+				new HttpEntity<MultiValueMap<String, Object>>(data.toRequestParameters()),
+				new ParameterizedTypeReference<DataSingleHolder<TargetingCriteria>>(){}
+			).getBody().getData();
+	}
 	
 }
