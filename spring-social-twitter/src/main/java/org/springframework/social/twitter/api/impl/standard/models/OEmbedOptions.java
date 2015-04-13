@@ -100,8 +100,8 @@ public class OEmbedOptions {
 		return this;
 	}
 
-	public MultiValueMap<String, String> toRequestParameters() {
-		MultiValueMap<String, String> params = new LinkedMultiValueMap<String, String>();
+	public MultiValueMap<String, Object> toRequestParameters() {
+		MultiValueMap<String, Object> params = new LinkedMultiValueMap<String, Object>();
 		if (maxWidth != null) {
 			params.set("maxwidth", String.valueOf(maxWidth));
 		}

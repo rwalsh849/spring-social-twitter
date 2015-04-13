@@ -54,7 +54,7 @@ public class TimelineTemplate extends AbstractTwitterTemplate implements Timelin
 	
 	public List<Tweet> getHomeTimeline(int pageSize, long sinceId, long maxId) {
 		requireUserAuthorization();
-		MultiValueMap<String, String> parameters = PagingUtils.buildPagingParametersWithCount(pageSize, sinceId, maxId);
+		MultiValueMap<String, Object> parameters = PagingUtils.buildPagingParametersWithCount(pageSize, sinceId, maxId);
 		parameters.set("include_entities", "true");
 		return restTemplate.getForObject(buildUri("statuses/home_timeline.json", parameters), TweetList.class);
 	}
@@ -69,7 +69,7 @@ public class TimelineTemplate extends AbstractTwitterTemplate implements Timelin
 
 	public List<Tweet> getUserTimeline(int pageSize, long sinceId, long maxId) {
 		requireUserAuthorization();
-		MultiValueMap<String, String> parameters = PagingUtils.buildPagingParametersWithCount(pageSize, sinceId, maxId);
+		MultiValueMap<String, Object> parameters = PagingUtils.buildPagingParametersWithCount(pageSize, sinceId, maxId);
 		parameters.set("include_entities", "true");
 		return restTemplate.getForObject(buildUri("statuses/user_timeline.json", parameters), TweetList.class);
 	}
@@ -84,7 +84,7 @@ public class TimelineTemplate extends AbstractTwitterTemplate implements Timelin
 
 	public List<Tweet> getUserTimeline(String screenName, int pageSize, long sinceId, long maxId) {
 		requireEitherUserOrAppAuthorization();
-		MultiValueMap<String, String> parameters = PagingUtils.buildPagingParametersWithCount(pageSize, sinceId, maxId);
+		MultiValueMap<String, Object> parameters = PagingUtils.buildPagingParametersWithCount(pageSize, sinceId, maxId);
 		parameters.set("screen_name", screenName);
 		parameters.set("include_entities", "true");
 		return restTemplate.getForObject(buildUri("statuses/user_timeline.json", parameters), TweetList.class);
@@ -100,7 +100,7 @@ public class TimelineTemplate extends AbstractTwitterTemplate implements Timelin
 
 	public List<Tweet> getUserTimeline(long userId, int pageSize, long sinceId, long maxId) {
 		requireEitherUserOrAppAuthorization();
-		MultiValueMap<String, String> parameters = PagingUtils.buildPagingParametersWithCount(pageSize, sinceId, maxId);
+		MultiValueMap<String, Object> parameters = PagingUtils.buildPagingParametersWithCount(pageSize, sinceId, maxId);
 		parameters.set("user_id", String.valueOf(userId));
 		parameters.set("include_entities", "true");
 		return restTemplate.getForObject(buildUri("statuses/user_timeline.json", parameters), TweetList.class);
@@ -116,7 +116,7 @@ public class TimelineTemplate extends AbstractTwitterTemplate implements Timelin
 
 	public List<Tweet> getMentions(int pageSize, long sinceId, long maxId) {
 		requireUserAuthorization();
-		MultiValueMap<String, String> parameters = PagingUtils.buildPagingParametersWithCount(pageSize, sinceId, maxId);
+		MultiValueMap<String, Object> parameters = PagingUtils.buildPagingParametersWithCount(pageSize, sinceId, maxId);
 		parameters.set("include_entities", "true");
 		return restTemplate.getForObject(buildUri("statuses/mentions_timeline.json", parameters), TweetList.class);
 	}
@@ -131,14 +131,14 @@ public class TimelineTemplate extends AbstractTwitterTemplate implements Timelin
 
 	public List<Tweet> getRetweetsOfMe(int page, int pageSize, long sinceId, long maxId) {
 		requireUserAuthorization();
-		MultiValueMap<String, String> parameters = PagingUtils.buildPagingParametersWithCount(page, pageSize, sinceId, maxId);
+		MultiValueMap<String, Object> parameters = PagingUtils.buildPagingParametersWithCount(page, pageSize, sinceId, maxId);
 		parameters.set("include_entities", "true");
 		return restTemplate.getForObject(buildUri("statuses/retweets_of_me.json", parameters), TweetList.class);
 	}
 
 	public Tweet getStatus(long tweetId) {
 		requireEitherUserOrAppAuthorization();
-		MultiValueMap<String, String> parameters = new LinkedMultiValueMap<String, String>();
+		MultiValueMap<String, Object> parameters = new LinkedMultiValueMap<String, Object>();
 		parameters.set("include_entities", "true");
 		return restTemplate.getForObject(buildUri("statuses/show/" + tweetId + ".json", parameters), Tweet.class);
 	}
@@ -149,7 +149,7 @@ public class TimelineTemplate extends AbstractTwitterTemplate implements Timelin
 	
 	public OEmbedTweet getStatusOEmbed(long tweetId, OEmbedOptions options) {
 		requireEitherUserOrAppAuthorization();
-		MultiValueMap<String, String> parameters = options.toRequestParameters();
+		MultiValueMap<String, Object> parameters = options.toRequestParameters();
 		parameters.set("id", String.valueOf(tweetId));
 		return restTemplate.getForObject(buildUri("statuses/oembed.json", parameters), OEmbedTweet.class);
 	}
@@ -204,7 +204,7 @@ public class TimelineTemplate extends AbstractTwitterTemplate implements Timelin
 
 	public List<Tweet> getRetweets(long tweetId, int count) {
 		requireEitherUserOrAppAuthorization();
-		MultiValueMap<String, String> parameters = new LinkedMultiValueMap<String, String>();
+		MultiValueMap<String, Object> parameters = new LinkedMultiValueMap<String, Object>();
 		parameters.set("count", String.valueOf(count));
 		parameters.set("include_entities", "true");
 		return restTemplate.getForObject(buildUri("statuses/retweets/" + tweetId + ".json", parameters), TweetList.class);
@@ -217,7 +217,7 @@ public class TimelineTemplate extends AbstractTwitterTemplate implements Timelin
 	public List<Tweet> getFavorites(int pageSize) {
 		requireEitherUserOrAppAuthorization();
 		// Note: The documentation for /favorites.json doesn't list the count parameter, but it works anyway.
-		MultiValueMap<String, String> parameters = PagingUtils.buildPagingParametersWithCount(pageSize, 0, 0);
+		MultiValueMap<String, Object> parameters = PagingUtils.buildPagingParametersWithCount(pageSize, 0, 0);
 		parameters.set("include_entities", "true");
 		return restTemplate.getForObject(buildUri("favorites/list.json", parameters), TweetList.class);
 	}
@@ -228,7 +228,7 @@ public class TimelineTemplate extends AbstractTwitterTemplate implements Timelin
 
 	public List<Tweet> getFavorites(long userId, int pageSize) {
 		requireEitherUserOrAppAuthorization();
-		MultiValueMap<String, String> parameters = PagingUtils.buildPagingParametersWithCount(pageSize, 0, 0);
+		MultiValueMap<String, Object> parameters = PagingUtils.buildPagingParametersWithCount(pageSize, 0, 0);
 		parameters.set("user_id", String.valueOf(userId));
 		parameters.set("include_entities", "true");
 		return restTemplate.getForObject(buildUri("favorites/list.json", parameters), TweetList.class);
@@ -240,7 +240,7 @@ public class TimelineTemplate extends AbstractTwitterTemplate implements Timelin
 
 	public List<Tweet> getFavorites(String screenName, int pageSize) {
 		requireEitherUserOrAppAuthorization();
-		MultiValueMap<String, String> parameters = PagingUtils.buildPagingParametersWithCount(pageSize, 0, 0);
+		MultiValueMap<String, Object> parameters = PagingUtils.buildPagingParametersWithCount(pageSize, 0, 0);
 		parameters.set("screen_name", screenName);
 		parameters.set("include_entities", "true");
 		return restTemplate.getForObject(buildUri("favorites/list.json", parameters), TweetList.class);

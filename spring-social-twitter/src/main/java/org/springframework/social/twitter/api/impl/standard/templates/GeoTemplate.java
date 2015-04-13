@@ -55,7 +55,7 @@ public class GeoTemplate extends AbstractTwitterTemplate implements GeoOperation
 	public List<Place> reverseGeoCode(double latitude, double longitude, PlaceType granularity, String accuracy) {
 		requireUserAuthorization();
 		TwitterApiUriResourceForStandard resource = TwitterApiUriResourceForStandard.GEO_REVERSE_GEOCODE;
-		MultiValueMap<String, String> parameters = buildGeoParameters(latitude, longitude, granularity, accuracy, null);
+		MultiValueMap<String, Object> parameters = buildGeoParameters(latitude, longitude, granularity, accuracy, null);
 		URI resourceUri = new TwitterApiUriBuilder().withResource(resource).withArgument(parameters).build();
 		return restTemplate.getForObject(resourceUri, PlacesList.class).getList();
 	}
@@ -67,7 +67,7 @@ public class GeoTemplate extends AbstractTwitterTemplate implements GeoOperation
 	public List<Place> search(double latitude, double longitude, PlaceType granularity, String accuracy, String query) {
 		requireUserAuthorization();
 		TwitterApiUriResourceForStandard resource = TwitterApiUriResourceForStandard.GEO_SEARCH;
-		MultiValueMap<String, String> parameters = buildGeoParameters(latitude, longitude, granularity, accuracy, query);
+		MultiValueMap<String, Object> parameters = buildGeoParameters(latitude, longitude, granularity, accuracy, query);
 		URI resourceUri = new TwitterApiUriBuilder().withResource(resource).withArgument(parameters).build();
 		return restTemplate.getForObject(resourceUri, PlacesList.class).getList();
 	}
@@ -79,7 +79,7 @@ public class GeoTemplate extends AbstractTwitterTemplate implements GeoOperation
 	public SimilarPlaces findSimilarPlaces(double latitude, double longitude, String name, String streetAddress, String containedWithin) {
 		requireUserAuthorization();
 		TwitterApiUriResourceForStandard resource = TwitterApiUriResourceForStandard.GEO_SIMILAR_PLACES;
-		MultiValueMap<String, String> parameters = buildPlaceParameters(latitude, longitude, name, streetAddress, containedWithin);
+		MultiValueMap<String, Object> parameters = buildPlaceParameters(latitude, longitude, name, streetAddress, containedWithin);
 		URI resourceUri = new TwitterApiUriBuilder().withResource(resource).withArgument(parameters).build();
 		SimilarPlacesResponse response = restTemplate.getForObject(resourceUri, SimilarPlacesResponse.class);
 		PlacePrototype placePrototype = new PlacePrototype(response.getToken(), latitude, longitude, name, streetAddress, containedWithin);	
@@ -90,15 +90,15 @@ public class GeoTemplate extends AbstractTwitterTemplate implements GeoOperation
 		requireUserAuthorization();
 		TwitterApiUriResourceForStandard resource = TwitterApiUriResourceForStandard.GEO_PLACE;
 		URI resourceUri = new TwitterApiUriBuilder().withResource(resource).build();
-		MultiValueMap<String, String> bodyData = buildPlaceParameters(placePrototype.getLatitude(), placePrototype.getLongitude(), placePrototype.getName(), placePrototype.getStreetAddress(), placePrototype.getContainedWithin());
+		MultiValueMap<String, Object> bodyData = buildPlaceParameters(placePrototype.getLatitude(), placePrototype.getLongitude(), placePrototype.getName(), placePrototype.getStreetAddress(), placePrototype.getContainedWithin());
 		bodyData.set("token", placePrototype.getCreateToken());
 		return restTemplate.postForObject(resourceUri, bodyData, Place.class);		
 	}
 	
 	// private helpers
 	
-	private MultiValueMap<String, String> buildGeoParameters(double latitude, double longitude, PlaceType granularity, String accuracy, String query) {
-		MultiValueMap<String, String> parameters = new LinkedMultiValueMap<String, String>();
+	private MultiValueMap<String, Object> buildGeoParameters(double latitude, double longitude, PlaceType granularity, String accuracy, String query) {
+		MultiValueMap<String, Object> parameters = new LinkedMultiValueMap<String, Object>();
 		parameters.set("lat", String.valueOf(latitude));
 		parameters.set("long", String.valueOf(longitude));
 		if(granularity != null) {
@@ -113,8 +113,8 @@ public class GeoTemplate extends AbstractTwitterTemplate implements GeoOperation
 		return parameters;
 	}
 	
-	private MultiValueMap<String, String> buildPlaceParameters(double latitude, double longitude, String name, String streetAddress, String containedWithin) {
-		MultiValueMap<String, String> parameters = new LinkedMultiValueMap<String, String>();
+	private MultiValueMap<String, Object> buildPlaceParameters(double latitude, double longitude, String name, String streetAddress, String containedWithin) {
+		MultiValueMap<String, Object> parameters = new LinkedMultiValueMap<String, Object>();
 		parameters.set("lat", String.valueOf(latitude));
 		parameters.set("long", String.valueOf(longitude));
 		parameters.set("name", name);

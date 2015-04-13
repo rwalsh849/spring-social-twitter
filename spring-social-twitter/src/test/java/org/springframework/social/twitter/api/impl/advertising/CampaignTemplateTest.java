@@ -42,7 +42,7 @@ import org.junit.Test;
 import org.springframework.social.twitter.api.domain.models.advertising.Campaign;
 import org.springframework.social.twitter.api.domain.models.advertising.ReasonNotServable;
 import org.springframework.social.twitter.api.impl.AbstractTwitterApiTest;
-import org.springframework.social.twitter.api.impl.advertising.builders.CampaignDataBuilder;
+import org.springframework.social.twitter.api.impl.advertising.builders.CampaignDataPostingBuilder;
 
 /**
  * @author Hudson mendes
@@ -102,7 +102,7 @@ public class CampaignTemplateTest extends AbstractTwitterApiTest {
 		
 		Campaign campaign = twitter.campaignOperations().createCampaign(
 				mockedAccountId,
-				new CampaignDataBuilder()
+				new CampaignDataPostingBuilder()
 					.withName(doesntMatterString)
 					.withCurrency(doesntMatterString)
 					.withFundingInstrument(doesntMatterString)
@@ -145,7 +145,7 @@ public class CampaignTemplateTest extends AbstractTwitterApiTest {
 		twitter.campaignOperations().updateCampaign(
 				mockedAccountId,
 				mockedCampaignId,
-				new CampaignDataBuilder()
+				new CampaignDataPostingBuilder()
 					.withName(doesntMatterString)
 					.withCurrency(doesntMatterString)
 					.withFundingInstrument(doesntMatterString)

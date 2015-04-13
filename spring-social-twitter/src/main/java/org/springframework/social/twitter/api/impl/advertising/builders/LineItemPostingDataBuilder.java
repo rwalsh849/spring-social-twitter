@@ -22,7 +22,7 @@ import org.springframework.social.twitter.api.domain.models.advertising.Advertis
 import org.springframework.social.twitter.api.domain.models.advertising.AdvertisingSentiment;
 import org.springframework.social.twitter.api.domain.models.advertising.LineItem;
 import org.springframework.social.twitter.api.domain.models.advertising.LineItemOptimization;
-import org.springframework.social.twitter.api.impl.common.builders.TransferingDataBuilder;
+import org.springframework.social.twitter.api.impl.common.builders.TwitterRequestPostingDataBuilder;
 import org.springframework.util.LinkedMultiValueMap;
 import org.springframework.util.MultiValueMap;
 
@@ -32,7 +32,7 @@ import org.springframework.util.MultiValueMap;
  * 
  * @author Hudson Mendes
  */
-public class LineItemDataBuilder extends TransferingDataBuilder {
+public class LineItemPostingDataBuilder extends TwitterRequestPostingDataBuilder {
 	private String campaignId;
 	private String currency;
 	private AdvertisingPlacementType placementType;
@@ -46,68 +46,68 @@ public class LineItemDataBuilder extends TransferingDataBuilder {
 	private Boolean paused;
 	private Boolean deleted;
 	
-	public LineItemDataBuilder withCampaign(String campaignId) {
+	public LineItemPostingDataBuilder withCampaign(String campaignId) {
 		this.campaignId = campaignId;
 		return this;
 	}
 	
-	public LineItemDataBuilder withCurrency(String currency) {
+	public LineItemPostingDataBuilder withCurrency(String currency) {
 		this.currency = currency;
 		return this;
 	}
 	
-	public LineItemDataBuilder withPlacementType(AdvertisingPlacementType placementType) {
+	public LineItemPostingDataBuilder withPlacementType(AdvertisingPlacementType placementType) {
 		this.placementType = placementType;
 		return this;
 	}
 	
-	public LineItemDataBuilder withObjective(AdvertisingObjective objective) {
+	public LineItemPostingDataBuilder withObjective(AdvertisingObjective objective) {
 		this.objective = objective;
 		return this;
 	}
 	
-	public LineItemDataBuilder includingSentiment(AdvertisingSentiment sentiment) {
+	public LineItemPostingDataBuilder includingSentiment(AdvertisingSentiment sentiment) {
 		this.includeSentiment = sentiment;
 		return this;
 	}
 	
-	public LineItemDataBuilder optimizingFor(LineItemOptimization optimization) {
+	public LineItemPostingDataBuilder optimizingFor(LineItemOptimization optimization) {
 		this.optimization = optimization;
 		return this;
 	}
 	
-	public LineItemDataBuilder withTotalBudget(BigDecimal totalBudgetAmount) {
+	public LineItemPostingDataBuilder withTotalBudget(BigDecimal totalBudgetAmount) {
 		this.totalBudgetAmount = totalBudgetAmount;
 		return this;
 	}
 	
-	public LineItemDataBuilder withBidAmount(BigDecimal bidAmount) {
+	public LineItemPostingDataBuilder withBidAmount(BigDecimal bidAmount) {
 		this.bidAmount = bidAmount;
 		return this;
 	}
 	
-	public LineItemDataBuilder withSuggestedCpeBid(BigDecimal low, BigDecimal high) {
+	public LineItemPostingDataBuilder withSuggestedCpeBid(BigDecimal low, BigDecimal high) {
 		this.suggestedHighCpeBid = high;
 		this.suggestedLowCpeBid = low;
 		return this;
 	}
 	
-	public LineItemDataBuilder paused() { 
+	public LineItemPostingDataBuilder paused() { 
 		this.paused = true;
 		return this;
 	}
 	
-	public LineItemDataBuilder unpaused() {
+	public LineItemPostingDataBuilder unpaused() {
 		this.paused = false;
 		return this;
 	}
 	
-	public LineItemDataBuilder deleted() { 
+	public LineItemPostingDataBuilder deleted() { 
 		this.deleted = true;
 		return this;
 	}
 	
-	public LineItemDataBuilder active() {
+	public LineItemPostingDataBuilder active() {
 		this.deleted = false;
 		return this;
 	}

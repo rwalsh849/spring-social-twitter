@@ -39,7 +39,7 @@ import org.springframework.social.twitter.api.domain.models.advertising.Advertis
 import org.springframework.social.twitter.api.domain.models.advertising.LineItem;
 import org.springframework.social.twitter.api.domain.models.advertising.LineItemOptimization;
 import org.springframework.social.twitter.api.impl.AbstractTwitterApiTest;
-import org.springframework.social.twitter.api.impl.advertising.builders.LineItemDataBuilder;
+import org.springframework.social.twitter.api.impl.advertising.builders.LineItemPostingDataBuilder;
 
 /**
  * @author Hudson mendes
@@ -100,7 +100,7 @@ public class LineItemTemplateTest extends AbstractTwitterApiTest {
 	
 		LineItem lineItem = twitter.lineItemOperations().createLineItem(
 				mockedAccountId,
-				new LineItemDataBuilder()
+				new LineItemPostingDataBuilder()
 					.withCampaign(doesntMatterString)
 					.withCurrency(doesntMatterString)
 					.withTotalBudget(doesntMatterDecimal)
@@ -147,7 +147,7 @@ public class LineItemTemplateTest extends AbstractTwitterApiTest {
 		twitter.lineItemOperations().updateLineItem(
 				mockedAccountId,
 				mockedLineItemId,
-				new LineItemDataBuilder()
+				new LineItemPostingDataBuilder()
 					.withCampaign(doesntMatterString)
 					.withCurrency(doesntMatterString)
 					.withTotalBudget(doesntMatterDecimal)

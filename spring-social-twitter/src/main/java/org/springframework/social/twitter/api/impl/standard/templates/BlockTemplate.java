@@ -81,7 +81,7 @@ public class BlockTemplate extends AbstractTwitterTemplate implements BlockOpera
 	
 	public CursoredList<TwitterProfile> getBlockedUsersInCursor(long cursor) {
 		requireUserAuthorization();
-		LinkedMultiValueMap<String, String> parameters = new LinkedMultiValueMap<String, String>();
+		LinkedMultiValueMap<String, Object> parameters = new LinkedMultiValueMap<String, Object>();
 		parameters.set("cursor", String.valueOf(cursor));
 		URI resourceUri = new TwitterApiUriBuilder().withResource(TwitterApiUriResourceForStandard.BLOCKS).withArgument(parameters).build();
 		return restTemplate.getForObject(resourceUri, CursoredTwitterProfileUsersList.class).getList();
@@ -93,7 +93,7 @@ public class BlockTemplate extends AbstractTwitterTemplate implements BlockOpera
 	
 	public CursoredList<Long> getBlockedUserIdsInCursor(long cursor) {
 		requireUserAuthorization();
-		LinkedMultiValueMap<String, String> parameters = new LinkedMultiValueMap<String, String>();
+		LinkedMultiValueMap<String, Object> parameters = new LinkedMultiValueMap<String, Object>();
 		parameters.set("cursor", String.valueOf(cursor));
 		URI resourceUri = new TwitterApiUriBuilder().withResource(TwitterApiUriResourceForStandard.BLOCKS_IDS).withArgument(parameters).build();
 		return restTemplate.getForObject(resourceUri, CursoredLongList.class).getList();

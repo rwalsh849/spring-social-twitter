@@ -52,7 +52,7 @@ public class DirectMessageTemplate extends AbstractTwitterTemplate implements Di
 
 	public List<DirectMessage> getDirectMessagesReceived(int page, int pageSize, long sinceId, long maxId) {
 		requireUserAuthorization();
-		MultiValueMap<String, String> parameters = PagingUtils.buildPagingParametersWithCount(page, pageSize, sinceId, maxId);
+		MultiValueMap<String, Object> parameters = PagingUtils.buildPagingParametersWithCount(page, pageSize, sinceId, maxId);
 		URI resourceUri = new TwitterApiUriBuilder().withResource(TwitterApiUriResourceForStandard.DIRECTMESSAGES).withArgument(parameters).build();
 		return restTemplate.getForObject(resourceUri, DirectMessageList.class);
 	}
@@ -67,7 +67,7 @@ public class DirectMessageTemplate extends AbstractTwitterTemplate implements Di
 
 	public List<DirectMessage> getDirectMessagesSent(int page, int pageSize, long sinceId, long maxId) {
 		requireUserAuthorization();
-		MultiValueMap<String, String> parameters = PagingUtils.buildPagingParametersWithCount(page, pageSize, sinceId, maxId);
+		MultiValueMap<String, Object> parameters = PagingUtils.buildPagingParametersWithCount(page, pageSize, sinceId, maxId);
 		URI resourceUri = new TwitterApiUriBuilder().withResource(TwitterApiUriResourceForStandard.DIRECTMESSAGES_SENT).withArgument(parameters).build();
 		return restTemplate.getForObject(resourceUri, DirectMessageList.class);
 	}

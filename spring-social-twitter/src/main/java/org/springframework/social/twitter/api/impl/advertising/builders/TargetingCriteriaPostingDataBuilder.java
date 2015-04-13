@@ -1,39 +1,39 @@
 package org.springframework.social.twitter.api.impl.advertising.builders;
 
 import org.springframework.social.twitter.api.domain.models.advertising.TargetingType;
-import org.springframework.social.twitter.api.impl.common.builders.TransferingDataBuilder;
+import org.springframework.social.twitter.api.impl.common.builders.TwitterRequestPostingDataBuilder;
 import org.springframework.util.LinkedMultiValueMap;
 import org.springframework.util.MultiValueMap;
 
-public class TargetingCriteriaDataBuilder extends TransferingDataBuilder {
+public class TargetingCriteriaPostingDataBuilder extends TwitterRequestPostingDataBuilder {
 	private String lineItemId;
 	private String name;
 	private TargetingType targetingType;
 	private String targetingValue;
 	private Boolean deleted;
 	
-	public TargetingCriteriaDataBuilder withLineItem(String lineItemId) {
+	public TargetingCriteriaPostingDataBuilder withLineItem(String lineItemId) {
 		this.lineItemId = lineItemId;
 		return this;
 	}
 	
-	public TargetingCriteriaDataBuilder withName(String name) {
+	public TargetingCriteriaPostingDataBuilder withName(String name) {
 		this.name = name;
 		return this;
 	}
 	
-	public TargetingCriteriaDataBuilder targeting(TargetingType targetingType, String targetingValue) {
+	public TargetingCriteriaPostingDataBuilder targeting(TargetingType targetingType, String targetingValue) {
 		this.targetingType = targetingType;
 		this.targetingValue = targetingValue;
 		return this;
 	}
 	
-	public TargetingCriteriaDataBuilder active() {
+	public TargetingCriteriaPostingDataBuilder active() {
 		this.deleted = false;
 		return this;
 	}
 	
-	public TargetingCriteriaDataBuilder deleted() {
+	public TargetingCriteriaPostingDataBuilder deleted() {
 		this.deleted = true;
 		return this;
 	}

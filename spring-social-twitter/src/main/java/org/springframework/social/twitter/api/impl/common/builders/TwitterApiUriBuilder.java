@@ -19,6 +19,7 @@ import java.net.URI;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Set;
 
 import org.springframework.social.support.URIBuilder;
 import org.springframework.social.twitter.api.impl.common.templates.AbstractTwitterTemplate;
@@ -37,7 +38,7 @@ public class TwitterApiUriBuilder {
 	private static final String STANDARD_API_URL_BASE = "https://api.twitter.com/1.1/";
 	private static final String AD_CAMPAIGN_API_URL_BASE = "https://ads-api.twitter.com/0/";
 	
-	private final MultiValueMap<String, String> parameters = new LinkedMultiValueMap<String, String>();
+	private final MultiValueMap<String, Object> parameters = new LinkedMultiValueMap<String, Object>();
 	private String resource;
 	private String baseLocation = STANDARD_API_URL_BASE;
 	
@@ -48,13 +49,13 @@ public class TwitterApiUriBuilder {
 	public TwitterApiUriBuilder withResource(TwitterApiUriResourceForAdvertising resource) { this.resource = resource.getPath(); return this.forAdCampaignsApi(); }
 	public TwitterApiUriBuilder withResource(TwitterApiUriResourceForStandard resource) { this.resource = resource.getPath(); return this.forStandardApi(); }
 	public TwitterApiUriBuilder withArgument(String argument, Object value) { this.parameters.add(argument, value.toString()); return this; }
-	public TwitterApiUriBuilder withArgument(MultiValueMap<String, String> arguments) { this.parameters.putAll(arguments); return this; }
+	public TwitterApiUriBuilder withArgument(MultiValueMap<String, Object> arguments) { this.parameters.putAll(arguments); return this; }
 	
 	public URI build() {
 		this.assertRequirements();
 		return URIBuilder
 				.fromUri(makeFullyQualifiedResourcePath())
-				.queryParams(this.parameters)
+				.queryParams(makeCompatbileQueryParameters())
 				.build();
 	}
 	
@@ -67,6 +68,17 @@ public class TwitterApiUriBuilder {
 		return replaceImplicitArguments(qualifiedPath); 
 	}
 	
+	private MultiValueMap<String, String> makeCompatbileQueryParameters() {
+		MultiValueMap<String, String> output = new LinkedMultiValueMap<String, String>();
+		for (Iterator<String> i = this.parameters.keySet().iterator(); i.hasNext();) {
+			String key = i.next();
+			this.parameters.get(key).forEach(value -> {
+				output.add(key, value.toString());
+			});
+		}
+		return output;
+	}
+	
 	private String replaceImplicitArguments(String path) {
 		
 		String finalPath = path;
@@ -75,9 +87,13 @@ public class TwitterApiUriBuilder {
 		for (Iterator<String> i = this.parameters.keySet().iterator(); i.hasNext();) {
 			String key = i.next();
 			String argName = (":" + key).toLowerCase();
+			
 			if (path.toLowerCase().contains(argName)) {
-				String argValue = this.parameters.get(key).stream().findFirst().get();
-				finalPath = finalPath.replace(argName, argValue);
+				List<Object> values = this.parameters.get(key);
+				for (int j = 0; j < values.size(); j++) {
+					Object value = values.get(j);
+					finalPath = finalPath.replace(argName, value.toString());
+				}
 				toRemove.add(key);
 			}
 		}

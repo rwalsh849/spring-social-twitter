@@ -24,8 +24,8 @@ import org.springframework.util.MultiValueMap;
  */
 public class PagingUtils {
 	
-	public static MultiValueMap<String, String> buildPagingParametersWithCount(int page, int pageSize, long sinceId, long maxId) {
-		MultiValueMap<String, String> parameters = new LinkedMultiValueMap<String, String>();
+	public static MultiValueMap<String, Object> buildPagingParametersWithCount(int page, int pageSize, long sinceId, long maxId) {
+		MultiValueMap<String, Object> parameters = new LinkedMultiValueMap<String, Object>();
 		parameters.set("page", String.valueOf(page));
 		parameters.set("count", String.valueOf(pageSize));
 		if (sinceId > 0) {
@@ -37,8 +37,8 @@ public class PagingUtils {
 		return parameters;
 	}
 
-	public static MultiValueMap<String, String> buildPagingParametersWithCount(int pageSize, long sinceId, long maxId) {
-		MultiValueMap<String, String> parameters = new LinkedMultiValueMap<String, String>();
+	public static MultiValueMap<String, Object> buildPagingParametersWithCount(int pageSize, long sinceId, long maxId) {
+		MultiValueMap<String, Object> parameters = new LinkedMultiValueMap<String, Object>();
 		parameters.set("count", String.valueOf(pageSize));
 		if (sinceId > 0) {
 			parameters.set("since_id", String.valueOf(sinceId));

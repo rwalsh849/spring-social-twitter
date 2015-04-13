@@ -119,7 +119,7 @@ public class TwitterApiUriBuilderTest {
 	public void build_multipleArguments_array() {
 		String anyResource = "standard_api_resource.json";
 		
-		MultiValueMap<String, String> arguments = new LinkedMultiValueMap<>();
+		MultiValueMap<String, Object> arguments = new LinkedMultiValueMap<>();
 		arguments.add("argument_name_A", "argument_value_A");
 		arguments.add("argument_name_B", "argument_value_B");
 		arguments.add("argument_name_C", "argument_value_C");
@@ -145,7 +145,7 @@ public class TwitterApiUriBuilderTest {
 		String implicitArgumentName = "implicit_id";
 		String implicitArgumentValue = "831hgk";
 		
-		MultiValueMap<String, String> arguments = new LinkedMultiValueMap<>();
+		MultiValueMap<String, Object> arguments = new LinkedMultiValueMap<>();
 		arguments.add(implicitArgumentName, implicitArgumentValue);
 		
 		URI result = new TwitterApiUriBuilder()

@@ -24,7 +24,7 @@ import java.util.List;
 
 import org.springframework.social.twitter.api.domain.models.advertising.Campaign;
 import org.springframework.social.twitter.api.domain.models.advertising.ReasonNotServable;
-import org.springframework.social.twitter.api.impl.common.builders.TransferingDataBuilder;
+import org.springframework.social.twitter.api.impl.common.builders.TwitterRequestPostingDataBuilder;
 import org.springframework.util.LinkedMultiValueMap;
 import org.springframework.util.MultiValueMap;
 
@@ -34,7 +34,7 @@ import org.springframework.util.MultiValueMap;
  * 
  * @author Hudson Mendes
  */
-public class CampaignDataBuilder extends TransferingDataBuilder {
+public class CampaignDataPostingBuilder extends TwitterRequestPostingDataBuilder {
 	private String name;
 	private String currency;
 	private String fundingInstrumentId;
@@ -47,46 +47,46 @@ public class CampaignDataBuilder extends TransferingDataBuilder {
 	private Boolean paused = false;
 	private Boolean deleted = false;
 
-	public CampaignDataBuilder() {
+	public CampaignDataPostingBuilder() {
 		this.reasonsNotServable = new ArrayList<ReasonNotServable>();
 	}
 
-	public CampaignDataBuilder withName(String name) {
+	public CampaignDataPostingBuilder withName(String name) {
 		this.name = name;
 		return this;
 	}
 
-	public CampaignDataBuilder withCurrency(String currency) {
+	public CampaignDataPostingBuilder withCurrency(String currency) {
 		this.currency = currency;
 		return this;
 	}
 
-	public CampaignDataBuilder withFundingInstrument(String fundingInstrumentId) {
+	public CampaignDataPostingBuilder withFundingInstrument(String fundingInstrumentId) {
 		this.fundingInstrumentId = fundingInstrumentId;
 		return this;
 	}
 
-	public CampaignDataBuilder withBudget(BigDecimal totalBudget, BigDecimal dailyBudget) {
+	public CampaignDataPostingBuilder withBudget(BigDecimal totalBudget, BigDecimal dailyBudget) {
 		this.totalBudget = totalBudget;
 		this.dailyBudget = dailyBudget;
 		return this;
 	}
 	
-	public CampaignDataBuilder activeUntil(LocalDateTime endTime) {
+	public CampaignDataPostingBuilder activeUntil(LocalDateTime endTime) {
 		return activeBetween(null, endTime);
 	}
 	
-	public CampaignDataBuilder activeFrom(LocalDateTime startTime) {
+	public CampaignDataPostingBuilder activeFrom(LocalDateTime startTime) {
 		return activeBetween(startTime, null);
 	}
 
-	public CampaignDataBuilder activeBetween(LocalDateTime startTime, LocalDateTime endTime) {
+	public CampaignDataPostingBuilder activeBetween(LocalDateTime startTime, LocalDateTime endTime) {
 		this.startTime = startTime;
 		this.endTime = endTime;
 		return this;
 	}
 
-	public CampaignDataBuilder thatCantBeServedDueTo(ReasonNotServable... reasons) {
+	public CampaignDataPostingBuilder thatCantBeServedDueTo(ReasonNotServable... reasons) {
 		if (reasons != null)
 			Arrays.stream(reasons).forEach(reason -> {
 				this.reasonsNotServable.add(reason);
@@ -94,27 +94,27 @@ public class CampaignDataBuilder extends TransferingDataBuilder {
 		return this;
 	}
 	
-	public CampaignDataBuilder withStandardDelivery(Boolean standardDelivery) {
+	public CampaignDataPostingBuilder withStandardDelivery(Boolean standardDelivery) {
 		this.standardDelivery = standardDelivery;
 		return this;
 	}
 	
-	public CampaignDataBuilder paused() {
+	public CampaignDataPostingBuilder paused() {
 		this.paused = true;
 		return this;
 	}
 	
-	public CampaignDataBuilder unpaused() {
+	public CampaignDataPostingBuilder unpaused() {
 		this.paused = false;
 		return this;
 	}
 	
-	public CampaignDataBuilder deleted() {
+	public CampaignDataPostingBuilder deleted() {
 		this.deleted = true;
 		return this;
 	}
 	
-	public CampaignDataBuilder active() {
+	public CampaignDataPostingBuilder active() {
 		this.deleted = false;
 		return this;
 	}

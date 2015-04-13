@@ -49,7 +49,7 @@ public class FriendTemplate extends AbstractTwitterTemplate implements FriendOpe
 
 	public CursoredList<TwitterProfile> getFriendsInCursor(long cursor) {
 		requireUserAuthorization();
-		LinkedMultiValueMap<String, String> parameters = new LinkedMultiValueMap<String, String>();
+		LinkedMultiValueMap<String, Object> parameters = new LinkedMultiValueMap<String, Object>();
 		parameters.set("cursor", String.valueOf(cursor));
 		URI resourceUri = new TwitterApiUriBuilder().withResource(TwitterApiUriResourceForStandard.FRIENDS).withArgument(parameters).build();
 		return restTemplate.getForObject(resourceUri, CursoredTwitterProfileUsersList.class).getList();
@@ -61,7 +61,7 @@ public class FriendTemplate extends AbstractTwitterTemplate implements FriendOpe
 
 	public CursoredList<TwitterProfile> getFriendsInCursor(long userId, long cursor) {
 		requireEitherUserOrAppAuthorization();
-		LinkedMultiValueMap<String, String> parameters = new LinkedMultiValueMap<String, String>();
+		LinkedMultiValueMap<String, Object> parameters = new LinkedMultiValueMap<String, Object>();
 		parameters.set("cursor", String.valueOf(cursor));
 		parameters.set("user_id", String.valueOf(userId));
 		URI resourceUri = new TwitterApiUriBuilder().withResource(TwitterApiUriResourceForStandard.FRIENDS).withArgument(parameters).build();
@@ -74,7 +74,7 @@ public class FriendTemplate extends AbstractTwitterTemplate implements FriendOpe
 	
 	public CursoredList<TwitterProfile> getFriendsInCursor(String screenName, long cursor) {
 		requireEitherUserOrAppAuthorization();
-		LinkedMultiValueMap<String, String> parameters = new LinkedMultiValueMap<String, String>();
+		LinkedMultiValueMap<String, Object> parameters = new LinkedMultiValueMap<String, Object>();
 		parameters.set("cursor", String.valueOf(cursor));
 		parameters.set("screen_name", String.valueOf(screenName));
 		URI resourceUri = new TwitterApiUriBuilder().withResource(TwitterApiUriResourceForStandard.FRIENDS).withArgument(parameters).build();
@@ -97,7 +97,7 @@ public class FriendTemplate extends AbstractTwitterTemplate implements FriendOpe
 	
 	public CursoredList<Long> getFriendIdsInCursor(long userId, long cursor) {
 		requireEitherUserOrAppAuthorization();
-		LinkedMultiValueMap<String, String> parameters = new LinkedMultiValueMap<String, String>();
+		LinkedMultiValueMap<String, Object> parameters = new LinkedMultiValueMap<String, Object>();
 		parameters.set("cursor", String.valueOf(cursor));
 		parameters.set("user_id", String.valueOf(userId));
 		URI resourceUri = new TwitterApiUriBuilder().withResource(TwitterApiUriResourceForStandard.FRIENDS_IDS).withArgument(parameters).build();
@@ -110,7 +110,7 @@ public class FriendTemplate extends AbstractTwitterTemplate implements FriendOpe
 	
 	public CursoredList<Long> getFriendIdsInCursor(String screenName, long cursor) {
 		requireEitherUserOrAppAuthorization();
-		LinkedMultiValueMap<String, String> parameters = new LinkedMultiValueMap<String, String>();
+		LinkedMultiValueMap<String, Object> parameters = new LinkedMultiValueMap<String, Object>();
 		parameters.set("cursor", String.valueOf(cursor));
 		parameters.set("screen_name", screenName);
 		URI resourceUri = new TwitterApiUriBuilder().withResource(TwitterApiUriResourceForStandard.FRIENDS_IDS).withArgument(parameters).build();
@@ -123,7 +123,7 @@ public class FriendTemplate extends AbstractTwitterTemplate implements FriendOpe
 	
 	public CursoredList<TwitterProfile> getFollowersInCursor(long cursor) {
 		requireUserAuthorization();
-		LinkedMultiValueMap<String, String> parameters = new LinkedMultiValueMap<String, String>();
+		LinkedMultiValueMap<String, Object> parameters = new LinkedMultiValueMap<String, Object>();
 		parameters.set("cursor", String.valueOf(cursor));
 		URI resourceUri = new TwitterApiUriBuilder().withResource(TwitterApiUriResourceForStandard.FOLLOWERS).withArgument(parameters).build();
 		return restTemplate.getForObject(resourceUri, CursoredTwitterProfileUsersList.class).getList();
@@ -135,7 +135,7 @@ public class FriendTemplate extends AbstractTwitterTemplate implements FriendOpe
 	
 	public CursoredList<TwitterProfile> getFollowersInCursor(long userId, long cursor) {
 		requireEitherUserOrAppAuthorization();
-		LinkedMultiValueMap<String, String> parameters = new LinkedMultiValueMap<String, String>();
+		LinkedMultiValueMap<String, Object> parameters = new LinkedMultiValueMap<String, Object>();
 		parameters.set("cursor", String.valueOf(cursor));
 		parameters.set("user_id", String.valueOf(userId));
 		URI resourceUri = new TwitterApiUriBuilder().withResource(TwitterApiUriResourceForStandard.FOLLOWERS).withArgument(parameters).build();
@@ -148,7 +148,7 @@ public class FriendTemplate extends AbstractTwitterTemplate implements FriendOpe
 	
 	public CursoredList<TwitterProfile> getFollowersInCursor(String screenName, long cursor) {
 		requireEitherUserOrAppAuthorization();
-		LinkedMultiValueMap<String, String> parameters = new LinkedMultiValueMap<String, String>();
+		LinkedMultiValueMap<String, Object> parameters = new LinkedMultiValueMap<String, Object>();
 		parameters.set("cursor", String.valueOf(cursor));
 		parameters.set("screen_name", String.valueOf(screenName));
 		URI resourceUri = new TwitterApiUriBuilder().withResource(TwitterApiUriResourceForStandard.FOLLOWERS).withArgument(parameters).build();
@@ -171,7 +171,7 @@ public class FriendTemplate extends AbstractTwitterTemplate implements FriendOpe
 	
 	public CursoredList<Long> getFollowerIdsInCursor(long userId, long cursor) {
 		requireEitherUserOrAppAuthorization();
-		LinkedMultiValueMap<String, String> parameters = new LinkedMultiValueMap<String, String>();
+		LinkedMultiValueMap<String, Object> parameters = new LinkedMultiValueMap<String, Object>();
 		parameters.set("cursor", String.valueOf(cursor));
 		parameters.set("user_id", String.valueOf(userId));
 		URI resourceUri = new TwitterApiUriBuilder().withResource(TwitterApiUriResourceForStandard.FOLLOWERS_IDS).withArgument(parameters).build();
@@ -184,7 +184,7 @@ public class FriendTemplate extends AbstractTwitterTemplate implements FriendOpe
 	
 	public CursoredList<Long> getFollowerIdsInCursor(String screenName, long cursor) {
 		requireEitherUserOrAppAuthorization();
-		LinkedMultiValueMap<String, String> parameters = new LinkedMultiValueMap<String, String>();
+		LinkedMultiValueMap<String, Object> parameters = new LinkedMultiValueMap<String, Object>();
 		parameters.set("cursor", String.valueOf(cursor));
 		parameters.set("screen_name", screenName);
 		URI resourceUri = new TwitterApiUriBuilder().withResource(TwitterApiUriResourceForStandard.FOLLOWERS_IDS).withArgument(parameters).build();
@@ -217,37 +217,37 @@ public class FriendTemplate extends AbstractTwitterTemplate implements FriendOpe
 	
 	public TwitterProfile enableNotifications(long userId) {
 		requireUserAuthorization();
-		LinkedMultiValueMap<String, String> params = new LinkedMultiValueMap<String, String>();
-		params.set("user_id", String.valueOf(userId));
-		params.set("device", "true");
-		URI resourceUri = new TwitterApiUriBuilder().withResource(TwitterApiUriResourceForStandard.FRIENDSHIPS_UPDATE).withArgument(params).build();
+		LinkedMultiValueMap<String, Object> parameters = new LinkedMultiValueMap<String, Object>();
+		parameters.set("user_id", String.valueOf(userId));
+		parameters.set("device", "true");
+		URI resourceUri = new TwitterApiUriBuilder().withResource(TwitterApiUriResourceForStandard.FRIENDSHIPS_UPDATE).withArgument(parameters).build();
 		return restTemplate.postForObject(resourceUri, EMPTY_DATA, TwitterProfile.class);
 	}
 	
 	public TwitterProfile enableNotifications(String screenName) {
 		requireUserAuthorization();
-		LinkedMultiValueMap<String, String> params = new LinkedMultiValueMap<String, String>();
-		params.set("screen_name", screenName);
-		params.set("device", "true");
-		URI resourceUri = new TwitterApiUriBuilder().withResource(TwitterApiUriResourceForStandard.FRIENDSHIPS_UPDATE).withArgument(params).build();
+		LinkedMultiValueMap<String, Object> parameters = new LinkedMultiValueMap<String, Object>();
+		parameters.set("screen_name", screenName);
+		parameters.set("device", "true");
+		URI resourceUri = new TwitterApiUriBuilder().withResource(TwitterApiUriResourceForStandard.FRIENDSHIPS_UPDATE).withArgument(parameters).build();
 		return restTemplate.postForObject(resourceUri, EMPTY_DATA, TwitterProfile.class);
 	}
 
 	public TwitterProfile disableNotifications(long userId) {
 		requireUserAuthorization();
-		LinkedMultiValueMap<String, String> params = new LinkedMultiValueMap<String, String>();
-		params.set("user_id", String.valueOf(userId));
-		params.set("device", "false");
-		URI resourceUri = new TwitterApiUriBuilder().withResource(TwitterApiUriResourceForStandard.FRIENDSHIPS_UPDATE).withArgument(params).build();
+		LinkedMultiValueMap<String, Object> parameters = new LinkedMultiValueMap<String, Object>();
+		parameters.set("user_id", String.valueOf(userId));
+		parameters.set("device", "false");
+		URI resourceUri = new TwitterApiUriBuilder().withResource(TwitterApiUriResourceForStandard.FRIENDSHIPS_UPDATE).withArgument(parameters).build();
 		return restTemplate.postForObject(resourceUri, EMPTY_DATA, TwitterProfile.class);
 	}
 	
 	public TwitterProfile disableNotifications(String screenName) {
 		requireUserAuthorization();
-		LinkedMultiValueMap<String, String> params = new LinkedMultiValueMap<String, String>();
-		params.set("screen_name", screenName);
-		params.set("device", "false");
-		URI resourceUri = new TwitterApiUriBuilder().withResource(TwitterApiUriResourceForStandard.FRIENDSHIPS_UPDATE).withArgument(params).build();
+		LinkedMultiValueMap<String, Object> parameters = new LinkedMultiValueMap<String, Object>();
+		parameters.set("screen_name", screenName);
+		parameters.set("device", "false");
+		URI resourceUri = new TwitterApiUriBuilder().withResource(TwitterApiUriResourceForStandard.FRIENDSHIPS_UPDATE).withArgument(parameters).build();
 		return restTemplate.postForObject(resourceUri, EMPTY_DATA, TwitterProfile.class);
 	}
 

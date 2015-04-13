@@ -16,9 +16,12 @@
 package org.springframework.social.twitter.api.impl.common.templates;
 
 import java.net.URI;
+import java.util.Iterator;
+import java.util.List;
 
 import org.springframework.social.MissingAuthorizationException;
 import org.springframework.social.twitter.api.impl.common.builders.TwitterApiUriBuilder;
+import org.springframework.util.LinkedMultiValueMap;
 import org.springframework.util.MultiValueMap;
 
 public abstract class AbstractTwitterTemplate {
@@ -75,11 +78,10 @@ public abstract class AbstractTwitterTemplate {
 	 * @deprecated use the {@link TwitterApiUriBuilder} instead. with the builder, you may build URIs for the AdCampaign API as well.
 	 */
 	@Deprecated
-	protected URI buildUri(String path, MultiValueMap<String, String> parameters) {
+	protected URI buildUri(String path, MultiValueMap<String, Object> parameters) {
 		return new TwitterApiUriBuilder()
 			.withResource(path)
 			.withArgument(parameters)
 			.build();
 	}
-
 }

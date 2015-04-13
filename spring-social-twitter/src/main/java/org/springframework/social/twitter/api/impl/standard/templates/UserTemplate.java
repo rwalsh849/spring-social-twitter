@@ -91,7 +91,7 @@ public class UserTemplate extends AbstractTwitterTemplate implements UserOperati
 
 	public List<TwitterProfile> searchForUsers(String query, int page, int pageSize) {
 		requireUserAuthorization();
-		MultiValueMap<String, String> parameters = PagingUtils.buildPagingParametersWithCount(page, pageSize, 0, 0);
+		MultiValueMap<String, Object> parameters = PagingUtils.buildPagingParametersWithCount(page, pageSize, 0, 0);
 		parameters.set("q", query);
 		return restTemplate.getForObject(buildUri("users/search.json", parameters), TwitterProfileList.class);
 	}

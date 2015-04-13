@@ -23,8 +23,8 @@ import org.springframework.util.MultiValueMap;
 
 public class SearchParametersUtil {
 
-	public static MultiValueMap<String, String> buildQueryParametersFromSearchParameters(SearchParameters searchParameters) {
-		MultiValueMap<String, String> parameters = new LinkedMultiValueMap<String, String>();
+	public static MultiValueMap<String, Object> buildQueryParametersFromSearchParameters(SearchParameters searchParameters) {
+		MultiValueMap<String, Object> parameters = new LinkedMultiValueMap<String, Object>();
 		parameters.set("q", searchParameters.getQuery());
 		if (searchParameters.getGeoCode() != null) {
 			parameters.set("geocode", searchParameters.getGeoCode().toString());

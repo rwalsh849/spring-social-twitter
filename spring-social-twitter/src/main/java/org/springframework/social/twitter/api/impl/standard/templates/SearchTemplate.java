@@ -65,7 +65,7 @@ public class SearchTemplate extends AbstractTwitterTemplate implements SearchOpe
 	public SearchResults search(SearchParameters searchParameters) {
 		requireEitherUserOrAppAuthorization();
 		Assert.notNull(searchParameters);
-		MultiValueMap<String, String> parameters = buildQueryParametersFromSearchParameters(searchParameters);
+		MultiValueMap<String, Object> parameters = buildQueryParametersFromSearchParameters(searchParameters);
 		return restTemplate.getForObject(buildUri("search/tweets.json", parameters),SearchResults.class);
 	}
 
@@ -100,7 +100,7 @@ public class SearchTemplate extends AbstractTwitterTemplate implements SearchOpe
 
 	public Trends getLocalTrends(long whereOnEarthId, boolean excludeHashtags) {
 		requireEitherUserOrAppAuthorization();
-		LinkedMultiValueMap<String, String> parameters = new LinkedMultiValueMap<String, String>();
+		LinkedMultiValueMap<String, Object> parameters = new LinkedMultiValueMap<String, Object>();
 		parameters.set("id",String.valueOf(whereOnEarthId));
 		if(excludeHashtags) {
 			parameters.set("exclude", "hashtags");

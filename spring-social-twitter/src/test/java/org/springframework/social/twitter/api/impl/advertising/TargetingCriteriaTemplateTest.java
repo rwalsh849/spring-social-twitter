@@ -34,7 +34,7 @@ import org.junit.Test;
 import org.springframework.social.twitter.api.domain.models.advertising.TargetingCriteria;
 import org.springframework.social.twitter.api.domain.models.advertising.TargetingType;
 import org.springframework.social.twitter.api.impl.AbstractTwitterApiTest;
-import org.springframework.social.twitter.api.impl.advertising.builders.TargetingCriteriaDataBuilder;
+import org.springframework.social.twitter.api.impl.advertising.builders.TargetingCriteriaPostingDataBuilder;
 
 /**
  * @author Hudson mendes
@@ -86,7 +86,7 @@ public class TargetingCriteriaTemplateTest extends AbstractTwitterApiTest {
 	
 		TargetingCriteria criteria = twitter.targetingCriteriaOperations().createTargetingCriteria(
 				mockedAccountId,
-				new TargetingCriteriaDataBuilder()
+				new TargetingCriteriaPostingDataBuilder()
 					.withLineItem(doesntMatterString)
 					.withName(doesntMatterString)
 					.targeting(TargetingType.APP_STORE_CATEGORY, doesntMatterString)
@@ -117,7 +117,7 @@ public class TargetingCriteriaTemplateTest extends AbstractTwitterApiTest {
 		twitter.targetingCriteriaOperations().updateTargetingCriteria(
 				mockedAccountId,
 				mockedTargetingCriteriaId,
-				new TargetingCriteriaDataBuilder()
+				new TargetingCriteriaPostingDataBuilder()
 					.withLineItem(doesntMatterString)
 					.withName(doesntMatterString)
 					.targeting(TargetingType.APP_STORE_CATEGORY, doesntMatterString)
