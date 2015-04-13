@@ -38,10 +38,7 @@ import com.fasterxml.jackson.databind.JsonDeserializer;
 public class StatisticalSnapshotDeserializer extends JsonDeserializer<StatisticalSnapshot> {
 
 	@Override
-	public StatisticalSnapshot deserialize(JsonParser p,
-			DeserializationContext ctxt) throws IOException,
-			JsonProcessingException {
-		
+	public StatisticalSnapshot deserialize(JsonParser p, DeserializationContext ctxt) throws IOException, JsonProcessingException {
 		throw new UnsupportedOperationException("Not implemented");
 	}
 

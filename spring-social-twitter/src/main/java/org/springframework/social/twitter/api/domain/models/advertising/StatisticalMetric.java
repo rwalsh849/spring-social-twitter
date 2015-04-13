@@ -1,4 +1,4 @@
-package org.springframework.social.twitter.api.impl.advertising.builders;
+package org.springframework.social.twitter.api.domain.models.advertising;
 
 public enum StatisticalMetric {
 	promotion_card_responses,

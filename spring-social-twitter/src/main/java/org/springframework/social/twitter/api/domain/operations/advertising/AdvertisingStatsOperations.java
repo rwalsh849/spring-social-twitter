@@ -34,7 +34,7 @@ public interface AdvertisingStatsOperations {
 	 * @param campaignId The id of the campaign for which we which to retrieve the statistics.
 	 * @return
 	 */
-	List<StatisticalSnapshot> byCampaign(String accountId, QueryingData query);
+	StatisticalSnapshot byCampaign(String accountId, QueryingData query);
 	
 	/**
 	 * Snapshot of Advertising Statistics by {@link Campaign}.

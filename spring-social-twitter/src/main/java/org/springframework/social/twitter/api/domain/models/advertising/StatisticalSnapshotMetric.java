@@ -25,15 +25,15 @@ import org.springframework.social.twitter.api.impl.standard.models.TwitterObject
  * @author Hudson Mendes
  */
 public class StatisticalSnapshotMetric extends TwitterObject {
-	private final String name;
+	private final StatisticalMetric name;
 	private final List<Object> entries;
 	
-	public StatisticalSnapshotMetric(String name, List<Object> entries) {
+	public StatisticalSnapshotMetric(StatisticalMetric name, List<Object> entries) {
 		this.name = name;
 		this.entries = new ArrayList<>(entries);
 	}
 
-	public String getName() {
+	public StatisticalMetric getName() {
 		return name;
 	}
 

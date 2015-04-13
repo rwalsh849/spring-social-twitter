@@ -21,6 +21,7 @@ import org.springframework.social.oauth1.AbstractOAuth1ApiBinding;
 import org.springframework.social.oauth2.OAuth2Operations;
 import org.springframework.social.oauth2.OAuth2Template;
 import org.springframework.social.twitter.api.domain.operations.advertising.AdvertisingOperations;
+import org.springframework.social.twitter.api.domain.operations.advertising.AdvertisingStatsOperations;
 import org.springframework.social.twitter.api.domain.operations.advertising.CampaignOperations;
 import org.springframework.social.twitter.api.domain.operations.advertising.LineItemOperations;
 import org.springframework.social.twitter.api.domain.operations.advertising.TargetingCriteriaOperations;
@@ -33,6 +34,7 @@ import org.springframework.social.twitter.api.domain.operations.standard.SearchO
 import org.springframework.social.twitter.api.domain.operations.standard.StreamingOperations;
 import org.springframework.social.twitter.api.domain.operations.standard.TimelineOperations;
 import org.springframework.social.twitter.api.domain.operations.standard.UserOperations;
+import org.springframework.social.twitter.api.impl.advertising.templates.AdvertisingStatsTemplate;
 import org.springframework.social.twitter.api.impl.advertising.templates.AdvertisingTemplate;
 import org.springframework.social.twitter.api.impl.advertising.templates.CampaignTemplate;
 import org.springframework.social.twitter.api.impl.advertising.templates.LineItemTemplate;
@@ -86,6 +88,8 @@ public class TwitterTemplate extends AbstractOAuth1ApiBinding implements Twitter
 	private StreamingOperations streamOperations;
 	
 	private AdvertisingOperations advertisingOperations;
+	
+	private AdvertisingStatsOperations advertisingStatsOperations;
 	
 	private CampaignOperations campaignOperations;
 	
@@ -173,6 +177,10 @@ public class TwitterTemplate extends AbstractOAuth1ApiBinding implements Twitter
 		return advertisingOperations;
 	}
 	
+	public AdvertisingStatsOperations advertisingStatsOperations() {
+		return advertisingStatsOperations;
+	}
+	
 	public CampaignOperations campaignOperations() {
 		return campaignOperations;
 	}
@@ -242,6 +250,7 @@ public class TwitterTemplate extends AbstractOAuth1ApiBinding implements Twitter
 		this.streamOperations = new StreamingTemplate(getRestTemplate(), isAuthorized(), isAuthorizedForApp());
 		
 		this.advertisingOperations = new AdvertisingTemplate(getRestTemplate(), isAuthorized(), isAuthorized());
+		this.advertisingStatsOperations = new AdvertisingStatsTemplate(getRestTemplate(), isAuthorized(), isAuthorized());
 		this.campaignOperations = new CampaignTemplate(getRestTemplate(), isAuthorized(), isAuthorized());
 		this.lineItemOperations = new LineItemTemplate(getRestTemplate(), isAuthorized(), isAuthorized());
 		this.targetingCriteriaOperations = new TargetingCriteriaTemplate(getRestTemplate(), isAuthorized(), isAuthorized());
