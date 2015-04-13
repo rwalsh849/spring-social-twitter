@@ -19,7 +19,6 @@ import java.net.URI;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
-import java.util.Set;
 
 import org.springframework.social.support.URIBuilder;
 import org.springframework.social.twitter.api.impl.common.templates.AbstractTwitterTemplate;

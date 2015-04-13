@@ -19,6 +19,7 @@ import org.springframework.social.twitter.api.domain.models.advertising.Advertis
 import org.springframework.social.twitter.api.domain.models.advertising.Campaign;
 import org.springframework.social.twitter.api.domain.models.advertising.FundingInstrument;
 import org.springframework.social.twitter.api.domain.models.advertising.LineItem;
+import org.springframework.social.twitter.api.domain.models.advertising.StatisticalSnapshot;
 import org.springframework.social.twitter.api.domain.models.advertising.TargetingCriteria;
 import org.springframework.social.twitter.api.domain.models.standard.AccountSettings;
 import org.springframework.social.twitter.api.domain.models.standard.DirectMessage;
@@ -28,6 +29,7 @@ import org.springframework.social.twitter.api.impl.advertising.mixins.Advertisin
 import org.springframework.social.twitter.api.impl.advertising.mixins.CampaignMixin;
 import org.springframework.social.twitter.api.impl.advertising.mixins.FundingInstrumentMixin;
 import org.springframework.social.twitter.api.impl.advertising.mixins.LineItemMixin;
+import org.springframework.social.twitter.api.impl.advertising.mixins.StatisticalSnapshotMixin;
 import org.springframework.social.twitter.api.impl.advertising.mixins.TargetingCriteriaMixin;
 import org.springframework.social.twitter.api.impl.standard.holders.UserList;
 import org.springframework.social.twitter.api.impl.standard.mixins.AccountSettingsMixin;
@@ -98,6 +100,7 @@ public class TwitterModule extends SimpleModule {
 		context.setMixInAnnotations(LineItem.class, LineItemMixin.class);
 		context.setMixInAnnotations(Campaign.class, CampaignMixin.class);
 		context.setMixInAnnotations(TargetingCriteria.class, TargetingCriteriaMixin.class);
+		context.setMixInAnnotations(StatisticalSnapshot.class, StatisticalSnapshotMixin.class);
 		
 		context.setMixInAnnotations(AccountSettings.class, AccountSettingsMixin.class);
 		context.setMixInAnnotations(AccountSettings.TimeZone.class, AccountSettingsMixin.TimeZoneMixin.class);

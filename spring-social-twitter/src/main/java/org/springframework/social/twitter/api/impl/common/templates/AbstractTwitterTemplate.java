@@ -16,12 +16,9 @@
 package org.springframework.social.twitter.api.impl.common.templates;
 
 import java.net.URI;
-import java.util.Iterator;
-import java.util.List;
 
 import org.springframework.social.MissingAuthorizationException;
 import org.springframework.social.twitter.api.impl.common.builders.TwitterApiUriBuilder;
-import org.springframework.util.LinkedMultiValueMap;
 import org.springframework.util.MultiValueMap;
 
 public abstract class AbstractTwitterTemplate {
