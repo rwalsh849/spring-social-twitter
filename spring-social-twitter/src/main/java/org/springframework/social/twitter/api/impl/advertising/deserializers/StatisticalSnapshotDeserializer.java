@@ -98,7 +98,7 @@ public class StatisticalSnapshotDeserializer extends JsonDeserializer<Statistica
 		Type metricType = mapOfMetrics.get(metric);
 		if (metricType == BigDecimal.class) dumpEntriesAsDecimals(iterator, entries);
 		else if (metricType == Integer.class) dumpEntriesAsIntegers(iterator, entries);
-		else if (metricType == Integer.class) dumpEntriesAsFloats(iterator, entries);
+		else if (metricType == Double.class) dumpEntriesAsFloats(iterator, entries);
 		else if (metricType == AbstractMap.SimpleEntry.class) dumpEntriesAsHashes(iterator, entries);
 	}
 	
@@ -119,7 +119,7 @@ public class StatisticalSnapshotDeserializer extends JsonDeserializer<Statistica
 	private void dumpEntriesAsFloats(Spliterator<JsonNode> iterator, List<Object> entries) {
 		iterator.forEachRemaining(i -> {
 			String entryValue = i.asText();
-			entries.add(new Float(entryValue));
+			entries.add(new Double(entryValue));
 		});
 	}
 	

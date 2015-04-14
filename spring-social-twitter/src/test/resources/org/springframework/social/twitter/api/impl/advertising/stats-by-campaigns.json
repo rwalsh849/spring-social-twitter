@@ -118,9 +118,9 @@
   "data_type": "stats",
   "request": {
     "params": {
-      "account_id": "5gvk9h",
+      "account_id": "hkk5",
       "campaign_ids": [
-        "e25e"
+        "e24f"
       ],
       "end_time": "2013-04-16T07:00:00Z",
       "granularity": "DAY",

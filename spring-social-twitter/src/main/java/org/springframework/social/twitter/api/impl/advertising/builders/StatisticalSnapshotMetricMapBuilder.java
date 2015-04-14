@@ -80,15 +80,16 @@ public class StatisticalSnapshotMetricMapBuilder {
 	}
 	
 	private void mapRates(Map<StatisticalMetric, Type> map) {
-		map.put(StatisticalMetric.promoted_account_follow_rate, Float.class);
-		map.put(StatisticalMetric.promoted_tweet_search_engagement_rate, Float.class);
-		map.put(StatisticalMetric.promoted_tweet_search_impressions, Float.class);
-		map.put(StatisticalMetric.promoted_tweet_timeline_engagement_rate, Float.class);
-		map.put(StatisticalMetric.promoted_tweet_timeline_impressions, Float.class);
+		map.put(StatisticalMetric.promoted_account_follow_rate, Double.class);
+		map.put(StatisticalMetric.promoted_tweet_search_engagement_rate, Double.class);
+		map.put(StatisticalMetric.promoted_tweet_search_impressions, Double.class);
+		map.put(StatisticalMetric.promoted_tweet_timeline_engagement_rate, Double.class);
+		map.put(StatisticalMetric.promoted_tweet_timeline_impressions, Double.class);
 	}
 	
 	private void mapCurrencies(Map<StatisticalMetric, Type> map) {
 		map.put(StatisticalMetric.billed_charge_local_micro, BigDecimal.class);
+		map.put(StatisticalMetric.estimated_charge_local_micro, BigDecimal.class);
 	}
 	
 	private void mapComplexObjects(Map<StatisticalMetric, Type> map) {

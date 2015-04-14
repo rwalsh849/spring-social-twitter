@@ -56,7 +56,7 @@ public class StatisticalSnapshot extends TwitterObject {
 		return endTime;
 	}
 	
-	public StatisticalSnapshotMetric getMetric(String key) {
+	public StatisticalSnapshotMetric getMetric(StatisticalMetric key) {
 		return this.metrics.get(key);
 	}
 }

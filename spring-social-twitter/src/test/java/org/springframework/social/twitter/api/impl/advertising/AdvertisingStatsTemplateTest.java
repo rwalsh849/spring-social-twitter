@@ -15,13 +15,18 @@
  */
 package org.springframework.social.twitter.api.impl.advertising;
 
+import static org.junit.Assert.*;
 import static org.springframework.http.HttpMethod.GET;
 import static org.springframework.http.MediaType.APPLICATION_JSON;
 import static org.springframework.test.web.client.match.MockRestRequestMatchers.method;
 import static org.springframework.test.web.client.match.MockRestRequestMatchers.requestTo;
 import static org.springframework.test.web.client.response.MockRestResponseCreators.withSuccess;
-import junit.framework.Assert;
 
+import java.math.BigDecimal;
+import java.time.LocalDateTime;
+import java.time.Month;
+
+import org.hamcrest.collection.IsIterableContainingInOrder;
 import org.junit.Test;
 import org.springframework.social.twitter.api.domain.models.advertising.StatisticalGranularity;
 import org.springframework.social.twitter.api.domain.models.advertising.StatisticalMetric;
@@ -53,7 +58,97 @@ public class AdvertisingStatsTemplateTest extends AbstractTwitterApiTest {
 	}
 	
 	private void assertCampaignContents(StatisticalSnapshot snapshot) {
-		Assert.fail();
+		assertEquals(LocalDateTime.of(2013, Month.APRIL, 16, 07, 00, 00), snapshot.getEndTime());
+		assertEquals(LocalDateTime.of(2013, Month.APRIL, 13, 07, 00, 00), snapshot.getStartTime());
+		assertEquals(StatisticalGranularity.DAY, snapshot.getGranularity());
+		
+		assertThat(
+				snapshot.getMetric(StatisticalMetric.estimated_charge_local_micro).entries(),
+				IsIterableContainingInOrder.contains(new BigDecimal(22.00), new BigDecimal(22.00), new BigDecimal(22.00)));
+		
+		assertThat(
+				snapshot.getMetric(StatisticalMetric.billed_charge_local_micro).entries(),
+				IsIterableContainingInOrder.contains(new BigDecimal(22.00), new BigDecimal(22.00), new BigDecimal(22.00)));
+		
+		assertThat(
+				snapshot.getMetric(StatisticalMetric.billed_engagements).entries(),
+				IsIterableContainingInOrder.contains(new Integer(59), new Integer(50), new Integer(69)));
+		
+		assertThat(
+				snapshot.getMetric(StatisticalMetric.billed_follows).entries(),
+				IsIterableContainingInOrder.contains(new Integer(0), new Integer(0), new Integer(0)));
+		
+		assertThat(
+				snapshot.getMetric(StatisticalMetric.promoted_account_follows).entries(),
+				IsIterableContainingInOrder.contains(new Integer(0), new Integer(0), new Integer(0)));
+		
+		assertThat(
+				snapshot.getMetric(StatisticalMetric.promoted_account_impressions).entries(),
+				IsIterableContainingInOrder.contains(new Integer(0), new Integer(0), new Integer(0)));
+		
+		assertThat(
+				snapshot.getMetric(StatisticalMetric.promoted_account_profile_visits).entries(),
+				IsIterableContainingInOrder.contains(new Integer(0), new Integer(0), new Integer(0)));
+		
+		assertThat(
+				snapshot.getMetric(StatisticalMetric.promoted_tweet_search_clicks).entries(),
+				IsIterableContainingInOrder.contains(new Integer(0), new Integer(0), new Integer(0)));
+		
+		assertThat(
+				snapshot.getMetric(StatisticalMetric.promoted_tweet_search_engagements).entries(),
+				IsIterableContainingInOrder.contains(new Integer(0), new Integer(0), new Integer(0)));
+		
+		assertThat(
+				snapshot.getMetric(StatisticalMetric.promoted_tweet_search_follows).entries(),
+				IsIterableContainingInOrder.contains(new Integer(0), new Integer(0), new Integer(0)));
+		
+		assertThat(
+				snapshot.getMetric(StatisticalMetric.promoted_tweet_search_impressions).entries(),
+				IsIterableContainingInOrder.contains(new Integer(0), new Integer(0), new Integer(0)));
+		
+		assertThat(
+				snapshot.getMetric(StatisticalMetric.promoted_tweet_search_replies).entries(),
+				IsIterableContainingInOrder.contains(new Integer(0), new Integer(0), new Integer(0)));
+		
+		assertThat(
+				snapshot.getMetric(StatisticalMetric.promoted_tweet_search_retweets).entries(),
+				IsIterableContainingInOrder.contains(new Integer(0), new Integer(0), new Integer(0)));
+		
+		assertThat(
+				snapshot.getMetric(StatisticalMetric.promoted_tweet_timeline_clicks).entries(),
+				IsIterableContainingInOrder.contains(new Integer(65), new Integer(75), new Integer(81)));
+		
+		assertThat(
+				snapshot.getMetric(StatisticalMetric.promoted_tweet_timeline_engagements).entries(),
+				IsIterableContainingInOrder.contains(new Integer(65), new Integer(75), new Integer(81)));
+		
+		assertThat(
+				snapshot.getMetric(StatisticalMetric.promoted_tweet_timeline_follows).entries(),
+				IsIterableContainingInOrder.contains(new Integer(0), new Integer(0), new Integer(0)));
+		
+		assertThat(
+				snapshot.getMetric(StatisticalMetric.promoted_tweet_timeline_impressions).entries(),
+				IsIterableContainingInOrder.contains(new Integer(851), new Integer(875), new Integer(1187)));
+		
+		assertThat(
+				snapshot.getMetric(StatisticalMetric.promoted_tweet_timeline_replies).entries(),
+				IsIterableContainingInOrder.contains(new Integer(0), new Integer(0), new Integer(0)));
+		
+		assertThat(
+				snapshot.getMetric(StatisticalMetric.promoted_tweet_timeline_retweets).entries(),
+				IsIterableContainingInOrder.contains(new Integer(0), new Integer(0), new Integer(0)));
+		
+		assertThat(
+				snapshot.getMetric(StatisticalMetric.promoted_tweet_timeline_engagement_rate).entries(),
+				IsIterableContainingInOrder.contains(new Double(0.0763807285546416), new Double(0.0857142857142857), new Double(0.0682392586352148)));
+		
+		assertThat(
+				snapshot.getMetric(StatisticalMetric.promoted_tweet_search_engagement_rate).entries(),
+				IsIterableContainingInOrder.contains(new Double(0), new Double(0), new Double(0)));
+		
+		assertThat(
+				snapshot.getMetric(StatisticalMetric.promoted_account_follow_rate).entries(),
+				IsIterableContainingInOrder.contains(new Double(0), new Double(0), new Double(0)));
 	}
 	
 }
