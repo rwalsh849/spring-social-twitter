@@ -16,13 +16,29 @@
 package org.springframework.social.twitter.api.impl.advertising.deserializers;
 
 import java.io.IOException;
+import java.lang.reflect.Type;
+import java.math.BigDecimal;
+import java.time.LocalDateTime;
+import java.util.AbstractMap;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.Spliterator;
 
+import org.springframework.social.twitter.api.domain.models.advertising.StatisticalGranularity;
+import org.springframework.social.twitter.api.domain.models.advertising.StatisticalMetric;
 import org.springframework.social.twitter.api.domain.models.advertising.StatisticalSnapshot;
+import org.springframework.social.twitter.api.domain.models.advertising.StatisticalSnapshotMetric;
+import org.springframework.social.twitter.api.impl.advertising.builders.StatisticalSnapshotMetricMapBuilder;
+import org.springframework.social.twitter.api.impl.common.deserializers.LocalDateTimeDeserializer;
 
 import com.fasterxml.jackson.core.JsonParser;
 import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.core.ObjectCodec;
 import com.fasterxml.jackson.databind.DeserializationContext;
 import com.fasterxml.jackson.databind.JsonDeserializer;
+import com.fasterxml.jackson.databind.JsonNode;
 
 /**
  * Deserializes the complex object {@link StatisticalSnapshot}
@@ -36,10 +52,84 @@ import com.fasterxml.jackson.databind.JsonDeserializer;
  *
  */
 public class StatisticalSnapshotDeserializer extends JsonDeserializer<StatisticalSnapshot> {
+	private static final Map<StatisticalMetric, Type> mapOfMetrics = new StatisticalSnapshotMetricMapBuilder().build();
 
 	@Override
 	public StatisticalSnapshot deserialize(JsonParser p, DeserializationContext ctxt) throws IOException, JsonProcessingException {
-		throw new UnsupportedOperationException("Not implemented");
+		ObjectCodec codec = p.getCodec();
+		JsonNode root = codec.readTree(p);
+		JsonNode data = root.get("data");
+		return new StatisticalSnapshot(
+				extractGranularity(data),
+				extractMetrics(data),
+				extractStartTime(data),
+				extractEndTime(data));
+	}
+	
+	private StatisticalGranularity extractGranularity(JsonNode data) {
+		return StatisticalGranularity.valueOf(data.get("granularity").asText());
+	}
+	
+	private Map<StatisticalMetric, StatisticalSnapshotMetric> extractMetrics(JsonNode data) {
+		Map<StatisticalMetric, StatisticalSnapshotMetric> map = new HashMap<StatisticalMetric, StatisticalSnapshotMetric>();
+		StatisticalMetric[] values = StatisticalMetric.class.getEnumConstants();
+		for (int i = 0; i < values.length; i++) {
+			StatisticalMetric metric = values[i];
+			JsonNode metricNode = data.get(metric.toString());
+			if (metricNode != null) {
+				List<Object> entries = new ArrayList<Object>();
+				parseMetricEntries(metric, metricNode.spliterator(), entries);
+				map.put(metric, new StatisticalSnapshotMetric(metric, entries));
+			}
+		}
+
+		return map;
+	}
+	
+	private LocalDateTime extractStartTime(JsonNode data) {
+		return LocalDateTimeDeserializer.parse(data.get("start_time").asText());
+	}
+	
+	private LocalDateTime extractEndTime(JsonNode data) {
+		return LocalDateTimeDeserializer.parse(data.get("end_time").asText());
 	}
 
+	private void parseMetricEntries(StatisticalMetric metric, Spliterator<JsonNode> iterator, List<Object> entries) {
+		Type metricType = mapOfMetrics.get(metric);
+		if (metricType == BigDecimal.class) dumpEntriesAsDecimals(iterator, entries);
+		else if (metricType == Integer.class) dumpEntriesAsIntegers(iterator, entries);
+		else if (metricType == Integer.class) dumpEntriesAsFloats(iterator, entries);
+		else if (metricType == AbstractMap.SimpleEntry.class) dumpEntriesAsHashes(iterator, entries);
+	}
+	
+	private void dumpEntriesAsDecimals(Spliterator<JsonNode> iterator, List<Object> entries) {
+		iterator.forEachRemaining(i -> {
+			String entryValue = i.asText();
+			entries.add(BigDecimalMicroAmountDeserializer.parse(entryValue));
+		});
+	}
+	
+	private void dumpEntriesAsIntegers(Spliterator<JsonNode> iterator, List<Object> entries) {
+		iterator.forEachRemaining(i -> {
+			String entryValue = i.asText();
+			entries.add(new Integer(entryValue));
+		});
+	}
+	
+	private void dumpEntriesAsFloats(Spliterator<JsonNode> iterator, List<Object> entries) {
+		iterator.forEachRemaining(i -> {
+			String entryValue = i.asText();
+			entries.add(new Float(entryValue));
+		});
+	}
+	
+	private void dumpEntriesAsHashes(Spliterator<JsonNode> iterator, List<Object> entries) {
+		iterator.forEachRemaining(i -> {
+			i.fields().forEachRemaining(j -> {
+				String key = j.getKey();
+				String value = j.getValue().asText();
+				entries.add(new AbstractMap.SimpleEntry<String, String>(key, value));
+			});
+		});
+	}
 }

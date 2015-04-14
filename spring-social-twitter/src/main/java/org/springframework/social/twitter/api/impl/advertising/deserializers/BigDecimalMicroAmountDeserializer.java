@@ -39,8 +39,11 @@ public class BigDecimalMicroAmountDeserializer extends JsonDeserializer<BigDecim
 	public BigDecimal deserialize(JsonParser p, DeserializationContext ctxt)
 			throws IOException, JsonProcessingException {
 		
-		Long microAmount = new Long(p.getText());
-		return new BigDecimal(microAmount / 1000000.00).round(MathContext.DECIMAL32);
+		return parse(p.getText());
 	}
 
+	public static BigDecimal parse(String rawValue) {
+		Long microAmount = new Long(rawValue);
+		return new BigDecimal(microAmount / 1000000.00).round(MathContext.DECIMAL32);
+	}
 }

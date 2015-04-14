@@ -18,7 +18,6 @@ package org.springframework.social.twitter.api.impl.advertising.builders;
 import java.time.LocalDateTime;
 import java.time.ZoneOffset;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 import org.springframework.social.twitter.api.domain.models.advertising.StatisticalGranularity;

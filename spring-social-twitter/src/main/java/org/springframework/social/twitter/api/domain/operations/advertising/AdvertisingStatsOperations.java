@@ -15,8 +15,6 @@
  */
 package org.springframework.social.twitter.api.domain.operations.advertising;
 
-import java.util.List;
-
 import org.springframework.social.twitter.api.domain.models.QueryingData;
 import org.springframework.social.twitter.api.domain.models.advertising.Campaign;
 import org.springframework.social.twitter.api.domain.models.advertising.StatisticalSnapshot;

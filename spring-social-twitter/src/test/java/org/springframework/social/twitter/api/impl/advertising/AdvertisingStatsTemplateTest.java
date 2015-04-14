@@ -40,7 +40,7 @@ public class AdvertisingStatsTemplateTest extends AbstractTwitterApiTest {
 		mockServer
 			.expect(requestTo("https://ads-api.twitter.com/0/stats/accounts/" + mockedAccountId + "/campaigns?campaign_ids=" + mockedCampaignId + "&granularity=DAY&metrics=billed_follows"))
 			.andExpect(method(GET))
-			.andRespond(withSuccess(jsonResource("ad-campaigns"), APPLICATION_JSON));
+			.andRespond(withSuccess(jsonResource("stats-by-campaigns"), APPLICATION_JSON));
 	
 		StatisticalSnapshot campaign = twitter.advertisingStatsOperations().byCampaign(
 				mockedAccountId,

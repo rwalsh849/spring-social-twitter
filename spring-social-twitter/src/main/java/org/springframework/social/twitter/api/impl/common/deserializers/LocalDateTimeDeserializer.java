@@ -40,8 +40,11 @@ public class LocalDateTimeDeserializer extends JsonDeserializer<LocalDateTime> {
 		 * Very ugly fix to get the damn date in ISO format working
 		 * I'm still trying to figure out a better solution. 
 		 */
-		Instant instant = Instant.parse(p.getText());
-		return LocalDateTime.ofInstant(instant, utc);
+		return parse(p.getText());
 	}
 
+	public static LocalDateTime parse(String dateTimeAsString) {
+		Instant instant = Instant.parse(dateTimeAsString);
+		return LocalDateTime.ofInstant(instant, utc);
+	}
 }
