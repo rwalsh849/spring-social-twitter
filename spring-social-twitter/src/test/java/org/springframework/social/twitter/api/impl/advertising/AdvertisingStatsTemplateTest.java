@@ -134,12 +134,12 @@ public class AdvertisingStatsTemplateTest extends AbstractTwitterApiTest {
 	@Test
 	public void byFundingInstrument() throws UnsupportedEncodingException {
 		String mockedAccountId = "0ga0yn";
-		String mockedFundingInstrument = "92ph";
+		String mockedFundingInstrumentId = "92ph";
 		
 		mockServer
 			.expect(requestTo(
 					"https://ads-api.twitter.com/0/stats/accounts/" + mockedAccountId + "/funding_instruments" +
-					"/" + mockedFundingInstrument +
+					"/" + mockedFundingInstrumentId +
 					"?granularity=HOUR" +
 					"&metrics=" + URLEncoder.encode("billed_follows", DEFAULT_ENCODING) +
 					"&start_time=" + URLEncoder.encode("2015-03-06T07:00:00Z", DEFAULT_ENCODING) +
@@ -149,7 +149,62 @@ public class AdvertisingStatsTemplateTest extends AbstractTwitterApiTest {
 	
 		StatisticalSnapshot snapshot = twitter.advertisingStatsOperations().byFundingInstrument(
 				mockedAccountId,
-				mockedFundingInstrument,
+				mockedFundingInstrumentId,
+				new StatisticalSnapshotQueryingDataBuilder()
+					.activeBetween(LocalDateTime.of(2015, Month.MARCH, 06, 07, 00, 00), LocalDateTime.of(2015, Month.MARCH, 13, 07, 00, 00))
+					.withGranularity(StatisticalGranularity.HOUR)
+					.withStatisticalMetric(StatisticalMetric.billed_follows));
+		
+		assertSnapshotSingleContents(snapshot);
+	}
+	
+	@Test
+	public void byLineItems() throws UnsupportedEncodingException {
+		String mockedAccountId = "0ga0yn";
+		String mockedLineItemId1 = "92ph";
+		String mockedLineItemId2 = "x902";
+		mockServer
+		.expect(requestTo(
+				"https://ads-api.twitter.com/0/stats/accounts/" + mockedAccountId + "/line_items" +
+				"?line_item_ids=" + URLEncoder.encode(mockedLineItemId1 + "," + mockedLineItemId2, DEFAULT_ENCODING) +
+				"&granularity=HOUR" +
+				"&metrics=" + URLEncoder.encode("billed_follows", DEFAULT_ENCODING) +
+				"&start_time=" + URLEncoder.encode("2015-03-06T07:00:00Z", DEFAULT_ENCODING) +
+				"&end_time=" + URLEncoder.encode("2015-03-13T07:00:00Z", DEFAULT_ENCODING)))
+			.andExpect(method(GET))
+			.andRespond(withSuccess(jsonResource("statistics-snapshot"), APPLICATION_JSON));
+	
+		List<StatisticalSnapshot> snapshots = twitter.advertisingStatsOperations().byLineItems(
+				mockedAccountId,
+				new StatisticalSnapshotQueryingDataBuilder()
+					.activeFrom(LocalDateTime.of(2015, Month.MARCH, 06, 07, 00, 00))
+					.activeUntil(LocalDateTime.of(2015, Month.MARCH, 13, 07, 00, 00))
+					.withGranularity(StatisticalGranularity.HOUR)
+					.withLineItems(mockedLineItemId1, mockedLineItemId2)
+					.withStatisticalMetric(StatisticalMetric.billed_follows));
+		
+		assertSnapshotContents(snapshots);
+	}
+	
+	@Test
+	public void byLineItem() throws UnsupportedEncodingException {
+		String mockedAccountId = "0ga0yn";
+		String mockedLineItemId = "92ph";
+		
+		mockServer
+			.expect(requestTo(
+					"https://ads-api.twitter.com/0/stats/accounts/" + mockedAccountId + "/line_items" +
+					"/" + mockedLineItemId +
+					"?granularity=HOUR" +
+					"&metrics=" + URLEncoder.encode("billed_follows", DEFAULT_ENCODING) +
+					"&start_time=" + URLEncoder.encode("2015-03-06T07:00:00Z", DEFAULT_ENCODING) +
+					"&end_time=" + URLEncoder.encode("2015-03-13T07:00:00Z", DEFAULT_ENCODING)))
+			.andExpect(method(GET))
+			.andRespond(withSuccess(jsonResource("statistics-snapshot-single"), APPLICATION_JSON));
+	
+		StatisticalSnapshot snapshot = twitter.advertisingStatsOperations().byLineItem(
+				mockedAccountId,
+				mockedLineItemId,
 				new StatisticalSnapshotQueryingDataBuilder()
 					.activeBetween(LocalDateTime.of(2015, Month.MARCH, 06, 07, 00, 00), LocalDateTime.of(2015, Month.MARCH, 13, 07, 00, 00))
 					.withGranularity(StatisticalGranularity.HOUR)

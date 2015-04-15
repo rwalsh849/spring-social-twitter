@@ -36,6 +36,7 @@ import org.springframework.util.MultiValueMap;
 public class StatisticalSnapshotQueryingDataBuilder extends TwitterRequestQueryingDataBuilder {
 	private List<String> campaignIds;
 	private List<String> fundingInstrumentIds;
+	private List<String> lineItemIds;
 	private LocalDateTime startTime;
 	private LocalDateTime endTime;
 	private StatisticalGranularity granularity;
@@ -47,6 +48,7 @@ public class StatisticalSnapshotQueryingDataBuilder extends TwitterRequestQueryi
 		
 		appendParameter(params, "campaign_ids", this.campaignIds);
 		appendParameter(params, "funding_instrument_ids", this.fundingInstrumentIds);
+		appendParameter(params, "line_item_ids", this.lineItemIds);
 		appendParameter(params, "granularity", this.granularity);
 		appendParameter(params, "metrics", this.metrics);
 		if (this.startTime != null) appendParameter(params, "start_time", this.startTime.toInstant(ZoneOffset.UTC));
@@ -69,6 +71,13 @@ public class StatisticalSnapshotQueryingDataBuilder extends TwitterRequestQueryi
 		return this;
 	}
 	
+	public StatisticalSnapshotQueryingDataBuilder withLineItems(String... lineItemIds) {
+		this.lineItemIds = new ArrayList<String>();
+		for (int i = 0; i < lineItemIds.length; i++)
+			this.lineItemIds.add(lineItemIds[i]);
+		return this;
+	}
+	
 	public StatisticalSnapshotQueryingDataBuilder activeUntil(LocalDateTime endTime) {
 		return activeBetween(null, endTime);
 	}
@@ -78,8 +87,8 @@ public class StatisticalSnapshotQueryingDataBuilder extends TwitterRequestQueryi
 	}
 
 	public StatisticalSnapshotQueryingDataBuilder activeBetween(LocalDateTime startTime, LocalDateTime endTime) {
-		this.startTime = startTime;
-		this.endTime = endTime;
+		if (startTime != null) this.startTime = startTime;
+		if (endTime != null) this.endTime = endTime;
 		return this;
 	}
 	

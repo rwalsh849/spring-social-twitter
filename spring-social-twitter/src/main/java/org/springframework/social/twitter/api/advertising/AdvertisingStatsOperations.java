@@ -56,8 +56,25 @@ public interface AdvertisingStatsOperations {
 	 * Snapshot of Advertising Statistics by {@link Campaign}.
 	 * @param accountId The id of the account for which we want to retrieve the statistics.
 	 * @param fundingInstrumentId The id of the funding instrument for which we want to retrieve the statistics.
-	 * @param query
+	 * @param query The query for which we shall retrieve statistics.
 	 * @returns an instance of {@link StatisticalSnapshot}
 	 */
 	StatisticalSnapshot byFundingInstrument(String accountId, String fundingInstrumentId, QueryingData query);
+	
+	/**
+	 * Snapshot of Advertising Statistics for Multiple {@link LineItem}. 
+	 * @param accountId The id of the account for which we want to retrieve the statistics.
+	 * @param query The query for which we shall retrieve statistics.
+	 * @returns a list of {@link StatisticalSnapshot}
+	 */
+	List<StatisticalSnapshot> byLineItems(String accountId, QueryingData query);
+	
+	/**
+	 * Snapshot of Advertising Statistics by {@link Campaign}.
+	 * @param accountId The id of the account for which we want to retrieve the statistics.
+	 * @param lineItemId The id of the line item for which we want to retrieve the statistics.
+	 * @param query The query for which we shall retrieve statistics.
+	 * @returns an instance of {@link StatisticalSnapshot}
+	 */
+	StatisticalSnapshot byLineItem(String accountId, String lineItemId, QueryingData query);
 }
