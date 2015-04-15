@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.springframework.social.twitter.api.impl.standard;
+package org.springframework.social.twitter.api.impl.basic;
 
 import static org.springframework.http.HttpMethod.*;
 import static org.springframework.http.MediaType.*;

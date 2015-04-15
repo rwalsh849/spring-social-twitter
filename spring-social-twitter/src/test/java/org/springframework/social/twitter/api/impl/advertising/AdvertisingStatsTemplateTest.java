@@ -15,7 +15,8 @@
  */
 package org.springframework.social.twitter.api.impl.advertising;
 
-import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.*;
+import static org.hamcrest.CoreMatchers.*;
 import static org.springframework.http.HttpMethod.GET;
 import static org.springframework.http.MediaType.APPLICATION_JSON;
 import static org.springframework.test.web.client.match.MockRestRequestMatchers.method;
@@ -23,6 +24,8 @@ import static org.springframework.test.web.client.match.MockRestRequestMatchers.
 import static org.springframework.test.web.client.response.MockRestResponseCreators.withSuccess;
 
 import java.io.UnsupportedEncodingException;
+import java.math.BigDecimal;
+import java.math.MathContext;
 import java.net.URLEncoder;
 import java.time.LocalDateTime;
 import java.time.Month;
@@ -39,6 +42,7 @@ import org.springframework.social.twitter.api.impl.AbstractTwitterApiTest;
  */
 public class AdvertisingStatsTemplateTest extends AbstractTwitterApiTest {
 	private static final String DEFAULT_ENCODING = "utf-8";
+	private static final MathContext DEFAULT_ROUNDER = MathContext.DECIMAL32;
 	
 	@Test
 	public void byCampaigns() throws UnsupportedEncodingException {
@@ -66,7 +70,8 @@ public class AdvertisingStatsTemplateTest extends AbstractTwitterApiTest {
 		
 		assertCampaignContents(
 				campaigns,
-				mockedCampaignId1, mockedCampaignId2);
+				new String[] { mockedCampaignId1, mockedCampaignId2 },
+				new StatisticalMetric[] { StatisticalMetric.billed_follows });
 	}
 	
 	@Test
@@ -128,17 +133,38 @@ public class AdvertisingStatsTemplateTest extends AbstractTwitterApiTest {
 		
 		assertCampaignContents(
 				campaigns,
-				mockedFundingInstrument1, mockedFundingInstrument2);
+				new String[] { mockedFundingInstrument1, mockedFundingInstrument2 },
+				new StatisticalMetric[] { StatisticalMetric.billed_follows });
 	}
 	
-	private void assertCampaignContents(List<StatisticalSnapshot> snapshots, String... checkingIds) {
+	private void assertCampaignContents(List<StatisticalSnapshot> snapshots, String[] checkingIds, StatisticalMetric[] checkingMetrics) {
 		assertEquals(checkingIds.length, snapshots.size());
 		
 		for (int i = 0; i < checkingIds.length; i++) 
 			assertEquals(checkingIds[i], snapshots.get(i).getId());
+		
+		snapshots.forEach(snapshot -> {
+			for (int i = 0; i < checkingMetrics.length; i++) 
+				assertNotNull(snapshot.getMetric(checkingMetrics[i]));
+		});
 	}
 	
 	private void assertCampaignSingleContents(StatisticalSnapshot snapshot, String checkingId) {
 		assertEquals(checkingId, snapshot.getId());
+		
+		assertNotNull(snapshot.getMetric(StatisticalMetric.billed_follows));
+		assertThat(
+				snapshot.getMetric(StatisticalMetric.billed_follows).entries(),
+				hasItems(new Integer[] {13, 998}));
+		
+		assertNotNull(snapshot.getMetric(StatisticalMetric.promoted_account_follow_rate));
+		assertThat(
+				snapshot.getMetric(StatisticalMetric.promoted_account_follow_rate).entries(),
+				hasItems(new Double[] {15.3}));
+		
+		assertNotNull(snapshot.getMetric(StatisticalMetric.billed_charge_local_micro));
+		assertThat(
+				snapshot.getMetric(StatisticalMetric.billed_charge_local_micro).entries(),
+				hasItems(new BigDecimal[] { new BigDecimal(1.5).round(DEFAULT_ROUNDER), new BigDecimal(1.76).round(DEFAULT_ROUNDER), new BigDecimal(9.999999).round(DEFAULT_ROUNDER) }));
 	}
 }
