@@ -15,6 +15,8 @@
  */
 package org.springframework.social.twitter.api.domain.operations.advertising;
 
+import java.util.List;
+
 import org.springframework.social.twitter.api.domain.models.QueryingData;
 import org.springframework.social.twitter.api.domain.models.advertising.Campaign;
 import org.springframework.social.twitter.api.domain.models.advertising.StatisticalSnapshot;
@@ -32,7 +34,7 @@ public interface AdvertisingStatsOperations {
 	 * @param campaignId The id of the campaign for which we which to retrieve the statistics.
 	 * @return
 	 */
-	StatisticalSnapshot byCampaign(String accountId, QueryingData query);
+	List<StatisticalSnapshot> byCampaigns(String accountId, QueryingData query);
 	
 	/**
 	 * Snapshot of Advertising Statistics by {@link Campaign}.

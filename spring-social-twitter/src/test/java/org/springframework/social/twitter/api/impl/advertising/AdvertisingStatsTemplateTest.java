@@ -15,18 +15,17 @@
  */
 package org.springframework.social.twitter.api.impl.advertising;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
 import static org.springframework.http.HttpMethod.GET;
 import static org.springframework.http.MediaType.APPLICATION_JSON;
 import static org.springframework.test.web.client.match.MockRestRequestMatchers.method;
 import static org.springframework.test.web.client.match.MockRestRequestMatchers.requestTo;
 import static org.springframework.test.web.client.response.MockRestResponseCreators.withSuccess;
 
-import java.math.BigDecimal;
 import java.time.LocalDateTime;
 import java.time.Month;
+import java.util.List;
 
-import org.hamcrest.collection.IsIterableContainingInOrder;
 import org.junit.Test;
 import org.springframework.social.twitter.api.domain.models.advertising.StatisticalGranularity;
 import org.springframework.social.twitter.api.domain.models.advertising.StatisticalMetric;
@@ -39,116 +38,62 @@ import org.springframework.social.twitter.api.impl.advertising.builders.Statisti
  */
 public class AdvertisingStatsTemplateTest extends AbstractTwitterApiTest {
 	@Test
+	public void byCampaigns() {
+		String mockedAccountId = "0ga0yn";
+		String mockedCampaignId1 = "92ph";
+		String mockedCampaignId2 = "x902";
+		mockServer
+			.expect(requestTo("https://ads-api.twitter.com/0/stats/accounts/" + mockedAccountId + "/campaigns?campaign_ids=" + mockedCampaignId1 + "&campaign_ids=" + mockedCampaignId2 + "&granularity=HOUR&metrics=billed_follows&start_time=2015-03-06T07%3A00%3A00Z&end_time=2015-03-13T07%3A00%3A00Z"))
+			.andExpect(method(GET))
+			.andRespond(withSuccess(jsonResource("stats-by-campaigns"), APPLICATION_JSON));
+	
+		List<StatisticalSnapshot> campaigns = twitter.advertisingStatsOperations().byCampaigns(
+				mockedAccountId,
+				new StatisticalSnapshotQueryingDataBuilder()
+					.activeBetween(LocalDateTime.of(2015, Month.MARCH, 06, 07, 00, 00), LocalDateTime.of(2015, Month.MARCH, 13, 07, 00, 00))
+					.withGranularity(StatisticalGranularity.HOUR)
+					.withCampaigns(mockedCampaignId1, mockedCampaignId2)
+					.withStatisticalMetric(StatisticalMetric.billed_follows));
+		
+		assertCampaignContents(
+				campaigns,
+				mockedCampaignId1, mockedCampaignId2);
+	}
+	
+	@Test
 	public void byCampaign() {
 		String mockedAccountId = "0ga0yn";
 		String mockedCampaignId = "92ph";
 		mockServer
-			.expect(requestTo("https://ads-api.twitter.com/0/stats/accounts/" + mockedAccountId + "/campaigns?campaign_ids=" + mockedCampaignId + "&granularity=DAY&metrics=billed_follows"))
+			.expect(requestTo("https://ads-api.twitter.com/0/stats/accounts/" + mockedAccountId + "/campaigns/" + mockedCampaignId + "?granularity=HOUR&metrics=billed_follows&metrics=promoted_account_follow_rate&metrics=billed_charge_local_micro&metrics=mobile_conversion_rated&start_time=2015-03-06T07%3A00%3A00Z&end_time=2015-03-13T07%3A00%3A00Z"))
 			.andExpect(method(GET))
-			.andRespond(withSuccess(jsonResource("stats-by-campaigns"), APPLICATION_JSON));
+			.andRespond(withSuccess(jsonResource("stats-by-campaigns-single"), APPLICATION_JSON));
 	
-		StatisticalSnapshot campaign = twitter.advertisingStatsOperations().byCampaign(
+		StatisticalSnapshot snapshot = twitter.advertisingStatsOperations().byCampaign(
 				mockedAccountId,
+				mockedCampaignId,
 				new StatisticalSnapshotQueryingDataBuilder()
-					.withGranularity(StatisticalGranularity.DAY)
-					.withCampaigns(mockedCampaignId)
-					.withStatisticalMetric(StatisticalMetric.billed_follows));
+					.activeBetween(LocalDateTime.of(2015, Month.MARCH, 06, 07, 00, 00), LocalDateTime.of(2015, Month.MARCH, 13, 07, 00, 00))
+					.withGranularity(StatisticalGranularity.HOUR)
+					.withStatisticalMetric(
+							StatisticalMetric.billed_follows,
+							StatisticalMetric.promoted_account_follow_rate,
+							StatisticalMetric.billed_charge_local_micro,
+							StatisticalMetric.mobile_conversion_rated));
 		
-		assertCampaignContents(campaign);
+		assertCampaignSingleContents(
+				snapshot,
+				mockedCampaignId);
 	}
 	
-	private void assertCampaignContents(StatisticalSnapshot snapshot) {
-		assertEquals(LocalDateTime.of(2013, Month.APRIL, 16, 07, 00, 00), snapshot.getEndTime());
-		assertEquals(LocalDateTime.of(2013, Month.APRIL, 13, 07, 00, 00), snapshot.getStartTime());
-		assertEquals(StatisticalGranularity.DAY, snapshot.getGranularity());
+	private void assertCampaignContents(List<StatisticalSnapshot> snapshots, String... checkingIds) {
+		assertEquals(checkingIds.length, snapshots.size());
 		
-		assertThat(
-				snapshot.getMetric(StatisticalMetric.estimated_charge_local_micro).entries(),
-				IsIterableContainingInOrder.contains(new BigDecimal(22.00), new BigDecimal(22.00), new BigDecimal(22.00)));
-		
-		assertThat(
-				snapshot.getMetric(StatisticalMetric.billed_charge_local_micro).entries(),
-				IsIterableContainingInOrder.contains(new BigDecimal(22.00), new BigDecimal(22.00), new BigDecimal(22.00)));
-		
-		assertThat(
-				snapshot.getMetric(StatisticalMetric.billed_engagements).entries(),
-				IsIterableContainingInOrder.contains(new Integer(59), new Integer(50), new Integer(69)));
-		
-		assertThat(
-				snapshot.getMetric(StatisticalMetric.billed_follows).entries(),
-				IsIterableContainingInOrder.contains(new Integer(0), new Integer(0), new Integer(0)));
-		
-		assertThat(
-				snapshot.getMetric(StatisticalMetric.promoted_account_follows).entries(),
-				IsIterableContainingInOrder.contains(new Integer(0), new Integer(0), new Integer(0)));
-		
-		assertThat(
-				snapshot.getMetric(StatisticalMetric.promoted_account_impressions).entries(),
-				IsIterableContainingInOrder.contains(new Integer(0), new Integer(0), new Integer(0)));
-		
-		assertThat(
-				snapshot.getMetric(StatisticalMetric.promoted_account_profile_visits).entries(),
-				IsIterableContainingInOrder.contains(new Integer(0), new Integer(0), new Integer(0)));
-		
-		assertThat(
-				snapshot.getMetric(StatisticalMetric.promoted_tweet_search_clicks).entries(),
-				IsIterableContainingInOrder.contains(new Integer(0), new Integer(0), new Integer(0)));
-		
-		assertThat(
-				snapshot.getMetric(StatisticalMetric.promoted_tweet_search_engagements).entries(),
-				IsIterableContainingInOrder.contains(new Integer(0), new Integer(0), new Integer(0)));
-		
-		assertThat(
-				snapshot.getMetric(StatisticalMetric.promoted_tweet_search_follows).entries(),
-				IsIterableContainingInOrder.contains(new Integer(0), new Integer(0), new Integer(0)));
-		
-		assertThat(
-				snapshot.getMetric(StatisticalMetric.promoted_tweet_search_impressions).entries(),
-				IsIterableContainingInOrder.contains(new Integer(0), new Integer(0), new Integer(0)));
-		
-		assertThat(
-				snapshot.getMetric(StatisticalMetric.promoted_tweet_search_replies).entries(),
-				IsIterableContainingInOrder.contains(new Integer(0), new Integer(0), new Integer(0)));
-		
-		assertThat(
-				snapshot.getMetric(StatisticalMetric.promoted_tweet_search_retweets).entries(),
-				IsIterableContainingInOrder.contains(new Integer(0), new Integer(0), new Integer(0)));
-		
-		assertThat(
-				snapshot.getMetric(StatisticalMetric.promoted_tweet_timeline_clicks).entries(),
-				IsIterableContainingInOrder.contains(new Integer(65), new Integer(75), new Integer(81)));
-		
-		assertThat(
-				snapshot.getMetric(StatisticalMetric.promoted_tweet_timeline_engagements).entries(),
-				IsIterableContainingInOrder.contains(new Integer(65), new Integer(75), new Integer(81)));
-		
-		assertThat(
-				snapshot.getMetric(StatisticalMetric.promoted_tweet_timeline_follows).entries(),
-				IsIterableContainingInOrder.contains(new Integer(0), new Integer(0), new Integer(0)));
-		
-		assertThat(
-				snapshot.getMetric(StatisticalMetric.promoted_tweet_timeline_impressions).entries(),
-				IsIterableContainingInOrder.contains(new Integer(851), new Integer(875), new Integer(1187)));
-		
-		assertThat(
-				snapshot.getMetric(StatisticalMetric.promoted_tweet_timeline_replies).entries(),
-				IsIterableContainingInOrder.contains(new Integer(0), new Integer(0), new Integer(0)));
-		
-		assertThat(
-				snapshot.getMetric(StatisticalMetric.promoted_tweet_timeline_retweets).entries(),
-				IsIterableContainingInOrder.contains(new Integer(0), new Integer(0), new Integer(0)));
-		
-		assertThat(
-				snapshot.getMetric(StatisticalMetric.promoted_tweet_timeline_engagement_rate).entries(),
-				IsIterableContainingInOrder.contains(new Double(0.0763807285546416), new Double(0.0857142857142857), new Double(0.0682392586352148)));
-		
-		assertThat(
-				snapshot.getMetric(StatisticalMetric.promoted_tweet_search_engagement_rate).entries(),
-				IsIterableContainingInOrder.contains(new Double(0), new Double(0), new Double(0)));
-		
-		assertThat(
-				snapshot.getMetric(StatisticalMetric.promoted_account_follow_rate).entries(),
-				IsIterableContainingInOrder.contains(new Double(0), new Double(0), new Double(0)));
+		for (int i = 0; i < checkingIds.length; i++) 
+			assertEquals(checkingIds[i], snapshots.get(i).getId());
 	}
 	
+	private void assertCampaignSingleContents(StatisticalSnapshot snapshot, String checkingId) {
+		assertEquals(checkingId, snapshot.getId());
+	}
 }

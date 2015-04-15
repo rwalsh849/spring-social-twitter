@@ -59,11 +59,18 @@ public class StatisticalSnapshotDeserializer extends JsonDeserializer<Statistica
 		ObjectCodec codec = p.getCodec();
 		JsonNode root = codec.readTree(p);
 		JsonNode data = root.get("data");
+		if (data == null) data = root;
+		
 		return new StatisticalSnapshot(
+				extractId(data),
 				extractGranularity(data),
 				extractMetrics(data),
 				extractStartTime(data),
 				extractEndTime(data));
+	}
+	
+	private String extractId(JsonNode data) {
+		return data.get("id").asText();
 	}
 	
 	private StatisticalGranularity extractGranularity(JsonNode data) {

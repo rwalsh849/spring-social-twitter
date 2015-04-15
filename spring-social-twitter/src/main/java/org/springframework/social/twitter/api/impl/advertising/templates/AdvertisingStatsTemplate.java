@@ -15,11 +15,17 @@
  */
 package org.springframework.social.twitter.api.impl.advertising.templates;
 
+import java.util.List;
+
+import org.springframework.core.ParameterizedTypeReference;
+import org.springframework.http.HttpMethod;
 import org.springframework.social.twitter.api.domain.models.QueryingData;
+import org.springframework.social.twitter.api.domain.models.advertising.LineItem;
 import org.springframework.social.twitter.api.domain.models.advertising.StatisticalSnapshot;
 import org.springframework.social.twitter.api.domain.operations.advertising.AdvertisingStatsOperations;
 import org.springframework.social.twitter.api.impl.common.builders.TwitterApiUriBuilder;
 import org.springframework.social.twitter.api.impl.common.builders.TwitterApiUriResourceForAdvertising;
+import org.springframework.social.twitter.api.impl.common.holders.DataListHolder;
 import org.springframework.social.twitter.api.impl.common.templates.AbstractTwitterTemplate;
 import org.springframework.web.client.RestTemplate;
 
@@ -37,16 +43,18 @@ public class AdvertisingStatsTemplate extends AbstractTwitterTemplate implements
 	}
 	
 	@Override
-	public StatisticalSnapshot byCampaign(String accountId, QueryingData query) {
+	public List<StatisticalSnapshot> byCampaigns(String accountId, QueryingData query) {
 		requireUserAuthorization();
-		return restTemplate.getForObject(
+		return restTemplate.exchange(
 				new TwitterApiUriBuilder()
 					.withResource(TwitterApiUriResourceForAdvertising.STATS_CAMPAIGNS)
 					.withArgument("account_id", accountId)
 					.withArgument(query.toQueryParameters())
 					.build(),
-				StatisticalSnapshot.class
-			);
+				HttpMethod.GET,
+				null,
+				new ParameterizedTypeReference<DataListHolder<StatisticalSnapshot>>(){}
+			).getBody().getData();
 	}
 	
 	@Override
@@ -54,7 +62,7 @@ public class AdvertisingStatsTemplate extends AbstractTwitterTemplate implements
 		requireUserAuthorization();
 		return restTemplate.getForObject(
 				new TwitterApiUriBuilder()
-					.withResource(TwitterApiUriResourceForAdvertising.STATS_CAMPAIGNS)
+					.withResource(TwitterApiUriResourceForAdvertising.STATS_CAMPAIGN)
 					.withArgument("account_id", accountId)
 					.withArgument("campaign_id", campaignId)
 					.withArgument(query.toQueryParameters())

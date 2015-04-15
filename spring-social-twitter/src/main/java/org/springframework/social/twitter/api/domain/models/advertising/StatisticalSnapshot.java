@@ -27,21 +27,28 @@ import org.springframework.social.twitter.api.impl.standard.models.TwitterObject
  * @author Hudson Mendes
  */
 public class StatisticalSnapshot extends TwitterObject {
+	private final String id;
 	private final StatisticalGranularity granularity;
 	private final Map<StatisticalMetric, StatisticalSnapshotMetric> metrics = new HashMap<StatisticalMetric, StatisticalSnapshotMetric>();
 	private final LocalDateTime startTime;
 	private final LocalDateTime endTime;
 	
 	public StatisticalSnapshot(
-		StatisticalGranularity granularity,
-		Map<StatisticalMetric, StatisticalSnapshotMetric> metrics,
-		LocalDateTime startTime,
-		LocalDateTime endTime) {
+			String id,
+			StatisticalGranularity granularity,
+			Map<StatisticalMetric, StatisticalSnapshotMetric> metrics,
+			LocalDateTime startTime,
+			LocalDateTime endTime) {
 		
+		this.id = id;
 		this.granularity = granularity;
 		this.metrics.putAll(metrics);
 		this.startTime = startTime;
 		this.endTime = endTime;
+	}
+	
+	public String getId() {
+		return id;
 	}
 
 	public StatisticalGranularity getGranularity() {

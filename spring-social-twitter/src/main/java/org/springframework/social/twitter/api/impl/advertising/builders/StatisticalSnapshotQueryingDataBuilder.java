@@ -44,11 +44,11 @@ public class StatisticalSnapshotQueryingDataBuilder extends TwitterRequestQueryi
 	public MultiValueMap<String, Object> toQueryParameters() {
 		MultiValueMap<String, Object> params = new LinkedMultiValueMap<String, Object>();
 		
-		if (this.campaignIds != null) this.campaignIds.forEach(id -> appendParameter(params, "campaign_ids", id));
+		appendParameter(params, "campaign_ids", this.campaignIds);
 		appendParameter(params, "granularity", this.granularity);
+		appendParameter(params, "metrics", this.metrics);
 		if (this.startTime != null) appendParameter(params, "start_time", this.startTime.toInstant(ZoneOffset.UTC));
 		if (this.endTime != null) appendParameter(params, "end_time", this.endTime.toInstant(ZoneOffset.UTC));
-		if (this.metrics != null) this.metrics.forEach(metric -> appendParameter(params, "metrics", metric));
 				
 		return params;
 	}

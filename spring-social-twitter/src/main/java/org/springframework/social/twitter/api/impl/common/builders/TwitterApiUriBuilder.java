@@ -52,10 +52,12 @@ public class TwitterApiUriBuilder {
 	
 	public URI build() {
 		this.assertRequirements();
-		return URIBuilder
+		URI output = URIBuilder
 				.fromUri(makeFullyQualifiedResourcePath())
 				.queryParams(makeCompatbileQueryParameters())
 				.build();
+				
+		return output;
 	}
 	
 	private void assertRequirements() {

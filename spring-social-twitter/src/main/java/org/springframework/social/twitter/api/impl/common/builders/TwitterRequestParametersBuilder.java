@@ -1,6 +1,5 @@
 package org.springframework.social.twitter.api.impl.common.builders;
 
-import java.lang.reflect.Array;
 import java.math.BigDecimal;
 import java.util.ArrayList;
 
@@ -19,8 +18,9 @@ public class TwitterRequestParametersBuilder {
 		if (value instanceof String && ((String) value).isEmpty()) return;
 		if (value instanceof ArrayList && ((ArrayList) value).size() == 0) return;
 		if (value instanceof ArrayList) {
-			for (int i = 0; i < Array.getLength(value); i++) {
-				params.add(name, Array.get(value, i));
+			ArrayList valueAsList = (ArrayList) value;
+			for (int i = 0; i < valueAsList.size(); i++) {
+				params.add(name, valueAsList.get(i));
 			}
 		}
 		else {
