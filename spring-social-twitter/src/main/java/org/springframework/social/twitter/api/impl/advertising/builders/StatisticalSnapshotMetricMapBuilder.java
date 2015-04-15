@@ -77,14 +77,14 @@ public class StatisticalSnapshotMetricMapBuilder {
 		map.put(StatisticalMetric.promoted_account_profile_visits, Integer.class);
 		map.put(StatisticalMetric.promoted_tweet_search_impressions, Integer.class);
 		map.put(StatisticalMetric.promoted_tweet_timeline_impressions, Integer.class);
+		map.put(StatisticalMetric.promoted_tweet_search_impressions, Integer.class);
+		map.put(StatisticalMetric.promoted_tweet_timeline_impressions, Integer.class);
 	}
 	
 	private void mapRates(Map<StatisticalMetric, Type> map) {
 		map.put(StatisticalMetric.promoted_account_follow_rate, Double.class);
 		map.put(StatisticalMetric.promoted_tweet_search_engagement_rate, Double.class);
-		map.put(StatisticalMetric.promoted_tweet_search_impressions, Double.class);
 		map.put(StatisticalMetric.promoted_tweet_timeline_engagement_rate, Double.class);
-		map.put(StatisticalMetric.promoted_tweet_timeline_impressions, Double.class);
 	}
 	
 	private void mapCurrencies(Map<StatisticalMetric, Type> map) {
