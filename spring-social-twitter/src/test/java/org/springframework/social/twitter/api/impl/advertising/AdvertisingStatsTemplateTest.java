@@ -22,28 +22,37 @@ import static org.springframework.test.web.client.match.MockRestRequestMatchers.
 import static org.springframework.test.web.client.match.MockRestRequestMatchers.requestTo;
 import static org.springframework.test.web.client.response.MockRestResponseCreators.withSuccess;
 
+import java.io.UnsupportedEncodingException;
+import java.net.URLEncoder;
 import java.time.LocalDateTime;
 import java.time.Month;
 import java.util.List;
 
 import org.junit.Test;
-import org.springframework.social.twitter.api.domain.models.advertising.StatisticalGranularity;
-import org.springframework.social.twitter.api.domain.models.advertising.StatisticalMetric;
-import org.springframework.social.twitter.api.domain.models.advertising.StatisticalSnapshot;
+import org.springframework.social.twitter.api.advertising.StatisticalGranularity;
+import org.springframework.social.twitter.api.advertising.StatisticalMetric;
+import org.springframework.social.twitter.api.advertising.StatisticalSnapshot;
 import org.springframework.social.twitter.api.impl.AbstractTwitterApiTest;
-import org.springframework.social.twitter.api.impl.advertising.builders.StatisticalSnapshotQueryingDataBuilder;
 
 /**
  * @author Hudson mendes
  */
 public class AdvertisingStatsTemplateTest extends AbstractTwitterApiTest {
+	private static final String DEFAULT_ENCODING = "utf-8";
+	
 	@Test
-	public void byCampaigns() {
+	public void byCampaigns() throws UnsupportedEncodingException {
 		String mockedAccountId = "0ga0yn";
 		String mockedCampaignId1 = "92ph";
 		String mockedCampaignId2 = "x902";
 		mockServer
-			.expect(requestTo("https://ads-api.twitter.com/0/stats/accounts/" + mockedAccountId + "/campaigns?campaign_ids=" + mockedCampaignId1 + "&campaign_ids=" + mockedCampaignId2 + "&granularity=HOUR&metrics=billed_follows&start_time=2015-03-06T07%3A00%3A00Z&end_time=2015-03-13T07%3A00%3A00Z"))
+		.expect(requestTo(
+				"https://ads-api.twitter.com/0/stats/accounts/" + mockedAccountId + "/campaigns" +
+				"?campaign_ids=" + URLEncoder.encode(mockedCampaignId1 + "," + mockedCampaignId2, DEFAULT_ENCODING) +
+				"&granularity=HOUR" +
+				"&metrics=" + URLEncoder.encode("billed_follows", DEFAULT_ENCODING) +
+				"&start_time=" + URLEncoder.encode("2015-03-06T07:00:00Z", DEFAULT_ENCODING) +
+				"&end_time=" + URLEncoder.encode("2015-03-13T07:00:00Z", DEFAULT_ENCODING)))
 			.andExpect(method(GET))
 			.andRespond(withSuccess(jsonResource("stats-by-campaigns"), APPLICATION_JSON));
 	
@@ -61,11 +70,17 @@ public class AdvertisingStatsTemplateTest extends AbstractTwitterApiTest {
 	}
 	
 	@Test
-	public void byCampaign() {
+	public void byCampaign() throws UnsupportedEncodingException {
 		String mockedAccountId = "0ga0yn";
 		String mockedCampaignId = "92ph";
 		mockServer
-			.expect(requestTo("https://ads-api.twitter.com/0/stats/accounts/" + mockedAccountId + "/campaigns/" + mockedCampaignId + "?granularity=HOUR&metrics=billed_follows&metrics=promoted_account_follow_rate&metrics=billed_charge_local_micro&metrics=mobile_conversion_rated&start_time=2015-03-06T07%3A00%3A00Z&end_time=2015-03-13T07%3A00%3A00Z"))
+			.expect(requestTo(
+				"https://ads-api.twitter.com/0/stats/accounts/" + mockedAccountId + "/campaigns" +
+				"/" + mockedCampaignId +
+				"?granularity=HOUR" +
+				"&metrics=" + URLEncoder.encode("billed_follows,promoted_account_follow_rate,billed_charge_local_micro,mobile_conversion_rated", DEFAULT_ENCODING) +
+				"&start_time=" + URLEncoder.encode("2015-03-06T07:00:00Z", DEFAULT_ENCODING) +
+				"&end_time=" + URLEncoder.encode("2015-03-13T07:00:00Z", DEFAULT_ENCODING)))
 			.andExpect(method(GET))
 			.andRespond(withSuccess(jsonResource("stats-by-campaigns-single"), APPLICATION_JSON));
 	
@@ -84,6 +99,36 @@ public class AdvertisingStatsTemplateTest extends AbstractTwitterApiTest {
 		assertCampaignSingleContents(
 				snapshot,
 				mockedCampaignId);
+	}
+	
+	@Test
+	public void byFundingInstruments() throws UnsupportedEncodingException {
+		String mockedAccountId = "0ga0yn";
+		String mockedFundingInstrument1 = "92ph";
+		String mockedFundingInstrument2 = "x902";
+		
+		mockServer
+			.expect(requestTo(
+					"https://ads-api.twitter.com/0/stats/accounts/" + mockedAccountId + "/funding_instruments" +
+					"?funding_instrument_ids=" + URLEncoder.encode(mockedFundingInstrument1 + "," + mockedFundingInstrument2, DEFAULT_ENCODING) +
+					"&granularity=HOUR" +
+					"&metrics=" + URLEncoder.encode("billed_follows", DEFAULT_ENCODING) +
+					"&start_time=" + URLEncoder.encode("2015-03-06T07:00:00Z", DEFAULT_ENCODING) +
+					"&end_time=" + URLEncoder.encode("2015-03-13T07:00:00Z", DEFAULT_ENCODING)))
+			.andExpect(method(GET))
+			.andRespond(withSuccess(jsonResource("stats-by-campaigns"), APPLICATION_JSON));
+	
+		List<StatisticalSnapshot> campaigns = twitter.advertisingStatsOperations().byFundingInstruments(
+				mockedAccountId,
+				new StatisticalSnapshotQueryingDataBuilder()
+					.activeBetween(LocalDateTime.of(2015, Month.MARCH, 06, 07, 00, 00), LocalDateTime.of(2015, Month.MARCH, 13, 07, 00, 00))
+					.withGranularity(StatisticalGranularity.HOUR)
+					.withFundingInstruments(mockedFundingInstrument1, mockedFundingInstrument2)
+					.withStatisticalMetric(StatisticalMetric.billed_follows));
+		
+		assertCampaignContents(
+				campaigns,
+				mockedFundingInstrument1, mockedFundingInstrument2);
 	}
 	
 	private void assertCampaignContents(List<StatisticalSnapshot> snapshots, String... checkingIds) {

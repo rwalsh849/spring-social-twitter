@@ -39,10 +39,9 @@ import java.time.ZoneOffset;
 import java.util.List;
 
 import org.junit.Test;
-import org.springframework.social.twitter.api.domain.models.advertising.Campaign;
-import org.springframework.social.twitter.api.domain.models.advertising.ReasonNotServable;
+import org.springframework.social.twitter.api.advertising.Campaign;
+import org.springframework.social.twitter.api.advertising.ReasonNotServable;
 import org.springframework.social.twitter.api.impl.AbstractTwitterApiTest;
-import org.springframework.social.twitter.api.impl.advertising.builders.CampaignDataPostingBuilder;
 
 /**
  * @author Hudson mendes

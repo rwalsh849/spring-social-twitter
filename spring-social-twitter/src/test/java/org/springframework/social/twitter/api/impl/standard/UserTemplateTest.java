@@ -25,13 +25,13 @@ import java.util.List;
 import java.util.Map;
 
 import org.junit.Test;
-import org.springframework.social.twitter.api.domain.models.standard.AccountSettings;
+import org.springframework.social.twitter.api.basic.AccountSettings;
 import org.springframework.social.twitter.api.impl.AbstractTwitterApiTest;
-import org.springframework.social.twitter.api.impl.standard.builders.AccountSettingsData;
-import org.springframework.social.twitter.api.impl.standard.models.RateLimitStatus;
-import org.springframework.social.twitter.api.impl.standard.models.ResourceFamily;
-import org.springframework.social.twitter.api.impl.standard.models.SuggestionCategory;
-import org.springframework.social.twitter.api.impl.standard.models.TwitterProfile;
+import org.springframework.social.twitter.api.impl.basic.AccountSettingsData;
+import org.springframework.social.twitter.api.impl.basic.RateLimitStatus;
+import org.springframework.social.twitter.api.impl.basic.ResourceFamily;
+import org.springframework.social.twitter.api.impl.basic.SuggestionCategory;
+import org.springframework.social.twitter.api.impl.basic.TwitterProfile;
 
 /**
  * @author Craig Walls

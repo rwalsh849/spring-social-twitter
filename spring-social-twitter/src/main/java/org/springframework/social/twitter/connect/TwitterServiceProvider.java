@@ -18,7 +18,7 @@ package org.springframework.social.twitter.connect;
 import org.springframework.social.oauth1.AbstractOAuth1ServiceProvider;
 import org.springframework.social.oauth1.OAuth1Template;
 import org.springframework.social.twitter.api.Twitter;
-import org.springframework.social.twitter.api.TwitterTemplate;
+import org.springframework.social.twitter.api.impl.TwitterTemplate;
 
 /**
  * Twitter ServiceProvider implementation.

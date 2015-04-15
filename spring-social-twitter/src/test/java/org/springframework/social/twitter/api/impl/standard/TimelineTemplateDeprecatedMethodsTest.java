@@ -24,8 +24,8 @@ import org.junit.Test;
 import org.springframework.core.io.ByteArrayResource;
 import org.springframework.core.io.Resource;
 import org.springframework.social.twitter.api.impl.AbstractTwitterApiTest;
-import org.springframework.social.twitter.api.impl.standard.models.StatusDetails;
-import org.springframework.social.twitter.api.impl.standard.models.Tweet;
+import org.springframework.social.twitter.api.impl.basic.StatusDetails;
+import org.springframework.social.twitter.api.impl.basic.Tweet;
 
 
 /**

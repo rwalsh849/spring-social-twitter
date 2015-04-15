@@ -25,9 +25,9 @@ import static org.springframework.test.web.client.response.MockRestResponseCreat
 import java.util.List;
 
 import org.junit.Test;
-import org.springframework.social.twitter.api.domain.models.standard.DirectMessage;
+import org.springframework.social.twitter.api.basic.DirectMessage;
 import org.springframework.social.twitter.api.impl.AbstractTwitterApiTest;
-import org.springframework.social.twitter.api.impl.common.exceptions.MessageTooLongException;
+import org.springframework.social.twitter.api.impl.MessageTooLongException;
 
 /**
  * @author Craig Walls

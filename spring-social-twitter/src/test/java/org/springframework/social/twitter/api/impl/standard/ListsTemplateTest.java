@@ -25,11 +25,11 @@ import static org.springframework.test.web.client.response.MockRestResponseCreat
 import java.util.List;
 
 import org.junit.Test;
-import org.springframework.social.twitter.api.domain.models.standard.CursoredList;
+import org.springframework.social.twitter.api.basic.CursoredList;
 import org.springframework.social.twitter.api.impl.AbstractTwitterApiTest;
-import org.springframework.social.twitter.api.impl.standard.holders.UserList;
-import org.springframework.social.twitter.api.impl.standard.models.Tweet;
-import org.springframework.social.twitter.api.impl.standard.models.TwitterProfile;
+import org.springframework.social.twitter.api.impl.basic.Tweet;
+import org.springframework.social.twitter.api.impl.basic.TwitterProfile;
+import org.springframework.social.twitter.api.impl.basic.UserList;
 
 /**
  * @author Craig Walls

@@ -26,10 +26,10 @@ import java.text.SimpleDateFormat;
 import java.util.List;
 
 import org.junit.Test;
-import org.springframework.social.twitter.api.domain.models.standard.GeoCode;
-import org.springframework.social.twitter.api.impl.standard.models.SearchParameters;
-import org.springframework.social.twitter.api.impl.standard.models.SearchResults;
-import org.springframework.social.twitter.api.impl.standard.models.Tweet;
+import org.springframework.social.twitter.api.basic.GeoCode;
+import org.springframework.social.twitter.api.impl.basic.SearchParameters;
+import org.springframework.social.twitter.api.impl.basic.SearchResults;
+import org.springframework.social.twitter.api.impl.basic.Tweet;
 
 /**
  * Unit tests for advanced search using SearchParameter

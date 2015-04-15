@@ -24,9 +24,6 @@ import java.net.URI;
 import java.util.Arrays;
 
 import org.junit.Test;
-import org.springframework.social.twitter.api.impl.common.builders.TwitterApiUriBuilder;
-import org.springframework.social.twitter.api.impl.common.builders.TwitterApiUriResourceForAdvertising;
-import org.springframework.social.twitter.api.impl.common.builders.TwitterApiUriResourceForStandard;
 import org.springframework.util.LinkedMultiValueMap;
 import org.springframework.util.MultiValueMap;
 

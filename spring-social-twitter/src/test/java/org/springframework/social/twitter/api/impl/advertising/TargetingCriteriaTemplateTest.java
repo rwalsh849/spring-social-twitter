@@ -31,10 +31,9 @@ import java.time.Month;
 import java.util.List;
 
 import org.junit.Test;
-import org.springframework.social.twitter.api.domain.models.advertising.TargetingCriteria;
-import org.springframework.social.twitter.api.domain.models.advertising.TargetingType;
+import org.springframework.social.twitter.api.advertising.TargetingCriteria;
+import org.springframework.social.twitter.api.advertising.TargetingType;
 import org.springframework.social.twitter.api.impl.AbstractTwitterApiTest;
-import org.springframework.social.twitter.api.impl.advertising.builders.TargetingCriteriaPostingDataBuilder;
 
 /**
  * @author Hudson mendes

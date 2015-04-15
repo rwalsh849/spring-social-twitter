@@ -33,13 +33,12 @@ import java.time.Month;
 import java.util.List;
 
 import org.junit.Test;
-import org.springframework.social.twitter.api.domain.models.advertising.AdvertisingObjective;
-import org.springframework.social.twitter.api.domain.models.advertising.AdvertisingPlacementType;
-import org.springframework.social.twitter.api.domain.models.advertising.AdvertisingSentiment;
-import org.springframework.social.twitter.api.domain.models.advertising.LineItem;
-import org.springframework.social.twitter.api.domain.models.advertising.LineItemOptimization;
+import org.springframework.social.twitter.api.advertising.AdvertisingObjective;
+import org.springframework.social.twitter.api.advertising.AdvertisingPlacementType;
+import org.springframework.social.twitter.api.advertising.AdvertisingSentiment;
+import org.springframework.social.twitter.api.advertising.LineItem;
+import org.springframework.social.twitter.api.advertising.LineItemOptimization;
 import org.springframework.social.twitter.api.impl.AbstractTwitterApiTest;
-import org.springframework.social.twitter.api.impl.advertising.builders.LineItemPostingDataBuilder;
 
 /**
  * @author Hudson mendes
