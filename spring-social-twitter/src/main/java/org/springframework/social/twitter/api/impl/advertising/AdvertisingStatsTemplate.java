@@ -84,5 +84,19 @@ public class AdvertisingStatsTemplate extends AbstractTwitterTemplate implements
 				new ParameterizedTypeReference<DataListHolder<StatisticalSnapshot>>(){}
 			).getBody().getData();
 	}
+
+	@Override
+	public StatisticalSnapshot byFundingInstrument(String accountId, String fundingInstrumentId, QueryingData query) {
+		requireUserAuthorization();
+		return restTemplate.getForObject(
+				new TwitterApiUriBuilder()
+					.withResource(TwitterApiUriResourceForAdvertising.STATS_FUNDING_INSTRUMENT)
+					.withArgument("account_id", accountId)
+					.withArgument("funding_instrument_id", fundingInstrumentId)
+					.withArgument(query.toQueryParameters())
+					.build(),
+				StatisticalSnapshot.class
+			);
+	}
 	
 }

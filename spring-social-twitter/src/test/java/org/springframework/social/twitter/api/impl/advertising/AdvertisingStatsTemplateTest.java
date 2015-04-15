@@ -15,8 +15,10 @@
  */
 package org.springframework.social.twitter.api.impl.advertising;
 
-import static org.junit.Assert.*;
-import static org.hamcrest.CoreMatchers.*;
+import static org.hamcrest.CoreMatchers.hasItems;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertThat;
 import static org.springframework.http.HttpMethod.GET;
 import static org.springframework.http.MediaType.APPLICATION_JSON;
 import static org.springframework.test.web.client.match.MockRestRequestMatchers.method;
@@ -58,9 +60,9 @@ public class AdvertisingStatsTemplateTest extends AbstractTwitterApiTest {
 				"&start_time=" + URLEncoder.encode("2015-03-06T07:00:00Z", DEFAULT_ENCODING) +
 				"&end_time=" + URLEncoder.encode("2015-03-13T07:00:00Z", DEFAULT_ENCODING)))
 			.andExpect(method(GET))
-			.andRespond(withSuccess(jsonResource("stats-by-campaigns"), APPLICATION_JSON));
+			.andRespond(withSuccess(jsonResource("statistics-snapshot"), APPLICATION_JSON));
 	
-		List<StatisticalSnapshot> campaigns = twitter.advertisingStatsOperations().byCampaigns(
+		List<StatisticalSnapshot> snapshots = twitter.advertisingStatsOperations().byCampaigns(
 				mockedAccountId,
 				new StatisticalSnapshotQueryingDataBuilder()
 					.activeBetween(LocalDateTime.of(2015, Month.MARCH, 06, 07, 00, 00), LocalDateTime.of(2015, Month.MARCH, 13, 07, 00, 00))
@@ -68,10 +70,7 @@ public class AdvertisingStatsTemplateTest extends AbstractTwitterApiTest {
 					.withCampaigns(mockedCampaignId1, mockedCampaignId2)
 					.withStatisticalMetric(StatisticalMetric.billed_follows));
 		
-		assertCampaignContents(
-				campaigns,
-				new String[] { mockedCampaignId1, mockedCampaignId2 },
-				new StatisticalMetric[] { StatisticalMetric.billed_follows });
+		assertSnapshotContents(snapshots);
 	}
 	
 	@Test
@@ -87,7 +86,7 @@ public class AdvertisingStatsTemplateTest extends AbstractTwitterApiTest {
 				"&start_time=" + URLEncoder.encode("2015-03-06T07:00:00Z", DEFAULT_ENCODING) +
 				"&end_time=" + URLEncoder.encode("2015-03-13T07:00:00Z", DEFAULT_ENCODING)))
 			.andExpect(method(GET))
-			.andRespond(withSuccess(jsonResource("stats-by-campaigns-single"), APPLICATION_JSON));
+			.andRespond(withSuccess(jsonResource("statistics-snapshot-single"), APPLICATION_JSON));
 	
 		StatisticalSnapshot snapshot = twitter.advertisingStatsOperations().byCampaign(
 				mockedAccountId,
@@ -101,9 +100,7 @@ public class AdvertisingStatsTemplateTest extends AbstractTwitterApiTest {
 							StatisticalMetric.billed_charge_local_micro,
 							StatisticalMetric.mobile_conversion_rated));
 		
-		assertCampaignSingleContents(
-				snapshot,
-				mockedCampaignId);
+		assertSnapshotSingleContents(snapshot);
 	}
 	
 	@Test
@@ -121,7 +118,7 @@ public class AdvertisingStatsTemplateTest extends AbstractTwitterApiTest {
 					"&start_time=" + URLEncoder.encode("2015-03-06T07:00:00Z", DEFAULT_ENCODING) +
 					"&end_time=" + URLEncoder.encode("2015-03-13T07:00:00Z", DEFAULT_ENCODING)))
 			.andExpect(method(GET))
-			.andRespond(withSuccess(jsonResource("stats-by-campaigns"), APPLICATION_JSON));
+			.andRespond(withSuccess(jsonResource("statistics-snapshot"), APPLICATION_JSON));
 	
 		List<StatisticalSnapshot> campaigns = twitter.advertisingStatsOperations().byFundingInstruments(
 				mockedAccountId,
@@ -131,26 +128,48 @@ public class AdvertisingStatsTemplateTest extends AbstractTwitterApiTest {
 					.withFundingInstruments(mockedFundingInstrument1, mockedFundingInstrument2)
 					.withStatisticalMetric(StatisticalMetric.billed_follows));
 		
-		assertCampaignContents(
-				campaigns,
-				new String[] { mockedFundingInstrument1, mockedFundingInstrument2 },
-				new StatisticalMetric[] { StatisticalMetric.billed_follows });
+		assertSnapshotContents(campaigns);
 	}
 	
-	private void assertCampaignContents(List<StatisticalSnapshot> snapshots, String[] checkingIds, StatisticalMetric[] checkingMetrics) {
-		assertEquals(checkingIds.length, snapshots.size());
+	@Test
+	public void byFundingInstrument() throws UnsupportedEncodingException {
+		String mockedAccountId = "0ga0yn";
+		String mockedFundingInstrument = "92ph";
 		
-		for (int i = 0; i < checkingIds.length; i++) 
-			assertEquals(checkingIds[i], snapshots.get(i).getId());
+		mockServer
+			.expect(requestTo(
+					"https://ads-api.twitter.com/0/stats/accounts/" + mockedAccountId + "/funding_instruments" +
+					"/" + mockedFundingInstrument +
+					"?granularity=HOUR" +
+					"&metrics=" + URLEncoder.encode("billed_follows", DEFAULT_ENCODING) +
+					"&start_time=" + URLEncoder.encode("2015-03-06T07:00:00Z", DEFAULT_ENCODING) +
+					"&end_time=" + URLEncoder.encode("2015-03-13T07:00:00Z", DEFAULT_ENCODING)))
+			.andExpect(method(GET))
+			.andRespond(withSuccess(jsonResource("statistics-snapshot-single"), APPLICATION_JSON));
+	
+		StatisticalSnapshot snapshot = twitter.advertisingStatsOperations().byFundingInstrument(
+				mockedAccountId,
+				mockedFundingInstrument,
+				new StatisticalSnapshotQueryingDataBuilder()
+					.activeBetween(LocalDateTime.of(2015, Month.MARCH, 06, 07, 00, 00), LocalDateTime.of(2015, Month.MARCH, 13, 07, 00, 00))
+					.withGranularity(StatisticalGranularity.HOUR)
+					.withStatisticalMetric(StatisticalMetric.billed_follows));
 		
-		snapshots.forEach(snapshot -> {
-			for (int i = 0; i < checkingMetrics.length; i++) 
-				assertNotNull(snapshot.getMetric(checkingMetrics[i]));
-		});
+		assertSnapshotSingleContents(snapshot);
 	}
 	
-	private void assertCampaignSingleContents(StatisticalSnapshot snapshot, String checkingId) {
-		assertEquals(checkingId, snapshot.getId());
+	private void assertSnapshotContents(List<StatisticalSnapshot> snapshots) {
+		assertEquals(2, snapshots.size());
+		
+		assertEquals("92ph", snapshots.get(0).getId());
+		assertNotNull(snapshots.get(0).getMetric(StatisticalMetric.billed_follows));
+		
+		assertEquals("x902", snapshots.get(1).getId());
+		assertNotNull(snapshots.get(1).getMetric(StatisticalMetric.billed_follows));
+	}
+	
+	private void assertSnapshotSingleContents(StatisticalSnapshot snapshot) {
+		assertEquals("92ph", snapshot.getId());
 		
 		assertNotNull(snapshot.getMetric(StatisticalMetric.billed_follows));
 		assertThat(
@@ -165,6 +184,9 @@ public class AdvertisingStatsTemplateTest extends AbstractTwitterApiTest {
 		assertNotNull(snapshot.getMetric(StatisticalMetric.billed_charge_local_micro));
 		assertThat(
 				snapshot.getMetric(StatisticalMetric.billed_charge_local_micro).entries(),
-				hasItems(new BigDecimal[] { new BigDecimal(1.5).round(DEFAULT_ROUNDER), new BigDecimal(1.76).round(DEFAULT_ROUNDER), new BigDecimal(9.999999).round(DEFAULT_ROUNDER) }));
+				hasItems(new BigDecimal[] {
+						new BigDecimal(1.5).round(DEFAULT_ROUNDER),
+						new BigDecimal(1.76).round(DEFAULT_ROUNDER),
+						new BigDecimal(9.999999).round(DEFAULT_ROUNDER) }));
 	}
 }
