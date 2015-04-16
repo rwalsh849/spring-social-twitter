@@ -15,7 +15,6 @@
  */
 package org.springframework.social.twitter.api.impl.basic;
 
-import java.net.URI;
 import java.util.List;
 
 import org.springframework.social.twitter.api.basic.GeoOperations;
@@ -37,9 +36,12 @@ public class GeoTemplate extends AbstractTwitterTemplate implements GeoOperation
 
 	public Place getPlace(String placeId) {
 		requireUserAuthorization();
-		TwitterApiUriResourceForStandard resource = TwitterApiUriResourceForStandard.GEO_ID;
-		URI resourceUri = new TwitterApiUriBuilder().withResource(resource).withArgument("place_id", placeId).build();
-		return restTemplate.getForObject(resourceUri, Place.class);
+		return restTemplate.getForObject(
+				new TwitterApiUriBuilder()
+					.withResource(TwitterApiUriResourceForStandard.GEO_ID)
+					.withArgument("place_id", placeId)
+					.build(),
+				Place.class);
 	}
 	
 	public List<Place> reverseGeoCode(double latitude, double longitude) {
@@ -48,10 +50,13 @@ public class GeoTemplate extends AbstractTwitterTemplate implements GeoOperation
 	
 	public List<Place> reverseGeoCode(double latitude, double longitude, PlaceType granularity, String accuracy) {
 		requireUserAuthorization();
-		TwitterApiUriResourceForStandard resource = TwitterApiUriResourceForStandard.GEO_REVERSE_GEOCODE;
-		MultiValueMap<String, Object> parameters = buildGeoParameters(latitude, longitude, granularity, accuracy, null);
-		URI resourceUri = new TwitterApiUriBuilder().withResource(resource).withArgument(parameters).build();
-		return restTemplate.getForObject(resourceUri, PlacesList.class).getList();
+		return restTemplate.getForObject(
+				new TwitterApiUriBuilder()
+					.withResource(TwitterApiUriResourceForStandard.GEO_REVERSE_GEOCODE)
+					.withArgument(buildGeoParameters(latitude, longitude, granularity, accuracy, null))
+					.build(),
+				PlacesList.class
+			).getList();
 	}
 	
 	public List<Place> search(double latitude, double longitude) {
@@ -60,10 +65,13 @@ public class GeoTemplate extends AbstractTwitterTemplate implements GeoOperation
 	
 	public List<Place> search(double latitude, double longitude, PlaceType granularity, String accuracy, String query) {
 		requireUserAuthorization();
-		TwitterApiUriResourceForStandard resource = TwitterApiUriResourceForStandard.GEO_SEARCH;
-		MultiValueMap<String, Object> parameters = buildGeoParameters(latitude, longitude, granularity, accuracy, query);
-		URI resourceUri = new TwitterApiUriBuilder().withResource(resource).withArgument(parameters).build();
-		return restTemplate.getForObject(resourceUri, PlacesList.class).getList();
+		return restTemplate.getForObject(
+				new TwitterApiUriBuilder()
+					.withResource(TwitterApiUriResourceForStandard.GEO_SEARCH)
+					.withArgument(buildGeoParameters(latitude, longitude, granularity, accuracy, query))
+					.build(),
+				PlacesList.class
+			).getList();
 	}
 	
 	public SimilarPlaces findSimilarPlaces(double latitude, double longitude, String name) {
@@ -72,21 +80,31 @@ public class GeoTemplate extends AbstractTwitterTemplate implements GeoOperation
 	
 	public SimilarPlaces findSimilarPlaces(double latitude, double longitude, String name, String streetAddress, String containedWithin) {
 		requireUserAuthorization();
-		TwitterApiUriResourceForStandard resource = TwitterApiUriResourceForStandard.GEO_SIMILAR_PLACES;
-		MultiValueMap<String, Object> parameters = buildPlaceParameters(latitude, longitude, name, streetAddress, containedWithin);
-		URI resourceUri = new TwitterApiUriBuilder().withResource(resource).withArgument(parameters).build();
-		SimilarPlacesResponse response = restTemplate.getForObject(resourceUri, SimilarPlacesResponse.class);
-		PlacePrototype placePrototype = new PlacePrototype(response.getToken(), latitude, longitude, name, streetAddress, containedWithin);	
-		return new SimilarPlaces(response.getPlaces(), placePrototype);
+		
+		SimilarPlacesResponse response = restTemplate.getForObject(
+				new TwitterApiUriBuilder()
+					.withResource(TwitterApiUriResourceForStandard.GEO_SIMILAR_PLACES)
+					.withArgument(buildPlaceParameters(latitude, longitude, name, streetAddress, containedWithin))
+					.build(),
+				SimilarPlacesResponse.class);
+			
+		return new SimilarPlaces(
+				response.getPlaces(),
+				new PlacePrototype(response.getToken(), latitude, longitude, name, streetAddress, containedWithin));
 	}
 	
 	public Place createPlace(PlacePrototype placePrototype) {
 		requireUserAuthorization();
-		TwitterApiUriResourceForStandard resource = TwitterApiUriResourceForStandard.GEO_PLACE;
-		URI resourceUri = new TwitterApiUriBuilder().withResource(resource).build();
+		
 		MultiValueMap<String, Object> bodyData = buildPlaceParameters(placePrototype.getLatitude(), placePrototype.getLongitude(), placePrototype.getName(), placePrototype.getStreetAddress(), placePrototype.getContainedWithin());
 		bodyData.set("token", placePrototype.getCreateToken());
-		return restTemplate.postForObject(resourceUri, bodyData, Place.class);		
+		
+		return restTemplate.postForObject(
+				new TwitterApiUriBuilder()
+					.withResource(TwitterApiUriResourceForStandard.GEO_PLACE)
+					.build(),
+				bodyData,
+				Place.class);		
 	}
 	
 	// private helpers
