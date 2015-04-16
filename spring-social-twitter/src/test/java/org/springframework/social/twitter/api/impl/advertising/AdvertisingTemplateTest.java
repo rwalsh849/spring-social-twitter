@@ -46,7 +46,7 @@ public class AdvertisingTemplateTest extends AbstractTwitterApiTest {
 	@Test
 	public void getAccounts() {
 		mockServer
-			.expect(requestTo("https://ads-api.twitter.com/0/accounts?with_deleted=true"))
+			.expect(requestTo("https://ads-api.twitter.com/0/accounts?with_deleted=true&sort=updated_at"))
 			.andExpect(method(GET))
 			.andRespond(withSuccess(jsonResource("ad-accounts"), APPLICATION_JSON));
 

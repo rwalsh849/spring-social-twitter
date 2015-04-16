@@ -33,8 +33,6 @@ import org.springframework.util.MultiValueMap;
  *            it's reasonable the Twitter moves towards standardization and then, this
  *            builder will become a richer asset to the Api.
  * @author Hudson Mendes
- *
- * @param <TSort> the sort enumberation that varies for each entity being requested.
  */
 public abstract class AbstractTwitterQueryForStatsBuilder<TBuilderInterface>
 	extends AbstractTwitterParametersBuilder {
