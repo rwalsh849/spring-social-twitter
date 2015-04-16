@@ -42,14 +42,22 @@ public enum TwitterApiUriResourceForStandard {
 	LISTS_MEMBERS_DESTROY("lists/members/destroy.json"),
 	
 	LISTS_MEMBERSHIPS("lists/memberships.json"),
-	
 	LISTS_SUBSCRIPTIONS("lists/subscriptions.json"),
 	
 	GEO_ID("geo/id/:place_id.json"),
 	GEO_PLACE("geo/place.json"),
 	GEO_SEARCH("geo/search.json"),
 	GEO_SIMILAR_PLACES("geo/similar_places.json"),
-	GEO_REVERSE_GEOCODE("geo/reverse_geocode.json");
+	GEO_REVERSE_GEOCODE("geo/reverse_geocode.json"),
+	
+	SAVED_SEARCHES_LIST("saved_searches/list.json"),
+	SAVED_SEARCHES_SHOW("saved_searches/show/:search_id.json"),
+	SAVED_SEARCHES_CREATE("saved_searches/create.json"),
+	SAVED_SEARCHES_DESTROY("saved_searches/destroy/:search_id.json"),
+	
+	SEARCH_TWEETS("search/tweets.json"),
+	
+	TRENDS_PLACE("trends/place.json");
 	
 	private final String name;
 	

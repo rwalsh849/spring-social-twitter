@@ -21,6 +21,9 @@ import java.util.List;
 
 import org.springframework.social.twitter.api.basic.SearchOperations;
 import org.springframework.social.twitter.api.impl.AbstractTwitterTemplate;
+import org.springframework.social.twitter.api.impl.RestRequestBodyBuilder;
+import org.springframework.social.twitter.api.impl.TwitterApiUriBuilder;
+import org.springframework.social.twitter.api.impl.TwitterApiUriResourceForStandard;
 import org.springframework.util.Assert;
 import org.springframework.util.LinkedMultiValueMap;
 import org.springframework.util.MultiValueMap;
@@ -31,7 +34,7 @@ import org.springframework.web.client.RestTemplate;
  * @author Craig Walls
  */
 public class SearchTemplate extends AbstractTwitterTemplate implements SearchOperations {
-
+	private static final MultiValueMap<String, Object> EMPTY_DATA = new LinkedMultiValueMap<String, Object>();
 	private final RestTemplate restTemplate;
 
 	public SearchTemplate(RestTemplate restTemplate, boolean isAuthorizedForUser, boolean isAuthorizedForApp) {
@@ -59,31 +62,54 @@ public class SearchTemplate extends AbstractTwitterTemplate implements SearchOpe
 	public SearchResults search(SearchParameters searchParameters) {
 		requireEitherUserOrAppAuthorization();
 		Assert.notNull(searchParameters);
-		MultiValueMap<String, Object> parameters = buildQueryParametersFromSearchParameters(searchParameters);
-		return restTemplate.getForObject(buildUri("search/tweets.json", parameters),SearchResults.class);
+		return restTemplate.getForObject(
+				new TwitterApiUriBuilder()
+					.withResource(TwitterApiUriResourceForStandard.SEARCH_TWEETS)
+					.withArgument(buildQueryParametersFromSearchParameters(searchParameters))
+					.build(),
+				SearchResults.class);
 	}
 
 	public List<SavedSearch> getSavedSearches() {
 		requireUserAuthorization();
-		return restTemplate.getForObject(buildUri("saved_searches/list.json"), SavedSearchList.class);
+		return restTemplate.getForObject(
+				new TwitterApiUriBuilder()
+					.withResource(TwitterApiUriResourceForStandard.SAVED_SEARCHES_LIST)
+					.build(),
+				SavedSearchList.class);
 	}
 
 	public SavedSearch getSavedSearch(long searchId) {
 		requireUserAuthorization();
-		return restTemplate.getForObject(buildUri("saved_searches/show/" + searchId + ".json"), SavedSearch.class);
+		return restTemplate.getForObject(
+				new TwitterApiUriBuilder()
+					.withResource(TwitterApiUriResourceForStandard.SAVED_SEARCHES_SHOW)
+					.withArgument("search_id", searchId)
+					.build(),
+				SavedSearch.class);
 	}
 
 	public SavedSearch createSavedSearch(String query) {		
 		requireUserAuthorization();
-		MultiValueMap<String, Object> data = new LinkedMultiValueMap<String, Object>();
-		data.set("query", query);
-		return restTemplate.postForObject(buildUri("saved_searches/create.json"), data, SavedSearch.class);
+		return restTemplate.postForObject(
+				new TwitterApiUriBuilder()
+					.withResource(TwitterApiUriResourceForStandard.SAVED_SEARCHES_CREATE)
+					.build(),
+				new RestRequestBodyBuilder()
+					.withField("query", query)
+					.build(),
+				SavedSearch.class);
 	}
 
 	public void deleteSavedSearch(long searchId) {
 		requireUserAuthorization();
-		MultiValueMap<String, Object> data = new LinkedMultiValueMap<String, Object>();
-		restTemplate.postForObject(buildUri("saved_searches/destroy/" + searchId + ".json"), data, SavedSearch.class);
+		restTemplate.postForObject(
+				new TwitterApiUriBuilder()
+					.withResource(TwitterApiUriResourceForStandard.SAVED_SEARCHES_DESTROY)
+					.withArgument("search_id", searchId)
+					.build(),
+				EMPTY_DATA,
+				SavedSearch.class);
 	}
 	
 	// Trends
@@ -94,12 +120,20 @@ public class SearchTemplate extends AbstractTwitterTemplate implements SearchOpe
 
 	public Trends getLocalTrends(long whereOnEarthId, boolean excludeHashtags) {
 		requireEitherUserOrAppAuthorization();
+		
 		LinkedMultiValueMap<String, Object> parameters = new LinkedMultiValueMap<String, Object>();
 		parameters.set("id",String.valueOf(whereOnEarthId));
 		if(excludeHashtags) {
 			parameters.set("exclude", "hashtags");
 		}
-		return restTemplate.getForObject(buildUri("trends/place.json", parameters), LocalTrendsHolder.class).getTrends();
+		
+		return restTemplate.getForObject(
+				new TwitterApiUriBuilder()
+					.withResource(TwitterApiUriResourceForStandard.TRENDS_PLACE)
+					.withArgument(parameters)
+					.build(),
+				LocalTrendsHolder.class
+			).getTrends();
 	}
 
 }
