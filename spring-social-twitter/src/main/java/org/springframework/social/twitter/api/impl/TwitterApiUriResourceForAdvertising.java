@@ -21,7 +21,9 @@ public enum TwitterApiUriResourceForAdvertising {
 	STATS_LINE_ITEMS("stats/accounts/:account_id/line_items"),
 	STATS_LINE_ITEM("stats/accounts/:account_id/line_items/:line_item_id"),
 	STATS_PROMOTED_ACCOUNTS("stats/accounts/:account_id/promoted_accounts"),
-	STATS_PROMOTED_ACCOUNT("stats/accounts/:account_id/promoted_accounts/:promoted_account_id");
+	STATS_PROMOTED_ACCOUNT("stats/accounts/:account_id/promoted_accounts/:promoted_account_id"),
+	STATS_PROMOTED_TWEETS("stats/accounts/:account_id/promoted_tweets"),
+	STATS_PROMOTED_TWEET("stats/accounts/:account_id/promoted_tweets/:promoted_tweet_id");
 	
 	private final String name;
 	

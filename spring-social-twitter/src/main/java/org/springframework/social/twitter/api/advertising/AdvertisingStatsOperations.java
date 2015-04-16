@@ -18,6 +18,7 @@ package org.springframework.social.twitter.api.advertising;
 import java.util.List;
 
 import org.springframework.social.twitter.api.QueryingData;
+import org.springframework.social.twitter.api.impl.basic.Tweet;
 
 
 /**
@@ -94,4 +95,21 @@ public interface AdvertisingStatsOperations {
 	 * @returns an instance of {@link StatisticalSnapshot}
 	 */
 	StatisticalSnapshot byPromotedAccount(String accountId, String promotedAccountId, QueryingData query);
+	
+	/**
+	 * Snapshot of Advertising Statistics for Multiple promoted {@link Tweet}.
+	 * @param accountId The id of the account for which we want to retrieve the statistics.
+	 * @param query The query for which we shall retrieve statistics.
+	 * @returns a list of {@link StatisticalSnapshot}
+	 */
+	List<StatisticalSnapshot> byPromotedTweets(String accountId, QueryingData query);
+	
+	/**
+	 * Snapshot of Advertising Statistics for a promoted {@link Tweet}.
+	 * @param accountId The id of the account for which we want to retrieve the statistics.
+	 * @param promotedTweetId The id of the promoted tweet for which we want to retrieve the statistics.
+	 * @param query The query for which we shall retrieve statistics.
+	 * @returns an instance of {@link StatisticalSnapshot}
+	 */
+	StatisticalSnapshot byPromotedTweet(String accountId, String promotedTweetId, QueryingData query);
 }

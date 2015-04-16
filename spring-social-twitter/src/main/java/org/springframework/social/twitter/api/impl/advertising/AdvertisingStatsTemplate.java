@@ -156,5 +156,34 @@ public class AdvertisingStatsTemplate extends AbstractTwitterTemplate implements
 				StatisticalSnapshot.class
 			);
 	}
+
+	@Override
+	public List<StatisticalSnapshot> byPromotedTweets(String accountId, QueryingData query) {
+		requireUserAuthorization();
+		return restTemplate.exchange(
+				new TwitterApiUriBuilder()
+					.withResource(TwitterApiUriResourceForAdvertising.STATS_PROMOTED_TWEETS)
+					.withArgument("account_id", accountId)
+					.withArgument(query.toQueryParameters())
+					.build(),
+				HttpMethod.GET,
+				null,
+				new ParameterizedTypeReference<DataListHolder<StatisticalSnapshot>>(){}
+			).getBody().getData();
+	}
+
+	@Override
+	public StatisticalSnapshot byPromotedTweet(String accountId, String promotedTweetId, QueryingData query) {
+		requireUserAuthorization();
+		return restTemplate.getForObject(
+				new TwitterApiUriBuilder()
+					.withResource(TwitterApiUriResourceForAdvertising.STATS_PROMOTED_TWEET)
+					.withArgument("account_id", accountId)
+					.withArgument("promoted_tweet_id", promotedTweetId)
+					.withArgument(query.toQueryParameters())
+					.build(),
+				StatisticalSnapshot.class
+			);
+	}
 	
 }
