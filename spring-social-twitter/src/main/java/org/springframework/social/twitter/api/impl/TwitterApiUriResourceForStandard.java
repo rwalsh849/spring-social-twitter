@@ -30,8 +30,20 @@ public enum TwitterApiUriResourceForStandard {
 	LISTS_UPDATE("lists/update.json"),
 	LISTS_DESTROY("lists/destroy.json"),
 	LISTS_STATUSES("lists/statuses.json"),
+	
+	LISTS_SUBSCRIBERS("lists/subscribers.json"),
+	LISTS_SUBSCRIBERS_SHOW("lists/subscribers/show.json"),
+	LISTS_SUBSCRIBERS_CREATE("lists/subscribers/create.json"),
+	LISTS_SUBSCRIBERS_DESTROY("lists/subscribers/destroy.json"),
+	
 	LISTS_MEMBERS("lists/members.json"),
+	LISTS_MEMBERS_SHOW("lists/members/show.json"),
 	LISTS_MEMBERS_CREATE_ALL("lists/members/create_all.json"),
+	LISTS_MEMBERS_DESTROY("lists/members/destroy.json"),
+	
+	LISTS_MEMBERSHIPS("lists/memberships.json"),
+	
+	LISTS_SUBSCRIPTIONS("lists/subscriptions.json"),
 	
 	GEO_ID("geo/id/:place_id.json"),
 	GEO_PLACE("geo/place.json"),
