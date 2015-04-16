@@ -13,15 +13,24 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.springframework.social.twitter.api.advertising;
+package org.springframework.social.twitter.api.impl;
+
+import org.springframework.social.twitter.api.advertising.AdvertisingAccountQuery;
+import org.springframework.social.twitter.api.basic.AdvertisingAccountSorting;
+import org.springframework.util.MultiValueMap;
 
 /**
- * Represents the granularity for which the statistics
- * have been requested and therefore responded by the twitter ads api.
+ * 
  * @author Hudson Mendes
+ *
  */
-public enum StatisticalGranularity {
-	TOTAL,
-	DAY,
-	HOUR
+public class AdvertisingAccountQueryBuilder
+	extends AbstractTwitterQueryForEntityBuilder<AdvertisingAccountQuery, AdvertisingAccountSorting>
+	implements AdvertisingAccountQuery {
+
+	@Override
+	protected void makeParameters(MultiValueMap<String, Object> map) {
+		// no parameters to add here
+	}
+
 }

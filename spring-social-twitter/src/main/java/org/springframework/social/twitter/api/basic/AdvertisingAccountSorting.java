@@ -13,18 +13,16 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.springframework.social.twitter.api.impl;
-
-import org.springframework.social.twitter.api.QueryingData;
-import org.springframework.util.MultiValueMap;
+package org.springframework.social.twitter.api.basic;
 
 /**
- * Builder base for all other builders which have the intent of
- * POSTing or PUTting data through an api endpoint, transforming
- * them in to a body Map of values.
  * 
  * @author Hudson Mendes
+ *
  */
-public abstract class TwitterRequestQueryingDataBuilder extends TwitterRequestParametersBuilder implements QueryingData {
-	public abstract MultiValueMap<String, Object> toQueryParameters();
+public enum AdvertisingAccountSorting {
+	created_at,
+	updated_at,
+	deleted,
+	name
 }

@@ -19,7 +19,7 @@ import org.springframework.social.twitter.api.advertising.AdvertisingAccount;
 import org.springframework.social.twitter.api.advertising.Campaign;
 import org.springframework.social.twitter.api.advertising.FundingInstrument;
 import org.springframework.social.twitter.api.advertising.LineItem;
-import org.springframework.social.twitter.api.advertising.StatisticalSnapshot;
+import org.springframework.social.twitter.api.advertising.StatsSnapshot;
 import org.springframework.social.twitter.api.advertising.TargetingCriteria;
 import org.springframework.social.twitter.api.basic.AccountSettings;
 import org.springframework.social.twitter.api.basic.DirectMessage;
@@ -29,7 +29,7 @@ import org.springframework.social.twitter.api.impl.advertising.AdvertisingAccoun
 import org.springframework.social.twitter.api.impl.advertising.CampaignMixin;
 import org.springframework.social.twitter.api.impl.advertising.FundingInstrumentMixin;
 import org.springframework.social.twitter.api.impl.advertising.LineItemMixin;
-import org.springframework.social.twitter.api.impl.advertising.StatisticalSnapshotMixin;
+import org.springframework.social.twitter.api.impl.advertising.StatsSnapshotMixin;
 import org.springframework.social.twitter.api.impl.advertising.TargetingCriteriaMixin;
 import org.springframework.social.twitter.api.impl.basic.AccountSettingsMixin;
 import org.springframework.social.twitter.api.impl.basic.DirectMessageMixin;
@@ -100,7 +100,7 @@ public class TwitterModule extends SimpleModule {
 		context.setMixInAnnotations(LineItem.class, LineItemMixin.class);
 		context.setMixInAnnotations(Campaign.class, CampaignMixin.class);
 		context.setMixInAnnotations(TargetingCriteria.class, TargetingCriteriaMixin.class);
-		context.setMixInAnnotations(StatisticalSnapshot.class, StatisticalSnapshotMixin.class);
+		context.setMixInAnnotations(StatsSnapshot.class, StatsSnapshotMixin.class);
 		
 		context.setMixInAnnotations(AccountSettings.class, AccountSettingsMixin.class);
 		context.setMixInAnnotations(AccountSettings.TimeZone.class, AccountSettingsMixin.TimeZoneMixin.class);

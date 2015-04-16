@@ -20,7 +20,7 @@ import java.util.List;
 import org.springframework.core.ParameterizedTypeReference;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpMethod;
-import org.springframework.social.twitter.api.TransferingData;
+import org.springframework.social.twitter.api.TwitterForm;
 import org.springframework.social.twitter.api.advertising.LineItem;
 import org.springframework.social.twitter.api.advertising.LineItemOperations;
 import org.springframework.social.twitter.api.impl.AbstractTwitterTemplate;
@@ -70,7 +70,7 @@ public class LineItemTemplate extends AbstractTwitterTemplate implements LineIte
 	}
 
 	@Override
-	public LineItem createLineItem(String accountId, TransferingData data) {
+	public LineItem createLineItem(String accountId, TwitterForm data) {
 		requireUserAuthorization();
 		return restTemplate.exchange(
 				new TwitterApiUriBuilder()
@@ -78,13 +78,13 @@ public class LineItemTemplate extends AbstractTwitterTemplate implements LineIte
 					.withArgument("account_id", accountId)
 					.build(),
 				HttpMethod.POST,
-				new HttpEntity<MultiValueMap<String, Object>>(data.toRequestParameters()),
+				new HttpEntity<MultiValueMap<String, Object>>(data.toRequestBody()),
 				new ParameterizedTypeReference<DataSingleHolder<LineItem>>(){}
 			).getBody().getData();
 	}
 
 	@Override
-	public void updateLineItem(String accountId, String id, TransferingData data) {
+	public void updateLineItem(String accountId, String id, TwitterForm data) {
 		requireUserAuthorization();
 		restTemplate.put(
 				new TwitterApiUriBuilder()
@@ -92,7 +92,7 @@ public class LineItemTemplate extends AbstractTwitterTemplate implements LineIte
 					.withArgument("account_id", accountId)
 					.withArgument("line_item_id", id)
 					.build(),
-				data.toRequestParameters());
+				data.toRequestBody());
 	}
 
 	@Override

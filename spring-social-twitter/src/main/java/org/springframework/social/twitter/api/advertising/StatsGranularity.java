@@ -13,21 +13,15 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.springframework.social.twitter.api;
-
-import org.springframework.util.MultiValueMap;
+package org.springframework.social.twitter.api.advertising;
 
 /**
- * Generic data transfering contract that can be used to build
- * request parameters transfering data specially for POST and PUT
- * operations in Api endpoints.
- * 
- * This helps eliminate dependencies that the "api" package may
- * have to the "api.impl" package since contracts by definition
- * should not be coupled to implementations.
- * 
- * @author Hudson mendes
+ * Represents the granularity for which the statistics
+ * have been requested and therefore responded by the twitter ads api.
+ * @author Hudson Mendes
  */
-public interface TransferingData {
-	public MultiValueMap<String, Object> toRequestParameters();
+public enum StatsGranularity {
+	TOTAL,
+	DAY,
+	HOUR
 }

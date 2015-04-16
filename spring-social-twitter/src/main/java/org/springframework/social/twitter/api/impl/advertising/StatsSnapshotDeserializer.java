@@ -26,10 +26,10 @@ import java.util.List;
 import java.util.Map;
 import java.util.Spliterator;
 
-import org.springframework.social.twitter.api.advertising.StatisticalGranularity;
-import org.springframework.social.twitter.api.advertising.StatisticalMetric;
-import org.springframework.social.twitter.api.advertising.StatisticalSnapshot;
-import org.springframework.social.twitter.api.advertising.StatisticalSnapshotMetric;
+import org.springframework.social.twitter.api.advertising.StatsGranularity;
+import org.springframework.social.twitter.api.advertising.StatsMetric;
+import org.springframework.social.twitter.api.advertising.StatsSnapshot;
+import org.springframework.social.twitter.api.advertising.StatsSnapshotMetric;
 import org.springframework.social.twitter.api.impl.LocalDateTimeDeserializer;
 
 import com.fasterxml.jackson.core.JsonParser;
@@ -40,27 +40,27 @@ import com.fasterxml.jackson.databind.JsonDeserializer;
 import com.fasterxml.jackson.databind.JsonNode;
 
 /**
- * Deserializes the complex object {@link StatisticalSnapshot}
- * Differently from the other REST objects in the domain, the {@link StatisticalSnapshot}
+ * Deserializes the complex object {@link StatsSnapshot}
+ * Differently from the other REST objects in the domain, the {@link StatsSnapshot}
  * has a very fluent interface and changes according to the parameters passed to the endpoint.
  * 
  * This deserializer tackles this complexity by getting the flexible JSON parts and pushing them
- * into a rigit model {@link StatisticalSnapshotMetric} 
+ * into a rigit model {@link StatsSnapshotMetric} 
  * 
  * @author hudson
  *
  */
-public class StatisticalSnapshotDeserializer extends JsonDeserializer<StatisticalSnapshot> {
-	private static final Map<StatisticalMetric, Type> mapOfMetrics = new StatisticalSnapshotMetricMapBuilder().build();
+public class StatsSnapshotDeserializer extends JsonDeserializer<StatsSnapshot> {
+	private static final Map<StatsMetric, Type> mapOfMetrics = new StatsSnapshotMetricMapBuilder().build();
 
 	@Override
-	public StatisticalSnapshot deserialize(JsonParser p, DeserializationContext ctxt) throws IOException, JsonProcessingException {
+	public StatsSnapshot deserialize(JsonParser p, DeserializationContext ctxt) throws IOException, JsonProcessingException {
 		ObjectCodec codec = p.getCodec();
 		JsonNode root = codec.readTree(p);
 		JsonNode data = root.get("data");
 		if (data == null) data = root;
 		
-		return new StatisticalSnapshot(
+		return new StatsSnapshot(
 				extractId(data),
 				extractGranularity(data),
 				extractMetrics(data),
@@ -72,20 +72,20 @@ public class StatisticalSnapshotDeserializer extends JsonDeserializer<Statistica
 		return data.get("id").asText();
 	}
 	
-	private StatisticalGranularity extractGranularity(JsonNode data) {
-		return StatisticalGranularity.valueOf(data.get("granularity").asText());
+	private StatsGranularity extractGranularity(JsonNode data) {
+		return StatsGranularity.valueOf(data.get("granularity").asText());
 	}
 	
-	private Map<StatisticalMetric, StatisticalSnapshotMetric> extractMetrics(JsonNode data) {
-		Map<StatisticalMetric, StatisticalSnapshotMetric> map = new HashMap<StatisticalMetric, StatisticalSnapshotMetric>();
-		StatisticalMetric[] values = StatisticalMetric.class.getEnumConstants();
+	private Map<StatsMetric, StatsSnapshotMetric> extractMetrics(JsonNode data) {
+		Map<StatsMetric, StatsSnapshotMetric> map = new HashMap<StatsMetric, StatsSnapshotMetric>();
+		StatsMetric[] values = StatsMetric.class.getEnumConstants();
 		for (int i = 0; i < values.length; i++) {
-			StatisticalMetric metric = values[i];
+			StatsMetric metric = values[i];
 			JsonNode metricNode = data.get(metric.toString());
 			if (metricNode != null) {
 				List<Object> entries = new ArrayList<Object>();
 				parseMetricEntries(metric, metricNode.spliterator(), entries);
-				map.put(metric, new StatisticalSnapshotMetric(metric, entries));
+				map.put(metric, new StatsSnapshotMetric(metric, entries));
 			}
 		}
 
@@ -100,7 +100,7 @@ public class StatisticalSnapshotDeserializer extends JsonDeserializer<Statistica
 		return LocalDateTimeDeserializer.parse(data.get("end_time").asText());
 	}
 
-	private void parseMetricEntries(StatisticalMetric metric, Spliterator<JsonNode> iterator, List<Object> entries) {
+	private void parseMetricEntries(StatsMetric metric, Spliterator<JsonNode> iterator, List<Object> entries) {
 		Type metricType = mapOfMetrics.get(metric);
 		if (metricType == BigDecimal.class) dumpEntriesAsDecimals(iterator, entries);
 		else if (metricType == Integer.class) dumpEntriesAsIntegers(iterator, entries);

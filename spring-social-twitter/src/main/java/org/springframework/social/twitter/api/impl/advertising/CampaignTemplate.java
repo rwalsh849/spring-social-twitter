@@ -20,7 +20,7 @@ import java.util.List;
 import org.springframework.core.ParameterizedTypeReference;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpMethod;
-import org.springframework.social.twitter.api.TransferingData;
+import org.springframework.social.twitter.api.TwitterForm;
 import org.springframework.social.twitter.api.advertising.AdvertisingOperations;
 import org.springframework.social.twitter.api.advertising.Campaign;
 import org.springframework.social.twitter.api.advertising.CampaignOperations;
@@ -75,7 +75,7 @@ public class CampaignTemplate extends AbstractTwitterTemplate implements Campaig
 	}
 	
 	@Override
-	public Campaign createCampaign(String accountId, TransferingData data) {
+	public Campaign createCampaign(String accountId, TwitterForm data) {
 		requireUserAuthorization();
 		return restTemplate.exchange(
 				new TwitterApiUriBuilder()
@@ -83,13 +83,13 @@ public class CampaignTemplate extends AbstractTwitterTemplate implements Campaig
 					.withArgument("account_id", accountId)
 					.build(),
 				HttpMethod.POST,
-				new HttpEntity<MultiValueMap<String, Object>>(data.toRequestParameters()),
+				new HttpEntity<MultiValueMap<String, Object>>(data.toRequestBody()),
 				new ParameterizedTypeReference<DataSingleHolder<Campaign>>(){}
 			).getBody().getData();
 	}
 
 	@Override
-	public void updateCampaign(String accountId, String id, TransferingData data) {
+	public void updateCampaign(String accountId, String id, TwitterForm data) {
 		requireUserAuthorization();
 		restTemplate.put(
 				new TwitterApiUriBuilder()
@@ -97,7 +97,7 @@ public class CampaignTemplate extends AbstractTwitterTemplate implements Campaig
 					.withArgument("account_id", accountId)
 					.withArgument("campaign_id", id)
 					.build(),
-				data.toRequestParameters());
+				data.toRequestBody());
 	}
 	
 	@Override

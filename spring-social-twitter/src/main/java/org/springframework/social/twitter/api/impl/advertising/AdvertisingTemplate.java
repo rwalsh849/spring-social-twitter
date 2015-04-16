@@ -20,6 +20,7 @@ import java.util.List;
 import org.springframework.core.ParameterizedTypeReference;
 import org.springframework.http.HttpMethod;
 import org.springframework.social.twitter.api.advertising.AdvertisingAccount;
+import org.springframework.social.twitter.api.advertising.AdvertisingAccountQuery;
 import org.springframework.social.twitter.api.advertising.AdvertisingOperations;
 import org.springframework.social.twitter.api.advertising.FundingInstrument;
 import org.springframework.social.twitter.api.impl.AbstractTwitterTemplate;
@@ -41,12 +42,12 @@ public class AdvertisingTemplate extends AbstractTwitterTemplate implements Adve
 	}
 	
 	@Override
-	public List<AdvertisingAccount> getAccounts() {
+	public List<AdvertisingAccount> getAccounts(AdvertisingAccountQuery query) {
 		requireUserAuthorization();
 		return restTemplate.exchange(
 				new TwitterApiUriBuilder()
 					.withResource(TwitterApiUriResourceForAdvertising.ACCOUNTS)
-					.withArgument("with_deleted", "true")
+					.withArgument(query.toQueryParameters())
 					.build(),
 				HttpMethod.GET,
 				null,

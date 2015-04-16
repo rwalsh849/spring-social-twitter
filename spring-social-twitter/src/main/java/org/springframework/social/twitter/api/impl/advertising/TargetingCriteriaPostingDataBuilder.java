@@ -1,11 +1,11 @@
 package org.springframework.social.twitter.api.impl.advertising;
 
 import org.springframework.social.twitter.api.advertising.TargetingType;
-import org.springframework.social.twitter.api.impl.TwitterRequestPostingDataBuilder;
+import org.springframework.social.twitter.api.impl.AbstractTwitterPostBuilder;
 import org.springframework.util.LinkedMultiValueMap;
 import org.springframework.util.MultiValueMap;
 
-public class TargetingCriteriaPostingDataBuilder extends TwitterRequestPostingDataBuilder {
+public class TargetingCriteriaPostingDataBuilder extends AbstractTwitterPostBuilder {
 	private String lineItemId;
 	private String name;
 	private TargetingType targetingType;
@@ -39,7 +39,7 @@ public class TargetingCriteriaPostingDataBuilder extends TwitterRequestPostingDa
 	}
 
 	@Override
-	public MultiValueMap<String, Object> toRequestParameters() {
+	public MultiValueMap<String, Object> toRequestBody() {
 		MultiValueMap<String, Object> params = new LinkedMultiValueMap<String, Object>();
 		
 		appendParameter(params, "line_item_id", this.lineItemId);

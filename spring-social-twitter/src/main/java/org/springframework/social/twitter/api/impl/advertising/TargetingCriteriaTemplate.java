@@ -20,7 +20,7 @@ import java.util.List;
 import org.springframework.core.ParameterizedTypeReference;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpMethod;
-import org.springframework.social.twitter.api.TransferingData;
+import org.springframework.social.twitter.api.TwitterForm;
 import org.springframework.social.twitter.api.advertising.TargetingCriteria;
 import org.springframework.social.twitter.api.advertising.TargetingCriteriaOperations;
 import org.springframework.social.twitter.api.impl.AbstractTwitterTemplate;
@@ -74,7 +74,7 @@ public class TargetingCriteriaTemplate extends AbstractTwitterTemplate implement
 	}
 
 	@Override
-	public TargetingCriteria createTargetingCriteria(String accountId, TransferingData data) {
+	public TargetingCriteria createTargetingCriteria(String accountId, TwitterForm data) {
 		requireUserAuthorization();
 		return restTemplate.exchange(
 				new TwitterApiUriBuilder()
@@ -82,13 +82,13 @@ public class TargetingCriteriaTemplate extends AbstractTwitterTemplate implement
 					.withArgument("account_id", accountId)
 					.build(),
 				HttpMethod.POST,
-				new HttpEntity<MultiValueMap<String, Object>>(data.toRequestParameters()),
+				new HttpEntity<MultiValueMap<String, Object>>(data.toRequestBody()),
 				new ParameterizedTypeReference<DataSingleHolder<TargetingCriteria>>(){}
 			).getBody().getData();
 	}
 	
 	@Override
-	public void updateTargetingCriteria(String accountId, String id, TransferingData data) {
+	public void updateTargetingCriteria(String accountId, String id, TwitterForm data) {
 		requireUserAuthorization();
 		restTemplate.put(
 				new TwitterApiUriBuilder()
@@ -96,7 +96,7 @@ public class TargetingCriteriaTemplate extends AbstractTwitterTemplate implement
 					.withArgument("account_id", accountId)
 					.withArgument("targeting_criteria_id", id)
 					.build(),
-				data.toRequestParameters());
+				data.toRequestBody());
 	}
 
 	@Override

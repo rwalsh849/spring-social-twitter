@@ -1,6 +1,6 @@
 package org.springframework.social.twitter.api.advertising;
 
-public enum StatisticalMetric {
+public enum StatsMetric {
 	estimated_charge_local_micro,
 	promotion_card_responses,
 	promoted_tweet_search_card_engagements,

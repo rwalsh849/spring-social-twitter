@@ -17,7 +17,6 @@ package org.springframework.social.twitter.api.advertising;
 
 import java.util.List;
 
-import org.springframework.social.twitter.api.QueryingData;
 import org.springframework.social.twitter.api.impl.basic.Tweet;
 
 
@@ -31,92 +30,92 @@ public interface AdvertisingStatsOperations {
 	 * Snapshot of Advertising Statistics for Multiple {@link AdvertisingAccount}.
 	 * @param accountId The id of the account for which we want to retrieve the statistics.
 	 * @param query The query for which we shall retrieve statistics.
-	 * @return a list of {@link StatisticalSnapshot}
+	 * @return a list of {@link StatsSnapshot}
 	 */
-	List<StatisticalSnapshot> byAccounts(String accountId, QueryingData query);
+	List<StatsSnapshot> byAccounts(String accountId, StatsOfAccountQuery query);
 	
 	/**
 	 * Snapshot of Advertising Statistics for Multiple {@link Campaign}.
 	 * @param accountId The id of the account for which we want to retrieve the statistics.
 	 * @param query The query for which we shall retrieve statistics.
-	 * @return a list of {@link StatisticalSnapshot}
+	 * @return a list of {@link StatsSnapshot}
 	 */
-	List<StatisticalSnapshot> byCampaigns(String accountId, QueryingData query);
+	List<StatsSnapshot> byCampaigns(String accountId, StatsOfCampaignQuery query);
 	
 	/**
 	 * Snapshot of Advertising Statistics by {@link Campaign}.
 	 * @param accountId The id of the account for which we want to retrieve the statistics.
 	 * @param campaignId The id of the campaign for which we want to retrieve the statistics.
 	 * @param query The query for which we shall retrieve statistics.
-	 * @return an instance of {@link StatisticalSnapshot}
+	 * @return an instance of {@link StatsSnapshot}
 	 */
-	StatisticalSnapshot byCampaign(String accountId, String campaignId, QueryingData query);
+	StatsSnapshot byCampaign(String accountId, String campaignId, StatsOfCampaignQuery query);
 	
 	/**
 	 * Snapshot of Advertising Statistics for Multiple {@link FundingInstrument}.
 	 * @param accountId The id of the account for which we want to retrieve the statistics.
 	 * @param query The query for which we shall retrieve statistics. 
-	 * @return a list of {@link StatisticalSnapshot}
+	 * @return a list of {@link StatsSnapshot}
 	 */
-	List<StatisticalSnapshot> byFundingInstruments(String accountId, QueryingData query);
+	List<StatsSnapshot> byFundingInstruments(String accountId, StatsOfFundingInstrumentQuery query);
 	
 	/**
 	 * Snapshot of Advertising Statistics by {@link Campaign}.
 	 * @param accountId The id of the account for which we want to retrieve the statistics.
 	 * @param fundingInstrumentId The id of the funding instrument for which we want to retrieve the statistics.
 	 * @param query The query for which we shall retrieve statistics.
-	 * @return an instance of {@link StatisticalSnapshot}
+	 * @return an instance of {@link StatsSnapshot}
 	 */
-	StatisticalSnapshot byFundingInstrument(String accountId, String fundingInstrumentId, QueryingData query);
+	StatsSnapshot byFundingInstrument(String accountId, String fundingInstrumentId, StatsOfFundingInstrumentQuery query);
 	
 	/**
 	 * Snapshot of Advertising Statistics for Multiple {@link LineItem}. 
 	 * @param accountId The id of the account for which we want to retrieve the statistics.
 	 * @param query The query for which we shall retrieve statistics.
-	 * @return a list of {@link StatisticalSnapshot}
+	 * @return a list of {@link StatsSnapshot}
 	 */
-	List<StatisticalSnapshot> byLineItems(String accountId, QueryingData query);
+	List<StatsSnapshot> byLineItems(String accountId, StatsOfLineItemQuery query);
 	
 	/**
 	 * Snapshot of Advertising Statistics by {@link LineItem}.
 	 * @param accountId The id of the account for which we want to retrieve the statistics.
 	 * @param lineItemId The id of the line item for which we want to retrieve the statistics.
 	 * @param query The query for which we shall retrieve statistics.
-	 * @return an instance of {@link StatisticalSnapshot}
+	 * @return an instance of {@link StatsSnapshot}
 	 */
-	StatisticalSnapshot byLineItem(String accountId, String lineItemId, QueryingData query);
+	StatsSnapshot byLineItem(String accountId, String lineItemId, StatsOfLineItemQuery query);
 	
 	/**
 	 * Snapshot of Advertising Statistics for Multiple promoted accounts.
 	 * @param accountId The id of the account for which we want to retrieve the statistics.
 	 * @param query The query for which we shall retrieve statistics.
-	 * @return a list of {@link StatisticalSnapshot}
+	 * @return a list of {@link StatsSnapshot}
 	 */
-	List<StatisticalSnapshot> byPromotedAccounts(String accountId, QueryingData query);
+	List<StatsSnapshot> byPromotedAccounts(String accountId, StatsOfPromotedAccountQuery query);
 	
 	/**
 	 * Snapshot of Advertising Statistics for a promoted accounts.
 	 * @param accountId The id of the account for which we want to retrieve the statistics.
 	 * @param promotedAccountId The id of the promoted account for which we want to retrieve the statistics.
 	 * @param query The query for which we shall retrieve statistics.
-	 * @return an instance of {@link StatisticalSnapshot}
+	 * @return an instance of {@link StatsSnapshot}
 	 */
-	StatisticalSnapshot byPromotedAccount(String accountId, String promotedAccountId, QueryingData query);
+	StatsSnapshot byPromotedAccount(String accountId, String promotedAccountId, StatsOfPromotedAccountQuery query);
 	
 	/**
 	 * Snapshot of Advertising Statistics for Multiple promoted {@link Tweet}.
 	 * @param accountId The id of the account for which we want to retrieve the statistics.
 	 * @param query The query for which we shall retrieve statistics.
-	 * @return a list of {@link StatisticalSnapshot}
+	 * @return a list of {@link StatsSnapshot}
 	 */
-	List<StatisticalSnapshot> byPromotedTweets(String accountId, QueryingData query);
+	List<StatsSnapshot> byPromotedTweets(String accountId, StatsOfPromotedTweetQuery query);
 	
 	/**
 	 * Snapshot of Advertising Statistics for a promoted {@link Tweet}.
 	 * @param accountId The id of the account for which we want to retrieve the statistics.
 	 * @param promotedTweetId The id of the promoted tweet for which we want to retrieve the statistics.
 	 * @param query The query for which we shall retrieve statistics.
-	 * @return an instance of {@link StatisticalSnapshot}
+	 * @return an instance of {@link StatsSnapshot}
 	 */
-	StatisticalSnapshot byPromotedTweet(String accountId, String promotedTweetId, QueryingData query);
+	StatsSnapshot byPromotedTweet(String accountId, String promotedTweetId, StatsOfPromotedTweetQuery query);
 }

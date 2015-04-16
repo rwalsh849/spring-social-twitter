@@ -18,19 +18,25 @@ package org.springframework.social.twitter.api.impl.advertising;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.springframework.social.twitter.api.advertising.StatisticalSnapshot;
+import org.springframework.social.twitter.api.advertising.StatsSnapshot;
+import org.springframework.social.twitter.api.advertising.StatsOfFundingInstrumentQuery;
+import org.springframework.social.twitter.api.impl.AbstractTwitterQueryForStatsBuilder;
 import org.springframework.util.MultiValueMap;
 
 /**
- * Builder related to {@link StatisticalSnapshot} data that generates a map (key, value)
+ * Builder related to {@link StatsSnapshot} data that generates a map (key, value)
  * that can be posted into the twitter api endpoint.
  * 
  * @author Hudson Mendes
  */
-public class StatisticalQueryingFundingInstrumentDataBuilder extends StatisticalQueryingBaseDataBuilder {
+public class StatsOfFundingInstrumentQueryBuilder extends AbstractTwitterQueryForStatsBuilder<StatsOfFundingInstrumentQuery> implements StatsOfFundingInstrumentQuery {
 	private List<String> fundingInstrumentIds;
 	
-	public StatisticalQueryingFundingInstrumentDataBuilder withFundingInstruments(String... fundingInstrumentIds) {
+	/* (non-Javadoc)
+	 * @see org.springframework.social.twitter.api.impl.advertising.TwitterQueryForStatsOfFundingInstrument#withFundingInstruments(java.lang.String)
+	 */
+	@Override
+	public StatsOfFundingInstrumentQueryBuilder withFundingInstruments(String... fundingInstrumentIds) {
 		this.fundingInstrumentIds = new ArrayList<String>();
 		for (int i = 0; i < fundingInstrumentIds.length; i++)
 			this.fundingInstrumentIds.add(fundingInstrumentIds[i]);
@@ -38,8 +44,8 @@ public class StatisticalQueryingFundingInstrumentDataBuilder extends Statistical
 	}
 
 	@Override
-	protected void appendSpecificParameters(MultiValueMap<String, Object> params) {
-		appendParameter(params, "funding_instrument_ids", this.fundingInstrumentIds);
+	protected void makeParameters(MultiValueMap<String, Object> map) {
+		appendParameter(map, "funding_instrument_ids", this.fundingInstrumentIds);
 	}
 
 }

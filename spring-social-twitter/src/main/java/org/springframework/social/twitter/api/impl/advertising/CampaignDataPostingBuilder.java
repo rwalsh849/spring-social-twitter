@@ -24,7 +24,7 @@ import java.util.List;
 
 import org.springframework.social.twitter.api.advertising.Campaign;
 import org.springframework.social.twitter.api.advertising.ReasonNotServable;
-import org.springframework.social.twitter.api.impl.TwitterRequestPostingDataBuilder;
+import org.springframework.social.twitter.api.impl.AbstractTwitterPostBuilder;
 import org.springframework.util.LinkedMultiValueMap;
 import org.springframework.util.MultiValueMap;
 
@@ -34,7 +34,7 @@ import org.springframework.util.MultiValueMap;
  * 
  * @author Hudson Mendes
  */
-public class CampaignDataPostingBuilder extends TwitterRequestPostingDataBuilder {
+public class CampaignDataPostingBuilder extends AbstractTwitterPostBuilder {
 	private String name;
 	private String currency;
 	private String fundingInstrumentId;
@@ -120,7 +120,7 @@ public class CampaignDataPostingBuilder extends TwitterRequestPostingDataBuilder
 	}
 	
 	@Override
-	public MultiValueMap<String, Object> toRequestParameters() {
+	public MultiValueMap<String, Object> toRequestBody() {
 		MultiValueMap<String, Object> params = new LinkedMultiValueMap<String, Object>();
 		
 		appendParameter(params, "name", this.name);

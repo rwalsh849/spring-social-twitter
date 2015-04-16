@@ -33,8 +33,10 @@ import org.junit.Test;
 import org.springframework.social.twitter.api.advertising.AdvertisingAccount;
 import org.springframework.social.twitter.api.advertising.FundingInstrument;
 import org.springframework.social.twitter.api.advertising.FundingInstrumentType;
+import org.springframework.social.twitter.api.basic.AdvertisingAccountSorting;
 import org.springframework.social.twitter.api.basic.ApprovalStatus;
 import org.springframework.social.twitter.api.impl.AbstractTwitterApiTest;
+import org.springframework.social.twitter.api.impl.AdvertisingAccountQueryBuilder;
 
 /**
  * @author Hudson mendes
@@ -48,7 +50,12 @@ public class AdvertisingTemplateTest extends AbstractTwitterApiTest {
 			.andExpect(method(GET))
 			.andRespond(withSuccess(jsonResource("ad-accounts"), APPLICATION_JSON));
 
-		List<AdvertisingAccount> accounts = twitter.advertisingOperations().getAccounts();
+
+		List<AdvertisingAccount> accounts = twitter.advertisingOperations().getAccounts(
+				new AdvertisingAccountQueryBuilder()
+					.includeDeleted(true)
+					.sortBy(AdvertisingAccountSorting.updated_at));
+		
 		assertAdvertisingAccountContents(accounts);
 	}
 

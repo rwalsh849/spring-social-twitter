@@ -32,7 +32,7 @@ public interface AdvertisingOperations {
 	 * @throws ApiException if there is an error while communicating with Twitter.
 	 * @throws MissingAuthorizationException if TwitterTemplate was not created with OAuth credentials.
 	 */
-	List<AdvertisingAccount> getAccounts();
+	List<AdvertisingAccount> getAccounts(AdvertisingAccountQuery query);
 	
 	/**
 	 * Retrieves a list of all {@link FundingInstrument} linked to a particular {@link AdvertisingAccount}.

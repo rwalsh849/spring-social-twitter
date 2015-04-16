@@ -22,7 +22,7 @@ import org.springframework.social.twitter.api.advertising.AdvertisingPlacementTy
 import org.springframework.social.twitter.api.advertising.AdvertisingSentiment;
 import org.springframework.social.twitter.api.advertising.LineItem;
 import org.springframework.social.twitter.api.advertising.LineItemOptimization;
-import org.springframework.social.twitter.api.impl.TwitterRequestPostingDataBuilder;
+import org.springframework.social.twitter.api.impl.AbstractTwitterPostBuilder;
 import org.springframework.util.LinkedMultiValueMap;
 import org.springframework.util.MultiValueMap;
 
@@ -32,7 +32,7 @@ import org.springframework.util.MultiValueMap;
  * 
  * @author Hudson Mendes
  */
-public class LineItemPostingDataBuilder extends TwitterRequestPostingDataBuilder {
+public class LineItemPostingDataBuilder extends AbstractTwitterPostBuilder {
 	private String campaignId;
 	private String currency;
 	private AdvertisingPlacementType placementType;
@@ -113,7 +113,7 @@ public class LineItemPostingDataBuilder extends TwitterRequestPostingDataBuilder
 	}
 
 	@Override
-	public MultiValueMap<String, Object> toRequestParameters() {
+	public MultiValueMap<String, Object> toRequestBody() {
 		MultiValueMap<String, Object> params = new LinkedMultiValueMap<String, Object>();
 		
 		appendParameter(params, "campaign_id", this.campaignId);

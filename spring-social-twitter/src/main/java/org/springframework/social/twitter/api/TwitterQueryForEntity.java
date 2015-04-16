@@ -13,18 +13,23 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.springframework.social.twitter.api.impl;
+package org.springframework.social.twitter.api;
 
-import org.springframework.social.twitter.api.TransferingData;
 import org.springframework.util.MultiValueMap;
 
 /**
- * Builder base for all other builders which have the intent of
- * POSTing or PUTting data through an api endpoint, transforming
- * them in to a body Map of values.
+ * Generic data query builder contract that can be used to build
+ * request parameters transfering data specially for GET
+ * operations in Api endpoints.
  * 
- * @author Hudson Mendes
+ * This helps eliminate dependencies that the "api" package may
+ * have to the "api.impl" package since contracts by definition
+ * should not be coupled to implementations.
+ * 
+ * @author Hudson mendes
  */
-public abstract class TwitterRequestPostingDataBuilder extends TwitterRequestParametersBuilder implements TransferingData {
-	public abstract MultiValueMap<String, Object> toRequestParameters();
+public interface TwitterQueryForEntity<TBuilder,TSort> {
+	public TBuilder includeDeleted(Boolean include);
+	public TBuilder sortBy(TSort sort);
+	public MultiValueMap<String, Object> toQueryParameters();
 }

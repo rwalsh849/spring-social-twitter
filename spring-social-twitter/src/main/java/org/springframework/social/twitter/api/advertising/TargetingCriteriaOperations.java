@@ -19,7 +19,7 @@ import java.util.List;
 
 import org.springframework.social.ApiException;
 import org.springframework.social.MissingAuthorizationException;
-import org.springframework.social.twitter.api.TransferingData;
+import org.springframework.social.twitter.api.TwitterForm;
 
 /**
  * Interface defining the operations for targeting criterias (Ads API).
@@ -48,7 +48,7 @@ public interface TargetingCriteriaOperations {
 	 * @param data defines the parameters that we shall use to generate the targeting criteria  
 	 * @return an instance of {@link TargetingCriteria}
 	 */
-	TargetingCriteria createTargetingCriteria(String accountId, TransferingData data);
+	TargetingCriteria createTargetingCriteria(String accountId, TwitterForm data);
 
 	/**
 	 * Updates {@link TargetingCriteria} linked to a particular {@link AdvertisingAccount} referred to by its id.
@@ -58,7 +58,7 @@ public interface TargetingCriteriaOperations {
 	 * @throws ApiException if there is an error while communicating with Twitter.
 	 * @throws MissingAuthorizationException if TwitterTemplate was not created with OAuth credentials.
 	 */
-	void updateTargetingCriteria(String accountId, String id, TransferingData data);
+	void updateTargetingCriteria(String accountId, String id, TwitterForm data);
 	
 	/**
 	 * Deletes a {@link TargetingCriteria} related to an {@link AdvertisingAccount} found by its campaignId.

@@ -15,19 +15,19 @@
  */
 package org.springframework.social.twitter.api.impl.advertising;
 
-import org.springframework.social.twitter.api.advertising.StatisticalSnapshot;
+import org.springframework.social.twitter.api.advertising.StatsSnapshot;
 import org.springframework.social.twitter.api.impl.basic.TwitterObjectMixin;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 
 /**
- * Mixin class for adding Jackson annotations to {@link StatisticalSnapshot}. 
- * Relies on {@link StatisticalSnapshotDeserializer} to do actual deserialization,
+ * Mixin class for adding Jackson annotations to {@link StatsSnapshot}. 
+ * Relies on {@link StatsSnapshotDeserializer} to do actual deserialization,
  * as Tweet JSON structures are flexible according to parameters passed.
  * @author Hudson Mendes
  */
 @JsonIgnoreProperties(ignoreUnknown = true)
-@JsonDeserialize(using = StatisticalSnapshotDeserializer.class)
-public abstract class StatisticalSnapshotMixin extends TwitterObjectMixin {
+@JsonDeserialize(using = StatsSnapshotDeserializer.class)
+public abstract class StatsSnapshotMixin extends TwitterObjectMixin {
 }

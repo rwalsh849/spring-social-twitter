@@ -5,7 +5,7 @@ import java.util.ArrayList;
 
 import org.springframework.util.MultiValueMap;
 
-public class TwitterRequestParametersBuilder {
+public class AbstractTwitterParametersBuilder {
 	private static final BigDecimal MICRO_MULTIPLIER = new BigDecimal(1000000);
 	
 	@SuppressWarnings({ "rawtypes", "unchecked" })
