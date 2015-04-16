@@ -24,16 +24,16 @@ import org.springframework.social.twitter.api.impl.basic.TwitterObject;
  * Represents a metric that has been retrieved by the Ads statistics endpoint.
  * @author Hudson Mendes
  */
-public class StatsSnapshotMetric extends TwitterObject {
-	private final StatsMetric name;
+public class StatisticsSnapshotMetric extends TwitterObject {
+	private final StatisticsMetric name;
 	private final List<Object> entries;
 	
-	public StatsSnapshotMetric(StatsMetric name, List<Object> entries) {
+	public StatisticsSnapshotMetric(StatisticsMetric name, List<Object> entries) {
 		this.name = name;
 		this.entries = new ArrayList<>(entries);
 	}
 
-	public StatsMetric getName() {
+	public StatisticsMetric getName() {
 		return name;
 	}
 

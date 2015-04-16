@@ -86,13 +86,13 @@ public enum TwitterApiUriResourceForStandard {
 	USERS_SUGGESTIONS("users/suggestions.json"),
 	USERS_SUGGESTIONS_WITH_SLUG("users/suggestions/:slug.json");
 	
-	private final String name;
+	private final String path;
 	
 	TwitterApiUriResourceForStandard(String path) {
-		this.name = path;
+		this.path = path;
 	}
 	
 	public String getPath() {
-		return this.name;
+		return this.path;
 	}
 }

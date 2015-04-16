@@ -18,30 +18,34 @@ package org.springframework.social.twitter.api.impl.advertising;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.springframework.social.twitter.api.advertising.StatsOfPromotedTweetQuery;
-import org.springframework.social.twitter.api.advertising.StatsSnapshot;
+import org.springframework.social.twitter.api.advertising.StatisticsOfPromotedAccountQuery;
+import org.springframework.social.twitter.api.advertising.StatisticsSnapshot;
 import org.springframework.social.twitter.api.impl.AbstractTwitterQueryForStatsBuilder;
 import org.springframework.util.MultiValueMap;
 
 /**
- * Builder related to {@link StatsSnapshot} data that generates a map (key, value)
+ * Builder related to {@link StatisticsSnapshot} data that generates a map (key, value)
  * that can be posted into the twitter api endpoint.
  * 
  * @author Hudson Mendes
  */
-public class StatsOfPromotedTweetQueryBuilder extends AbstractTwitterQueryForStatsBuilder<StatsOfPromotedTweetQuery> implements StatsOfPromotedTweetQuery {
-	private List<String> promotedTweetIds;
+public class StatisticsOfPromotedAccountQueryBuilder extends AbstractTwitterQueryForStatsBuilder<StatisticsOfPromotedAccountQuery> implements StatisticsOfPromotedAccountQuery {
+	private List<String> promotedAccountIds;
 	
-	public StatsOfPromotedTweetQueryBuilder withPromotedTweets(String... promotedAccountIds) {
-		this.promotedTweetIds = new ArrayList<String>();
+	/* (non-Javadoc)
+	 * @see org.springframework.social.twitter.api.impl.advertising.TwitterQueryForStatsOfPromotedAccount#withPromotedAccounts(java.lang.String)
+	 */
+	@Override
+	public StatisticsOfPromotedAccountQueryBuilder withPromotedAccounts(String... promotedAccountIds) {
+		this.promotedAccountIds = new ArrayList<String>();
 		for (int i = 0; i < promotedAccountIds.length; i++)
-			this.promotedTweetIds.add(promotedAccountIds[i]);
+			this.promotedAccountIds.add(promotedAccountIds[i]);
 		return this;
 	}
 
 	@Override
 	protected void makeParameters(MultiValueMap<String, Object> map) {
-		appendParameter(map, "promoted_tweet_ids", this.promotedTweetIds);
+		appendParameter(map, "promoted_account_ids", this.promotedAccountIds);
 	}
 
 }

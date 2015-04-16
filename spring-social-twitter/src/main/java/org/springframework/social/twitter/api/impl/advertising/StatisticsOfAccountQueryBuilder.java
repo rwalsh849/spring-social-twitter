@@ -13,24 +13,24 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.springframework.social.twitter.api.impl;
+package org.springframework.social.twitter.api.impl.advertising;
 
-import org.springframework.social.twitter.api.advertising.AdvertisingAccountQuery;
-import org.springframework.social.twitter.api.basic.AdvertisingAccountSorting;
+import org.springframework.social.twitter.api.advertising.StatisticsOfAccountQuery;
+import org.springframework.social.twitter.api.advertising.StatisticsSnapshot;
+import org.springframework.social.twitter.api.impl.AbstractTwitterQueryForStatsBuilder;
 import org.springframework.util.MultiValueMap;
 
 /**
+ * Builder related to {@link StatisticsSnapshot} data that generates a map (key, value)
+ * that can be posted into the twitter api endpoint.
  * 
  * @author Hudson Mendes
- *
  */
-public class AdvertisingAccountQueryBuilder
-	extends AbstractTwitterQueryForEntityBuilder<AdvertisingAccountQuery, AdvertisingAccountSorting>
-	implements AdvertisingAccountQuery {
+public class StatisticsOfAccountQueryBuilder extends AbstractTwitterQueryForStatsBuilder<StatisticsOfAccountQuery> implements StatisticsOfAccountQuery {
 
 	@Override
 	protected void makeParameters(MultiValueMap<String, Object> map) {
-		// no parameters to add here
+		// nothing to add here
 	}
-
+	
 }

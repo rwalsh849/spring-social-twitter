@@ -18,34 +18,33 @@ package org.springframework.social.twitter.api.impl.advertising;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.springframework.social.twitter.api.advertising.StatsOfLineItemQuery;
-import org.springframework.social.twitter.api.advertising.StatsSnapshot;
+import org.springframework.social.twitter.api.advertising.StatisticsSnapshot;
+import org.springframework.social.twitter.api.advertising.StatisticsOfCampaignQuery;
 import org.springframework.social.twitter.api.impl.AbstractTwitterQueryForStatsBuilder;
 import org.springframework.util.MultiValueMap;
 
 /**
- * Builder related to {@link StatsSnapshot} data that generates a map (key, value)
+ * Builder related to {@link StatisticsSnapshot} data that generates a map (key, value)
  * that can be posted into the twitter api endpoint.
  * 
  * @author Hudson Mendes
  */
-public class StatsOfLineItemQueryBuilder extends AbstractTwitterQueryForStatsBuilder<StatsOfLineItemQuery> implements StatsOfLineItemQuery {
-	private List<String> lineItemIds;
+public class StatisticsOfCampaignQueryBuilder extends AbstractTwitterQueryForStatsBuilder<StatisticsOfCampaignQuery> implements StatisticsOfCampaignQuery {
+	private List<String> campaignIds;
 	
 	/* (non-Javadoc)
-	 * @see org.springframework.social.twitter.api.impl.advertising.TwitterQueryForStatsOfLineItem#withLineItems(java.lang.String)
+	 * @see org.springframework.social.twitter.api.impl.advertising.TwitterQueryForStatsOfCampaign#withCampaigns(java.lang.String)
 	 */
 	@Override
-	public StatsOfLineItemQueryBuilder withLineItems(String... lineItemIds) {
-		this.lineItemIds = new ArrayList<String>();
-		for (int i = 0; i < lineItemIds.length; i++)
-			this.lineItemIds.add(lineItemIds[i]);
+	public StatisticsOfCampaignQueryBuilder withCampaigns(String... campaignIds) {
+		this.campaignIds = new ArrayList<String>();
+		for (int i = 0; i < campaignIds.length; i++)
+			this.campaignIds.add(campaignIds[i]);
 		return this;
 	}
 
 	@Override
 	protected void makeParameters(MultiValueMap<String, Object> map) {
-		appendParameter(map, "line_item_ids", this.lineItemIds);
+		appendParameter(map, "campaign_ids", this.campaignIds);
 	}
-
 }

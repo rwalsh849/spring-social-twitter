@@ -17,6 +17,7 @@ package org.springframework.social.twitter.api.impl;
 
 import static org.junit.Assert.*;
 
+import java.math.MathContext;
 import java.util.List;
 
 import org.junit.Before;
@@ -30,6 +31,8 @@ import org.springframework.social.twitter.api.impl.basic.UrlEntity;
 import org.springframework.test.web.client.MockRestServiceServer;
 
 public abstract class AbstractTwitterApiTest {
+	protected static final String UTF8 = "utf-8";
+	protected static final MathContext ROUNDER = MathContext.DECIMAL32;
 
 	protected TwitterTemplate twitter;
 	

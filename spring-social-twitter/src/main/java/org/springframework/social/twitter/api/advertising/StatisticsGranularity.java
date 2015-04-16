@@ -20,7 +20,7 @@ package org.springframework.social.twitter.api.advertising;
  * have been requested and therefore responded by the twitter ads api.
  * @author Hudson Mendes
  */
-public enum StatsGranularity {
+public enum StatisticsGranularity {
 	TOTAL,
 	DAY,
 	HOUR

@@ -17,8 +17,8 @@ package org.springframework.social.twitter.api;
 
 import java.time.LocalDateTime;
 
-import org.springframework.social.twitter.api.advertising.StatsGranularity;
-import org.springframework.social.twitter.api.advertising.StatsMetric;
+import org.springframework.social.twitter.api.advertising.StatisticsGranularity;
+import org.springframework.social.twitter.api.advertising.StatisticsMetric;
 import org.springframework.util.MultiValueMap;
 
 /**
@@ -36,7 +36,7 @@ public interface TwitterQueryForStats<TBuilder extends TwitterQueryForStats<TBui
 	public TBuilder activeUntil(LocalDateTime endTime);
 	public TBuilder activeFrom(LocalDateTime startTime);
 	public TBuilder activeBetween(LocalDateTime startTime, LocalDateTime endTime);
-	public TBuilder withGranularity(StatsGranularity granularity);
-	public TBuilder withStatisticalMetric(StatsMetric... metrics);
+	public TBuilder withGranularity(StatisticsGranularity granularity);
+	public TBuilder withStatisticalMetric(StatisticsMetric... metrics);
 	public MultiValueMap<String, Object> toQueryParameters();
 }

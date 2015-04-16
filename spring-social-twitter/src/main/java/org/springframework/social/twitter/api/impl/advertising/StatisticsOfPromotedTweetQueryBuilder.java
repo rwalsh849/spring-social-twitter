@@ -18,33 +18,30 @@ package org.springframework.social.twitter.api.impl.advertising;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.springframework.social.twitter.api.advertising.StatsSnapshot;
-import org.springframework.social.twitter.api.advertising.StatsOfCampaignQuery;
+import org.springframework.social.twitter.api.advertising.StatisticsOfPromotedTweetQuery;
+import org.springframework.social.twitter.api.advertising.StatisticsSnapshot;
 import org.springframework.social.twitter.api.impl.AbstractTwitterQueryForStatsBuilder;
 import org.springframework.util.MultiValueMap;
 
 /**
- * Builder related to {@link StatsSnapshot} data that generates a map (key, value)
+ * Builder related to {@link StatisticsSnapshot} data that generates a map (key, value)
  * that can be posted into the twitter api endpoint.
  * 
  * @author Hudson Mendes
  */
-public class StatsOfCampaignQueryBuilder extends AbstractTwitterQueryForStatsBuilder<StatsOfCampaignQuery> implements StatsOfCampaignQuery {
-	private List<String> campaignIds;
+public class StatisticsOfPromotedTweetQueryBuilder extends AbstractTwitterQueryForStatsBuilder<StatisticsOfPromotedTweetQuery> implements StatisticsOfPromotedTweetQuery {
+	private List<String> promotedTweetIds;
 	
-	/* (non-Javadoc)
-	 * @see org.springframework.social.twitter.api.impl.advertising.TwitterQueryForStatsOfCampaign#withCampaigns(java.lang.String)
-	 */
-	@Override
-	public StatsOfCampaignQueryBuilder withCampaigns(String... campaignIds) {
-		this.campaignIds = new ArrayList<String>();
-		for (int i = 0; i < campaignIds.length; i++)
-			this.campaignIds.add(campaignIds[i]);
+	public StatisticsOfPromotedTweetQueryBuilder withPromotedTweets(String... promotedAccountIds) {
+		this.promotedTweetIds = new ArrayList<String>();
+		for (int i = 0; i < promotedAccountIds.length; i++)
+			this.promotedTweetIds.add(promotedAccountIds[i]);
 		return this;
 	}
 
 	@Override
 	protected void makeParameters(MultiValueMap<String, Object> map) {
-		appendParameter(map, "campaign_ids", this.campaignIds);
+		appendParameter(map, "promoted_tweet_ids", this.promotedTweetIds);
 	}
+
 }

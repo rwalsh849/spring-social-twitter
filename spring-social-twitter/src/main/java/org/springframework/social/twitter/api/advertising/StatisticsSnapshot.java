@@ -26,17 +26,17 @@ import org.springframework.social.twitter.api.impl.basic.TwitterObject;
  * for any of the perspectives requested to the twitter ads api.
  * @author Hudson Mendes
  */
-public class StatsSnapshot extends TwitterObject {
+public class StatisticsSnapshot extends TwitterObject {
 	private final String id;
-	private final StatsGranularity granularity;
-	private final Map<StatsMetric, StatsSnapshotMetric> metrics = new HashMap<StatsMetric, StatsSnapshotMetric>();
+	private final StatisticsGranularity granularity;
+	private final Map<StatisticsMetric, StatisticsSnapshotMetric> metrics = new HashMap<StatisticsMetric, StatisticsSnapshotMetric>();
 	private final LocalDateTime startTime;
 	private final LocalDateTime endTime;
 	
-	public StatsSnapshot(
+	public StatisticsSnapshot(
 			String id,
-			StatsGranularity granularity,
-			Map<StatsMetric, StatsSnapshotMetric> metrics,
+			StatisticsGranularity granularity,
+			Map<StatisticsMetric, StatisticsSnapshotMetric> metrics,
 			LocalDateTime startTime,
 			LocalDateTime endTime) {
 		
@@ -51,7 +51,7 @@ public class StatsSnapshot extends TwitterObject {
 		return id;
 	}
 
-	public StatsGranularity getGranularity() {
+	public StatisticsGranularity getGranularity() {
 		return granularity;
 	}
 
@@ -63,7 +63,7 @@ public class StatsSnapshot extends TwitterObject {
 		return endTime;
 	}
 	
-	public StatsSnapshotMetric getMetric(StatsMetric key) {
+	public StatisticsSnapshotMetric getMetric(StatisticsMetric key) {
 		return this.metrics.get(key);
 	}
 }

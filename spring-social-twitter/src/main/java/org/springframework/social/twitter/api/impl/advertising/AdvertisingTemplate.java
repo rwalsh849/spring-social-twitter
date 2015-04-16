@@ -23,6 +23,7 @@ import org.springframework.social.twitter.api.advertising.AdvertisingAccount;
 import org.springframework.social.twitter.api.advertising.AdvertisingAccountQuery;
 import org.springframework.social.twitter.api.advertising.AdvertisingOperations;
 import org.springframework.social.twitter.api.advertising.FundingInstrument;
+import org.springframework.social.twitter.api.advertising.FundingInstrumentQuery;
 import org.springframework.social.twitter.api.impl.AbstractTwitterTemplate;
 import org.springframework.social.twitter.api.impl.DataListHolder;
 import org.springframework.social.twitter.api.impl.TwitterApiUriBuilder;
@@ -56,13 +57,13 @@ public class AdvertisingTemplate extends AbstractTwitterTemplate implements Adve
 	}
 	
 	@Override
-	public List<FundingInstrument> getFundingInstruments(String accountId) {
+	public List<FundingInstrument> getFundingInstruments(String accountId, FundingInstrumentQuery query) {
 		requireUserAuthorization();
 		return restTemplate.exchange(
 				new TwitterApiUriBuilder()
 					.withResource(TwitterApiUriResourceForAdvertising.FUNDING_INSTRUMENTS)
 					.withArgument("account_id", accountId)
-					.withArgument("with_deleted", "true")
+					.withArgument(query.toQueryParameters())
 					.build(),
 				HttpMethod.GET,
 				null,

@@ -53,7 +53,7 @@ public abstract class AbstractTwitterQueryForEntityBuilder<TBuilder, TSort>
 		MultiValueMap<String, Object> map = new LinkedMultiValueMap<String, Object>();
 		makeParameters(map);
 		appendParameter(map, "with_deleted", this.includeDeleted);
-		appendParameter(map, "sort", this.sort.toString());
+		appendParameter(map, "sort", this.sort);
 		return map;
 	}
 	

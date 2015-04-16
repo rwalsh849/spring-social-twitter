@@ -18,34 +18,34 @@ package org.springframework.social.twitter.api.impl.advertising;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.springframework.social.twitter.api.advertising.StatsSnapshot;
-import org.springframework.social.twitter.api.advertising.StatsOfFundingInstrumentQuery;
+import org.springframework.social.twitter.api.advertising.StatisticsOfLineItemQuery;
+import org.springframework.social.twitter.api.advertising.StatisticsSnapshot;
 import org.springframework.social.twitter.api.impl.AbstractTwitterQueryForStatsBuilder;
 import org.springframework.util.MultiValueMap;
 
 /**
- * Builder related to {@link StatsSnapshot} data that generates a map (key, value)
+ * Builder related to {@link StatisticsSnapshot} data that generates a map (key, value)
  * that can be posted into the twitter api endpoint.
  * 
  * @author Hudson Mendes
  */
-public class StatsOfFundingInstrumentQueryBuilder extends AbstractTwitterQueryForStatsBuilder<StatsOfFundingInstrumentQuery> implements StatsOfFundingInstrumentQuery {
-	private List<String> fundingInstrumentIds;
+public class StatisticsOfLineItemQueryBuilder extends AbstractTwitterQueryForStatsBuilder<StatisticsOfLineItemQuery> implements StatisticsOfLineItemQuery {
+	private List<String> lineItemIds;
 	
 	/* (non-Javadoc)
-	 * @see org.springframework.social.twitter.api.impl.advertising.TwitterQueryForStatsOfFundingInstrument#withFundingInstruments(java.lang.String)
+	 * @see org.springframework.social.twitter.api.impl.advertising.TwitterQueryForStatsOfLineItem#withLineItems(java.lang.String)
 	 */
 	@Override
-	public StatsOfFundingInstrumentQueryBuilder withFundingInstruments(String... fundingInstrumentIds) {
-		this.fundingInstrumentIds = new ArrayList<String>();
-		for (int i = 0; i < fundingInstrumentIds.length; i++)
-			this.fundingInstrumentIds.add(fundingInstrumentIds[i]);
+	public StatisticsOfLineItemQueryBuilder withLineItems(String... lineItemIds) {
+		this.lineItemIds = new ArrayList<String>();
+		for (int i = 0; i < lineItemIds.length; i++)
+			this.lineItemIds.add(lineItemIds[i]);
 		return this;
 	}
 
 	@Override
 	protected void makeParameters(MultiValueMap<String, Object> map) {
-		appendParameter(map, "funding_instrument_ids", this.fundingInstrumentIds);
+		appendParameter(map, "line_item_ids", this.lineItemIds);
 	}
 
 }

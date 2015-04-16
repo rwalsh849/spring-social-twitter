@@ -15,22 +15,23 @@
  */
 package org.springframework.social.twitter.api.impl.advertising;
 
-import org.springframework.social.twitter.api.advertising.StatsOfAccountQuery;
-import org.springframework.social.twitter.api.advertising.StatsSnapshot;
-import org.springframework.social.twitter.api.impl.AbstractTwitterQueryForStatsBuilder;
+import org.springframework.social.twitter.api.advertising.AdvertisingAccountQuery;
+import org.springframework.social.twitter.api.basic.AdvertisingAccountSorting;
+import org.springframework.social.twitter.api.impl.AbstractTwitterQueryForEntityBuilder;
 import org.springframework.util.MultiValueMap;
 
 /**
- * Builder related to {@link StatsSnapshot} data that generates a map (key, value)
- * that can be posted into the twitter api endpoint.
  * 
  * @author Hudson Mendes
+ *
  */
-public class StatsOfAccountQueryBuilder extends AbstractTwitterQueryForStatsBuilder<StatsOfAccountQuery> implements StatsOfAccountQuery {
+public class AdvertisingAccountQueryBuilder
+	extends AbstractTwitterQueryForEntityBuilder<AdvertisingAccountQuery, AdvertisingAccountSorting>
+	implements AdvertisingAccountQuery {
 
 	@Override
 	protected void makeParameters(MultiValueMap<String, Object> map) {
-		// nothing to add here
+		// no parameters to add here
 	}
-	
+
 }

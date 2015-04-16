@@ -2,9 +2,9 @@ package org.springframework.social.twitter.api.advertising;
 
 import org.springframework.social.twitter.api.TwitterQueryForStats;
 
-public interface StatsOfCampaignQuery extends TwitterQueryForStats<StatsOfCampaignQuery> {
+public interface StatisticsOfCampaignQuery extends TwitterQueryForStats<StatisticsOfCampaignQuery> {
 
-	public abstract StatsOfCampaignQuery withCampaigns(
+	public abstract StatisticsOfCampaignQuery withCampaigns(
 			String... campaignIds);
 
 }

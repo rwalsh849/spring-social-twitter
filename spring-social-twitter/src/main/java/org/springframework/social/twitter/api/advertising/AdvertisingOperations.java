@@ -27,7 +27,8 @@ import org.springframework.social.MissingAuthorizationException;
 public interface AdvertisingOperations {
 	
 	/**
-	 * Retrieves a list of all {@link AdvertisingAccount} to which the authenticating user has access.  
+	 * Retrieves a list of all {@link AdvertisingAccount} to which the authenticating user has access.
+	 * @param query The query parameters that will filter the request
 	 * @return a list of {@link AdvertisingAccount}
 	 * @throws ApiException if there is an error while communicating with Twitter.
 	 * @throws MissingAuthorizationException if TwitterTemplate was not created with OAuth credentials.
@@ -36,11 +37,12 @@ public interface AdvertisingOperations {
 	
 	/**
 	 * Retrieves a list of all {@link FundingInstrument} linked to a particular {@link AdvertisingAccount}.
-	 * @param accountId identifies the account for which we want to get the funding instruments.  
+	 * @param accountId identifies the account for which we want to get the funding instruments.
+	 * @param query The query parameters that will filter the request  
 	 * @return a list of {@link FundingInstrument}
 	 * @throws ApiException if there is an error while communicating with Twitter.
 	 * @throws MissingAuthorizationException if TwitterTemplate was not created with OAuth credentials.
 	 */
-	List<FundingInstrument> getFundingInstruments(String accountId);
+	List<FundingInstrument> getFundingInstruments(String accountId, FundingInstrumentQuery query);
 	
 }

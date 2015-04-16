@@ -18,34 +18,34 @@ package org.springframework.social.twitter.api.impl.advertising;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.springframework.social.twitter.api.advertising.StatsOfPromotedAccountQuery;
-import org.springframework.social.twitter.api.advertising.StatsSnapshot;
+import org.springframework.social.twitter.api.advertising.StatisticsSnapshot;
+import org.springframework.social.twitter.api.advertising.StatisticsOfFundingInstrumentQuery;
 import org.springframework.social.twitter.api.impl.AbstractTwitterQueryForStatsBuilder;
 import org.springframework.util.MultiValueMap;
 
 /**
- * Builder related to {@link StatsSnapshot} data that generates a map (key, value)
+ * Builder related to {@link StatisticsSnapshot} data that generates a map (key, value)
  * that can be posted into the twitter api endpoint.
  * 
  * @author Hudson Mendes
  */
-public class StatsOfPromotedAccountQueryBuilder extends AbstractTwitterQueryForStatsBuilder<StatsOfPromotedAccountQuery> implements StatsOfPromotedAccountQuery {
-	private List<String> promotedAccountIds;
+public class StatisticsOfFundingInstrumentQueryBuilder extends AbstractTwitterQueryForStatsBuilder<StatisticsOfFundingInstrumentQuery> implements StatisticsOfFundingInstrumentQuery {
+	private List<String> fundingInstrumentIds;
 	
 	/* (non-Javadoc)
-	 * @see org.springframework.social.twitter.api.impl.advertising.TwitterQueryForStatsOfPromotedAccount#withPromotedAccounts(java.lang.String)
+	 * @see org.springframework.social.twitter.api.impl.advertising.TwitterQueryForStatsOfFundingInstrument#withFundingInstruments(java.lang.String)
 	 */
 	@Override
-	public StatsOfPromotedAccountQueryBuilder withPromotedAccounts(String... promotedAccountIds) {
-		this.promotedAccountIds = new ArrayList<String>();
-		for (int i = 0; i < promotedAccountIds.length; i++)
-			this.promotedAccountIds.add(promotedAccountIds[i]);
+	public StatisticsOfFundingInstrumentQueryBuilder withFundingInstruments(String... fundingInstrumentIds) {
+		this.fundingInstrumentIds = new ArrayList<String>();
+		for (int i = 0; i < fundingInstrumentIds.length; i++)
+			this.fundingInstrumentIds.add(fundingInstrumentIds[i]);
 		return this;
 	}
 
 	@Override
 	protected void makeParameters(MultiValueMap<String, Object> map) {
-		appendParameter(map, "promoted_account_ids", this.promotedAccountIds);
+		appendParameter(map, "funding_instrument_ids", this.fundingInstrumentIds);
 	}
 
 }

@@ -20,8 +20,8 @@ import java.time.ZoneOffset;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.springframework.social.twitter.api.advertising.StatsGranularity;
-import org.springframework.social.twitter.api.advertising.StatsMetric;
+import org.springframework.social.twitter.api.advertising.StatisticsGranularity;
+import org.springframework.social.twitter.api.advertising.StatisticsMetric;
 import org.springframework.util.LinkedMultiValueMap;
 import org.springframework.util.MultiValueMap;
 
@@ -39,8 +39,8 @@ public abstract class AbstractTwitterQueryForStatsBuilder<TBuilderInterface>
 	
 	private LocalDateTime startTime;
 	private LocalDateTime endTime;
-	private StatsGranularity granularity;
-	private List<StatsMetric> metrics;
+	private StatisticsGranularity granularity;
+	private List<StatisticsMetric> metrics;
 	
 	public MultiValueMap<String, Object> toQueryParameters() {
 		MultiValueMap<String, Object> map = new LinkedMultiValueMap<String, Object>();
@@ -70,14 +70,14 @@ public abstract class AbstractTwitterQueryForStatsBuilder<TBuilderInterface>
 	}
 	
 	@SuppressWarnings("unchecked")
-	public TBuilderInterface withGranularity(StatsGranularity granularity) {
+	public TBuilderInterface withGranularity(StatisticsGranularity granularity) {
 		this.granularity = granularity;
 		return (TBuilderInterface) this;
 	}
 	
 	@SuppressWarnings("unchecked")
-	public TBuilderInterface withStatisticalMetric(StatsMetric... metrics) {
-		this.metrics = new ArrayList<StatsMetric>();
+	public TBuilderInterface withStatisticalMetric(StatisticsMetric... metrics) {
+		this.metrics = new ArrayList<StatisticsMetric>();
 		for (int i = 0; i < metrics.length; i++)
 			this.metrics.add(metrics[i]);
 		return (TBuilderInterface) this;

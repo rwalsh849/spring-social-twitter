@@ -22,8 +22,10 @@ import static org.springframework.test.web.client.match.MockRestRequestMatchers.
 import static org.springframework.test.web.client.match.MockRestRequestMatchers.requestTo;
 import static org.springframework.test.web.client.response.MockRestResponseCreators.withSuccess;
 
+import java.io.UnsupportedEncodingException;
 import java.math.BigDecimal;
 import java.math.MathContext;
+import java.net.URLEncoder;
 import java.time.LocalDateTime;
 import java.time.Month;
 import java.util.List;
@@ -36,7 +38,6 @@ import org.springframework.social.twitter.api.advertising.FundingInstrumentType;
 import org.springframework.social.twitter.api.basic.AdvertisingAccountSorting;
 import org.springframework.social.twitter.api.basic.ApprovalStatus;
 import org.springframework.social.twitter.api.impl.AbstractTwitterApiTest;
-import org.springframework.social.twitter.api.impl.AdvertisingAccountQueryBuilder;
 
 /**
  * @author Hudson mendes
@@ -60,14 +61,24 @@ public class AdvertisingTemplateTest extends AbstractTwitterApiTest {
 	}
 
 	@Test
-	public void getFundingInstruments() {
+	public void getFundingInstruments() throws UnsupportedEncodingException {
 		String mockedAccountId = "hkk5";
+		String mockedFundingInstrumentId1 = "h2459";
+		String mockedFundingInstrumentId2 = "95jll";
 		mockServer
-			.expect(requestTo("https://ads-api.twitter.com/0/accounts/" + mockedAccountId + "/funding_instruments?with_deleted=true"))
+			.expect(requestTo(
+					"https://ads-api.twitter.com/0/accounts/" + mockedAccountId + "/funding_instruments" +
+					"?funding_instrument_ids=" + URLEncoder.encode(mockedFundingInstrumentId1 + "," + mockedFundingInstrumentId2, UTF8) +
+					"&with_deleted=false"))
 			.andExpect(method(GET))
 			.andRespond(withSuccess(jsonResource("ad-funding-instruments"), APPLICATION_JSON));
 	
-		List<FundingInstrument> fundingInstruments = twitter.advertisingOperations().getFundingInstruments(mockedAccountId);
+		List<FundingInstrument> fundingInstruments = twitter.advertisingOperations().getFundingInstruments(
+				mockedAccountId,
+				new FundingInstrumentQueryBuilder()
+					.withFundingInstruments(mockedFundingInstrumentId1, mockedFundingInstrumentId2)
+					.includeDeleted(false));
+		
 		assertFundingInstrumentContents(fundingInstruments);
 	}
 	
