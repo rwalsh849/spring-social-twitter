@@ -15,7 +15,6 @@
  */
 package org.springframework.social.twitter.api.impl.basic;
 
-import java.net.URI;
 import java.util.List;
 
 import org.springframework.social.twitter.api.basic.DirectMessage;
@@ -25,8 +24,6 @@ import org.springframework.social.twitter.api.impl.PagingUtils;
 import org.springframework.social.twitter.api.impl.RestRequestBodyBuilder;
 import org.springframework.social.twitter.api.impl.TwitterApiUriBuilder;
 import org.springframework.social.twitter.api.impl.TwitterApiUriResourceForStandard;
-import org.springframework.util.LinkedMultiValueMap;
-import org.springframework.util.MultiValueMap;
 import org.springframework.web.client.RestTemplate;
 
 /**
