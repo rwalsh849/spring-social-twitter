@@ -15,7 +15,7 @@
  */
 package org.springframework.social.twitter.api.impl.basic;
 
-import static org.springframework.social.twitter.api.impl.SearchParametersUtil.*;
+import static org.springframework.social.twitter.api.impl.SearchParametersUtil.buildQueryParametersFromSearchParameters;
 
 import java.util.List;
 
