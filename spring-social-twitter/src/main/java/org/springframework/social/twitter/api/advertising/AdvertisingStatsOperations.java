@@ -70,11 +70,28 @@ public interface AdvertisingStatsOperations {
 	List<StatisticalSnapshot> byLineItems(String accountId, QueryingData query);
 	
 	/**
-	 * Snapshot of Advertising Statistics by {@link Campaign}.
+	 * Snapshot of Advertising Statistics by {@link LineItem}.
 	 * @param accountId The id of the account for which we want to retrieve the statistics.
 	 * @param lineItemId The id of the line item for which we want to retrieve the statistics.
 	 * @param query The query for which we shall retrieve statistics.
 	 * @returns an instance of {@link StatisticalSnapshot}
 	 */
 	StatisticalSnapshot byLineItem(String accountId, String lineItemId, QueryingData query);
+	
+	/**
+	 * Snapshot of Advertising Statistics for Multiple promoted accounts.
+	 * @param accountId The id of the account for which we want to retrieve the statistics.
+	 * @param query The query for which we shall retrieve statistics.
+	 * @returns a list of {@link StatisticalSnapshot}
+	 */
+	List<StatisticalSnapshot> byPromotedAccounts(String accountId, QueryingData query);
+	
+	/**
+	 * Snapshot of Advertising Statistics for a promoted accounts.
+	 * @param accountId The id of the account for which we want to retrieve the statistics.
+	 * @param promotedAccountId The id of the promoted account for which we want to retrieve the statistics.
+	 * @param query The query for which we shall retrieve statistics.
+	 * @returns an instance of {@link StatisticalSnapshot}
+	 */
+	StatisticalSnapshot byPromotedAccount(String accountId, String promotedAccountId, QueryingData query);
 }

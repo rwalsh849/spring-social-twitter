@@ -64,11 +64,11 @@ public class AdvertisingStatsTemplateTest extends AbstractTwitterApiTest {
 	
 		List<StatisticalSnapshot> snapshots = twitter.advertisingStatsOperations().byCampaigns(
 				mockedAccountId,
-				new StatisticalSnapshotQueryingDataBuilder()
-					.activeBetween(LocalDateTime.of(2015, Month.MARCH, 06, 07, 00, 00), LocalDateTime.of(2015, Month.MARCH, 13, 07, 00, 00))
-					.withGranularity(StatisticalGranularity.HOUR)
+				new StatisticalQueryingCampaignDataBuilder()
 					.withCampaigns(mockedCampaignId1, mockedCampaignId2)
-					.withStatisticalMetric(StatisticalMetric.billed_follows));
+					.withGranularity(StatisticalGranularity.HOUR)
+					.withStatisticalMetric(StatisticalMetric.billed_follows)
+					.activeBetween(LocalDateTime.of(2015, Month.MARCH, 06, 07, 00, 00), LocalDateTime.of(2015, Month.MARCH, 13, 07, 00, 00)));
 		
 		assertSnapshotContents(snapshots);
 	}
@@ -91,14 +91,14 @@ public class AdvertisingStatsTemplateTest extends AbstractTwitterApiTest {
 		StatisticalSnapshot snapshot = twitter.advertisingStatsOperations().byCampaign(
 				mockedAccountId,
 				mockedCampaignId,
-				new StatisticalSnapshotQueryingDataBuilder()
-					.activeBetween(LocalDateTime.of(2015, Month.MARCH, 06, 07, 00, 00), LocalDateTime.of(2015, Month.MARCH, 13, 07, 00, 00))
+				new StatisticalQueryingCampaignDataBuilder()
 					.withGranularity(StatisticalGranularity.HOUR)
 					.withStatisticalMetric(
 							StatisticalMetric.billed_follows,
 							StatisticalMetric.promoted_account_follow_rate,
 							StatisticalMetric.billed_charge_local_micro,
-							StatisticalMetric.mobile_conversion_rated));
+							StatisticalMetric.mobile_conversion_rated)
+					.activeBetween(LocalDateTime.of(2015, Month.MARCH, 06, 07, 00, 00), LocalDateTime.of(2015, Month.MARCH, 13, 07, 00, 00)));
 		
 		assertSnapshotSingleContents(snapshot);
 	}
@@ -122,11 +122,11 @@ public class AdvertisingStatsTemplateTest extends AbstractTwitterApiTest {
 	
 		List<StatisticalSnapshot> campaigns = twitter.advertisingStatsOperations().byFundingInstruments(
 				mockedAccountId,
-				new StatisticalSnapshotQueryingDataBuilder()
-					.activeBetween(LocalDateTime.of(2015, Month.MARCH, 06, 07, 00, 00), LocalDateTime.of(2015, Month.MARCH, 13, 07, 00, 00))
-					.withGranularity(StatisticalGranularity.HOUR)
+				new StatisticalQueryingFundingInstrumentDataBuilder()
 					.withFundingInstruments(mockedFundingInstrument1, mockedFundingInstrument2)
-					.withStatisticalMetric(StatisticalMetric.billed_follows));
+					.withGranularity(StatisticalGranularity.HOUR)
+					.withStatisticalMetric(StatisticalMetric.billed_follows)
+					.activeBetween(LocalDateTime.of(2015, Month.MARCH, 06, 07, 00, 00), LocalDateTime.of(2015, Month.MARCH, 13, 07, 00, 00)));
 		
 		assertSnapshotContents(campaigns);
 	}
@@ -150,10 +150,10 @@ public class AdvertisingStatsTemplateTest extends AbstractTwitterApiTest {
 		StatisticalSnapshot snapshot = twitter.advertisingStatsOperations().byFundingInstrument(
 				mockedAccountId,
 				mockedFundingInstrumentId,
-				new StatisticalSnapshotQueryingDataBuilder()
-					.activeBetween(LocalDateTime.of(2015, Month.MARCH, 06, 07, 00, 00), LocalDateTime.of(2015, Month.MARCH, 13, 07, 00, 00))
+				new StatisticalQueryingFundingInstrumentDataBuilder()
 					.withGranularity(StatisticalGranularity.HOUR)
-					.withStatisticalMetric(StatisticalMetric.billed_follows));
+					.withStatisticalMetric(StatisticalMetric.billed_follows)
+					.activeBetween(LocalDateTime.of(2015, Month.MARCH, 06, 07, 00, 00), LocalDateTime.of(2015, Month.MARCH, 13, 07, 00, 00)));
 		
 		assertSnapshotSingleContents(snapshot);
 	}
@@ -176,12 +176,12 @@ public class AdvertisingStatsTemplateTest extends AbstractTwitterApiTest {
 	
 		List<StatisticalSnapshot> snapshots = twitter.advertisingStatsOperations().byLineItems(
 				mockedAccountId,
-				new StatisticalSnapshotQueryingDataBuilder()
-					.activeFrom(LocalDateTime.of(2015, Month.MARCH, 06, 07, 00, 00))
-					.activeUntil(LocalDateTime.of(2015, Month.MARCH, 13, 07, 00, 00))
-					.withGranularity(StatisticalGranularity.HOUR)
+				new StatisticalQueryingLineItemDataBuilder()
 					.withLineItems(mockedLineItemId1, mockedLineItemId2)
-					.withStatisticalMetric(StatisticalMetric.billed_follows));
+					.withGranularity(StatisticalGranularity.HOUR)
+					.withStatisticalMetric(StatisticalMetric.billed_follows)
+					.activeFrom(LocalDateTime.of(2015, Month.MARCH, 06, 07, 00, 00))
+					.activeUntil(LocalDateTime.of(2015, Month.MARCH, 13, 07, 00, 00)));
 		
 		assertSnapshotContents(snapshots);
 	}
@@ -205,10 +205,65 @@ public class AdvertisingStatsTemplateTest extends AbstractTwitterApiTest {
 		StatisticalSnapshot snapshot = twitter.advertisingStatsOperations().byLineItem(
 				mockedAccountId,
 				mockedLineItemId,
-				new StatisticalSnapshotQueryingDataBuilder()
-					.activeBetween(LocalDateTime.of(2015, Month.MARCH, 06, 07, 00, 00), LocalDateTime.of(2015, Month.MARCH, 13, 07, 00, 00))
+				new StatisticalQueryingLineItemDataBuilder()
 					.withGranularity(StatisticalGranularity.HOUR)
-					.withStatisticalMetric(StatisticalMetric.billed_follows));
+					.withStatisticalMetric(StatisticalMetric.billed_follows)
+					.activeBetween(LocalDateTime.of(2015, Month.MARCH, 06, 07, 00, 00), LocalDateTime.of(2015, Month.MARCH, 13, 07, 00, 00)));
+		
+		assertSnapshotSingleContents(snapshot);
+	}
+	
+	@Test
+	public void byPromotedAccounts() throws UnsupportedEncodingException {
+		String mockedAccountId = "0ga0yn";
+		String mockedPromotedAccountId1 = "92ph";
+		String mockedPromotedAccountId2 = "x902";
+		mockServer
+		.expect(requestTo(
+				"https://ads-api.twitter.com/0/stats/accounts/" + mockedAccountId + "/promoted_accounts" +
+				"?promoted_account_ids=" + URLEncoder.encode(mockedPromotedAccountId1 + "," + mockedPromotedAccountId2, DEFAULT_ENCODING) +
+				"&granularity=HOUR" +
+				"&metrics=" + URLEncoder.encode("billed_follows", DEFAULT_ENCODING) +
+				"&start_time=" + URLEncoder.encode("2015-03-06T07:00:00Z", DEFAULT_ENCODING) +
+				"&end_time=" + URLEncoder.encode("2015-03-13T07:00:00Z", DEFAULT_ENCODING)))
+			.andExpect(method(GET))
+			.andRespond(withSuccess(jsonResource("statistics-snapshot"), APPLICATION_JSON));
+	
+		List<StatisticalSnapshot> snapshots = twitter.advertisingStatsOperations().byPromotedAccounts(
+				mockedAccountId,
+				new StatisticalQueryingPromotedAccountDataBuilder()
+				.withPromotedAccounts(mockedPromotedAccountId1, mockedPromotedAccountId2)
+					.withGranularity(StatisticalGranularity.HOUR)
+					.withStatisticalMetric(StatisticalMetric.billed_follows)
+					.activeFrom(LocalDateTime.of(2015, Month.MARCH, 06, 07, 00, 00))
+					.activeUntil(LocalDateTime.of(2015, Month.MARCH, 13, 07, 00, 00)));
+		
+		assertSnapshotContents(snapshots);
+	}
+	
+	@Test
+	public void byPromotedAccount() throws UnsupportedEncodingException {
+		String mockedAccountId = "0ga0yn";
+		String mockedPromotedAccountId = "92ph";
+		
+		mockServer
+			.expect(requestTo(
+					"https://ads-api.twitter.com/0/stats/accounts/" + mockedAccountId + "/promoted_accounts" +
+					"/" + mockedPromotedAccountId +
+					"?granularity=HOUR" +
+					"&metrics=" + URLEncoder.encode("billed_follows", DEFAULT_ENCODING) +
+					"&start_time=" + URLEncoder.encode("2015-03-06T07:00:00Z", DEFAULT_ENCODING) +
+					"&end_time=" + URLEncoder.encode("2015-03-13T07:00:00Z", DEFAULT_ENCODING)))
+			.andExpect(method(GET))
+			.andRespond(withSuccess(jsonResource("statistics-snapshot-single"), APPLICATION_JSON));
+	
+		StatisticalSnapshot snapshot = twitter.advertisingStatsOperations().byPromotedAccount(
+				mockedAccountId,
+				mockedPromotedAccountId,
+				new StatisticalQueryingPromotedAccountDataBuilder()
+					.withGranularity(StatisticalGranularity.HOUR)
+					.withStatisticalMetric(StatisticalMetric.billed_follows)
+					.activeBetween(LocalDateTime.of(2015, Month.MARCH, 06, 07, 00, 00), LocalDateTime.of(2015, Month.MARCH, 13, 07, 00, 00)));
 		
 		assertSnapshotSingleContents(snapshot);
 	}
