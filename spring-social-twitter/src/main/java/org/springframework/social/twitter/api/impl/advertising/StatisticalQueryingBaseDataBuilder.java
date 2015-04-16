@@ -33,7 +33,7 @@ import org.springframework.util.MultiValueMap;
  * 
  * @author Hudson Mendes
  */
-public abstract class StatisticalQueryingBaseDataBuilder extends TwitterRequestQueryingDataBuilder {
+public class StatisticalQueryingBaseDataBuilder extends TwitterRequestQueryingDataBuilder {
 	private LocalDateTime startTime;
 	private LocalDateTime endTime;
 	private StatisticalGranularity granularity;
@@ -78,5 +78,7 @@ public abstract class StatisticalQueryingBaseDataBuilder extends TwitterRequestQ
 		return this;
 	}
 
-	protected abstract void appendSpecificParameters(MultiValueMap<String, Object> params);
+	protected void appendSpecificParameters(MultiValueMap<String, Object> params) {
+		/* nothing to do here. */
+	}
 }

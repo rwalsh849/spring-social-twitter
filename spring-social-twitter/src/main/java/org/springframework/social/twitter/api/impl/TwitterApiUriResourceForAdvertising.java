@@ -14,6 +14,7 @@ public enum TwitterApiUriResourceForAdvertising {
 	TARGETING_CRITERIAS("accounts/:account_id/targeting_criteria"),
 	TARGETING_CRITERIA("accounts/:account_id/targeting_criteria/:targeting_criteria_id"),
 	
+	STATS_ACCOUNT("stats/accounts/:account_id"),
 	STATS_CAMPAIGNS("stats/accounts/:account_id/campaigns"),
 	STATS_CAMPAIGN("stats/accounts/:account_id/campaigns/:campaign_id"),
 	STATS_FUNDING_INSTRUMENTS("stats/accounts/:account_id/funding_instruments"),

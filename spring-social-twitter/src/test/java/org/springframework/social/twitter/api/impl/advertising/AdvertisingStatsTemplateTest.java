@@ -47,6 +47,29 @@ public class AdvertisingStatsTemplateTest extends AbstractTwitterApiTest {
 	private static final MathContext DEFAULT_ROUNDER = MathContext.DECIMAL32;
 	
 	@Test
+	public void byAccounts() throws UnsupportedEncodingException {
+		String mockedAccountId = "0ga0yn";
+		mockServer
+		.expect(requestTo(
+				"https://ads-api.twitter.com/0/stats/accounts/" + mockedAccountId + 
+				"?granularity=HOUR" +
+				"&metrics=" + URLEncoder.encode("billed_follows", DEFAULT_ENCODING) +
+				"&start_time=" + URLEncoder.encode("2015-03-06T07:00:00Z", DEFAULT_ENCODING) +
+				"&end_time=" + URLEncoder.encode("2015-03-13T07:00:00Z", DEFAULT_ENCODING)))
+			.andExpect(method(GET))
+			.andRespond(withSuccess(jsonResource("statistics-snapshot"), APPLICATION_JSON));
+	
+		List<StatisticalSnapshot> snapshots = twitter.advertisingStatsOperations().byAccounts(
+				mockedAccountId,
+				new StatisticalQueryingBaseDataBuilder()
+					.withGranularity(StatisticalGranularity.HOUR)
+					.withStatisticalMetric(StatisticalMetric.billed_follows)
+					.activeBetween(LocalDateTime.of(2015, Month.MARCH, 06, 07, 00, 00), LocalDateTime.of(2015, Month.MARCH, 13, 07, 00, 00)));
+		
+		assertSnapshotContents(snapshots);
+	}
+	
+	@Test
 	public void byCampaigns() throws UnsupportedEncodingException {
 		String mockedAccountId = "0ga0yn";
 		String mockedCampaignId1 = "92ph";

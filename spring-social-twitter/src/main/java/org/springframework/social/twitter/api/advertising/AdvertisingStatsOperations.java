@@ -28,6 +28,14 @@ import org.springframework.social.twitter.api.impl.basic.Tweet;
 public interface AdvertisingStatsOperations {
 	
 	/**
+	 * Snapshot of Advertising Statistics for Multiple {@link AdvertisingAccount}.
+	 * @param accountId The id of the account for which we want to retrieve the statistics.
+	 * @param query The query for which we shall retrieve statistics.
+	 * @returns a list of {@link StatisticalSnapshot}
+	 */
+	List<StatisticalSnapshot> byAccounts(String accountId, QueryingData query);
+	
+	/**
 	 * Snapshot of Advertising Statistics for Multiple {@link Campaign}.
 	 * @param accountId The id of the account for which we want to retrieve the statistics.
 	 * @param query The query for which we shall retrieve statistics.

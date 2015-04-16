@@ -42,6 +42,21 @@ public class AdvertisingStatsTemplate extends AbstractTwitterTemplate implements
 	}
 	
 	@Override
+	public List<StatisticalSnapshot> byAccounts(String accountId, QueryingData query) {
+		requireUserAuthorization();
+		return restTemplate.exchange(
+				new TwitterApiUriBuilder()
+					.withResource(TwitterApiUriResourceForAdvertising.STATS_ACCOUNT)
+					.withArgument("account_id", accountId)
+					.withArgument(query.toQueryParameters())
+					.build(),
+				HttpMethod.GET,
+				null,
+				new ParameterizedTypeReference<DataListHolder<StatisticalSnapshot>>(){}
+			).getBody().getData();
+	}
+	
+	@Override
 	public List<StatisticalSnapshot> byCampaigns(String accountId, QueryingData query) {
 		requireUserAuthorization();
 		return restTemplate.exchange(
@@ -185,5 +200,4 @@ public class AdvertisingStatsTemplate extends AbstractTwitterTemplate implements
 				StatisticalSnapshot.class
 			);
 	}
-	
 }
