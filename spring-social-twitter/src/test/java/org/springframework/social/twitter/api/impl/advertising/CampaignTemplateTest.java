@@ -53,7 +53,10 @@ public class CampaignTemplateTest extends AbstractTwitterApiTest {
 		String mockedAccountId = "0ga0yn";
 		String mockedCampaignId = "92ph";
 		mockServer
-			.expect(requestTo("https://ads-api.twitter.com/0/accounts/" + mockedAccountId + "/campaigns/" + mockedCampaignId))
+			.expect(requestTo(
+					"https://ads-api.twitter.com/0/accounts/" + mockedAccountId + "/campaigns" + 
+					"/" + mockedCampaignId +
+					"?with_deleted=true"))
 			.andExpect(method(GET))
 			.andRespond(withSuccess(jsonResource("ad-campaigns-single"), APPLICATION_JSON));
 	

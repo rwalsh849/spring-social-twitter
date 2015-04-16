@@ -52,6 +52,7 @@ public class CampaignTemplate extends AbstractTwitterTemplate implements Campaig
 					.withResource(TwitterApiUriResourceForAdvertising.CAMPAIGN)
 					.withArgument("account_id", accountId)
 					.withArgument("campaign_id", id)
+					.withArgument("with_deleted", true)
 					.build(),
 				HttpMethod.GET,
 				null,
