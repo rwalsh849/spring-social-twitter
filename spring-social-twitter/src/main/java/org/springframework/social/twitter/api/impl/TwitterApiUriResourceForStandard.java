@@ -1,6 +1,11 @@
 package org.springframework.social.twitter.api.impl;
 
 public enum TwitterApiUriResourceForStandard {
+	APPLICATION_RATE_LIMIT_STATUS("application/rate_limit_status.json"),
+	
+	ACCOUNT_VERIFY_CREDENTIALS("account/verify_credentials.json"),
+	ACCOUNT_SETTINGS("account/settings.json"),
+	
 	BLOCKS("blocks/list.json"),
 	BLOCKS_IDS("blocks/ids.json"),
 	BLOCKS_CREATE("blocks/create.json"),
@@ -73,7 +78,13 @@ public enum TwitterApiUriResourceForStandard {
 	
 	FAVORITES_LIST("favorites/list.json"),
 	FAVORITES_CREATE("favorites/create.json"),
-	FAVORITES_DESTROY("favorites/destroy.json");
+	FAVORITES_DESTROY("favorites/destroy.json"),
+	
+	USERS_SHOW("users/show.json"),
+	USERS_LOOKUP("users/lookup.json"),
+	USERS_SEARCH("users/search.json"),
+	USERS_SUGGESTIONS("users/suggestions.json"),
+	USERS_SUGGESTIONS_WITH_SLUG("users/suggestions/:slug.json");
 	
 	private final String name;
 	

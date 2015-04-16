@@ -23,6 +23,8 @@ import org.springframework.social.twitter.api.basic.UserOperations;
 import org.springframework.social.twitter.api.impl.AbstractTwitterTemplate;
 import org.springframework.social.twitter.api.impl.ArrayUtils;
 import org.springframework.social.twitter.api.impl.PagingUtils;
+import org.springframework.social.twitter.api.impl.TwitterApiUriBuilder;
+import org.springframework.social.twitter.api.impl.TwitterApiUriResourceForStandard;
 import org.springframework.util.MultiValueMap;
 import org.springframework.web.client.RestTemplate;
 
@@ -51,29 +53,53 @@ public class UserTemplate extends AbstractTwitterTemplate implements UserOperati
 
 	public TwitterProfile getUserProfile() {
 		requireUserAuthorization();
-		return restTemplate.getForObject(buildUri("account/verify_credentials.json"), TwitterProfile.class);
+		return restTemplate.getForObject(
+				new TwitterApiUriBuilder()
+					.withResource(TwitterApiUriResourceForStandard.ACCOUNT_VERIFY_CREDENTIALS)
+					.build(),
+				TwitterProfile.class);
 	}
 
 	public TwitterProfile getUserProfile(String screenName) {
 		requireEitherUserOrAppAuthorization();
-		return restTemplate.getForObject(buildUri("users/show.json", "screen_name", screenName), TwitterProfile.class);
+		return restTemplate.getForObject(
+				new TwitterApiUriBuilder()
+					.withResource(TwitterApiUriResourceForStandard.USERS_SHOW)
+					.withArgument("screen_name", screenName)
+					.build(),
+				TwitterProfile.class);
 	}
 	
 	public TwitterProfile getUserProfile(long userId) {
 		requireEitherUserOrAppAuthorization();
-		return restTemplate.getForObject(buildUri("users/show.json", "user_id", String.valueOf(userId)), TwitterProfile.class);
+		return restTemplate.getForObject(
+				new TwitterApiUriBuilder()
+					.withResource(TwitterApiUriResourceForStandard.USERS_SHOW)
+					.withArgument("user_id", String.valueOf(userId))
+					.build(),
+				TwitterProfile.class);
 	}
 
 	public List<TwitterProfile> getUsers(long... userIds) {
 		requireEitherUserOrAppAuthorization();
 		String joinedIds = ArrayUtils.join(userIds);
-		return restTemplate.getForObject(buildUri("users/lookup.json", "user_id", joinedIds), TwitterProfileList.class);
+		return restTemplate.getForObject(
+				new TwitterApiUriBuilder()
+					.withResource(TwitterApiUriResourceForStandard.USERS_LOOKUP)
+					.withArgument("user_id", joinedIds)
+					.build(),
+				TwitterProfileList.class);
 	}
 
 	public List<TwitterProfile> getUsers(String... screenNames) {
 		requireEitherUserOrAppAuthorization();
 		String joinedScreenNames = ArrayUtils.join(screenNames);
-		return restTemplate.getForObject(buildUri("users/lookup.json", "screen_name", joinedScreenNames), TwitterProfileList.class);
+		return restTemplate.getForObject(
+				new TwitterApiUriBuilder()
+					.withResource(TwitterApiUriResourceForStandard.USERS_LOOKUP)
+					.withArgument("screen_name", joinedScreenNames)
+					.build(),
+				TwitterProfileList.class);
 	}
 
 	public List<TwitterProfile> searchForUsers(String query) {
@@ -82,35 +108,66 @@ public class UserTemplate extends AbstractTwitterTemplate implements UserOperati
 
 	public List<TwitterProfile> searchForUsers(String query, int page, int pageSize) {
 		requireUserAuthorization();
+		
 		MultiValueMap<String, Object> parameters = PagingUtils.buildPagingParametersWithCount(page, pageSize, 0, 0);
 		parameters.set("q", query);
-		return restTemplate.getForObject(buildUri("users/search.json", parameters), TwitterProfileList.class);
+		
+		return restTemplate.getForObject(
+				new TwitterApiUriBuilder()
+					.withResource(TwitterApiUriResourceForStandard.USERS_SEARCH)
+					.withArgument(parameters)
+					.build(),
+				TwitterProfileList.class);
 	}
 
 	public List<SuggestionCategory> getSuggestionCategories() {
 		requireEitherUserOrAppAuthorization();
-		return restTemplate.getForObject(buildUri("users/suggestions.json"), SuggestionCategoryList.class);
+		return restTemplate.getForObject(
+				new TwitterApiUriBuilder()
+					.withResource(TwitterApiUriResourceForStandard.USERS_SUGGESTIONS)
+					.build(),
+				SuggestionCategoryList.class);
 	}
 
 	public List<TwitterProfile> getSuggestions(String slug) {
 		requireEitherUserOrAppAuthorization();
-		return restTemplate.getForObject(buildUri("users/suggestions/" + slug + ".json"), TwitterProfileUsersList.class).getList();
+		return restTemplate.getForObject(
+				new TwitterApiUriBuilder()
+					.withResource(TwitterApiUriResourceForStandard.USERS_SUGGESTIONS_WITH_SLUG)
+					.withArgument("slug", slug)
+					.build(),
+				TwitterProfileUsersList.class
+			).getList();
 	}
 
 	public Map<ResourceFamily, List<RateLimitStatus>> getRateLimitStatus(ResourceFamily... resources) {
 		requireEitherUserOrAppAuthorization();
-		String joinedResources = ArrayUtils.join(resources);
-		return restTemplate.getForObject(buildUri("application/rate_limit_status.json", "resources", joinedResources), RateLimitStatusHolder.class).getRateLimits();
+		return restTemplate.getForObject(
+				new TwitterApiUriBuilder()
+					.withResource(TwitterApiUriResourceForStandard.APPLICATION_RATE_LIMIT_STATUS)
+					.withArgument("resources", ArrayUtils.join(resources))
+					.build(),
+				RateLimitStatusHolder.class
+			).getRateLimits();
 	}
 	
 	public AccountSettings getAccountSettings() {
 		requireUserAuthorization();
-		return restTemplate.getForObject(buildUri("account/settings.json"), AccountSettings.class);
+		return restTemplate.getForObject(
+				new TwitterApiUriBuilder()
+					.withResource(TwitterApiUriResourceForStandard.ACCOUNT_SETTINGS)
+					.build(),
+				AccountSettings.class);
 	}
 	
 	public AccountSettings updateAccountSettings(AccountSettingsData accountSettingsData) {
 		requireUserAuthorization();
-		return restTemplate.postForObject(buildUri("account/settings.json"), accountSettingsData.toRequestParameters(), AccountSettings.class);
+		return restTemplate.postForObject(
+				new TwitterApiUriBuilder()
+					.withResource(TwitterApiUriResourceForStandard.ACCOUNT_SETTINGS)
+					.build(),
+				accountSettingsData.toRequestParameters(),
+				AccountSettings.class);
 	}
 
 }
