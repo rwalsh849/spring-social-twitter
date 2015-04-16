@@ -31,7 +31,7 @@ public interface AdvertisingStatsOperations {
 	 * Snapshot of Advertising Statistics for Multiple {@link AdvertisingAccount}.
 	 * @param accountId The id of the account for which we want to retrieve the statistics.
 	 * @param query The query for which we shall retrieve statistics.
-	 * @returns a list of {@link StatisticalSnapshot}
+	 * @return a list of {@link StatisticalSnapshot}
 	 */
 	List<StatisticalSnapshot> byAccounts(String accountId, QueryingData query);
 	
@@ -39,7 +39,7 @@ public interface AdvertisingStatsOperations {
 	 * Snapshot of Advertising Statistics for Multiple {@link Campaign}.
 	 * @param accountId The id of the account for which we want to retrieve the statistics.
 	 * @param query The query for which we shall retrieve statistics.
-	 * @returns a list of {@link StatisticalSnapshot}
+	 * @return a list of {@link StatisticalSnapshot}
 	 */
 	List<StatisticalSnapshot> byCampaigns(String accountId, QueryingData query);
 	
@@ -48,16 +48,15 @@ public interface AdvertisingStatsOperations {
 	 * @param accountId The id of the account for which we want to retrieve the statistics.
 	 * @param campaignId The id of the campaign for which we want to retrieve the statistics.
 	 * @param query The query for which we shall retrieve statistics.
-	 * @returns an instance of {@link StatisticalSnapshot}
+	 * @return an instance of {@link StatisticalSnapshot}
 	 */
 	StatisticalSnapshot byCampaign(String accountId, String campaignId, QueryingData query);
 	
 	/**
 	 * Snapshot of Advertising Statistics for Multiple {@link FundingInstrument}.
 	 * @param accountId The id of the account for which we want to retrieve the statistics.
-	 * @param campaignId The id of the campaign for which we which to retrieve the statistics.
 	 * @param query The query for which we shall retrieve statistics. 
-	 * @returns a list of {@link StatisticalSnapshot}
+	 * @return a list of {@link StatisticalSnapshot}
 	 */
 	List<StatisticalSnapshot> byFundingInstruments(String accountId, QueryingData query);
 	
@@ -66,7 +65,7 @@ public interface AdvertisingStatsOperations {
 	 * @param accountId The id of the account for which we want to retrieve the statistics.
 	 * @param fundingInstrumentId The id of the funding instrument for which we want to retrieve the statistics.
 	 * @param query The query for which we shall retrieve statistics.
-	 * @returns an instance of {@link StatisticalSnapshot}
+	 * @return an instance of {@link StatisticalSnapshot}
 	 */
 	StatisticalSnapshot byFundingInstrument(String accountId, String fundingInstrumentId, QueryingData query);
 	
@@ -74,7 +73,7 @@ public interface AdvertisingStatsOperations {
 	 * Snapshot of Advertising Statistics for Multiple {@link LineItem}. 
 	 * @param accountId The id of the account for which we want to retrieve the statistics.
 	 * @param query The query for which we shall retrieve statistics.
-	 * @returns a list of {@link StatisticalSnapshot}
+	 * @return a list of {@link StatisticalSnapshot}
 	 */
 	List<StatisticalSnapshot> byLineItems(String accountId, QueryingData query);
 	
@@ -83,7 +82,7 @@ public interface AdvertisingStatsOperations {
 	 * @param accountId The id of the account for which we want to retrieve the statistics.
 	 * @param lineItemId The id of the line item for which we want to retrieve the statistics.
 	 * @param query The query for which we shall retrieve statistics.
-	 * @returns an instance of {@link StatisticalSnapshot}
+	 * @return an instance of {@link StatisticalSnapshot}
 	 */
 	StatisticalSnapshot byLineItem(String accountId, String lineItemId, QueryingData query);
 	
@@ -91,7 +90,7 @@ public interface AdvertisingStatsOperations {
 	 * Snapshot of Advertising Statistics for Multiple promoted accounts.
 	 * @param accountId The id of the account for which we want to retrieve the statistics.
 	 * @param query The query for which we shall retrieve statistics.
-	 * @returns a list of {@link StatisticalSnapshot}
+	 * @return a list of {@link StatisticalSnapshot}
 	 */
 	List<StatisticalSnapshot> byPromotedAccounts(String accountId, QueryingData query);
 	
@@ -100,7 +99,7 @@ public interface AdvertisingStatsOperations {
 	 * @param accountId The id of the account for which we want to retrieve the statistics.
 	 * @param promotedAccountId The id of the promoted account for which we want to retrieve the statistics.
 	 * @param query The query for which we shall retrieve statistics.
-	 * @returns an instance of {@link StatisticalSnapshot}
+	 * @return an instance of {@link StatisticalSnapshot}
 	 */
 	StatisticalSnapshot byPromotedAccount(String accountId, String promotedAccountId, QueryingData query);
 	
@@ -108,7 +107,7 @@ public interface AdvertisingStatsOperations {
 	 * Snapshot of Advertising Statistics for Multiple promoted {@link Tweet}.
 	 * @param accountId The id of the account for which we want to retrieve the statistics.
 	 * @param query The query for which we shall retrieve statistics.
-	 * @returns a list of {@link StatisticalSnapshot}
+	 * @return a list of {@link StatisticalSnapshot}
 	 */
 	List<StatisticalSnapshot> byPromotedTweets(String accountId, QueryingData query);
 	
@@ -117,7 +116,7 @@ public interface AdvertisingStatsOperations {
 	 * @param accountId The id of the account for which we want to retrieve the statistics.
 	 * @param promotedTweetId The id of the promoted tweet for which we want to retrieve the statistics.
 	 * @param query The query for which we shall retrieve statistics.
-	 * @returns an instance of {@link StatisticalSnapshot}
+	 * @return an instance of {@link StatisticalSnapshot}
 	 */
 	StatisticalSnapshot byPromotedTweet(String accountId, String promotedTweetId, QueryingData query);
 }
