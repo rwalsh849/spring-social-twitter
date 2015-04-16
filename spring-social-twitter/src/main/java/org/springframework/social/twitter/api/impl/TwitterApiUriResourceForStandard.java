@@ -57,7 +57,23 @@ public enum TwitterApiUriResourceForStandard {
 	
 	SEARCH_TWEETS("search/tweets.json"),
 	
-	TRENDS_PLACE("trends/place.json");
+	TRENDS_PLACE("trends/place.json"),
+	
+	STATUSES_HOME_TIMELINE("statuses/home_timeline.json"),
+	STATUSES_USER_TIMELINE("statuses/user_timeline.json"),
+	STATUSES_MENTIONS_TIMELINE("statuses/mentions_timeline.json"),
+	STATUSES_RETWEETS_OF_ME("statuses/retweets_of_me.json"),
+	STATUSES_SHOW("statuses/show/:tweet_id.json"),
+	STATUSES_UPDATE("statuses/update.json"),
+	STATUSES_UPDATE_WITH_MEDIA("statuses/update_with_media.json"),
+	STATUSES_DESTROY("statuses/destroy/:tweet_id.json"),
+	STATUSES_RETWEET("statuses/retweet/:tweet_id.json"),
+	STATUSES_RETWEETS("statuses/retweets/:tweet_id.json"),
+	STATUSES_OEMBEDED("statuses/oembed.json"),
+	
+	FAVORITES_LIST("favorites/list.json"),
+	FAVORITES_CREATE("favorites/create.json"),
+	FAVORITES_DESTROY("favorites/destroy.json");
 	
 	private final String name;
 	

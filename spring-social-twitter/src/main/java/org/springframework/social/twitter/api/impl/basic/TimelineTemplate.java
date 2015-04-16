@@ -22,6 +22,9 @@ import org.springframework.core.io.Resource;
 import org.springframework.social.twitter.api.basic.TimelineOperations;
 import org.springframework.social.twitter.api.impl.AbstractTwitterTemplate;
 import org.springframework.social.twitter.api.impl.PagingUtils;
+import org.springframework.social.twitter.api.impl.RestRequestBodyBuilder;
+import org.springframework.social.twitter.api.impl.TwitterApiUriBuilder;
+import org.springframework.social.twitter.api.impl.TwitterApiUriResourceForStandard;
 import org.springframework.util.LinkedMultiValueMap;
 import org.springframework.util.MultiValueMap;
 import org.springframework.web.client.RestTemplate;
@@ -31,6 +34,7 @@ import org.springframework.web.client.RestTemplate;
  * @author Craig Walls
  */
 public class TimelineTemplate extends AbstractTwitterTemplate implements TimelineOperations {
+	private static final MultiValueMap<String, Object> EMPTY_DATA = new LinkedMultiValueMap<String, Object>();
 	
 	private final RestTemplate restTemplate;
 
@@ -49,9 +53,16 @@ public class TimelineTemplate extends AbstractTwitterTemplate implements Timelin
 	
 	public List<Tweet> getHomeTimeline(int pageSize, long sinceId, long maxId) {
 		requireUserAuthorization();
+		
 		MultiValueMap<String, Object> parameters = PagingUtils.buildPagingParametersWithCount(pageSize, sinceId, maxId);
 		parameters.set("include_entities", "true");
-		return restTemplate.getForObject(buildUri("statuses/home_timeline.json", parameters), TweetList.class);
+		
+		return restTemplate.getForObject(
+				new TwitterApiUriBuilder()
+					.withResource(TwitterApiUriResourceForStandard.STATUSES_HOME_TIMELINE)
+					.withArgument(parameters)
+					.build(),
+				TweetList.class);
 	}
 	
 	public List<Tweet> getUserTimeline() {
@@ -64,9 +75,16 @@ public class TimelineTemplate extends AbstractTwitterTemplate implements Timelin
 
 	public List<Tweet> getUserTimeline(int pageSize, long sinceId, long maxId) {
 		requireUserAuthorization();
+		
 		MultiValueMap<String, Object> parameters = PagingUtils.buildPagingParametersWithCount(pageSize, sinceId, maxId);
 		parameters.set("include_entities", "true");
-		return restTemplate.getForObject(buildUri("statuses/user_timeline.json", parameters), TweetList.class);
+		
+		return restTemplate.getForObject(
+				new TwitterApiUriBuilder()
+					.withResource(TwitterApiUriResourceForStandard.STATUSES_USER_TIMELINE)
+					.withArgument(parameters)
+					.build(),
+				TweetList.class);
 	}
 
 	public List<Tweet> getUserTimeline(String screenName) {
@@ -79,10 +97,17 @@ public class TimelineTemplate extends AbstractTwitterTemplate implements Timelin
 
 	public List<Tweet> getUserTimeline(String screenName, int pageSize, long sinceId, long maxId) {
 		requireEitherUserOrAppAuthorization();
+		
 		MultiValueMap<String, Object> parameters = PagingUtils.buildPagingParametersWithCount(pageSize, sinceId, maxId);
 		parameters.set("screen_name", screenName);
 		parameters.set("include_entities", "true");
-		return restTemplate.getForObject(buildUri("statuses/user_timeline.json", parameters), TweetList.class);
+		
+		return restTemplate.getForObject(
+				new TwitterApiUriBuilder()
+					.withResource(TwitterApiUriResourceForStandard.STATUSES_USER_TIMELINE)
+					.withArgument(parameters)
+					.build(),
+				TweetList.class);
 	}
 
 	public List<Tweet> getUserTimeline(long userId) {
@@ -95,10 +120,17 @@ public class TimelineTemplate extends AbstractTwitterTemplate implements Timelin
 
 	public List<Tweet> getUserTimeline(long userId, int pageSize, long sinceId, long maxId) {
 		requireEitherUserOrAppAuthorization();
+		
 		MultiValueMap<String, Object> parameters = PagingUtils.buildPagingParametersWithCount(pageSize, sinceId, maxId);
 		parameters.set("user_id", String.valueOf(userId));
 		parameters.set("include_entities", "true");
-		return restTemplate.getForObject(buildUri("statuses/user_timeline.json", parameters), TweetList.class);
+		
+		return restTemplate.getForObject(
+				new TwitterApiUriBuilder()
+					.withResource(TwitterApiUriResourceForStandard.STATUSES_USER_TIMELINE)
+					.withArgument(parameters)
+					.build(),
+				TweetList.class);
 	}
 
 	public List<Tweet> getMentions() {
@@ -111,9 +143,16 @@ public class TimelineTemplate extends AbstractTwitterTemplate implements Timelin
 
 	public List<Tweet> getMentions(int pageSize, long sinceId, long maxId) {
 		requireUserAuthorization();
+		
 		MultiValueMap<String, Object> parameters = PagingUtils.buildPagingParametersWithCount(pageSize, sinceId, maxId);
 		parameters.set("include_entities", "true");
-		return restTemplate.getForObject(buildUri("statuses/mentions_timeline.json", parameters), TweetList.class);
+		
+		return restTemplate.getForObject(
+				new TwitterApiUriBuilder()
+					.withResource(TwitterApiUriResourceForStandard.STATUSES_MENTIONS_TIMELINE)
+					.withArgument(parameters)
+					.build(),
+				TweetList.class);
 	}
 	
 	public List<Tweet> getRetweetsOfMe() {
@@ -126,16 +165,31 @@ public class TimelineTemplate extends AbstractTwitterTemplate implements Timelin
 
 	public List<Tweet> getRetweetsOfMe(int page, int pageSize, long sinceId, long maxId) {
 		requireUserAuthorization();
+		
 		MultiValueMap<String, Object> parameters = PagingUtils.buildPagingParametersWithCount(page, pageSize, sinceId, maxId);
 		parameters.set("include_entities", "true");
-		return restTemplate.getForObject(buildUri("statuses/retweets_of_me.json", parameters), TweetList.class);
+		
+		return restTemplate.getForObject(
+				new TwitterApiUriBuilder()
+					.withResource(TwitterApiUriResourceForStandard.STATUSES_RETWEETS_OF_ME)
+					.withArgument(parameters)
+					.build(),
+				TweetList.class);
 	}
 
 	public Tweet getStatus(long tweetId) {
 		requireEitherUserOrAppAuthorization();
+		
 		MultiValueMap<String, Object> parameters = new LinkedMultiValueMap<String, Object>();
 		parameters.set("include_entities", "true");
-		return restTemplate.getForObject(buildUri("statuses/show/" + tweetId + ".json", parameters), Tweet.class);
+		
+		return restTemplate.getForObject(
+				new TwitterApiUriBuilder()
+					.withResource(TwitterApiUriResourceForStandard.STATUSES_SHOW)
+					.withArgument("tweet_id", tweetId)
+					.withArgument(parameters)
+					.build(),
+				Tweet.class);
 	}
 	
 	public OEmbedTweet getStatusOEmbed(long tweetId) {
@@ -144,9 +198,16 @@ public class TimelineTemplate extends AbstractTwitterTemplate implements Timelin
 	
 	public OEmbedTweet getStatusOEmbed(long tweetId, OEmbedOptions options) {
 		requireEitherUserOrAppAuthorization();
+		
 		MultiValueMap<String, Object> parameters = options.toRequestParameters();
 		parameters.set("id", String.valueOf(tweetId));
-		return restTemplate.getForObject(buildUri("statuses/oembed.json", parameters), OEmbedTweet.class);
+		
+		return restTemplate.getForObject(
+				new TwitterApiUriBuilder()
+					.withResource(TwitterApiUriResourceForStandard.STATUSES_OEMBEDED)
+					.withArgument(parameters)
+					.build(),
+				OEmbedTweet.class);
 	}
 
 	
@@ -158,39 +219,70 @@ public class TimelineTemplate extends AbstractTwitterTemplate implements Timelin
 		return updateStatus(new TweetData(message).withMedia(media));
 	}
 
+	@SuppressWarnings("deprecation")
 	public Tweet updateStatus(String message, StatusDetails details) {
 		requireUserAuthorization();
-		MultiValueMap<String, Object> tweetParams = new LinkedMultiValueMap<String, Object>();
-		tweetParams.add("status", message);
-		tweetParams.putAll(details.toParameterMap());
-		return restTemplate.postForObject(buildUri("statuses/update.json"), tweetParams, Tweet.class);
+		return restTemplate.postForObject(
+				new TwitterApiUriBuilder()
+					.withResource(TwitterApiUriResourceForStandard.STATUSES_UPDATE)
+					.build(),
+				new RestRequestBodyBuilder()
+					.withField("status", message)
+					.withFields(details.toParameterMap())
+					.build(),
+				Tweet.class);
 	}
 
 	public Tweet updateStatus(String message, Resource media, StatusDetails details) {
 		requireUserAuthorization();
-		MultiValueMap<String, Object> tweetParams = new LinkedMultiValueMap<String, Object>();
-		tweetParams.add("status", message);
-		tweetParams.add("media", media);
-		tweetParams.putAll(details.toParameterMap());
-		return restTemplate.postForObject(buildUri("statuses/update_with_media.json"), tweetParams, Tweet.class);
+		return restTemplate.postForObject(
+				new TwitterApiUriBuilder()
+					.withResource(TwitterApiUriResourceForStandard.STATUSES_UPDATE_WITH_MEDIA)
+					.build(),
+				new RestRequestBodyBuilder()
+					.withField("status", message)
+					.withField("media", media)
+					.withFields(details.toParameterMap())
+					.build(),
+				Tweet.class);
 	}
 
 	public Tweet updateStatus(TweetData tweetData) {
 		requireUserAuthorization();
-		String uriPath = tweetData.hasMedia() ? "statuses/update_with_media.json" : "statuses/update.json";
-		return restTemplate.postForObject(buildUri(uriPath), tweetData.toRequestParameters(), Tweet.class);
+		
+		TwitterApiUriResourceForStandard resourceUri = 
+				tweetData.hasMedia() ? 
+				TwitterApiUriResourceForStandard.STATUSES_UPDATE_WITH_MEDIA : 
+				TwitterApiUriResourceForStandard.STATUSES_UPDATE;
+						
+		return restTemplate.postForObject(
+				new TwitterApiUriBuilder()
+					.withResource(resourceUri)
+					.build(),
+				tweetData.toRequestParameters(),
+				Tweet.class);
 	}
 	
 	public void deleteStatus(long tweetId) {
 		requireUserAuthorization();
-		MultiValueMap<String, Object> data = new LinkedMultiValueMap<String, Object>();
-		restTemplate.postForObject(buildUri("statuses/destroy/" + tweetId + ".json"), data, String.class);
+		restTemplate.postForObject(
+				new TwitterApiUriBuilder()
+					.withResource(TwitterApiUriResourceForStandard.STATUSES_DESTROY)
+					.withArgument("tweet_id", tweetId)
+					.build(),
+				EMPTY_DATA,
+				String.class);
 	}
 
 	public Tweet retweet(long tweetId) {
 		requireUserAuthorization();
-		MultiValueMap<String, Object> data = new LinkedMultiValueMap<String, Object>();
-		return restTemplate.postForObject(buildUri("statuses/retweet/" + tweetId + ".json"), data, Tweet.class);
+		return restTemplate.postForObject(
+				new TwitterApiUriBuilder()
+					.withResource(TwitterApiUriResourceForStandard.STATUSES_RETWEET)
+					.withArgument("tweet_id", tweetId)
+					.build(),
+				EMPTY_DATA,
+				Tweet.class);
 	}
 
 	public List<Tweet> getRetweets(long tweetId) {
@@ -199,10 +291,14 @@ public class TimelineTemplate extends AbstractTwitterTemplate implements Timelin
 
 	public List<Tweet> getRetweets(long tweetId, int count) {
 		requireEitherUserOrAppAuthorization();
-		MultiValueMap<String, Object> parameters = new LinkedMultiValueMap<String, Object>();
-		parameters.set("count", String.valueOf(count));
-		parameters.set("include_entities", "true");
-		return restTemplate.getForObject(buildUri("statuses/retweets/" + tweetId + ".json", parameters), TweetList.class);
+		return restTemplate.getForObject(
+				new TwitterApiUriBuilder()
+					.withResource(TwitterApiUriResourceForStandard.STATUSES_RETWEETS)
+					.withArgument("tweet_id", tweetId)
+					.withArgument("count", String.valueOf(count))
+					.withArgument("include_entities", "true")
+					.build(),
+				TweetList.class);
 	}
 
 	public List<Tweet> getFavorites() {
@@ -211,10 +307,17 @@ public class TimelineTemplate extends AbstractTwitterTemplate implements Timelin
 
 	public List<Tweet> getFavorites(int pageSize) {
 		requireEitherUserOrAppAuthorization();
+
 		// Note: The documentation for /favorites.json doesn't list the count parameter, but it works anyway.
 		MultiValueMap<String, Object> parameters = PagingUtils.buildPagingParametersWithCount(pageSize, 0, 0);
 		parameters.set("include_entities", "true");
-		return restTemplate.getForObject(buildUri("favorites/list.json", parameters), TweetList.class);
+				
+		return restTemplate.getForObject(
+				new TwitterApiUriBuilder()
+					.withResource(TwitterApiUriResourceForStandard.FAVORITES_LIST)
+					.withArgument(parameters)
+					.build(),
+				TweetList.class);
 	}
 
 	public List<Tweet> getFavorites(long userId) {
@@ -223,10 +326,17 @@ public class TimelineTemplate extends AbstractTwitterTemplate implements Timelin
 
 	public List<Tweet> getFavorites(long userId, int pageSize) {
 		requireEitherUserOrAppAuthorization();
+		
 		MultiValueMap<String, Object> parameters = PagingUtils.buildPagingParametersWithCount(pageSize, 0, 0);
 		parameters.set("user_id", String.valueOf(userId));
 		parameters.set("include_entities", "true");
-		return restTemplate.getForObject(buildUri("favorites/list.json", parameters), TweetList.class);
+		
+		return restTemplate.getForObject(
+				new TwitterApiUriBuilder()
+					.withResource(TwitterApiUriResourceForStandard.FAVORITES_LIST)
+					.withArgument(parameters)
+					.build(),
+				TweetList.class);
 	}
 	
 	public List<Tweet> getFavorites(String screenName) {
@@ -235,24 +345,41 @@ public class TimelineTemplate extends AbstractTwitterTemplate implements Timelin
 
 	public List<Tweet> getFavorites(String screenName, int pageSize) {
 		requireEitherUserOrAppAuthorization();
+		
 		MultiValueMap<String, Object> parameters = PagingUtils.buildPagingParametersWithCount(pageSize, 0, 0);
 		parameters.set("screen_name", screenName);
 		parameters.set("include_entities", "true");
-		return restTemplate.getForObject(buildUri("favorites/list.json", parameters), TweetList.class);
+		
+		return restTemplate.getForObject(
+				new TwitterApiUriBuilder()
+					.withResource(TwitterApiUriResourceForStandard.FAVORITES_LIST)
+					.withArgument(parameters)
+					.build(),
+				TweetList.class);
 	}
 	
 	public void addToFavorites(long tweetId) {
 		requireUserAuthorization();
-		MultiValueMap<String, Object> data = new LinkedMultiValueMap<String, Object>();
-		data.set("id", String.valueOf(tweetId));
-		restTemplate.postForObject(buildUri("favorites/create.json"), data, String.class);
+		restTemplate.postForObject(
+				new TwitterApiUriBuilder()
+					.withResource(TwitterApiUriResourceForStandard.FAVORITES_CREATE)
+					.build(),
+				new RestRequestBodyBuilder()
+					.withField("id", String.valueOf(tweetId))
+					.build(),
+				String.class);
 	}
 
 	public void removeFromFavorites(long tweetId) {
 		requireUserAuthorization();
-		MultiValueMap<String, Object> data = new LinkedMultiValueMap<String, Object>();
-		data.set("id", String.valueOf(tweetId));
-		restTemplate.postForObject(buildUri("favorites/destroy.json"), data, String.class);
+		restTemplate.postForObject(
+				new TwitterApiUriBuilder()
+					.withResource(TwitterApiUriResourceForStandard.FAVORITES_DESTROY)
+					.build(),
+				new RestRequestBodyBuilder()
+					.withField("id", String.valueOf(tweetId))
+					.build(),
+				String.class);
 	}
 
 	@SuppressWarnings("serial")
