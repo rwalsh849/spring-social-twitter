@@ -26,8 +26,10 @@ import static org.springframework.test.web.client.match.MockRestRequestMatchers.
 import static org.springframework.test.web.client.match.MockRestRequestMatchers.requestTo;
 import static org.springframework.test.web.client.response.MockRestResponseCreators.withSuccess;
 
+import java.io.UnsupportedEncodingException;
 import java.math.BigDecimal;
 import java.math.MathContext;
+import java.net.URLEncoder;
 import java.time.LocalDateTime;
 import java.time.Month;
 import java.util.List;
@@ -62,16 +64,32 @@ public class LineItemTemplateTest extends AbstractTwitterApiTest {
 	}
 	
 	@Test
-	public void getLineItems() {
+	public void getLineItems() throws UnsupportedEncodingException {
 		String mockedAccountId = "hkk5";
+		String mockedCampaignId1 = "x945j";
+		String mockedCampaignId2 = "1jvrj";
+		String mockedFundingInstrumentId1 = "jrtjh4";
+		String mockedFundingInstrumentId2 = "ekffd";
+		String mockedLineItemId1 = "z9j";
+		String mockedLineItemId2 = "045k";
 		mockServer
 			.expect(requestTo(
-					"https://ads-api.twitter.com/0/accounts/" + mockedAccountId + "/line_items" + 
-					"?with_deleted=true"))
+					"https://ads-api.twitter.com/0/accounts/" + mockedAccountId + "/line_items" +
+					"?campaign_ids=" + URLEncoder.encode(mockedCampaignId1 + "," + mockedCampaignId2, UTF8) +
+					"&funding_instrument_ids=" + URLEncoder.encode(mockedFundingInstrumentId1 + "," + mockedFundingInstrumentId2, UTF8) +
+					"&line_item_ids=" + URLEncoder.encode(mockedLineItemId1 + "," + mockedLineItemId2, UTF8) +
+					"&with_deleted=false"))
 			.andExpect(method(GET))
 			.andRespond(withSuccess(jsonResource("line-items"), APPLICATION_JSON));
 	
-		List<LineItem> lineItems = twitter.lineItemOperations().getLineItems(mockedAccountId);
+		List<LineItem> lineItems = twitter.lineItemOperations().getLineItems(
+				mockedAccountId,
+				new LineItemQueryBuilder()
+					.withCampaigns(mockedCampaignId1, mockedCampaignId2)
+					.withFundingInstruments(mockedFundingInstrumentId1, mockedFundingInstrumentId2)
+					.withLineItems(mockedLineItemId1, mockedLineItemId2)
+					.includeDeleted(false));
+		
 		assertLineItemContents(lineItems);
 	}
 	

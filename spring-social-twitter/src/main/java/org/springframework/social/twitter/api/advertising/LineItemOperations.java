@@ -39,12 +39,13 @@ public interface LineItemOperations {
 	
 	/**
 	 * Retrieves a list of all {@link LineItem} linked to a particular {@link AdvertisingAccount}.
-	 * @param accountId identifies the account for which we want to get the line items.  
+	 * @param accountId identifies the account for which we want to get the line items.
+	 * @param query The query parameters that will filter the request  
 	 * @return a list of {@link LineItem}
 	 * @throws ApiException if there is an error while communicating with Twitter.
 	 * @throws MissingAuthorizationException if TwitterTemplate was not created with OAuth credentials.
 	 */
-	List<LineItem> getLineItems(String accountId);
+	List<LineItem> getLineItems(String accountId, LineItemQuery query);
 	
 	/**
 	 * Creates {@link LineItem} linked to a particular {@link AdvertisingAccount}.

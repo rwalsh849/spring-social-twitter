@@ -23,6 +23,7 @@ import org.springframework.http.HttpMethod;
 import org.springframework.social.twitter.api.TwitterForm;
 import org.springframework.social.twitter.api.advertising.LineItem;
 import org.springframework.social.twitter.api.advertising.LineItemOperations;
+import org.springframework.social.twitter.api.advertising.LineItemQuery;
 import org.springframework.social.twitter.api.impl.AbstractTwitterTemplate;
 import org.springframework.social.twitter.api.impl.DataListHolder;
 import org.springframework.social.twitter.api.impl.DataSingleHolder;
@@ -56,13 +57,13 @@ public class LineItemTemplate extends AbstractTwitterTemplate implements LineIte
 	}
 	
 	@Override
-	public List<LineItem> getLineItems(String accountId) {
+	public List<LineItem> getLineItems(String accountId, LineItemQuery query) {
 		requireUserAuthorization();
 		return restTemplate.exchange(
 				new TwitterApiUriBuilder()
 					.withResource(TwitterApiUriResourceForAdvertising.LINE_ITEMS)
 					.withArgument("account_id", accountId)
-					.withArgument("with_deleted", "true")
+					.withArgument(query.toQueryParameters())
 					.build(),
 				HttpMethod.GET,
 				null,

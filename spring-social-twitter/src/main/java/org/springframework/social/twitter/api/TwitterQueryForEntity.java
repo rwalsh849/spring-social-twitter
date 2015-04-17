@@ -28,8 +28,8 @@ import org.springframework.util.MultiValueMap;
  * 
  * @author Hudson mendes
  */
-public interface TwitterQueryForEntity<TBuilder,TSort> {
-	public TBuilder includeDeleted(Boolean include);
-	public TBuilder sortBy(TSort sort);
+public interface TwitterQueryForEntity<TBuilderInterface,TSort> {
+	public TBuilderInterface includeDeleted(Boolean include);
+	public TBuilderInterface sortBy(TSort sort);
 	public MultiValueMap<String, Object> toQueryParameters();
 }
