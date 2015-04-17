@@ -28,15 +28,6 @@ import org.springframework.social.twitter.api.TwitterForm;
 public interface LineItemOperations {
 	
 	/**
-	 * Retrieves a list of all {@link LineItem} linked to a particular {@link AdvertisingAccount}.
-	 * @param accountId identifies the account for which we want to get the line items.  
-	 * @return a list of {@link LineItem}
-	 * @throws ApiException if there is an error while communicating with Twitter.
-	 * @throws MissingAuthorizationException if TwitterTemplate was not created with OAuth credentials.
-	 */
-	List<LineItem> getLineItems(String accountId);
-	
-	/**
 	 * Retrieves a {@link LineItem} linked to a particular {@link AdvertisingAccount} referred to by its id.
 	 * @param accountId identifies the account for which we wish to get the particular line item.
 	 * @param id identifies which line id we wish to retrieve.   
@@ -45,6 +36,15 @@ public interface LineItemOperations {
 	 * @throws MissingAuthorizationException if TwitterTemplate was not created with OAuth credentials.
 	 */
 	LineItem getLineItem(String accountId, String id);
+	
+	/**
+	 * Retrieves a list of all {@link LineItem} linked to a particular {@link AdvertisingAccount}.
+	 * @param accountId identifies the account for which we want to get the line items.  
+	 * @return a list of {@link LineItem}
+	 * @throws ApiException if there is an error while communicating with Twitter.
+	 * @throws MissingAuthorizationException if TwitterTemplate was not created with OAuth credentials.
+	 */
+	List<LineItem> getLineItems(String accountId);
 	
 	/**
 	 * Creates {@link LineItem} linked to a particular {@link AdvertisingAccount}.

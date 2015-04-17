@@ -46,28 +46,33 @@ import org.springframework.social.twitter.api.impl.AbstractTwitterApiTest;
 public class LineItemTemplateTest extends AbstractTwitterApiTest {
 
 	@Test
-	public void getLineItems() {
-		String mockedAccountId = "hkk5";
-		mockServer
-			.expect(requestTo("https://ads-api.twitter.com/0/accounts/" + mockedAccountId + "/line_items?with_deleted=true"))
-			.andExpect(method(GET))
-			.andRespond(withSuccess(jsonResource("line-items"), APPLICATION_JSON));
-	
-		List<LineItem> lineItems = twitter.lineItemOperations().getLineItems(mockedAccountId);
-		assertLineItemContents(lineItems);
-	}
-	
-	@Test
 	public void getLineItem() {
 		String mockedAccountId = "hkk5";
 		String mockedLineItem = "5woz";
 		mockServer
-			.expect(requestTo("https://ads-api.twitter.com/0/accounts/" + mockedAccountId + "/line_items/" + mockedLineItem))
+			.expect(requestTo(
+					"https://ads-api.twitter.com/0/accounts/" + mockedAccountId + "/line_items" +
+					"/" + mockedLineItem +
+					"?with_deleted=true"))
 			.andExpect(method(GET))
 			.andRespond(withSuccess(jsonResource("line-items-single"), APPLICATION_JSON));
 	
 		LineItem lineItem = twitter.lineItemOperations().getLineItem(mockedAccountId, mockedLineItem);
 		assertSingleLineItemContents(lineItem);
+	}
+	
+	@Test
+	public void getLineItems() {
+		String mockedAccountId = "hkk5";
+		mockServer
+			.expect(requestTo(
+					"https://ads-api.twitter.com/0/accounts/" + mockedAccountId + "/line_items" + 
+					"?with_deleted=true"))
+			.andExpect(method(GET))
+			.andRespond(withSuccess(jsonResource("line-items"), APPLICATION_JSON));
+	
+		List<LineItem> lineItems = twitter.lineItemOperations().getLineItems(mockedAccountId);
+		assertLineItemContents(lineItems);
 	}
 	
 	@Test

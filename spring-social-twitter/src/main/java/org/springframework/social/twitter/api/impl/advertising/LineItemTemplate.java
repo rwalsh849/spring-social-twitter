@@ -40,6 +40,22 @@ public class LineItemTemplate extends AbstractTwitterTemplate implements LineIte
 	}
 	
 	@Override
+	public LineItem getLineItem(String accountId, String id) {
+		requireUserAuthorization();
+		return restTemplate.exchange(
+				new TwitterApiUriBuilder()
+					.withResource(TwitterApiUriResourceForAdvertising.LINE_ITEM)
+					.withArgument("account_id", accountId)
+					.withArgument("line_item_id", id)
+					.withArgument("with_deleted", true)
+					.build(),
+				HttpMethod.GET,
+				null,
+				new ParameterizedTypeReference<DataSingleHolder<LineItem>>(){}
+			).getBody().getData();
+	}
+	
+	@Override
 	public List<LineItem> getLineItems(String accountId) {
 		requireUserAuthorization();
 		return restTemplate.exchange(
@@ -51,21 +67,6 @@ public class LineItemTemplate extends AbstractTwitterTemplate implements LineIte
 				HttpMethod.GET,
 				null,
 				new ParameterizedTypeReference<DataListHolder<LineItem>>(){}
-			).getBody().getData();
-	}
-
-	@Override
-	public LineItem getLineItem(String accountId, String id) {
-		requireUserAuthorization();
-		return restTemplate.exchange(
-				new TwitterApiUriBuilder()
-					.withResource(TwitterApiUriResourceForAdvertising.LINE_ITEM)
-					.withArgument("account_id", accountId)
-					.withArgument("line_item_id", id)
-					.build(),
-				HttpMethod.GET,
-				null,
-				new ParameterizedTypeReference<DataSingleHolder<LineItem>>(){}
 			).getBody().getData();
 	}
 
