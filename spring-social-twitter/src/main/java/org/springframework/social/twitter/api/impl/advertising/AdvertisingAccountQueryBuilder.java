@@ -15,15 +15,17 @@
  */
 package org.springframework.social.twitter.api.impl.advertising;
 
+import org.springframework.social.twitter.api.advertising.AdvertisingAccount;
 import org.springframework.social.twitter.api.advertising.AdvertisingAccountQuery;
-import org.springframework.social.twitter.api.basic.AdvertisingAccountSorting;
+import org.springframework.social.twitter.api.advertising.AdvertisingAccountSorting;
 import org.springframework.social.twitter.api.impl.AbstractTwitterQueryForEntityBuilder;
 import org.springframework.util.MultiValueMap;
 
 /**
+ * Facilitates the creation of the query that will be
+ * used to filter results from the {@link AdvertisingAccount} endpoint.
  * 
  * @author Hudson Mendes
- *
  */
 public class AdvertisingAccountQueryBuilder
 	extends AbstractTwitterQueryForEntityBuilder<AdvertisingAccountQuery, AdvertisingAccountSorting>

@@ -29,8 +29,8 @@ import org.springframework.util.LinkedMultiValueMap;
 import org.springframework.util.MultiValueMap;
 
 /**
- * Builder related to {@link Campaign} data that generates a map (key, value)
- * that can be posted into the twitter api endpoint.
+ * Facilitate the creation of the request body for post & put
+ * requests made to the management of {@link Campaign} data.
  * 
  * @author Hudson Mendes
  */

@@ -15,11 +15,18 @@
  */
 package org.springframework.social.twitter.api.impl.advertising;
 
+import org.springframework.social.twitter.api.advertising.TargetingCriteria;
 import org.springframework.social.twitter.api.advertising.TargetingCriteriaQuery;
 import org.springframework.social.twitter.api.advertising.TargetingCriteriaSorting;
 import org.springframework.social.twitter.api.impl.AbstractTwitterQueryForEntityBuilder;
 import org.springframework.util.MultiValueMap;
 
+/**
+ * Facilitates the creation of the query that will be
+ * used to filter results from the {@link TargetingCriteria} endpoint.
+ * 
+ * @author Hudson Mendes
+ */
 public class TargetingCriteriaQueryBuilder
 		extends AbstractTwitterQueryForEntityBuilder<TargetingCriteriaQuery, TargetingCriteriaSorting>
 		implements TargetingCriteriaQuery {

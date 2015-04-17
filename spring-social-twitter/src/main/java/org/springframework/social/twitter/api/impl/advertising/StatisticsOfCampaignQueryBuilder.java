@@ -24,8 +24,8 @@ import org.springframework.social.twitter.api.impl.AbstractTwitterQueryForStatsB
 import org.springframework.util.MultiValueMap;
 
 /**
- * Builder related to {@link StatisticsSnapshot} data that generates a map (key, value)
- * that can be posted into the twitter api endpoint.
+ * Facilitates the creation of the query that will be
+ * used to filter results from the {@link StatisticsSnapshot} endpoint.
  * 
  * @author Hudson Mendes
  */

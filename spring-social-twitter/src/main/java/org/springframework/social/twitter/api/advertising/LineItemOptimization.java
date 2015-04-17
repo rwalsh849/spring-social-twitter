@@ -16,6 +16,7 @@
 package org.springframework.social.twitter.api.advertising;
 
 /**
+ * All {@link LineItem} optimization options.
  * @author Hudson Mendes
  */
 public enum LineItemOptimization {

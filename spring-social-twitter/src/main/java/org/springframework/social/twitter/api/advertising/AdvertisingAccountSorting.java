@@ -13,12 +13,11 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.springframework.social.twitter.api.basic;
+package org.springframework.social.twitter.api.advertising;
 
 /**
- * 
+ * All sorting options for {@link AdvertisingAccountQuery}.
  * @author Hudson Mendes
- *
  */
 public enum AdvertisingAccountSorting {
 	created_at,

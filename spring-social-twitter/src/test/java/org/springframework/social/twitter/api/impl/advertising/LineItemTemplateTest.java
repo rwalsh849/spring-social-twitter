@@ -122,7 +122,7 @@ public class LineItemTemplateTest extends AbstractTwitterApiTest {
 	
 		LineItem lineItem = twitter.lineItemOperations().createLineItem(
 				mockedAccountId,
-				new LineItemPostingDataBuilder()
+				new LineItemFormBuilder()
 					.withCampaign(doesntMatterString)
 					.withCurrency(doesntMatterString)
 					.withTotalBudget(doesntMatterDecimal)
@@ -169,7 +169,7 @@ public class LineItemTemplateTest extends AbstractTwitterApiTest {
 		twitter.lineItemOperations().updateLineItem(
 				mockedAccountId,
 				mockedLineItemId,
-				new LineItemPostingDataBuilder()
+				new LineItemFormBuilder()
 					.withCampaign(doesntMatterString)
 					.withCurrency(doesntMatterString)
 					.withTotalBudget(doesntMatterDecimal)

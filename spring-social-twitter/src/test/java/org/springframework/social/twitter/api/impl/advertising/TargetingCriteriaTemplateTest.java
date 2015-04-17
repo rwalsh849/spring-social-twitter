@@ -94,7 +94,7 @@ public class TargetingCriteriaTemplateTest extends AbstractTwitterApiTest {
 	
 		TargetingCriteria criteria = twitter.targetingCriteriaOperations().createTargetingCriteria(
 				mockedAccountId,
-				new TargetingCriteriaPostingDataBuilder()
+				new TargetingCriteriaFormBuilder()
 					.withLineItem(doesntMatterString)
 					.withName(doesntMatterString)
 					.targeting(TargetingType.APP_STORE_CATEGORY, doesntMatterString)
@@ -125,7 +125,7 @@ public class TargetingCriteriaTemplateTest extends AbstractTwitterApiTest {
 		twitter.targetingCriteriaOperations().updateTargetingCriteria(
 				mockedAccountId,
 				mockedTargetingCriteriaId,
-				new TargetingCriteriaPostingDataBuilder()
+				new TargetingCriteriaFormBuilder()
 					.withLineItem(doesntMatterString)
 					.withName(doesntMatterString)
 					.targeting(TargetingType.APP_STORE_CATEGORY, doesntMatterString)

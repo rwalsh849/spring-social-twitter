@@ -41,7 +41,7 @@ import org.springframework.social.twitter.api.impl.AbstractTwitterApiTest;
 /**
  * @author Hudson mendes
  */
-public class AdvertisingStatsTemplateTest extends AbstractTwitterApiTest {
+public class StatisticsTemplateTest extends AbstractTwitterApiTest {
 	@Test
 	public void byAccounts() throws UnsupportedEncodingException {
 		String mockedAccountId = "0ga0yn";

@@ -27,12 +27,12 @@ import org.springframework.util.LinkedMultiValueMap;
 import org.springframework.util.MultiValueMap;
 
 /**
- * Builder related to {@link LineItem} data that generates a map (key, value)
- * that can be posted into the twitter api endpoint.
+ * Facilitate the creation of the request body for post & put
+ * requests made to the management of {@link LineItem} data.
  * 
  * @author Hudson Mendes
  */
-public class LineItemPostingDataBuilder extends AbstractTwitterFormBuilder {
+public class LineItemFormBuilder extends AbstractTwitterFormBuilder {
 	private String campaignId;
 	private String currency;
 	private AdvertisingPlacementType placementType;
@@ -46,68 +46,68 @@ public class LineItemPostingDataBuilder extends AbstractTwitterFormBuilder {
 	private Boolean paused;
 	private Boolean deleted;
 	
-	public LineItemPostingDataBuilder withCampaign(String campaignId) {
+	public LineItemFormBuilder withCampaign(String campaignId) {
 		this.campaignId = campaignId;
 		return this;
 	}
 	
-	public LineItemPostingDataBuilder withCurrency(String currency) {
+	public LineItemFormBuilder withCurrency(String currency) {
 		this.currency = currency;
 		return this;
 	}
 	
-	public LineItemPostingDataBuilder withPlacementType(AdvertisingPlacementType placementType) {
+	public LineItemFormBuilder withPlacementType(AdvertisingPlacementType placementType) {
 		this.placementType = placementType;
 		return this;
 	}
 	
-	public LineItemPostingDataBuilder withObjective(AdvertisingObjective objective) {
+	public LineItemFormBuilder withObjective(AdvertisingObjective objective) {
 		this.objective = objective;
 		return this;
 	}
 	
-	public LineItemPostingDataBuilder includingSentiment(AdvertisingSentiment sentiment) {
+	public LineItemFormBuilder includingSentiment(AdvertisingSentiment sentiment) {
 		this.includeSentiment = sentiment;
 		return this;
 	}
 	
-	public LineItemPostingDataBuilder optimizingFor(LineItemOptimization optimization) {
+	public LineItemFormBuilder optimizingFor(LineItemOptimization optimization) {
 		this.optimization = optimization;
 		return this;
 	}
 	
-	public LineItemPostingDataBuilder withTotalBudget(BigDecimal totalBudgetAmount) {
+	public LineItemFormBuilder withTotalBudget(BigDecimal totalBudgetAmount) {
 		this.totalBudgetAmount = totalBudgetAmount;
 		return this;
 	}
 	
-	public LineItemPostingDataBuilder withBidAmount(BigDecimal bidAmount) {
+	public LineItemFormBuilder withBidAmount(BigDecimal bidAmount) {
 		this.bidAmount = bidAmount;
 		return this;
 	}
 	
-	public LineItemPostingDataBuilder withSuggestedCpeBid(BigDecimal low, BigDecimal high) {
+	public LineItemFormBuilder withSuggestedCpeBid(BigDecimal low, BigDecimal high) {
 		this.suggestedHighCpeBid = high;
 		this.suggestedLowCpeBid = low;
 		return this;
 	}
 	
-	public LineItemPostingDataBuilder paused() { 
+	public LineItemFormBuilder paused() { 
 		this.paused = true;
 		return this;
 	}
 	
-	public LineItemPostingDataBuilder unpaused() {
+	public LineItemFormBuilder unpaused() {
 		this.paused = false;
 		return this;
 	}
 	
-	public LineItemPostingDataBuilder deleted() { 
+	public LineItemFormBuilder deleted() { 
 		this.deleted = true;
 		return this;
 	}
 	
-	public LineItemPostingDataBuilder active() {
+	public LineItemFormBuilder active() {
 		this.deleted = false;
 		return this;
 	}
