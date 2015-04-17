@@ -22,7 +22,7 @@ import org.springframework.util.LinkedMultiValueMap;
 import org.springframework.util.MultiValueMap;
 
 /**
- * Facilitate the creation of the request body for post & put
+ * Facilitate the creation of the request body for post and put
  * requests made to the management of {@link TargetingCriteria} data.
  * 
  * @author Hudson Mendes
