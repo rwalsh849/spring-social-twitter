@@ -22,7 +22,7 @@ import org.springframework.social.twitter.api.advertising.AdvertisingPlacementTy
 import org.springframework.social.twitter.api.advertising.AdvertisingSentiment;
 import org.springframework.social.twitter.api.advertising.LineItem;
 import org.springframework.social.twitter.api.advertising.LineItemOptimization;
-import org.springframework.social.twitter.api.impl.AbstractTwitterPostBuilder;
+import org.springframework.social.twitter.api.impl.AbstractTwitterFormBuilder;
 import org.springframework.util.LinkedMultiValueMap;
 import org.springframework.util.MultiValueMap;
 
@@ -32,7 +32,7 @@ import org.springframework.util.MultiValueMap;
  * 
  * @author Hudson Mendes
  */
-public class LineItemPostingDataBuilder extends AbstractTwitterPostBuilder {
+public class LineItemPostingDataBuilder extends AbstractTwitterFormBuilder {
 	private String campaignId;
 	private String currency;
 	private AdvertisingPlacementType placementType;

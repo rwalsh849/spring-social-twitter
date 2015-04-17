@@ -25,6 +25,6 @@ import org.springframework.util.MultiValueMap;
  * 
  * @author Hudson Mendes
  */
-public abstract class AbstractTwitterPostBuilder extends AbstractTwitterParametersBuilder implements TwitterForm {
+public abstract class AbstractTwitterFormBuilder extends AbstractTwitterParametersBuilder implements TwitterForm {
 	public abstract MultiValueMap<String, Object> toRequestBody();
 }

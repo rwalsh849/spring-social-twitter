@@ -24,7 +24,7 @@ import java.util.List;
 
 import org.springframework.social.twitter.api.advertising.Campaign;
 import org.springframework.social.twitter.api.advertising.ReasonNotServable;
-import org.springframework.social.twitter.api.impl.AbstractTwitterPostBuilder;
+import org.springframework.social.twitter.api.impl.AbstractTwitterFormBuilder;
 import org.springframework.util.LinkedMultiValueMap;
 import org.springframework.util.MultiValueMap;
 
@@ -34,7 +34,7 @@ import org.springframework.util.MultiValueMap;
  * 
  * @author Hudson Mendes
  */
-public class CampaignDataPostingBuilder extends AbstractTwitterPostBuilder {
+public class CampaignFormBuilder extends AbstractTwitterFormBuilder {
 	private String name;
 	private String currency;
 	private String fundingInstrumentId;
@@ -47,46 +47,46 @@ public class CampaignDataPostingBuilder extends AbstractTwitterPostBuilder {
 	private Boolean paused = false;
 	private Boolean deleted = false;
 
-	public CampaignDataPostingBuilder() {
+	public CampaignFormBuilder() {
 		this.reasonsNotServable = new ArrayList<ReasonNotServable>();
 	}
 
-	public CampaignDataPostingBuilder withName(String name) {
+	public CampaignFormBuilder withName(String name) {
 		this.name = name;
 		return this;
 	}
 
-	public CampaignDataPostingBuilder withCurrency(String currency) {
+	public CampaignFormBuilder withCurrency(String currency) {
 		this.currency = currency;
 		return this;
 	}
 
-	public CampaignDataPostingBuilder withFundingInstrument(String fundingInstrumentId) {
+	public CampaignFormBuilder withFundingInstrument(String fundingInstrumentId) {
 		this.fundingInstrumentId = fundingInstrumentId;
 		return this;
 	}
 
-	public CampaignDataPostingBuilder withBudget(BigDecimal totalBudget, BigDecimal dailyBudget) {
+	public CampaignFormBuilder withBudget(BigDecimal totalBudget, BigDecimal dailyBudget) {
 		this.totalBudget = totalBudget;
 		this.dailyBudget = dailyBudget;
 		return this;
 	}
 	
-	public CampaignDataPostingBuilder activeUntil(LocalDateTime endTime) {
+	public CampaignFormBuilder activeUntil(LocalDateTime endTime) {
 		return activeBetween(null, endTime);
 	}
 	
-	public CampaignDataPostingBuilder activeFrom(LocalDateTime startTime) {
+	public CampaignFormBuilder activeFrom(LocalDateTime startTime) {
 		return activeBetween(startTime, null);
 	}
 
-	public CampaignDataPostingBuilder activeBetween(LocalDateTime startTime, LocalDateTime endTime) {
+	public CampaignFormBuilder activeBetween(LocalDateTime startTime, LocalDateTime endTime) {
 		this.startTime = startTime;
 		this.endTime = endTime;
 		return this;
 	}
 
-	public CampaignDataPostingBuilder thatCantBeServedDueTo(ReasonNotServable... reasons) {
+	public CampaignFormBuilder thatCantBeServedDueTo(ReasonNotServable... reasons) {
 		if (reasons != null)
 			Arrays.stream(reasons).forEach(reason -> {
 				this.reasonsNotServable.add(reason);
@@ -94,27 +94,27 @@ public class CampaignDataPostingBuilder extends AbstractTwitterPostBuilder {
 		return this;
 	}
 	
-	public CampaignDataPostingBuilder withStandardDelivery(Boolean standardDelivery) {
+	public CampaignFormBuilder withStandardDelivery(Boolean standardDelivery) {
 		this.standardDelivery = standardDelivery;
 		return this;
 	}
 	
-	public CampaignDataPostingBuilder paused() {
+	public CampaignFormBuilder paused() {
 		this.paused = true;
 		return this;
 	}
 	
-	public CampaignDataPostingBuilder unpaused() {
+	public CampaignFormBuilder unpaused() {
 		this.paused = false;
 		return this;
 	}
 	
-	public CampaignDataPostingBuilder deleted() {
+	public CampaignFormBuilder deleted() {
 		this.deleted = true;
 		return this;
 	}
 	
-	public CampaignDataPostingBuilder active() {
+	public CampaignFormBuilder active() {
 		this.deleted = false;
 		return this;
 	}

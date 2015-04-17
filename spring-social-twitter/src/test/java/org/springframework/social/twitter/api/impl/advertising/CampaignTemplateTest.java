@@ -118,7 +118,7 @@ public class CampaignTemplateTest extends AbstractTwitterApiTest {
 		
 		Campaign campaign = twitter.campaignOperations().createCampaign(
 				mockedAccountId,
-				new CampaignDataPostingBuilder()
+				new CampaignFormBuilder()
 					.withName(doesntMatterString)
 					.withCurrency(doesntMatterString)
 					.withFundingInstrument(doesntMatterString)
@@ -161,7 +161,7 @@ public class CampaignTemplateTest extends AbstractTwitterApiTest {
 		twitter.campaignOperations().updateCampaign(
 				mockedAccountId,
 				mockedCampaignId,
-				new CampaignDataPostingBuilder()
+				new CampaignFormBuilder()
 					.withName(doesntMatterString)
 					.withCurrency(doesntMatterString)
 					.withFundingInstrument(doesntMatterString)

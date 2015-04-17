@@ -1,11 +1,11 @@
 package org.springframework.social.twitter.api.impl.advertising;
 
 import org.springframework.social.twitter.api.advertising.TargetingType;
-import org.springframework.social.twitter.api.impl.AbstractTwitterPostBuilder;
+import org.springframework.social.twitter.api.impl.AbstractTwitterFormBuilder;
 import org.springframework.util.LinkedMultiValueMap;
 import org.springframework.util.MultiValueMap;
 
-public class TargetingCriteriaPostingDataBuilder extends AbstractTwitterPostBuilder {
+public class TargetingCriteriaPostingDataBuilder extends AbstractTwitterFormBuilder {
 	private String lineItemId;
 	private String name;
 	private TargetingType targetingType;
