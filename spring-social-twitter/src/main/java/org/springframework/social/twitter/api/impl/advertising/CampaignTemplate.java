@@ -24,6 +24,7 @@ import org.springframework.social.twitter.api.TwitterForm;
 import org.springframework.social.twitter.api.advertising.AdvertisingOperations;
 import org.springframework.social.twitter.api.advertising.Campaign;
 import org.springframework.social.twitter.api.advertising.CampaignOperations;
+import org.springframework.social.twitter.api.advertising.CampaignQuery;
 import org.springframework.social.twitter.api.impl.AbstractTwitterTemplate;
 import org.springframework.social.twitter.api.impl.DataListHolder;
 import org.springframework.social.twitter.api.impl.DataSingleHolder;
@@ -61,13 +62,13 @@ public class CampaignTemplate extends AbstractTwitterTemplate implements Campaig
 	}
 
 	@Override
-	public List<Campaign> getCampaigns(String accountId) {
+	public List<Campaign> getCampaigns(String accountId, CampaignQuery query) {
 		requireUserAuthorization();
 		return restTemplate.exchange(
 				new TwitterApiUriBuilder()
 					.withResource(TwitterApiUriResourceForAdvertising.CAMPAIGNS)
 					.withArgument("account_id", accountId)
-					.withArgument("with_deleted", "true")
+					.withArgument(query.toQueryParameters())
 					.build(),
 				HttpMethod.GET,
 				null,

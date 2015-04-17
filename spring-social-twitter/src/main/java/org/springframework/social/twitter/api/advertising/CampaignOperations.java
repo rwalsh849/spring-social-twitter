@@ -38,12 +38,13 @@ public interface CampaignOperations {
 	
 	/**
 	 * Retrieves a list of all {@link Campaign} linked to a particular {@link AdvertisingAccount}.
-	 * @param accountId identifies the account for which we are attempting to get the campaigns  
+	 * @param accountId identifies the account for which we are attempting to get the campaigns
+	 * @param query The query parameters that will filter the request  
 	 * @return a list of {@link Campaign}
 	 * @throws ApiException if there is an error while communicating with Twitter.
 	 * @throws MissingAuthorizationException if TwitterTemplate was not created with OAuth credentials.
 	 */
-	List<Campaign> getCampaigns(String accountId);
+	List<Campaign> getCampaigns(String accountId, CampaignQuery query);
 	
 	/**
 	 * Creates a {@link Campaign} for a {@link AdvertisingAccount} referenced by its 'accountId'.

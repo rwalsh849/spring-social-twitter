@@ -30,23 +30,23 @@ import org.springframework.util.MultiValueMap;
  *
  * @param <TSort> the sort enumberation that varies for each entity being requested.
  */
-public abstract class AbstractTwitterQueryForEntityBuilder<TBuilder, TSort>
+public abstract class AbstractTwitterQueryForEntityBuilder<TBuilderInterface, TSort>
 	extends AbstractTwitterParametersBuilder
-	implements TwitterQueryForEntity<TBuilder, TSort> {
+	implements TwitterQueryForEntity<TBuilderInterface, TSort> {
 	
 	private TSort sort;
 	private Boolean includeDeleted;
 	
 	@SuppressWarnings("unchecked")
-	public TBuilder includeDeleted(Boolean include) {
+	public TBuilderInterface includeDeleted(Boolean include) {
 		this.includeDeleted = include;
-		return (TBuilder) this;
+		return (TBuilderInterface) this;
 	}
 	
 	@SuppressWarnings("unchecked")
-	public TBuilder sortBy(TSort sort) {
+	public TBuilderInterface sortBy(TSort sort) {
 		this.sort = sort;
-		return (TBuilder) this;
+		return (TBuilderInterface) this;
 	}
 	
 	public MultiValueMap<String, Object> toQueryParameters() {

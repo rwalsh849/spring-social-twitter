@@ -65,14 +65,28 @@ public class CampaignTemplateTest extends AbstractTwitterApiTest {
 	}
 	
 	@Test
-	public void getCampaigns() {
+	public void getCampaigns() throws UnsupportedEncodingException {
 		String mockedAccountId = "0ga0yn";
+		String mockedCampaignId1 = "x945j";
+		String mockedCampaignId2 = "1jvrj";
+		String mockedFundingInstrumentId1 = "jrtjh4";
+		String mockedFundingInstrumentId2 = "ekffd";
 		mockServer
-			.expect(requestTo("https://ads-api.twitter.com/0/accounts/" + mockedAccountId + "/campaigns?with_deleted=true"))
+			.expect(requestTo(
+					"https://ads-api.twitter.com/0/accounts/" + mockedAccountId + "/campaigns" +
+					"?campaign_ids=" + URLEncoder.encode(mockedCampaignId1 + "," + mockedCampaignId2, UTF8) +
+					"&funding_instrument_ids=" + URLEncoder.encode(mockedFundingInstrumentId1 + "," + mockedFundingInstrumentId2, UTF8) +
+					"&with_deleted=false"))
 			.andExpect(method(GET))
 			.andRespond(withSuccess(jsonResource("ad-campaigns"), APPLICATION_JSON));
 	
-		List<Campaign> campaigns = twitter.campaignOperations().getCampaigns(mockedAccountId);
+		List<Campaign> campaigns = twitter.campaignOperations().getCampaigns(
+				mockedAccountId,
+				new CampaignQueryBuilder()
+					.withCampaigns(mockedCampaignId1, mockedCampaignId2)
+					.withFundingInstruments(mockedFundingInstrumentId1, mockedFundingInstrumentId2)
+					.includeDeleted(false));
+		
 		assertCampaignContents(campaigns);
 	}
 	
