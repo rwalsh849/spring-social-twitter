@@ -28,19 +28,20 @@ import org.springframework.social.twitter.api.TwitterForm;
 public interface TargetingCriteriaOperations {
 	
 	/**
-	 * Retrieves a list of {@link TargetingCriteria} related to an {@link AdvertisingAccount}. 
-	 * @param accountId identifies the account for which we want to retrieve targeting criteria.
-	 * @return a list of {@link TargetingCriteria}. 
-	 */
-	List<TargetingCriteria> getTargetingCriterias(String accountId);
-	
-	/**
 	 * Retrieves a {@link TargetingCriteria} related to an {@link AdvertisingAccount} referred to by its id.
 	 * @param accountId identifies the account of which target criteria we wish to fetch. 
 	 * @param id identifies the target criteria that will be retrieved.
 	 * @return an instance of {@link TargetingCriteria}
 	 */
 	TargetingCriteria getTargetingCriteria(String accountId, String id);
+	
+	/**
+	 * Retrieves a list of {@link TargetingCriteria} related to an {@link AdvertisingAccount}. 
+	 * @param accountId identifies the account for which we want to retrieve targeting criteria.
+	 * @param query The query parameters that will filter the request
+	 * @return a list of {@link TargetingCriteria}. 
+	 */
+	List<TargetingCriteria> getTargetingCriterias(String accountId, TargetingCriteriaQuery query);
 	
 	/**
 	 * Creates a {@link TargetingCriteria} related to an {@link AdvertisingAccount}

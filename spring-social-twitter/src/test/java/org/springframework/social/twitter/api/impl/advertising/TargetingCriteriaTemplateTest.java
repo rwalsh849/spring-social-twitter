@@ -43,12 +43,21 @@ public class TargetingCriteriaTemplateTest extends AbstractTwitterApiTest {
 	@Test
 	public void getTargetingCriterias() {
 		String mockedAccountId = "hkk5";
+		String mockedLineItemId = "oi4h5";
 		mockServer
-			.expect(requestTo("https://ads-api.twitter.com/0/accounts/" + mockedAccountId + "/targeting_criteria?with_deleted=true"))
+			.expect(requestTo(
+					"https://ads-api.twitter.com/0/accounts/" + mockedAccountId + "/targeting_criteria" +
+					"?line_item_id=" + mockedLineItemId +
+					"&with_deleted=false"))
 			.andExpect(method(GET))
 			.andRespond(withSuccess(jsonResource("ad-targeting-criteria"), APPLICATION_JSON));
 	
-		List<TargetingCriteria> targetingCriterias = twitter.targetingCriteriaOperations().getTargetingCriterias(mockedAccountId);
+		List<TargetingCriteria> targetingCriterias = twitter.targetingCriteriaOperations().getTargetingCriterias(
+				mockedAccountId,
+				new TargetingCriteriaQueryBuilder()
+					.withLineItem(mockedLineItemId)
+					.includeDeleted(false));
+		
 		assertTargetCriteriaContents(targetingCriterias);
 	}
 	

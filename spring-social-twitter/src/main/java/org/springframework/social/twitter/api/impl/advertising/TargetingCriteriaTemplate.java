@@ -23,6 +23,7 @@ import org.springframework.http.HttpMethod;
 import org.springframework.social.twitter.api.TwitterForm;
 import org.springframework.social.twitter.api.advertising.TargetingCriteria;
 import org.springframework.social.twitter.api.advertising.TargetingCriteriaOperations;
+import org.springframework.social.twitter.api.advertising.TargetingCriteriaQuery;
 import org.springframework.social.twitter.api.impl.AbstractTwitterTemplate;
 import org.springframework.social.twitter.api.impl.DataListHolder;
 import org.springframework.social.twitter.api.impl.DataSingleHolder;
@@ -44,21 +45,6 @@ public class TargetingCriteriaTemplate extends AbstractTwitterTemplate implement
 	}
 	
 	@Override
-	public List<TargetingCriteria> getTargetingCriterias(String accountId) {
-		requireUserAuthorization();
-		return restTemplate.exchange(
-				new TwitterApiUriBuilder()
-					.withResource(TwitterApiUriResourceForAdvertising.TARGETING_CRITERIAS)
-					.withArgument("account_id", accountId)
-					.withArgument("with_deleted", "true")
-					.build(),
-				HttpMethod.GET,
-				null,
-				new ParameterizedTypeReference<DataListHolder<TargetingCriteria>>(){}
-			).getBody().getData();
-	}
-
-	@Override
 	public TargetingCriteria getTargetingCriteria(String accountId, String id) {
 		requireUserAuthorization();
 		return restTemplate.exchange(
@@ -70,6 +56,21 @@ public class TargetingCriteriaTemplate extends AbstractTwitterTemplate implement
 				HttpMethod.GET,
 				null,
 				new ParameterizedTypeReference<DataSingleHolder<TargetingCriteria>>(){}
+			).getBody().getData();
+	}
+	
+	@Override
+	public List<TargetingCriteria> getTargetingCriterias(String accountId, TargetingCriteriaQuery query) {
+		requireUserAuthorization();
+		return restTemplate.exchange(
+				new TwitterApiUriBuilder()
+					.withResource(TwitterApiUriResourceForAdvertising.TARGETING_CRITERIAS)
+					.withArgument("account_id", accountId)
+					.withArgument(query.toQueryParameters())
+					.build(),
+				HttpMethod.GET,
+				null,
+				new ParameterizedTypeReference<DataListHolder<TargetingCriteria>>(){}
 			).getBody().getData();
 	}
 
