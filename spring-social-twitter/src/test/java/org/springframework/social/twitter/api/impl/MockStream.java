@@ -15,7 +15,8 @@
  */
 package org.springframework.social.twitter.api.impl;
 
-import org.springframework.social.twitter.api.StreamingException;
+import org.springframework.social.twitter.api.impl.basic.StreamReader;
+import org.springframework.social.twitter.api.impl.basic.StreamingException;
 
 public class MockStream implements StreamReader {
 	private boolean open = true;

@@ -20,16 +20,36 @@ import org.springframework.http.converter.json.MappingJackson2HttpMessageConvert
 import org.springframework.social.oauth1.AbstractOAuth1ApiBinding;
 import org.springframework.social.oauth2.OAuth2Operations;
 import org.springframework.social.oauth2.OAuth2Template;
-import org.springframework.social.twitter.api.BlockOperations;
-import org.springframework.social.twitter.api.DirectMessageOperations;
-import org.springframework.social.twitter.api.FriendOperations;
-import org.springframework.social.twitter.api.GeoOperations;
-import org.springframework.social.twitter.api.ListOperations;
-import org.springframework.social.twitter.api.SearchOperations;
-import org.springframework.social.twitter.api.StreamingOperations;
-import org.springframework.social.twitter.api.TimelineOperations;
 import org.springframework.social.twitter.api.Twitter;
-import org.springframework.social.twitter.api.UserOperations;
+import org.springframework.social.twitter.api.advertising.AdvertisingOperations;
+import org.springframework.social.twitter.api.advertising.StatisticsOperations;
+import org.springframework.social.twitter.api.advertising.CampaignOperations;
+import org.springframework.social.twitter.api.advertising.LineItemOperations;
+import org.springframework.social.twitter.api.advertising.TargetingCriteriaOperations;
+import org.springframework.social.twitter.api.basic.BlockOperations;
+import org.springframework.social.twitter.api.basic.DirectMessageOperations;
+import org.springframework.social.twitter.api.basic.FriendOperations;
+import org.springframework.social.twitter.api.basic.GeoOperations;
+import org.springframework.social.twitter.api.basic.ListOperations;
+import org.springframework.social.twitter.api.basic.SearchOperations;
+import org.springframework.social.twitter.api.basic.StreamingOperations;
+import org.springframework.social.twitter.api.basic.TimelineOperations;
+import org.springframework.social.twitter.api.basic.UserOperations;
+import org.springframework.social.twitter.api.impl.advertising.StatisticsTemplate;
+import org.springframework.social.twitter.api.impl.advertising.AdvertisingTemplate;
+import org.springframework.social.twitter.api.impl.advertising.CampaignTemplate;
+import org.springframework.social.twitter.api.impl.advertising.LineItemTemplate;
+import org.springframework.social.twitter.api.impl.advertising.TargetingCriteriaTemplate;
+import org.springframework.social.twitter.api.impl.basic.BlockTemplate;
+import org.springframework.social.twitter.api.impl.basic.DirectMessageTemplate;
+import org.springframework.social.twitter.api.impl.basic.FriendTemplate;
+import org.springframework.social.twitter.api.impl.basic.GeoTemplate;
+import org.springframework.social.twitter.api.impl.basic.ListTemplate;
+import org.springframework.social.twitter.api.impl.basic.SearchTemplate;
+import org.springframework.social.twitter.api.impl.basic.StreamingTemplate;
+import org.springframework.social.twitter.api.impl.basic.TimelineTemplate;
+import org.springframework.social.twitter.api.impl.basic.TwitterEscapingFormHttpMessageConverter;
+import org.springframework.social.twitter.api.impl.basic.UserTemplate;
 import org.springframework.util.Assert;
 import org.springframework.web.client.RestOperations;
 import org.springframework.web.client.RestTemplate;
@@ -65,6 +85,16 @@ public class TwitterTemplate extends AbstractOAuth1ApiBinding implements Twitter
 	private GeoOperations geoOperations;
 
 	private StreamingOperations streamOperations;
+	
+	private AdvertisingOperations advertisingOperations;
+	
+	private StatisticsOperations statisticsOperations;
+	
+	private CampaignOperations campaignOperations;
+	
+	private LineItemOperations lineItemOperations; 
+	
+	private TargetingCriteriaOperations targetingCriteriaOperations;
 	
 	private RestTemplate clientRestTemplate = null;
 	
@@ -141,6 +171,26 @@ public class TwitterTemplate extends AbstractOAuth1ApiBinding implements Twitter
 	public StreamingOperations streamingOperations() {
 		return streamOperations;
 	}
+	
+	public AdvertisingOperations advertisingOperations() {
+		return advertisingOperations;
+	}
+	
+	public StatisticsOperations statisticsOperations() {
+		return statisticsOperations;
+	}
+	
+	public CampaignOperations campaignOperations() {
+		return campaignOperations;
+	}
+	
+	public LineItemOperations lineItemOperations() {
+		return lineItemOperations;
+	}
+	
+	public TargetingCriteriaOperations targetingCriteriaOperations() {
+		return targetingCriteriaOperations;
+	}
 
 	public RestOperations restOperations() {
 		return getRestTemplate();
@@ -197,6 +247,12 @@ public class TwitterTemplate extends AbstractOAuth1ApiBinding implements Twitter
 		this.blockOperations = new BlockTemplate(getRestTemplate(), isAuthorized(),isAuthorizedForApp());
 		this.geoOperations = new GeoTemplate(getRestTemplate(), isAuthorized(), isAuthorizedForApp());
 		this.streamOperations = new StreamingTemplate(getRestTemplate(), isAuthorized(), isAuthorizedForApp());
+		
+		this.advertisingOperations = new AdvertisingTemplate(getRestTemplate(), isAuthorized(), isAuthorized());
+		this.statisticsOperations = new StatisticsTemplate(getRestTemplate(), isAuthorized(), isAuthorized());
+		this.campaignOperations = new CampaignTemplate(getRestTemplate(), isAuthorized(), isAuthorized());
+		this.lineItemOperations = new LineItemTemplate(getRestTemplate(), isAuthorized(), isAuthorized());
+		this.targetingCriteriaOperations = new TargetingCriteriaTemplate(getRestTemplate(), isAuthorized(), isAuthorized());
 	}
 	
 	private boolean isAuthorizedForApp() {

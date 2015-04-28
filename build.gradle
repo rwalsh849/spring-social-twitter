@@ -25,12 +25,12 @@ configure(allprojects - docProjects) {
     group = 'org.springframework.social'
 
     compileJava {
-        sourceCompatibility=1.5
-        targetCompatibility=1.5
+        sourceCompatibility=1.8
+        targetCompatibility=1.8
     }
     compileTestJava {
-        sourceCompatibility=1.7
-        targetCompatibility=1.7
+        sourceCompatibility=1.8
+        targetCompatibility=1.8
     }
 
     [compileJava, compileTestJava]*.options*.compilerArgs = [
@@ -193,7 +193,6 @@ project('spring-social-twitter') {
        compile ("org.springframework.social:spring-social-security:$springSocialVersion", optional)
        compile ("com.fasterxml.jackson.core:jackson-core:$jacksonVersion")
        compile ("com.fasterxml.jackson.core:jackson-databind:$jacksonVersion")
-       compile ("com.fasterxml.jackson.core:jackson-annotations:$jacksonVersion")
        compile ("org.springframework.security:spring-security-crypto:$springSecurityCryptoVersion")
        compile ("javax.servlet:javax.servlet-api:$servletApiVersion", provided)
        testCompile ("org.springframework:spring-test:$springVersion")

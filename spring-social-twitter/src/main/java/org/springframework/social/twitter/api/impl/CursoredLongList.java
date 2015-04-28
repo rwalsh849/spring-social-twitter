@@ -17,7 +17,7 @@ package org.springframework.social.twitter.api.impl;
 
 import java.util.List;
 
-import org.springframework.social.twitter.api.CursoredList;
+import org.springframework.social.twitter.api.basic.CursoredList;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonIgnore;
@@ -27,7 +27,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 
 @JsonIgnoreProperties(ignoreUnknown=true)
 @JsonIgnoreType
-class CursoredLongList {
+public class CursoredLongList {
 
 	private final CursoredList<Long> list;
 

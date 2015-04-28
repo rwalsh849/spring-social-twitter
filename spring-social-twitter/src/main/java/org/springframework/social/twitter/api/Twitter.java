@@ -16,6 +16,20 @@
 package org.springframework.social.twitter.api;
 
 import org.springframework.social.ApiBinding;
+import org.springframework.social.twitter.api.advertising.AdvertisingOperations;
+import org.springframework.social.twitter.api.advertising.StatisticsOperations;
+import org.springframework.social.twitter.api.advertising.CampaignOperations;
+import org.springframework.social.twitter.api.advertising.LineItemOperations;
+import org.springframework.social.twitter.api.advertising.TargetingCriteriaOperations;
+import org.springframework.social.twitter.api.basic.BlockOperations;
+import org.springframework.social.twitter.api.basic.DirectMessageOperations;
+import org.springframework.social.twitter.api.basic.FriendOperations;
+import org.springframework.social.twitter.api.basic.GeoOperations;
+import org.springframework.social.twitter.api.basic.ListOperations;
+import org.springframework.social.twitter.api.basic.SearchOperations;
+import org.springframework.social.twitter.api.basic.StreamingOperations;
+import org.springframework.social.twitter.api.basic.TimelineOperations;
+import org.springframework.social.twitter.api.basic.UserOperations;
 import org.springframework.web.client.RestOperations;
 
 
@@ -71,6 +85,32 @@ public interface Twitter extends ApiBinding {
 	 * @return the portion of the Twitter API containing the user operations.
 	 */
 	UserOperations userOperations();
+	
+	/**
+	 * @return the portion of the Twitter ADS API containing the advertising operations.
+	 */
+	AdvertisingOperations advertisingOperations();
+	
+	/**
+	 * 
+	 * @return the portion of the Twitter ADS API containing operations for advertising statistics.
+	 */
+	StatisticsOperations statisticsOperations();
+	
+	/**
+	 * @return the portion of the Twitter ADS API containing the campaign operations.
+	 */
+	CampaignOperations campaignOperations();
+	
+	/**
+	 * @return the portion of the Twitter ADS API containing the line items operations.
+	 */
+	LineItemOperations lineItemOperations();
+	
+	/**
+	 * @return the portion of the Twitter ADS API containing the targeting criteria operations.
+	 */
+	TargetingCriteriaOperations targetingCriteriaOperations();
 
 	/**
 	 * Returns the underlying {@link RestOperations} object allowing for consumption of Twitter endpoints that may not be otherwise covered by the API binding.

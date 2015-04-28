@@ -15,23 +15,54 @@
  */
 package org.springframework.social.twitter.api.impl;
 
-import org.springframework.social.twitter.api.AccountSettings;
-import org.springframework.social.twitter.api.DirectMessage;
-import org.springframework.social.twitter.api.Entities;
-import org.springframework.social.twitter.api.HashTagEntity;
-import org.springframework.social.twitter.api.MediaEntity;
-import org.springframework.social.twitter.api.MentionEntity;
-import org.springframework.social.twitter.api.OEmbedTweet;
-import org.springframework.social.twitter.api.Place;
-import org.springframework.social.twitter.api.SavedSearch;
-import org.springframework.social.twitter.api.SearchResults;
-import org.springframework.social.twitter.api.SuggestionCategory;
-import org.springframework.social.twitter.api.Trend;
-import org.springframework.social.twitter.api.Trends;
-import org.springframework.social.twitter.api.Tweet;
-import org.springframework.social.twitter.api.TwitterProfile;
-import org.springframework.social.twitter.api.UrlEntity;
-import org.springframework.social.twitter.api.UserList;
+import org.springframework.social.twitter.api.advertising.AdvertisingAccount;
+import org.springframework.social.twitter.api.advertising.Campaign;
+import org.springframework.social.twitter.api.advertising.FundingInstrument;
+import org.springframework.social.twitter.api.advertising.LineItem;
+import org.springframework.social.twitter.api.advertising.StatisticsSnapshot;
+import org.springframework.social.twitter.api.advertising.TargetingCriteria;
+import org.springframework.social.twitter.api.basic.AccountSettings;
+import org.springframework.social.twitter.api.basic.DirectMessage;
+import org.springframework.social.twitter.api.basic.Entities;
+import org.springframework.social.twitter.api.basic.HashTagEntity;
+import org.springframework.social.twitter.api.impl.advertising.AdvertisingAccountMixin;
+import org.springframework.social.twitter.api.impl.advertising.CampaignMixin;
+import org.springframework.social.twitter.api.impl.advertising.FundingInstrumentMixin;
+import org.springframework.social.twitter.api.impl.advertising.LineItemMixin;
+import org.springframework.social.twitter.api.impl.advertising.StatisticsSnapshotMixin;
+import org.springframework.social.twitter.api.impl.advertising.TargetingCriteriaMixin;
+import org.springframework.social.twitter.api.impl.basic.AccountSettingsMixin;
+import org.springframework.social.twitter.api.impl.basic.DirectMessageMixin;
+import org.springframework.social.twitter.api.impl.basic.EntitiesMixin;
+import org.springframework.social.twitter.api.impl.basic.HashTagEntityMixin;
+import org.springframework.social.twitter.api.impl.basic.MediaEntity;
+import org.springframework.social.twitter.api.impl.basic.MediaEntityMixin;
+import org.springframework.social.twitter.api.impl.basic.MentionEntity;
+import org.springframework.social.twitter.api.impl.basic.MentionEntityMixin;
+import org.springframework.social.twitter.api.impl.basic.OEmbedTweet;
+import org.springframework.social.twitter.api.impl.basic.OEmbedTweetMixin;
+import org.springframework.social.twitter.api.impl.basic.Place;
+import org.springframework.social.twitter.api.impl.basic.PlaceMixin;
+import org.springframework.social.twitter.api.impl.basic.SavedSearch;
+import org.springframework.social.twitter.api.impl.basic.SavedSearchMixin;
+import org.springframework.social.twitter.api.impl.basic.SearchResults;
+import org.springframework.social.twitter.api.impl.basic.SearchResultsMixin;
+import org.springframework.social.twitter.api.impl.basic.SimilarPlacesMixin;
+import org.springframework.social.twitter.api.impl.basic.SimilarPlacesResponse;
+import org.springframework.social.twitter.api.impl.basic.SuggestionCategory;
+import org.springframework.social.twitter.api.impl.basic.SuggestionCategoryMixin;
+import org.springframework.social.twitter.api.impl.basic.Trend;
+import org.springframework.social.twitter.api.impl.basic.TrendMixin;
+import org.springframework.social.twitter.api.impl.basic.Trends;
+import org.springframework.social.twitter.api.impl.basic.TrendsMixin;
+import org.springframework.social.twitter.api.impl.basic.Tweet;
+import org.springframework.social.twitter.api.impl.basic.TweetMixin;
+import org.springframework.social.twitter.api.impl.basic.TwitterProfile;
+import org.springframework.social.twitter.api.impl.basic.TwitterProfileMixin;
+import org.springframework.social.twitter.api.impl.basic.UrlEntity;
+import org.springframework.social.twitter.api.impl.basic.UrlEntityMixin;
+import org.springframework.social.twitter.api.impl.basic.UserList;
+import org.springframework.social.twitter.api.impl.basic.UserListMixin;
 
 import com.fasterxml.jackson.databind.module.SimpleModule;
 
@@ -39,7 +70,7 @@ import com.fasterxml.jackson.databind.module.SimpleModule;
  * Jackson module for registering mixin annotations against Twitter model classes.
  */
 @SuppressWarnings("serial")
-class TwitterModule extends SimpleModule {
+public class TwitterModule extends SimpleModule {
 
 	public TwitterModule() {
 		super("TwitterModule");
@@ -63,10 +94,19 @@ class TwitterModule extends SimpleModule {
 		context.setMixInAnnotations(MediaEntity.class, MediaEntityMixin.class);
 		context.setMixInAnnotations(MentionEntity.class, MentionEntityMixin.class);
 		context.setMixInAnnotations(UrlEntity.class, UrlEntityMixin.class);
+		
+		context.setMixInAnnotations(AdvertisingAccount.class, AdvertisingAccountMixin.class);
+		context.setMixInAnnotations(FundingInstrument.class, FundingInstrumentMixin.class);
+		context.setMixInAnnotations(LineItem.class, LineItemMixin.class);
+		context.setMixInAnnotations(Campaign.class, CampaignMixin.class);
+		context.setMixInAnnotations(TargetingCriteria.class, TargetingCriteriaMixin.class);
+		context.setMixInAnnotations(StatisticsSnapshot.class, StatisticsSnapshotMixin.class);
+		
 		context.setMixInAnnotations(AccountSettings.class, AccountSettingsMixin.class);
 		context.setMixInAnnotations(AccountSettings.TimeZone.class, AccountSettingsMixin.TimeZoneMixin.class);
 		context.setMixInAnnotations(AccountSettings.SleepTime.class, AccountSettingsMixin.SleepTimeMixin.class);
 		context.setMixInAnnotations(AccountSettings.TrendLocation.class, AccountSettingsMixin.TrendLocationMixin.class);
+		
 		context.setMixInAnnotations(OEmbedTweet.class, OEmbedTweetMixin.class);
 	}
 

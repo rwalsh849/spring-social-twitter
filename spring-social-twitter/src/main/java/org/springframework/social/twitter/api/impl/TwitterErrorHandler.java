@@ -35,8 +35,6 @@ import org.springframework.social.RevokedAuthorizationException;
 import org.springframework.social.ServerDownException;
 import org.springframework.social.ServerOverloadedException;
 import org.springframework.social.UncategorizedApiException;
-import org.springframework.social.twitter.api.InvalidMessageRecipientException;
-import org.springframework.social.twitter.api.MessageTooLongException;
 import org.springframework.web.client.DefaultResponseErrorHandler;
 
 import com.fasterxml.jackson.core.JsonFactory;
@@ -49,7 +47,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
  * REST API, interpreting them into appropriate exceptions.
  * @author Craig Walls
  */
-class TwitterErrorHandler extends DefaultResponseErrorHandler {
+public class TwitterErrorHandler extends DefaultResponseErrorHandler {
 		
 	@Override
 	public void handleError(ClientHttpResponse response) throws IOException {
