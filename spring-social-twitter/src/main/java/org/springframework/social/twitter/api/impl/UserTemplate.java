@@ -19,6 +19,7 @@ import java.util.List;
 import java.util.Map;
 
 import org.springframework.social.twitter.api.AccountSettings;
+import org.springframework.social.twitter.api.TwitterProfile;
 import org.springframework.social.twitter.api.UserOperations;
 import org.springframework.util.MultiValueMap;
 import org.springframework.web.client.RestTemplate;

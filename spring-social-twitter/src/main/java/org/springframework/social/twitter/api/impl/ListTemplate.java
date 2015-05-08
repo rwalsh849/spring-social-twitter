@@ -22,6 +22,7 @@ import java.util.List;
 import org.springframework.social.ResourceNotFoundException;
 import org.springframework.social.twitter.api.CursoredList;
 import org.springframework.social.twitter.api.ListOperations;
+import org.springframework.social.twitter.api.TwitterProfile;
 import org.springframework.util.LinkedMultiValueMap;
 import org.springframework.util.MultiValueMap;
 import org.springframework.web.client.RestTemplate;

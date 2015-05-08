@@ -24,7 +24,6 @@ import org.springframework.social.twitter.api.impl.AccountSettingsData;
 import org.springframework.social.twitter.api.impl.RateLimitStatus;
 import org.springframework.social.twitter.api.impl.ResourceFamily;
 import org.springframework.social.twitter.api.impl.SuggestionCategory;
-import org.springframework.social.twitter.api.impl.TwitterProfile;
 
 
 /**

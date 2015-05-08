@@ -18,7 +18,6 @@ package org.springframework.social.twitter.api;
 import java.util.Date;
 
 import org.springframework.social.twitter.api.impl.TwitterObject;
-import org.springframework.social.twitter.api.impl.TwitterProfile;
 
 /**
  * Represents a direct message.

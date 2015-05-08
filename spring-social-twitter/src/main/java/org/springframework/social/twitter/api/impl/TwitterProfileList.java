@@ -17,6 +17,8 @@ package org.springframework.social.twitter.api.impl;
 
 import java.util.ArrayList;
 
+import org.springframework.social.twitter.api.TwitterProfile;
+
 /**
  * Typed list of TwitterProfile. This helps Jackson know which type to deserialize list contents into.
  * @author Craig Walls

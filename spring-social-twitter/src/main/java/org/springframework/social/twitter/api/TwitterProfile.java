@@ -13,10 +13,12 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.springframework.social.twitter.api.impl;
+package org.springframework.social.twitter.api;
 
 import java.io.Serializable;
 import java.util.Date;
+
+import org.springframework.social.twitter.api.impl.TwitterObject;
 
 /**
  * Model class representing a Twitter user's profile information.

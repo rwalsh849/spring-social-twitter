@@ -26,9 +26,9 @@ import java.util.List;
 
 import org.junit.Test;
 import org.springframework.social.twitter.api.CursoredList;
+import org.springframework.social.twitter.api.TwitterProfile;
 import org.springframework.social.twitter.api.impl.AbstractTwitterApiTest;
 import org.springframework.social.twitter.api.impl.Tweet;
-import org.springframework.social.twitter.api.impl.TwitterProfile;
 import org.springframework.social.twitter.api.impl.UserList;
 
 /**

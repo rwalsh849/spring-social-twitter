@@ -19,6 +19,7 @@ import java.io.Serializable;
 import java.util.Date;
 
 import org.springframework.social.twitter.api.Entities;
+import org.springframework.social.twitter.api.TwitterProfile;
 
 /**
  * Represents a Twitter status update (e.g., a "tweet").

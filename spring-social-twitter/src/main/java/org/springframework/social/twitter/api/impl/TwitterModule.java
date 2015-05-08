@@ -19,6 +19,7 @@ import org.springframework.social.twitter.api.AccountSettings;
 import org.springframework.social.twitter.api.DirectMessage;
 import org.springframework.social.twitter.api.Entities;
 import org.springframework.social.twitter.api.HashTagEntity;
+import org.springframework.social.twitter.api.TwitterProfile;
 import org.springframework.social.twitter.api.advertising.AdvertisingAccount;
 import org.springframework.social.twitter.api.advertising.Campaign;
 import org.springframework.social.twitter.api.advertising.FundingInstrument;

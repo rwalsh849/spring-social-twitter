@@ -20,6 +20,7 @@ import java.net.URI;
 
 import org.springframework.social.twitter.api.BlockOperations;
 import org.springframework.social.twitter.api.CursoredList;
+import org.springframework.social.twitter.api.TwitterProfile;
 import org.springframework.util.LinkedMultiValueMap;
 import org.springframework.util.MultiValueMap;
 import org.springframework.web.client.RestTemplate;
