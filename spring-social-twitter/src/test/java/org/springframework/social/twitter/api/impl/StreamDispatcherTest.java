@@ -29,11 +29,6 @@ import java.util.concurrent.ConcurrentLinkedQueue;
 import org.junit.Ignore;
 import org.junit.Test;
 import org.springframework.core.io.ClassPathResource;
-import org.springframework.social.twitter.api.impl.basic.StreamDeleteEvent;
-import org.springframework.social.twitter.api.impl.basic.StreamDispatcher;
-import org.springframework.social.twitter.api.impl.basic.StreamListener;
-import org.springframework.social.twitter.api.impl.basic.StreamWarningEvent;
-import org.springframework.social.twitter.api.impl.basic.Tweet;
 
 @Ignore
 public class StreamDispatcherTest {

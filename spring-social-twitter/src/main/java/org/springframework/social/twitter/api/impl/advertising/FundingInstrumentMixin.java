@@ -21,7 +21,7 @@ import java.time.LocalDateTime;
 import org.springframework.social.twitter.api.advertising.FundingInstrument;
 import org.springframework.social.twitter.api.advertising.FundingInstrumentType;
 import org.springframework.social.twitter.api.impl.LocalDateTimeDeserializer;
-import org.springframework.social.twitter.api.impl.basic.TwitterObjectMixin;
+import org.springframework.social.twitter.api.impl.TwitterObjectMixin;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;

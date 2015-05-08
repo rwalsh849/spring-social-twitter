@@ -21,15 +21,6 @@ import org.springframework.social.twitter.api.advertising.StatisticsOperations;
 import org.springframework.social.twitter.api.advertising.CampaignOperations;
 import org.springframework.social.twitter.api.advertising.LineItemOperations;
 import org.springframework.social.twitter.api.advertising.TargetingCriteriaOperations;
-import org.springframework.social.twitter.api.basic.BlockOperations;
-import org.springframework.social.twitter.api.basic.DirectMessageOperations;
-import org.springframework.social.twitter.api.basic.FriendOperations;
-import org.springframework.social.twitter.api.basic.GeoOperations;
-import org.springframework.social.twitter.api.basic.ListOperations;
-import org.springframework.social.twitter.api.basic.SearchOperations;
-import org.springframework.social.twitter.api.basic.StreamingOperations;
-import org.springframework.social.twitter.api.basic.TimelineOperations;
-import org.springframework.social.twitter.api.basic.UserOperations;
 import org.springframework.web.client.RestOperations;
 
 

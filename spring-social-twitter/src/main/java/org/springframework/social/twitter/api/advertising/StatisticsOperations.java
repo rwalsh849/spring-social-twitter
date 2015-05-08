@@ -17,7 +17,7 @@ package org.springframework.social.twitter.api.advertising;
 
 import java.util.List;
 
-import org.springframework.social.twitter.api.impl.basic.Tweet;
+import org.springframework.social.twitter.api.impl.Tweet;
 
 
 /**

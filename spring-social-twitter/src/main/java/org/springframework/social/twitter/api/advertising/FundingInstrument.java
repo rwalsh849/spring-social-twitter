@@ -18,7 +18,7 @@ package org.springframework.social.twitter.api.advertising;
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
 
-import org.springframework.social.twitter.api.impl.basic.TwitterObject;
+import org.springframework.social.twitter.api.impl.TwitterObject;
 
 /**
  * Represents a Funding instrument related to an {@link AdvertisingAccount}.

@@ -18,7 +18,7 @@ package org.springframework.social.twitter.api.advertising;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.springframework.social.twitter.api.impl.basic.TwitterObject;
+import org.springframework.social.twitter.api.impl.TwitterObject;
 
 /**
  * Represents a metric that has been retrieved by the Ads statistics endpoint.

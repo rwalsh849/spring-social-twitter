@@ -16,7 +16,7 @@
 package org.springframework.social.twitter.api.impl.advertising;
 
 import org.springframework.social.twitter.api.advertising.StatisticsSnapshot;
-import org.springframework.social.twitter.api.impl.basic.TwitterObjectMixin;
+import org.springframework.social.twitter.api.impl.TwitterObjectMixin;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;

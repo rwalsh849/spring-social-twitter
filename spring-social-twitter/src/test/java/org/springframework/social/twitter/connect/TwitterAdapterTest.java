@@ -24,8 +24,8 @@ import org.junit.Test;
 import org.mockito.Mockito;
 import org.springframework.social.connect.UserProfile;
 import org.springframework.social.twitter.api.Twitter;
-import org.springframework.social.twitter.api.basic.UserOperations;
-import org.springframework.social.twitter.api.impl.basic.TwitterProfile;
+import org.springframework.social.twitter.api.UserOperations;
+import org.springframework.social.twitter.api.impl.TwitterProfile;
 import org.springframework.web.client.ResourceAccessException;
 
 public class TwitterAdapterTest {

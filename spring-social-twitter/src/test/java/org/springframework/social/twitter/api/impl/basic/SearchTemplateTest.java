@@ -25,11 +25,11 @@ import java.util.List;
 
 import org.junit.Test;
 import org.springframework.social.twitter.api.impl.AbstractTwitterApiTest;
-import org.springframework.social.twitter.api.impl.basic.SavedSearch;
-import org.springframework.social.twitter.api.impl.basic.SearchResults;
-import org.springframework.social.twitter.api.impl.basic.Trend;
-import org.springframework.social.twitter.api.impl.basic.Trends;
-import org.springframework.social.twitter.api.impl.basic.Tweet;
+import org.springframework.social.twitter.api.impl.SavedSearch;
+import org.springframework.social.twitter.api.impl.SearchResults;
+import org.springframework.social.twitter.api.impl.Trend;
+import org.springframework.social.twitter.api.impl.Trends;
+import org.springframework.social.twitter.api.impl.Tweet;
 
 
 /**

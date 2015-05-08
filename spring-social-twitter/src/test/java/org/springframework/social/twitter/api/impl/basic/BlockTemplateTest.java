@@ -22,9 +22,9 @@ import static org.springframework.test.web.client.match.MockRestRequestMatchers.
 import static org.springframework.test.web.client.response.MockRestResponseCreators.*;
 
 import org.junit.Test;
-import org.springframework.social.twitter.api.basic.CursoredList;
+import org.springframework.social.twitter.api.CursoredList;
 import org.springframework.social.twitter.api.impl.AbstractTwitterApiTest;
-import org.springframework.social.twitter.api.impl.basic.TwitterProfile;
+import org.springframework.social.twitter.api.impl.TwitterProfile;
 
 
 /**

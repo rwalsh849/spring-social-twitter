@@ -24,7 +24,7 @@ import org.springframework.social.twitter.api.advertising.AdvertisingSentiment;
 import org.springframework.social.twitter.api.advertising.LineItem;
 import org.springframework.social.twitter.api.advertising.LineItemOptimization;
 import org.springframework.social.twitter.api.impl.LocalDateTimeDeserializer;
-import org.springframework.social.twitter.api.impl.basic.TwitterObjectMixin;
+import org.springframework.social.twitter.api.impl.TwitterObjectMixin;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;

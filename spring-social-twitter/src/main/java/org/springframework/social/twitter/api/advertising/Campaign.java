@@ -35,7 +35,7 @@ import java.util.ArrayList;
  */
 import java.util.List;
 
-import org.springframework.social.twitter.api.impl.basic.TwitterObject;
+import org.springframework.social.twitter.api.impl.TwitterObject;
 
 /**
  * Represents an Advertising Campaign run for a particular {@link AdvertisingAccount}. 

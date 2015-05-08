@@ -17,8 +17,7 @@ package org.springframework.social.twitter.api.impl;
 
 import java.util.List;
 
-import org.springframework.social.twitter.api.basic.CursoredList;
-import org.springframework.social.twitter.api.impl.basic.TwitterProfile;
+import org.springframework.social.twitter.api.CursoredList;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonIgnore;

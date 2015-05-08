@@ -22,7 +22,7 @@ import java.util.List;
 import org.springframework.social.twitter.api.advertising.Campaign;
 import org.springframework.social.twitter.api.advertising.ReasonNotServable;
 import org.springframework.social.twitter.api.impl.LocalDateTimeDeserializer;
-import org.springframework.social.twitter.api.impl.basic.TwitterObjectMixin;
+import org.springframework.social.twitter.api.impl.TwitterObjectMixin;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
