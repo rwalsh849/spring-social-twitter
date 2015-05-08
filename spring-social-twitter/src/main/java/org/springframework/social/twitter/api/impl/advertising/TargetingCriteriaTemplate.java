@@ -24,7 +24,7 @@ import org.springframework.social.twitter.api.TwitterForm;
 import org.springframework.social.twitter.api.advertising.TargetingCriteria;
 import org.springframework.social.twitter.api.advertising.TargetingCriteriaOperations;
 import org.springframework.social.twitter.api.advertising.TargetingCriteriaQuery;
-import org.springframework.social.twitter.api.impl.AbstractTwitterTemplate;
+import org.springframework.social.twitter.api.impl.AbstractTwitterOperations;
 import org.springframework.social.twitter.api.impl.DataListHolder;
 import org.springframework.social.twitter.api.impl.DataSingleHolder;
 import org.springframework.social.twitter.api.impl.TwitterApiUriBuilder;
@@ -36,7 +36,7 @@ import org.springframework.web.client.RestTemplate;
  * Implementation of {@link TargetingCriteriaOperations}, providing a binding to Twitter's direct message-oriented REST resources.
  * @author Hudson Mendes
  */
-public class TargetingCriteriaTemplate extends AbstractTwitterTemplate implements TargetingCriteriaOperations {
+public class TargetingCriteriaTemplate extends AbstractTwitterOperations implements TargetingCriteriaOperations {
 	private final RestTemplate restTemplate;
 
 	public TargetingCriteriaTemplate(RestTemplate restTemplate, boolean isAuthorizedForUser, boolean isAuthorizedForApp) {

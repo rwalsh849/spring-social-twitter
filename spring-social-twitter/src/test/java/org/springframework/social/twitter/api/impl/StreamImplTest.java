@@ -24,6 +24,9 @@ import java.io.InputStream;
 import org.junit.Ignore;
 import org.junit.Test;
 import org.springframework.core.io.ClassPathResource;
+import org.springframework.social.twitter.api.StreamListener;
+import org.springframework.social.twitter.api.StreamingException;
+import org.springframework.social.twitter.api.Tweet;
 
 public class StreamImplTest {
 

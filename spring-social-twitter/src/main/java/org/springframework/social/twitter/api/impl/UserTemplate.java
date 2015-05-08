@@ -19,6 +19,9 @@ import java.util.List;
 import java.util.Map;
 
 import org.springframework.social.twitter.api.AccountSettings;
+import org.springframework.social.twitter.api.RateLimitStatus;
+import org.springframework.social.twitter.api.ResourceFamily;
+import org.springframework.social.twitter.api.SuggestionCategory;
 import org.springframework.social.twitter.api.TwitterProfile;
 import org.springframework.social.twitter.api.UserOperations;
 import org.springframework.util.MultiValueMap;
@@ -28,7 +31,7 @@ import org.springframework.web.client.RestTemplate;
  * Implementation of the {@link UserOperations} interface providing binding to Twitters' user-oriented REST resources.
  * @author Craig Walls
  */
-public class UserTemplate extends AbstractTwitterTemplate implements UserOperations {
+public class UserTemplate extends AbstractTwitterOperations implements UserOperations {
 	
 	private final RestTemplate restTemplate;
 

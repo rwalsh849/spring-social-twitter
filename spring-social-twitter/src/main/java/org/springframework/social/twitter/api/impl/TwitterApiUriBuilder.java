@@ -27,7 +27,7 @@ import org.springframework.util.MultiValueMap;
 
 /**
  * Builds API URIs and provide them to operations implementing
- * {@link AbstractTwitterTemplate} for both the Standard API
+ * {@link AbstractTwitterOperations} for both the Standard API
  * and for the Twitter AdCampaign API. 
  *  
  * @author Hudson Mendes

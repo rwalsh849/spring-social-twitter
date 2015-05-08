@@ -18,11 +18,15 @@ package org.springframework.social.twitter.api.impl;
 import java.util.List;
 
 import org.springframework.social.twitter.api.GeoOperations;
+import org.springframework.social.twitter.api.Place;
+import org.springframework.social.twitter.api.PlacePrototype;
+import org.springframework.social.twitter.api.PlaceType;
+import org.springframework.social.twitter.api.SimilarPlaces;
 import org.springframework.util.LinkedMultiValueMap;
 import org.springframework.util.MultiValueMap;
 import org.springframework.web.client.RestTemplate;
 
-public class GeoTemplate extends AbstractTwitterTemplate implements GeoOperations {
+public class GeoTemplate extends AbstractTwitterOperations implements GeoOperations {
 
 	private final RestTemplate restTemplate;
 

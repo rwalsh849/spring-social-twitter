@@ -30,7 +30,10 @@ import org.springframework.http.client.ClientHttpRequest;
 import org.springframework.http.client.ClientHttpRequestFactory;
 import org.springframework.http.client.ClientHttpResponse;
 import org.springframework.social.twitter.api.FilterStreamParameters;
+import org.springframework.social.twitter.api.Stream;
+import org.springframework.social.twitter.api.StreamListener;
 import org.springframework.social.twitter.api.StreamingOperations;
+import org.springframework.social.twitter.api.UserStreamParameters;
 import org.springframework.util.Assert;
 import org.springframework.util.LinkedMultiValueMap;
 import org.springframework.util.MultiValueMap;
@@ -39,7 +42,7 @@ import org.springframework.web.client.RestTemplate;
 /**
  * @author Craig Walls
  */
-public class StreamingTemplate extends AbstractTwitterTemplate implements StreamingOperations {
+public class StreamingTemplate extends AbstractTwitterOperations implements StreamingOperations {
 	
 	private final RestTemplate restTemplate;
 					

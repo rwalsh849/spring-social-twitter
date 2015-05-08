@@ -19,7 +19,11 @@ import static org.springframework.social.twitter.api.impl.SearchParametersUtil.b
 
 import java.util.List;
 
+import org.springframework.social.twitter.api.SavedSearch;
 import org.springframework.social.twitter.api.SearchOperations;
+import org.springframework.social.twitter.api.SearchParameters;
+import org.springframework.social.twitter.api.SearchResults;
+import org.springframework.social.twitter.api.Trends;
 import org.springframework.util.Assert;
 import org.springframework.util.LinkedMultiValueMap;
 import org.springframework.util.MultiValueMap;
@@ -29,7 +33,7 @@ import org.springframework.web.client.RestTemplate;
  * Implementation of {@link SearchOperations}, providing a binding to Twitter's search and trend-oriented REST resources.
  * @author Craig Walls
  */
-public class SearchTemplate extends AbstractTwitterTemplate implements SearchOperations {
+public class SearchTemplate extends AbstractTwitterOperations implements SearchOperations {
 	private static final MultiValueMap<String, Object> EMPTY_DATA = new LinkedMultiValueMap<String, Object>();
 	private final RestTemplate restTemplate;
 

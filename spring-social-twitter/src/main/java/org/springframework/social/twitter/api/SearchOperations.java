@@ -19,11 +19,6 @@ import java.util.List;
 
 import org.springframework.social.ApiException;
 import org.springframework.social.MissingAuthorizationException;
-import org.springframework.social.twitter.api.impl.SavedSearch;
-import org.springframework.social.twitter.api.impl.SearchParameters;
-import org.springframework.social.twitter.api.impl.SearchResults;
-import org.springframework.social.twitter.api.impl.Trends;
-import org.springframework.social.twitter.api.impl.Tweet;
 
 
 /**

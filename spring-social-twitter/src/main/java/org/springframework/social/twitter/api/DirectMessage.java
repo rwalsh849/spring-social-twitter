@@ -17,8 +17,6 @@ package org.springframework.social.twitter.api;
 
 import java.util.Date;
 
-import org.springframework.social.twitter.api.impl.TwitterObject;
-
 /**
  * Represents a direct message.
  * @author Craig Walls

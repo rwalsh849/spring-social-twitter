@@ -35,6 +35,8 @@ import org.springframework.social.RevokedAuthorizationException;
 import org.springframework.social.ServerDownException;
 import org.springframework.social.ServerOverloadedException;
 import org.springframework.social.UncategorizedApiException;
+import org.springframework.social.twitter.api.InvalidMessageRecipientException;
+import org.springframework.social.twitter.api.MessageTooLongException;
 import org.springframework.web.client.DefaultResponseErrorHandler;
 
 import com.fasterxml.jackson.core.JsonFactory;

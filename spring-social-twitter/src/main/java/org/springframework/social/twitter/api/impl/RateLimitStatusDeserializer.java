@@ -23,6 +23,9 @@ import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
 
+import org.springframework.social.twitter.api.RateLimitStatus;
+import org.springframework.social.twitter.api.ResourceFamily;
+
 import com.fasterxml.jackson.core.JsonParser;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.DeserializationContext;

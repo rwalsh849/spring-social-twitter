@@ -24,7 +24,7 @@ import org.springframework.social.twitter.api.advertising.AdvertisingAccountQuer
 import org.springframework.social.twitter.api.advertising.AdvertisingOperations;
 import org.springframework.social.twitter.api.advertising.FundingInstrument;
 import org.springframework.social.twitter.api.advertising.FundingInstrumentQuery;
-import org.springframework.social.twitter.api.impl.AbstractTwitterTemplate;
+import org.springframework.social.twitter.api.impl.AbstractTwitterOperations;
 import org.springframework.social.twitter.api.impl.DataListHolder;
 import org.springframework.social.twitter.api.impl.TwitterApiUriBuilder;
 import org.springframework.social.twitter.api.impl.TwitterApiUriResourceForAdvertising;
@@ -34,7 +34,7 @@ import org.springframework.web.client.RestTemplate;
  * Implementation of {@link AdvertisingOperations}, providing a binding to Twitter's direct message-oriented REST resources.
  * @author Hudson Mendes
  */
-public class AdvertisingTemplate extends AbstractTwitterTemplate implements AdvertisingOperations {
+public class AdvertisingTemplate extends AbstractTwitterOperations implements AdvertisingOperations {
 	private final RestTemplate restTemplate;
 
 	public AdvertisingTemplate(RestTemplate restTemplate, boolean isAuthorizedForUser, boolean isAuthorizedForApp) {

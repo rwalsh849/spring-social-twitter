@@ -27,6 +27,9 @@ import java.util.List;
 
 import org.junit.Test;
 import org.springframework.social.twitter.api.GeoCode;
+import org.springframework.social.twitter.api.SearchParameters;
+import org.springframework.social.twitter.api.SearchResults;
+import org.springframework.social.twitter.api.Tweet;
 
 /**
  * Unit tests for advanced search using SearchParameter

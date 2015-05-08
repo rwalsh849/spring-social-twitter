@@ -17,8 +17,6 @@ package org.springframework.social.twitter.api;
 
 import java.util.List;
 
-import org.springframework.social.twitter.api.impl.TwitterObject;
-
 /**
  * Model class representing Twitter account settings.
  * @author Craig Walls

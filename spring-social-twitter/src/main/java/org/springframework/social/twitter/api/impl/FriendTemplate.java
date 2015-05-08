@@ -28,7 +28,7 @@ import org.springframework.web.client.RestTemplate;
  * Implementation of {@link FriendTemplate}, providing a binding to Twitter's friends and followers-oriented REST resources.
  * @author Craig Walls
  */
-public class FriendTemplate extends AbstractTwitterTemplate implements FriendOperations {
+public class FriendTemplate extends AbstractTwitterOperations implements FriendOperations {
 	
 	private final RestTemplate restTemplate;
 

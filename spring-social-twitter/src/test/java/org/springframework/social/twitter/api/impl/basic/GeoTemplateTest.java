@@ -24,14 +24,14 @@ import static org.springframework.test.web.client.response.MockRestResponseCreat
 import java.util.List;
 
 import org.junit.Test;
+import org.springframework.social.twitter.api.Place;
+import org.springframework.social.twitter.api.PlacePrototype;
+import org.springframework.social.twitter.api.PlaceType;
+import org.springframework.social.twitter.api.SimilarPlaces;
+import org.springframework.social.twitter.api.Place.GeoPoint;
+import org.springframework.social.twitter.api.Place.Geometry;
+import org.springframework.social.twitter.api.Place.GeometryType;
 import org.springframework.social.twitter.api.impl.AbstractTwitterApiTest;
-import org.springframework.social.twitter.api.impl.Place;
-import org.springframework.social.twitter.api.impl.PlacePrototype;
-import org.springframework.social.twitter.api.impl.PlaceType;
-import org.springframework.social.twitter.api.impl.SimilarPlaces;
-import org.springframework.social.twitter.api.impl.Place.GeoPoint;
-import org.springframework.social.twitter.api.impl.Place.Geometry;
-import org.springframework.social.twitter.api.impl.Place.GeometryType;
 
 public class GeoTemplateTest extends AbstractTwitterApiTest {
 	

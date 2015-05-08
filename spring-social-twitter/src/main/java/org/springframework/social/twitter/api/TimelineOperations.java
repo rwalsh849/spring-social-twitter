@@ -24,12 +24,6 @@ import org.springframework.social.ApiException;
 import org.springframework.social.DuplicateStatusException;
 import org.springframework.social.MissingAuthorizationException;
 import org.springframework.social.OperationNotPermittedException;
-import org.springframework.social.twitter.api.impl.MessageTooLongException;
-import org.springframework.social.twitter.api.impl.OEmbedOptions;
-import org.springframework.social.twitter.api.impl.OEmbedTweet;
-import org.springframework.social.twitter.api.impl.StatusDetails;
-import org.springframework.social.twitter.api.impl.Tweet;
-import org.springframework.social.twitter.api.impl.TweetData;
 
 
 /**

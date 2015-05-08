@@ -18,8 +18,7 @@ package org.springframework.social.twitter.api.advertising;
 import java.time.LocalDateTime;
 import java.util.TimeZone;
 
-import org.springframework.social.twitter.api.ApprovalStatus;
-import org.springframework.social.twitter.api.impl.TwitterObject;
+import org.springframework.social.twitter.api.TwitterObject;
 
 /**
  * Represents an Advertising Account

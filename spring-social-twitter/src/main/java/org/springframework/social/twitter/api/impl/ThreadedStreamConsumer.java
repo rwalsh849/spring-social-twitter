@@ -17,6 +17,9 @@ package org.springframework.social.twitter.api.impl;
 
 import java.util.concurrent.atomic.AtomicBoolean;
 
+import org.springframework.social.twitter.api.Stream;
+import org.springframework.social.twitter.api.StreamingException;
+
 public abstract class ThreadedStreamConsumer extends Thread implements Stream {
 		
 	private AtomicBoolean open;

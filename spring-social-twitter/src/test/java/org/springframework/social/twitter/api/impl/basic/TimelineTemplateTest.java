@@ -30,13 +30,13 @@ import org.springframework.core.io.Resource;
 import org.springframework.social.DuplicateStatusException;
 import org.springframework.social.OperationNotPermittedException;
 import org.springframework.social.twitter.api.Entities;
+import org.springframework.social.twitter.api.MessageTooLongException;
+import org.springframework.social.twitter.api.OEmbedOptions;
+import org.springframework.social.twitter.api.OEmbedTweet;
+import org.springframework.social.twitter.api.TickerSymbolEntity;
+import org.springframework.social.twitter.api.Tweet;
+import org.springframework.social.twitter.api.TweetData;
 import org.springframework.social.twitter.api.impl.AbstractTwitterApiTest;
-import org.springframework.social.twitter.api.impl.MessageTooLongException;
-import org.springframework.social.twitter.api.impl.OEmbedOptions;
-import org.springframework.social.twitter.api.impl.OEmbedTweet;
-import org.springframework.social.twitter.api.impl.TickerSymbolEntity;
-import org.springframework.social.twitter.api.impl.Tweet;
-import org.springframework.social.twitter.api.impl.TweetData;
 
 
 /**

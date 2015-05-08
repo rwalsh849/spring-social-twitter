@@ -15,7 +15,6 @@
  */
 package org.springframework.social.twitter.api;
 
-import org.springframework.social.twitter.api.impl.AbstractStreamParameters;
 import org.springframework.util.MultiValueMap;
 
 /**

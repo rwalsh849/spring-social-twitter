@@ -24,12 +24,12 @@ import static org.springframework.test.web.client.response.MockRestResponseCreat
 import java.util.List;
 
 import org.junit.Test;
+import org.springframework.social.twitter.api.SavedSearch;
+import org.springframework.social.twitter.api.SearchResults;
+import org.springframework.social.twitter.api.Trend;
+import org.springframework.social.twitter.api.Trends;
+import org.springframework.social.twitter.api.Tweet;
 import org.springframework.social.twitter.api.impl.AbstractTwitterApiTest;
-import org.springframework.social.twitter.api.impl.SavedSearch;
-import org.springframework.social.twitter.api.impl.SearchResults;
-import org.springframework.social.twitter.api.impl.Trend;
-import org.springframework.social.twitter.api.impl.Trends;
-import org.springframework.social.twitter.api.impl.Tweet;
 
 
 /**

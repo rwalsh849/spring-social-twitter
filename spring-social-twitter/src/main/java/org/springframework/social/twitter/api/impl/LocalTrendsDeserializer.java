@@ -23,6 +23,9 @@ import java.util.Date;
 import java.util.Iterator;
 import java.util.List;
 
+import org.springframework.social.twitter.api.Trend;
+import org.springframework.social.twitter.api.Trends;
+
 import com.fasterxml.jackson.core.JsonParser;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.DeserializationContext;

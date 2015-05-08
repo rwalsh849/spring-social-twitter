@@ -26,6 +26,9 @@ import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
 
+import org.springframework.social.twitter.api.Trend;
+import org.springframework.social.twitter.api.Trends;
+
 
 /**
  * Abstract model class representing a list of trends.

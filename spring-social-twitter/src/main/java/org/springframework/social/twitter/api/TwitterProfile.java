@@ -18,8 +18,6 @@ package org.springframework.social.twitter.api;
 import java.io.Serializable;
 import java.util.Date;
 
-import org.springframework.social.twitter.api.impl.TwitterObject;
-
 /**
  * Model class representing a Twitter user's profile information.
  * 

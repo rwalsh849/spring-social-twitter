@@ -18,8 +18,6 @@ package org.springframework.social.twitter.api;
 import java.io.Serializable;
 import java.util.Arrays;
 
-import org.springframework.social.twitter.api.impl.TwitterObject;
-
 /**
  * <p>A representation of tweet hashtags.</p>
  * @author bowen

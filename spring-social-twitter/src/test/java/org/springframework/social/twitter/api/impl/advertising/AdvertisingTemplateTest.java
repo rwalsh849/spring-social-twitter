@@ -32,9 +32,9 @@ import java.util.List;
 import java.util.TimeZone;
 
 import org.junit.Test;
-import org.springframework.social.twitter.api.ApprovalStatus;
 import org.springframework.social.twitter.api.advertising.AdvertisingAccount;
 import org.springframework.social.twitter.api.advertising.AdvertisingAccountSorting;
+import org.springframework.social.twitter.api.advertising.ApprovalStatus;
 import org.springframework.social.twitter.api.advertising.FundingInstrument;
 import org.springframework.social.twitter.api.advertising.FundingInstrumentType;
 import org.springframework.social.twitter.api.impl.AbstractTwitterApiTest;

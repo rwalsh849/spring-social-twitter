@@ -20,12 +20,6 @@ import java.util.Collections;
 import java.util.LinkedList;
 import java.util.List;
 
-import org.springframework.social.twitter.api.impl.MediaEntity;
-import org.springframework.social.twitter.api.impl.MentionEntity;
-import org.springframework.social.twitter.api.impl.TickerSymbolEntity;
-import org.springframework.social.twitter.api.impl.TwitterObject;
-import org.springframework.social.twitter.api.impl.UrlEntity;
-
 /**
  * <p>A json representation of entities found within twitter status objects.<p>
  * @author bowen

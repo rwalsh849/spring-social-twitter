@@ -27,7 +27,7 @@ import org.springframework.social.twitter.api.advertising.StatisticsOfLineItemQu
 import org.springframework.social.twitter.api.advertising.StatisticsOfPromotedAccountQuery;
 import org.springframework.social.twitter.api.advertising.StatisticsOfPromotedTweetQuery;
 import org.springframework.social.twitter.api.advertising.StatisticsSnapshot;
-import org.springframework.social.twitter.api.impl.AbstractTwitterTemplate;
+import org.springframework.social.twitter.api.impl.AbstractTwitterOperations;
 import org.springframework.social.twitter.api.impl.DataListHolder;
 import org.springframework.social.twitter.api.impl.TwitterApiUriBuilder;
 import org.springframework.social.twitter.api.impl.TwitterApiUriResourceForAdvertising;
@@ -38,7 +38,7 @@ import org.springframework.web.client.RestTemplate;
  * Twitter's direct message-oriented REST resources.
  * @author Hudson Mendes
  */
-public class StatisticsTemplate extends AbstractTwitterTemplate implements StatisticsOperations {
+public class StatisticsTemplate extends AbstractTwitterOperations implements StatisticsOperations {
 	private final RestTemplate restTemplate;
 
 	public StatisticsTemplate(RestTemplate restTemplate, boolean isAuthorizedForUser, boolean isAuthorizedForApp) {

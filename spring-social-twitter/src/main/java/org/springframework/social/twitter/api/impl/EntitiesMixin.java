@@ -18,6 +18,9 @@ package org.springframework.social.twitter.api.impl;
 import java.util.List;
 
 import org.springframework.social.twitter.api.HashTagEntity;
+import org.springframework.social.twitter.api.MediaEntity;
+import org.springframework.social.twitter.api.MentionEntity;
+import org.springframework.social.twitter.api.UrlEntity;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;

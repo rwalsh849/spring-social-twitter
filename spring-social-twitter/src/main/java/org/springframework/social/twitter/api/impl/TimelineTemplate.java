@@ -19,7 +19,12 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.core.io.Resource;
+import org.springframework.social.twitter.api.OEmbedOptions;
+import org.springframework.social.twitter.api.OEmbedTweet;
+import org.springframework.social.twitter.api.StatusDetails;
 import org.springframework.social.twitter.api.TimelineOperations;
+import org.springframework.social.twitter.api.Tweet;
+import org.springframework.social.twitter.api.TweetData;
 import org.springframework.util.LinkedMultiValueMap;
 import org.springframework.util.MultiValueMap;
 import org.springframework.web.client.RestTemplate;
@@ -28,7 +33,7 @@ import org.springframework.web.client.RestTemplate;
  * Implementation of {@link TimelineOperations}, providing a binding to Twitter's tweet and timeline-oriented REST resources.
  * @author Craig Walls
  */
-public class TimelineTemplate extends AbstractTwitterTemplate implements TimelineOperations {
+public class TimelineTemplate extends AbstractTwitterOperations implements TimelineOperations {
 	private static final MultiValueMap<String, Object> EMPTY_DATA = new LinkedMultiValueMap<String, Object>();
 	
 	private final RestTemplate restTemplate;

@@ -22,6 +22,11 @@ import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.atomic.AtomicBoolean;
 
+import org.springframework.social.twitter.api.StreamDeleteEvent;
+import org.springframework.social.twitter.api.StreamListener;
+import org.springframework.social.twitter.api.StreamWarningEvent;
+import org.springframework.social.twitter.api.Tweet;
+
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 public class StreamDispatcher implements Runnable {

@@ -20,9 +20,11 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
-import org.springframework.social.twitter.api.impl.Place.GeoPoint;
-import org.springframework.social.twitter.api.impl.Place.Geometry;
-import org.springframework.social.twitter.api.impl.Place.GeometryType;
+import org.springframework.social.twitter.api.Place;
+import org.springframework.social.twitter.api.PlaceType;
+import org.springframework.social.twitter.api.Place.GeoPoint;
+import org.springframework.social.twitter.api.Place.Geometry;
+import org.springframework.social.twitter.api.Place.GeometryType;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;

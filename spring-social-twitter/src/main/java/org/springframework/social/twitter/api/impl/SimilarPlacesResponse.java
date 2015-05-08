@@ -17,6 +17,8 @@ package org.springframework.social.twitter.api.impl;
 
 import java.util.List;
 
+import org.springframework.social.twitter.api.Place;
+
 /**
  * Represents the results of a similar places search. Includes places that match the search criteria and a token that may be used to create a new place.
  * @author Craig Walls

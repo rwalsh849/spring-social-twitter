@@ -17,6 +17,7 @@ package org.springframework.social.twitter.api.impl;
 
 import java.io.IOException;
 
+import org.springframework.social.twitter.api.StreamDeleteEvent;
 import org.springframework.social.twitter.api.impl.StreamDeleteEventMixin.DeleteTweetEventDeserializer;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;

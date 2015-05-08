@@ -18,6 +18,8 @@ package org.springframework.social.twitter.api.impl;
 import java.io.IOException;
 import java.util.List;
 
+import org.springframework.social.twitter.api.Place;
+
 import com.fasterxml.jackson.core.JsonParser;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.core.type.TypeReference;

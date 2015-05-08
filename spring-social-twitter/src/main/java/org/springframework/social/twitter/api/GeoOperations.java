@@ -19,10 +19,6 @@ import java.util.List;
 
 import org.springframework.social.ApiException;
 import org.springframework.social.MissingAuthorizationException;
-import org.springframework.social.twitter.api.impl.Place;
-import org.springframework.social.twitter.api.impl.PlacePrototype;
-import org.springframework.social.twitter.api.impl.PlaceType;
-import org.springframework.social.twitter.api.impl.SimilarPlaces;
 
 /**
  * Interface defining the Twitter operations for working with locations.

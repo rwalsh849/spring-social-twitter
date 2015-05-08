@@ -28,11 +28,11 @@ import java.util.List;
 import org.junit.Ignore;
 import org.junit.Test;
 import org.springframework.core.io.ClassPathResource;
+import org.springframework.social.twitter.api.StreamDeleteEvent;
+import org.springframework.social.twitter.api.StreamListener;
+import org.springframework.social.twitter.api.StreamWarningEvent;
+import org.springframework.social.twitter.api.Tweet;
 import org.springframework.social.twitter.api.impl.AbstractTwitterApiTest;
-import org.springframework.social.twitter.api.impl.StreamDeleteEvent;
-import org.springframework.social.twitter.api.impl.StreamListener;
-import org.springframework.social.twitter.api.impl.StreamWarningEvent;
-import org.springframework.social.twitter.api.impl.Tweet;
 
 /**
  * @author Craig Walls

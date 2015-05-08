@@ -27,6 +27,9 @@ import java.util.concurrent.ScheduledThreadPoolExecutor;
 import java.util.concurrent.TimeUnit;
 import java.util.concurrent.atomic.AtomicBoolean;
 
+import org.springframework.social.twitter.api.StreamListener;
+import org.springframework.social.twitter.api.StreamingException;
+
 public class StreamReaderImpl implements StreamReader {
 	
 	private AtomicBoolean open;

@@ -18,8 +18,8 @@ package org.springframework.social.twitter.api.impl.advertising;
 import java.time.LocalDateTime;
 import java.util.TimeZone;
 
-import org.springframework.social.twitter.api.ApprovalStatus;
 import org.springframework.social.twitter.api.advertising.AdvertisingAccount;
+import org.springframework.social.twitter.api.advertising.ApprovalStatus;
 import org.springframework.social.twitter.api.impl.LocalDateTimeDeserializer;
 import org.springframework.social.twitter.api.impl.TwitterObjectMixin;
 

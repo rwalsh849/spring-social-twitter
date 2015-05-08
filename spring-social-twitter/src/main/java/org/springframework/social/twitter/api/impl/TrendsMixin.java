@@ -18,6 +18,8 @@ package org.springframework.social.twitter.api.impl;
 import java.util.Date;
 import java.util.List;
 
+import org.springframework.social.twitter.api.Trend;
+
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;

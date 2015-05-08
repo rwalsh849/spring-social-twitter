@@ -17,6 +17,7 @@ package org.springframework.social.twitter.api.impl;
 
 import java.io.IOException;
 
+import org.springframework.social.twitter.api.StreamWarningEvent;
 import org.springframework.social.twitter.api.impl.StreamWarningEventMixin.StreamWarningEventDeserializer;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;

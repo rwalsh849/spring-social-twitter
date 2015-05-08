@@ -17,10 +17,6 @@ package org.springframework.social.twitter.api;
 
 import java.util.List;
 
-import org.springframework.social.twitter.api.impl.Stream;
-import org.springframework.social.twitter.api.impl.StreamListener;
-import org.springframework.social.twitter.api.impl.UserStreamParameters;
-
 /**
  * Defines operations for working with Twitter's streaming API
  * @author Craig Walls

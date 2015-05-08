@@ -24,7 +24,7 @@ import org.springframework.social.twitter.api.TwitterForm;
 import org.springframework.social.twitter.api.advertising.LineItem;
 import org.springframework.social.twitter.api.advertising.LineItemOperations;
 import org.springframework.social.twitter.api.advertising.LineItemQuery;
-import org.springframework.social.twitter.api.impl.AbstractTwitterTemplate;
+import org.springframework.social.twitter.api.impl.AbstractTwitterOperations;
 import org.springframework.social.twitter.api.impl.DataListHolder;
 import org.springframework.social.twitter.api.impl.DataSingleHolder;
 import org.springframework.social.twitter.api.impl.TwitterApiUriBuilder;
@@ -32,7 +32,7 @@ import org.springframework.social.twitter.api.impl.TwitterApiUriResourceForAdver
 import org.springframework.util.MultiValueMap;
 import org.springframework.web.client.RestTemplate;
 
-public class LineItemTemplate extends AbstractTwitterTemplate implements LineItemOperations {
+public class LineItemTemplate extends AbstractTwitterOperations implements LineItemOperations {
 	private final RestTemplate restTemplate;
 
 	public LineItemTemplate(RestTemplate restTemplate, boolean isAuthorizedForUser, boolean isAuthorizedForApp) {

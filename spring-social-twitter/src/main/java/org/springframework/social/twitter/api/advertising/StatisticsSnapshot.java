@@ -19,7 +19,7 @@ import java.time.LocalDateTime;
 import java.util.HashMap;
 import java.util.Map;
 
-import org.springframework.social.twitter.api.impl.TwitterObject;
+import org.springframework.social.twitter.api.TwitterObject;
 
 /**
  * Represents a snapshot of the statistics on advertising

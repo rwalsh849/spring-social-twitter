@@ -18,6 +18,9 @@ package org.springframework.social.twitter.api.impl;
 import java.util.List;
 import java.util.Map;
 
+import org.springframework.social.twitter.api.RateLimitStatus;
+import org.springframework.social.twitter.api.ResourceFamily;
+
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 

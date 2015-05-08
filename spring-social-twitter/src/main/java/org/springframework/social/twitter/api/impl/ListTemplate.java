@@ -22,7 +22,9 @@ import java.util.List;
 import org.springframework.social.ResourceNotFoundException;
 import org.springframework.social.twitter.api.CursoredList;
 import org.springframework.social.twitter.api.ListOperations;
+import org.springframework.social.twitter.api.Tweet;
 import org.springframework.social.twitter.api.TwitterProfile;
+import org.springframework.social.twitter.api.UserList;
 import org.springframework.util.LinkedMultiValueMap;
 import org.springframework.util.MultiValueMap;
 import org.springframework.web.client.RestTemplate;
@@ -31,7 +33,7 @@ import org.springframework.web.client.RestTemplate;
  * Implementation of {@link ListOperations}, providing a binding to Twitter's list-oriented REST resources.
  * @author Craig Walls
  */
-public class ListTemplate extends AbstractTwitterTemplate implements ListOperations {
+public class ListTemplate extends AbstractTwitterOperations implements ListOperations {
 	
 	private final RestTemplate restTemplate;
 					

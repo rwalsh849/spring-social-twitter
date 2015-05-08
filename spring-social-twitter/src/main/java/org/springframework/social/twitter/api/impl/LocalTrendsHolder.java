@@ -15,6 +15,8 @@
  */
 package org.springframework.social.twitter.api.impl;
 
+import org.springframework.social.twitter.api.Trends;
+
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 

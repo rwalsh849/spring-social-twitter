@@ -25,6 +25,9 @@ import org.springframework.core.io.ClassPathResource;
 import org.springframework.core.io.Resource;
 import org.springframework.social.twitter.api.Entities;
 import org.springframework.social.twitter.api.HashTagEntity;
+import org.springframework.social.twitter.api.MentionEntity;
+import org.springframework.social.twitter.api.Tweet;
+import org.springframework.social.twitter.api.UrlEntity;
 import org.springframework.test.web.client.MockRestServiceServer;
 
 public abstract class AbstractTwitterApiTest {

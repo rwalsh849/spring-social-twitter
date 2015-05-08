@@ -21,9 +21,6 @@ import java.util.Map;
 import org.springframework.social.ApiException;
 import org.springframework.social.MissingAuthorizationException;
 import org.springframework.social.twitter.api.impl.AccountSettingsData;
-import org.springframework.social.twitter.api.impl.RateLimitStatus;
-import org.springframework.social.twitter.api.impl.ResourceFamily;
-import org.springframework.social.twitter.api.impl.SuggestionCategory;
 
 
 /**
