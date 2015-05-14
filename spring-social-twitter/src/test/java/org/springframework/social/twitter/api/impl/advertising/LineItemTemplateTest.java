@@ -38,6 +38,7 @@ import org.junit.Test;
 import org.springframework.social.twitter.api.advertising.AdvertisingObjective;
 import org.springframework.social.twitter.api.advertising.AdvertisingPlacementType;
 import org.springframework.social.twitter.api.advertising.AdvertisingSentiment;
+import org.springframework.social.twitter.api.advertising.BidUnit;
 import org.springframework.social.twitter.api.advertising.LineItem;
 import org.springframework.social.twitter.api.advertising.LineItemOptimization;
 import org.springframework.social.twitter.api.advertising.ProductType;
@@ -203,6 +204,7 @@ public class LineItemTemplateTest extends AbstractTwitterApiTest {
         assertEquals("hkk5", lineItems.get(0).getAccountId());
         assertEquals("7jem", lineItems.get(0).getCampaignId());
         assertEquals(ProductType.PROMOTED_ACCOUNT, lineItems.get(0).getProductType());
+        assertEquals(BidUnit.ENGAGEMENT, lineItems.get(0).getBidUnit());
         assertEquals(LineItemOptimization.DEFAULT, lineItems.get(0).getOptimization());
         assertEquals(AdvertisingObjective.TWEET_ENGAGEMENTS, lineItems.get(0).getObjective());
         assertEquals(AdvertisingSentiment.POSITIVE_ONLY, lineItems.get(0).getIncludeSentiment());

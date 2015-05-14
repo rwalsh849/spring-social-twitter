@@ -41,6 +41,7 @@ public class LineItem extends TwitterObject {
     private final String campaignId;
     private final ProductType productType;
 
+    private final BidUnit bidUnit;
     private final LineItemOptimization optimization;
     private final AdvertisingObjective objective;
     private final AdvertisingSentiment includeSentiment;
@@ -63,6 +64,7 @@ public class LineItem extends TwitterObject {
             String accountId,
             String campaignId,
             ProductType productType,
+            BidUnit bidUnit,
             LineItemOptimization optimization,
             AdvertisingObjective objective,
             AdvertisingSentiment includeSentiment,
@@ -83,6 +85,7 @@ public class LineItem extends TwitterObject {
         this.campaignId = campaignId;
         this.productType = productType;
 
+        this.bidUnit = bidUnit;
         this.placementType = placementType;
         this.objective = objective;
         this.includeSentiment = includeSentiment;
@@ -116,6 +119,10 @@ public class LineItem extends TwitterObject {
 
     public ProductType getProductType() {
         return productType;
+    }
+
+    public BidUnit getBidUnit() {
+        return bidUnit;
     }
 
     public LineItemOptimization getOptimization() {

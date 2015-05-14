@@ -21,6 +21,7 @@ import java.time.LocalDateTime;
 import org.springframework.social.twitter.api.advertising.AdvertisingObjective;
 import org.springframework.social.twitter.api.advertising.AdvertisingPlacementType;
 import org.springframework.social.twitter.api.advertising.AdvertisingSentiment;
+import org.springframework.social.twitter.api.advertising.BidUnit;
 import org.springframework.social.twitter.api.advertising.LineItem;
 import org.springframework.social.twitter.api.advertising.LineItemOptimization;
 import org.springframework.social.twitter.api.advertising.ProductType;
@@ -46,6 +47,7 @@ public abstract class LineItemMixin extends TwitterObjectMixin {
             @JsonProperty("account_id") String accountId,
             @JsonProperty("campaign_id") String campaignId,
             @JsonProperty("product_type") ProductType productType,
+            @JsonProperty("bid_unit") BidUnit bidUnit,
             @JsonProperty("optimization") LineItemOptimization optimization,
             @JsonProperty("objective") AdvertisingObjective objective,
             @JsonProperty("include_sentiment") AdvertisingSentiment includeSentiment,
