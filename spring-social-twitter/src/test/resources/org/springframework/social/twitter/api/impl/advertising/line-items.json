@@ -1,12 +1,14 @@
 {
   "data": [
     {
+      "product_type": "PROMOTED_ACCOUNT",
       "account_id": "hkk5",
       "bid_amount_local_micro": 690000,
       "campaign_id": "7jem",
       "created_at": "2012-11-20T23:29:10Z",
       "currency": "USD",
       "deleted": true,
+      "automatically_select_bid": true,
       "id": "5woz",
       "include_sentiment": "POSITIVE_ONLY",
       "paused": false,

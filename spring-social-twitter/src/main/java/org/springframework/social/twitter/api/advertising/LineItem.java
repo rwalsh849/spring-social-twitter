@@ -1,12 +1,12 @@
 /*
  * Copyright 2014 the original author or authors.
- *
+ * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
- *
- *      http://www.apache.org/licenses/LICENSE-2.0
- *
+ * 
+ * http://www.apache.org/licenses/LICENSE-2.0
+ * 
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -23,139 +23,154 @@ import org.springframework.social.twitter.api.TwitterObject;
 /**
  * Represents an Advertising Group (also known as Line Item).
  * 
- * Source: https://dev.twitter.com/ads/campaigns 
- * 		Line items spend the budget defined by a campaign.
- * 		Line items pull together the per-engagement bid,
- * 		the Tweet or account to promote, and the targeting rules.
+ * Source: https://dev.twitter.com/ads/campaigns
+ * Line items spend the budget defined by a campaign.
+ * Line items pull together the per-engagement bid,
+ * the Tweet or account to promote, and the targeting rules.
  * 
  * Source: https://dev.twitter.com/ads/reference/post/accounts/:account_id/line_items
- * 		Create a line item associated with the specified campaign belonging to the current account.
- * 		Note that for PROMOTED_ACCOUNT campaigns, associating a Promoted Tweet to the line_item will
- * 		add timeline placements on mobile in addition to the standard PROMOTED_ACCOUNT placement.
+ * Create a line item associated with the specified campaign belonging to the current account.
+ * Note that for PROMOTED_ACCOUNT campaigns, associating a Promoted Tweet to the line_item will
+ * add timeline placements on mobile in addition to the standard PROMOTED_ACCOUNT placement.
  * 
  * @author Hudson Mendes
  */
 public class LineItem extends TwitterObject {
-	private final String id;
-	private final String accountId;
-	private final String campaignId;
-	private final String currency;
-	private final AdvertisingPlacementType placementType;
-	private final AdvertisingObjective objective;
-	private final AdvertisingSentiment includeSentiment;
-	private final LineItemOptimization optimization;
-	
-	private final BigDecimal totalBudgetAmount;
-	private final BigDecimal bidAmount;
-	private final BigDecimal suggestedHighCpeBid;
-	private final BigDecimal suggestedLowCpeBid;
-	
-	private final Boolean paused;
-	private final Boolean deleted; 
-	private final LocalDateTime createdAt;
-	private final LocalDateTime updatedAt;
-	
-	public LineItem(
-			String id,
-			String accountId,
-			String campaignId,
-			String currency,
-			AdvertisingPlacementType placementType,
-			AdvertisingObjective objective,
-			AdvertisingSentiment includeSentiment,
-			LineItemOptimization optimization,
-			BigDecimal totalBudgetAmount,
-			BigDecimal bidAmount,
-			BigDecimal suggestedHighCpeBid,
-			BigDecimal suggestedLowCpeBid,
-			Boolean paused,
-			Boolean deleted,
-			LocalDateTime createdAt,
-			LocalDateTime updatedAt) {
-		
-		this.id = id;
-		this.accountId = accountId;
-		this.campaignId = campaignId;
-		this.currency = currency;
-		
-		this.placementType = placementType;
-		this.objective = objective;
-		this.includeSentiment = includeSentiment;
-		this.optimization = optimization;
-		
-		this.totalBudgetAmount = totalBudgetAmount;
-		this.bidAmount = bidAmount;
-		this.suggestedHighCpeBid = suggestedHighCpeBid;
-		this.suggestedLowCpeBid = suggestedLowCpeBid;
-		
-		this.paused = paused;
-		this.deleted = deleted;
-		
-		this.createdAt = createdAt;
-		this.updatedAt = updatedAt;
-	}
+    private final String id;
+    private final String accountId;
+    private final String campaignId;
+    private final ProductType productType;
 
-	public String getId() {
-		return id;
-	}
+    private final LineItemOptimization optimization;
+    private final AdvertisingObjective objective;
+    private final AdvertisingSentiment includeSentiment;
+    private final AdvertisingPlacementType placementType;
 
-	public String getAccountId() {
-		return accountId;
-	}
+    private final String currency;
+    private final BigDecimal totalBudgetAmount;
+    private final BigDecimal bidAmount;
+    private final BigDecimal suggestedHighCpeBid;
+    private final BigDecimal suggestedLowCpeBid;
 
-	public String getCampaignId() {
-		return campaignId;
-	}
+    private final Boolean paused;
+    private final Boolean deleted;
+    private final Boolean automaticallySelectBid;
+    private final LocalDateTime createdAt;
+    private final LocalDateTime updatedAt;
 
-	public String getCurrency() {
-		return currency;
-	}
+    public LineItem(
+            String id,
+            String accountId,
+            String campaignId,
+            ProductType productType,
+            LineItemOptimization optimization,
+            AdvertisingObjective objective,
+            AdvertisingSentiment includeSentiment,
+            AdvertisingPlacementType placementType,
+            String currency,
+            BigDecimal totalBudgetAmount,
+            BigDecimal bidAmount,
+            BigDecimal suggestedHighCpeBid,
+            BigDecimal suggestedLowCpeBid,
+            Boolean automaticallySelectBid,
+            Boolean paused,
+            Boolean deleted,
+            LocalDateTime createdAt,
+            LocalDateTime updatedAt) {
 
-	public AdvertisingPlacementType getPlacementType() {
-		return placementType;
-	}
+        this.id = id;
+        this.accountId = accountId;
+        this.campaignId = campaignId;
+        this.productType = productType;
 
-	public AdvertisingObjective getObjective() {
-		return objective;
-	}
+        this.placementType = placementType;
+        this.objective = objective;
+        this.includeSentiment = includeSentiment;
+        this.optimization = optimization;
 
-	public AdvertisingSentiment getIncludeSentiment() {
-		return includeSentiment;
-	}
+        this.currency = currency;
+        this.totalBudgetAmount = totalBudgetAmount;
+        this.bidAmount = bidAmount;
+        this.suggestedHighCpeBid = suggestedHighCpeBid;
+        this.suggestedLowCpeBid = suggestedLowCpeBid;
 
-	public LineItemOptimization getOptimization() {
-		return optimization;
-	}
+        this.paused = paused;
+        this.deleted = deleted;
+        this.automaticallySelectBid = automaticallySelectBid;
 
-	public BigDecimal getTotalBudgetAmount() {
-		return totalBudgetAmount;
-	}
+        this.createdAt = createdAt;
+        this.updatedAt = updatedAt;
+    }
 
-	public BigDecimal getBidAmount() {
-		return bidAmount;
-	}
+    public String getId() {
+        return id;
+    }
 
-	public BigDecimal getSuggestedHighCpeBid() {
-		return suggestedHighCpeBid;
-	}
+    public String getAccountId() {
+        return accountId;
+    }
 
-	public BigDecimal getSuggestedLowCpeBid() {
-		return suggestedLowCpeBid;
-	}
+    public String getCampaignId() {
+        return campaignId;
+    }
 
-	public Boolean isPaused() {
-		return paused;
-	}
+    public ProductType getProductType() {
+        return productType;
+    }
 
-	public Boolean isDeleted() {
-		return deleted;
-	}
+    public LineItemOptimization getOptimization() {
+        return optimization;
+    }
 
-	public LocalDateTime getCreatedAt() {
-		return createdAt;
-	}
+    public AdvertisingObjective getObjective() {
+        return objective;
+    }
 
-	public LocalDateTime getUpdatedAt() {
-		return updatedAt;
-	}
+    public AdvertisingSentiment getIncludeSentiment() {
+        return includeSentiment;
+    }
+
+    public AdvertisingPlacementType getPlacementType() {
+        return placementType;
+    }
+
+    public String getCurrency() {
+        return currency;
+    }
+
+    public BigDecimal getTotalBudgetAmount() {
+        return totalBudgetAmount;
+    }
+
+    public BigDecimal getBidAmount() {
+        return bidAmount;
+    }
+
+    public BigDecimal getSuggestedHighCpeBid() {
+        return suggestedHighCpeBid;
+    }
+
+    public BigDecimal getSuggestedLowCpeBid() {
+        return suggestedLowCpeBid;
+    }
+
+    public Boolean isPaused() {
+        return paused;
+    }
+
+    public Boolean isDeleted() {
+        return deleted;
+    }
+
+    public Boolean isAutomaticallySelectBid() {
+        return automaticallySelectBid;
+    }
+
+    public LocalDateTime getCreatedAt() {
+        return createdAt;
+    }
+
+    public LocalDateTime getUpdatedAt() {
+        return updatedAt;
+    }
 }
