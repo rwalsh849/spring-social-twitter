@@ -15,156 +15,134 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.social.support.URIBuilder;
 import org.springframework.util.Assert;
 import org.springframework.util.LinkedMultiValueMap;
 import org.springframework.util.MultiValueMap;
 
 /**
- * Builds API URIs and provide them to operations implementing
- * {@link AbstractTwitterOperations} for both the Standard API and for the
+ * Builds API URIs and provide them to operations implementing {@link AbstractTwitterOperations} for both the Standard API and for the
  * Twitter AdCampaign API.
  * 
  * @author Hudson Mendes
  */
 public class TwitterApiUriBuilder {
 
-	private static final String DEFAULT_STANDARD_API_URL_BASE = "https://api.twitter.com/1.1/";
-	private static final String DEFAULT_ADS_API_URL_BASE = "https://ads-api.twitter.com/0/";
+    private final MultiValueMap<String, Object> parameters = new LinkedMultiValueMap<String, Object>();
+    private String resource;
+    private String baseLocation = treatBaseUrl(TwitterApiHosts.getStandardApi());
 
-	private final MultiValueMap<String, Object> parameters = new LinkedMultiValueMap<String, Object>();
-	private String resource;
+    public TwitterApiUriBuilder forStandardApi() {
+        this.baseLocation = treatBaseUrl(TwitterApiHosts.getStandardApi());
+        return this;
+    }
 
-	@Value("${spring.social.twitter.hosts.standard-api:" + DEFAULT_STANDARD_API_URL_BASE + "}")
-	private String baseUrlApiStandard;
+    public TwitterApiUriBuilder forAdCampaignsApi() {
+        this.baseLocation = treatBaseUrl(TwitterApiHosts.getAdsApi());
+        return this;
+    }
 
-	@Value("${spring.social.twitter.hosts.ads-api:" + DEFAULT_ADS_API_URL_BASE + "}")
-	private String baseUrlApiAds;
+    public TwitterApiUriBuilder withResource(String resource) {
+        this.resource = resource;
+        return this;
+    }
 
-	@Value("${spring.social.twitter.hosts.standard-api:" + DEFAULT_STANDARD_API_URL_BASE + "}")
-	private String baseLocation;
+    public TwitterApiUriBuilder withResource(TwitterApiUriResourceForAdvertising resource) {
+        this.resource = resource.getPath();
+        return this.forAdCampaignsApi();
+    }
 
-	public TwitterApiUriBuilder forStandardApi() {
-		if (baseUrlApiStandard == null || baseUrlApiStandard.isEmpty())
-		    baseUrlApiStandard = DEFAULT_STANDARD_API_URL_BASE;
+    public TwitterApiUriBuilder withResource(TwitterApiUriResourceForStandard resource) {
+        this.resource = resource.getPath();
+        return this.forStandardApi();
+    }
 
-		this.baseLocation = treatBaseUrl(baseUrlApiStandard);
-		return this;
-	}
+    public TwitterApiUriBuilder withArgument(String argument, Object value) {
+        this.parameters.add(argument, value.toString());
+        return this;
+    }
 
-	public TwitterApiUriBuilder forAdCampaignsApi() {
-		if (baseUrlApiAds == null || baseUrlApiAds.isEmpty())
-		    baseUrlApiAds = DEFAULT_ADS_API_URL_BASE;
+    public TwitterApiUriBuilder withArgument(MultiValueMap<String, Object> arguments) {
+        this.parameters.putAll(arguments);
+        return this;
+    }
 
-		this.baseLocation = treatBaseUrl(baseUrlApiAds);
-		return this;
-	}
+    public URI build() {
+        this.assertRequirements();
+        URI output = URIBuilder
+                .fromUri(makeFullyQualifiedResourcePath())
+                .queryParams(makeCompatbileQueryParameters())
+                .build();
 
-	public TwitterApiUriBuilder withResource(String resource) {
-		this.resource = resource;
-		return this;
-	}
+        return output;
+    }
 
-	public TwitterApiUriBuilder withResource(TwitterApiUriResourceForAdvertising resource) {
-		this.resource = resource.getPath();
-		return this.forAdCampaignsApi();
-	}
+    private void assertRequirements() {
+        Assert.notNull(this.resource, "You have to provide a 'resource' in order to build the Uri.");
+    }
 
-	public TwitterApiUriBuilder withResource(TwitterApiUriResourceForStandard resource) {
-		this.resource = resource.getPath();
-		return this.forStandardApi();
-	}
+    private String makeFullyQualifiedResourcePath() {
+        String qualifiedPath = qualifyPath();
+        return replaceImplicitArguments(qualifiedPath);
+    }
 
-	public TwitterApiUriBuilder withArgument(String argument, Object value) {
-		this.parameters.add(argument, value.toString());
-		return this;
-	}
+    private MultiValueMap<String, String> makeCompatbileQueryParameters() {
+        MultiValueMap<String, String> output = new LinkedMultiValueMap<String, String>();
+        for (Iterator<String> i = this.parameters.keySet().iterator(); i.hasNext();) {
+            String key = i.next();
+            this.parameters.get(key).forEach(value -> {
+                output.add(key, value.toString());
+            });
+        }
+        return output;
+    }
 
-	public TwitterApiUriBuilder withArgument(MultiValueMap<String, Object> arguments) {
-		this.parameters.putAll(arguments);
-		return this;
-	}
+    private String replaceImplicitArguments(String path) {
 
-	public URI build() {
-		this.assertRequirements();
-		this.ensureBaseLocation();
-		URI output = URIBuilder
-		        .fromUri(makeFullyQualifiedResourcePath())
-		        .queryParams(makeCompatbileQueryParameters())
-		        .build();
+        String finalPath = path;
+        List<String> toRemove = new ArrayList<String>();
 
-		return output;
-	}
+        for (Iterator<String> i = this.parameters.keySet().iterator(); i.hasNext();) {
+            String key = i.next();
+            String argName = (":" + key).toLowerCase();
 
-	private void assertRequirements() {
-		Assert.notNull(this.resource, "You have to provide a 'resource' in order to build the Uri.");
-	}
+            if (path.toLowerCase().contains(argName)) {
+                List<Object> values = this.parameters.get(key);
+                for (int j = 0; j < values.size(); j++) {
+                    Object value = values.get(j);
+                    finalPath = finalPath.replace(argName, value.toString());
+                }
+                toRemove.add(key);
+            }
+        }
 
-	private void ensureBaseLocation() {
-		if (this.baseLocation == null || this.baseLocation.isEmpty())
-		    this.baseLocation = DEFAULT_STANDARD_API_URL_BASE;
-	}
+        toRemove.forEach(key -> this.parameters.remove(key));
+        return finalPath;
+    }
 
-	private String makeFullyQualifiedResourcePath() {
-		String qualifiedPath = qualifyPath();
-		return replaceImplicitArguments(qualifiedPath);
-	}
+    private String qualifyPath() {
+        String qualified = trimUriPart(this.baseLocation) + "/" + trimUriPart(this.resource);
+        return qualified;
+    }
 
-	private MultiValueMap<String, String> makeCompatbileQueryParameters() {
-		MultiValueMap<String, String> output = new LinkedMultiValueMap<String, String>();
-		for (Iterator<String> i = this.parameters.keySet().iterator(); i.hasNext();) {
-			String key = i.next();
-			this.parameters.get(key).forEach(value -> {
-				output.add(key, value.toString());
-			});
-		}
-		return output;
-	}
+    private String trimUriPart(String part) {
+        return part.replaceAll("[/]+$", "");
+    }
 
-	private String replaceImplicitArguments(String path) {
+    private String treatBaseUrl(String apiHost) {
+        if (apiHost == null)
+            throw new IllegalArgumentException("The 'apiHost' is null and cannot be treated");
 
-		String finalPath = path;
-		List<String> toRemove = new ArrayList<String>();
+        apiHost = apiHost.trim();
+        if (apiHost.isEmpty())
+            throw new IllegalArgumentException("The 'apiHost' is null and cannot be treated");
+        if (!apiHost.startsWith("https://"))
+            throw new IllegalArgumentException("The 'apiHost' must start with 'https://'");
 
-		for (Iterator<String> i = this.parameters.keySet().iterator(); i.hasNext();) {
-			String key = i.next();
-			String argName = (":" + key).toLowerCase();
+        if (!apiHost.endsWith("/")) {
+            apiHost += "/";
+        }
 
-			if (path.toLowerCase().contains(argName)) {
-				List<Object> values = this.parameters.get(key);
-				for (int j = 0; j < values.size(); j++) {
-					Object value = values.get(j);
-					finalPath = finalPath.replace(argName, value.toString());
-				}
-				toRemove.add(key);
-			}
-		}
-
-		toRemove.forEach(key -> this.parameters.remove(key));
-		return finalPath;
-	}
-
-	private String qualifyPath() {
-		String qualified = trimUriPart(this.baseLocation) + "/" + trimUriPart(this.resource);
-		return qualified;
-	}
-
-	private String trimUriPart(String part) {
-		return part.replaceAll("[/]+$", "");
-	}
-
-	private String treatBaseUrl(String apiHost) {
-		if (apiHost == null) throw new IllegalArgumentException("The 'apiHost' is null and cannot be treated");
-
-		apiHost = apiHost.trim();
-		if (apiHost.isEmpty()) throw new IllegalArgumentException("The 'apiHost' is null and cannot be treated");
-		if (!apiHost.startsWith("https://")) throw new IllegalArgumentException("The 'apiHost' must start with 'https://'");
-
-		if (!apiHost.endsWith("/")) {
-			apiHost += "/";
-		}
-
-		return apiHost;
-	}
+        return apiHost;
+    }
 }
