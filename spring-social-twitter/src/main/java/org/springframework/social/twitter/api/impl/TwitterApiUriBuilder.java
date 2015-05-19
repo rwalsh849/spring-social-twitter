@@ -136,8 +136,8 @@ public class TwitterApiUriBuilder {
         apiHost = apiHost.trim();
         if (apiHost.isEmpty())
             throw new IllegalArgumentException("The 'apiHost' is null and cannot be treated");
-        if (!apiHost.startsWith("https://"))
-            throw new IllegalArgumentException("The 'apiHost' must start with 'https://'");
+        if (!apiHost.startsWith("https://") && !apiHost.startsWith("http://"))
+            throw new IllegalArgumentException("The 'apiHost' must start with 'https://' or 'http://'");
 
         if (!apiHost.endsWith("/")) {
             apiHost += "/";
