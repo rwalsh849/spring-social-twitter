@@ -26,7 +26,7 @@ import org.springframework.social.twitter.api.advertising.FundingInstrument;
 import org.springframework.social.twitter.api.advertising.FundingInstrumentQuery;
 import org.springframework.social.twitter.api.impl.AbstractTwitterOperations;
 import org.springframework.social.twitter.api.impl.DataListHolder;
-import org.springframework.social.twitter.api.impl.TwitterApiUriBuilder;
+import org.springframework.social.twitter.api.impl.TwitterApiBuilderForUri;
 import org.springframework.social.twitter.api.impl.TwitterApiUriResourceForAdvertising;
 import org.springframework.web.client.RestTemplate;
 
@@ -46,7 +46,7 @@ public class AdvertisingTemplate extends AbstractTwitterOperations implements Ad
 	public List<AdvertisingAccount> getAccounts(AdvertisingAccountQuery query) {
 		requireUserAuthorization();
 		return restTemplate.exchange(
-				new TwitterApiUriBuilder()
+				new TwitterApiBuilderForUri()
 					.withResource(TwitterApiUriResourceForAdvertising.ACCOUNTS)
 					.withArgument(query.toQueryParameters())
 					.build(),
@@ -60,7 +60,7 @@ public class AdvertisingTemplate extends AbstractTwitterOperations implements Ad
 	public List<FundingInstrument> getFundingInstruments(String accountId, FundingInstrumentQuery query) {
 		requireUserAuthorization();
 		return restTemplate.exchange(
-				new TwitterApiUriBuilder()
+				new TwitterApiBuilderForUri()
 					.withResource(TwitterApiUriResourceForAdvertising.FUNDING_INSTRUMENTS)
 					.withArgument("account_id", accountId)
 					.withArgument(query.toQueryParameters())

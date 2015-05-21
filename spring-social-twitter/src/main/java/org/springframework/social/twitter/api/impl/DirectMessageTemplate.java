@@ -45,7 +45,7 @@ public class DirectMessageTemplate extends AbstractTwitterOperations implements 
 	public List<DirectMessage> getDirectMessagesReceived(int page, int pageSize, long sinceId, long maxId) {
 		requireUserAuthorization();
 		return restTemplate.getForObject(
-				new TwitterApiUriBuilder()
+				new TwitterApiBuilderForUri()
 					.withResource(TwitterApiUriResourceForStandard.DIRECTMESSAGES)
 					.withArgument(PagingUtils.buildPagingParametersWithCount(page, pageSize, sinceId, maxId))
 					.build(),
@@ -63,7 +63,7 @@ public class DirectMessageTemplate extends AbstractTwitterOperations implements 
 	public List<DirectMessage> getDirectMessagesSent(int page, int pageSize, long sinceId, long maxId) {
 		requireUserAuthorization();
 		return restTemplate.getForObject(
-				new TwitterApiUriBuilder()
+				new TwitterApiBuilderForUri()
 					.withResource(TwitterApiUriResourceForStandard.DIRECTMESSAGES_SENT)
 					.withArgument(PagingUtils.buildPagingParametersWithCount(page, pageSize, sinceId, maxId))
 					.build(),
@@ -73,7 +73,7 @@ public class DirectMessageTemplate extends AbstractTwitterOperations implements 
 	public DirectMessage getDirectMessage(long id) {
 		requireUserAuthorization();
 		return restTemplate.getForObject(
-				new TwitterApiUriBuilder()
+				new TwitterApiBuilderForUri()
 					.withResource(TwitterApiUriResourceForStandard.DIRECTMESSAGES_SHOW)
 					.withArgument("id", String.valueOf(id))
 					.build(),
@@ -83,7 +83,7 @@ public class DirectMessageTemplate extends AbstractTwitterOperations implements 
 	public DirectMessage sendDirectMessage(String toScreenName, String text) {
 		requireUserAuthorization();
 		return restTemplate.postForObject(
-				new TwitterApiUriBuilder().withResource(TwitterApiUriResourceForStandard.DIRECTMESSAGES_NEW).build(),
+				new TwitterApiBuilderForUri().withResource(TwitterApiUriResourceForStandard.DIRECTMESSAGES_NEW).build(),
 				new RestRequestBodyBuilder()
 					.withField("screen_name", String.valueOf(toScreenName))
 					.withField("text", text)
@@ -94,7 +94,7 @@ public class DirectMessageTemplate extends AbstractTwitterOperations implements 
 	public DirectMessage sendDirectMessage(long toUserId, String text) {
 		requireUserAuthorization();
 		return restTemplate.postForObject(
-				new TwitterApiUriBuilder().withResource(TwitterApiUriResourceForStandard.DIRECTMESSAGES_NEW).build(),
+				new TwitterApiBuilderForUri().withResource(TwitterApiUriResourceForStandard.DIRECTMESSAGES_NEW).build(),
 				new RestRequestBodyBuilder()
 					.withField("user_id", String.valueOf(toUserId))
 					.withField("text", text)
@@ -105,7 +105,7 @@ public class DirectMessageTemplate extends AbstractTwitterOperations implements 
 	public void deleteDirectMessage(long messageId) {
 		requireUserAuthorization();
 		restTemplate.postForObject(
-				new TwitterApiUriBuilder().withResource(TwitterApiUriResourceForStandard.DIRECTMESSAGES_DESTROY).build(),
+				new TwitterApiBuilderForUri().withResource(TwitterApiUriResourceForStandard.DIRECTMESSAGES_DESTROY).build(),
 				new RestRequestBodyBuilder().withField("id", String.valueOf(messageId)).build(),
 				DirectMessage.class);
 	}

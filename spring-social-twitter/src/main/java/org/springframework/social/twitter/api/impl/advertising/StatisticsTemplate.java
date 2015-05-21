@@ -29,7 +29,7 @@ import org.springframework.social.twitter.api.advertising.StatisticsOfPromotedTw
 import org.springframework.social.twitter.api.advertising.StatisticsSnapshot;
 import org.springframework.social.twitter.api.impl.AbstractTwitterOperations;
 import org.springframework.social.twitter.api.impl.DataListHolder;
-import org.springframework.social.twitter.api.impl.TwitterApiUriBuilder;
+import org.springframework.social.twitter.api.impl.TwitterApiBuilderForUri;
 import org.springframework.social.twitter.api.impl.TwitterApiUriResourceForAdvertising;
 import org.springframework.web.client.RestTemplate;
 
@@ -50,7 +50,7 @@ public class StatisticsTemplate extends AbstractTwitterOperations implements Sta
 	public List<StatisticsSnapshot> byAccounts(String accountId, StatisticsOfAccountQuery query) {
 		requireUserAuthorization();
 		return restTemplate.exchange(
-				new TwitterApiUriBuilder()
+				new TwitterApiBuilderForUri()
 					.withResource(TwitterApiUriResourceForAdvertising.STATS_ACCOUNT)
 					.withArgument("account_id", accountId)
 					.withArgument(query.toQueryParameters())
@@ -65,7 +65,7 @@ public class StatisticsTemplate extends AbstractTwitterOperations implements Sta
 	public List<StatisticsSnapshot> byCampaigns(String accountId, StatisticsOfCampaignQuery query) {
 		requireUserAuthorization();
 		return restTemplate.exchange(
-				new TwitterApiUriBuilder()
+				new TwitterApiBuilderForUri()
 					.withResource(TwitterApiUriResourceForAdvertising.STATS_CAMPAIGNS)
 					.withArgument("account_id", accountId)
 					.withArgument(query.toQueryParameters())
@@ -80,7 +80,7 @@ public class StatisticsTemplate extends AbstractTwitterOperations implements Sta
 	public StatisticsSnapshot byCampaign(String accountId, String campaignId, StatisticsOfCampaignQuery query) {
 		requireUserAuthorization();
 		return restTemplate.getForObject(
-				new TwitterApiUriBuilder()
+				new TwitterApiBuilderForUri()
 					.withResource(TwitterApiUriResourceForAdvertising.STATS_CAMPAIGN)
 					.withArgument("account_id", accountId)
 					.withArgument("campaign_id", campaignId)
@@ -94,7 +94,7 @@ public class StatisticsTemplate extends AbstractTwitterOperations implements Sta
 	public List<StatisticsSnapshot> byFundingInstruments(String accountId, StatisticsOfFundingInstrumentQuery query) {
 		requireUserAuthorization();
 		return restTemplate.exchange(
-				new TwitterApiUriBuilder()
+				new TwitterApiBuilderForUri()
 					.withResource(TwitterApiUriResourceForAdvertising.STATS_FUNDING_INSTRUMENTS)
 					.withArgument("account_id", accountId)
 					.withArgument(query.toQueryParameters())
@@ -109,7 +109,7 @@ public class StatisticsTemplate extends AbstractTwitterOperations implements Sta
 	public StatisticsSnapshot byFundingInstrument(String accountId, String fundingInstrumentId, StatisticsOfFundingInstrumentQuery query) {
 		requireUserAuthorization();
 		return restTemplate.getForObject(
-				new TwitterApiUriBuilder()
+				new TwitterApiBuilderForUri()
 					.withResource(TwitterApiUriResourceForAdvertising.STATS_FUNDING_INSTRUMENT)
 					.withArgument("account_id", accountId)
 					.withArgument("funding_instrument_id", fundingInstrumentId)
@@ -123,7 +123,7 @@ public class StatisticsTemplate extends AbstractTwitterOperations implements Sta
 	public List<StatisticsSnapshot> byLineItems(String accountId, StatisticsOfLineItemQuery query) {
 		requireUserAuthorization();
 		return restTemplate.exchange(
-				new TwitterApiUriBuilder()
+				new TwitterApiBuilderForUri()
 					.withResource(TwitterApiUriResourceForAdvertising.STATS_LINE_ITEMS)
 					.withArgument("account_id", accountId)
 					.withArgument(query.toQueryParameters())
@@ -138,7 +138,7 @@ public class StatisticsTemplate extends AbstractTwitterOperations implements Sta
 	public StatisticsSnapshot byLineItem(String accountId, String lineItemId, StatisticsOfLineItemQuery query) {
 		requireUserAuthorization();
 		return restTemplate.getForObject(
-				new TwitterApiUriBuilder()
+				new TwitterApiBuilderForUri()
 					.withResource(TwitterApiUriResourceForAdvertising.STATS_LINE_ITEM)
 					.withArgument("account_id", accountId)
 					.withArgument("line_item_id", lineItemId)
@@ -152,7 +152,7 @@ public class StatisticsTemplate extends AbstractTwitterOperations implements Sta
 	public List<StatisticsSnapshot> byPromotedAccounts(String accountId, StatisticsOfPromotedAccountQuery query) {
 		requireUserAuthorization();
 		return restTemplate.exchange(
-				new TwitterApiUriBuilder()
+				new TwitterApiBuilderForUri()
 					.withResource(TwitterApiUriResourceForAdvertising.STATS_PROMOTED_ACCOUNTS)
 					.withArgument("account_id", accountId)
 					.withArgument(query.toQueryParameters())
@@ -167,7 +167,7 @@ public class StatisticsTemplate extends AbstractTwitterOperations implements Sta
 	public StatisticsSnapshot byPromotedAccount(String accountId, String promotedAccountId, StatisticsOfPromotedAccountQuery query) {
 		requireUserAuthorization();
 		return restTemplate.getForObject(
-				new TwitterApiUriBuilder()
+				new TwitterApiBuilderForUri()
 					.withResource(TwitterApiUriResourceForAdvertising.STATS_PROMOTED_ACCOUNT)
 					.withArgument("account_id", accountId)
 					.withArgument("promoted_account_id", promotedAccountId)
@@ -181,7 +181,7 @@ public class StatisticsTemplate extends AbstractTwitterOperations implements Sta
 	public List<StatisticsSnapshot> byPromotedTweets(String accountId, StatisticsOfPromotedTweetQuery query) {
 		requireUserAuthorization();
 		return restTemplate.exchange(
-				new TwitterApiUriBuilder()
+				new TwitterApiBuilderForUri()
 					.withResource(TwitterApiUriResourceForAdvertising.STATS_PROMOTED_TWEETS)
 					.withArgument("account_id", accountId)
 					.withArgument(query.toQueryParameters())
@@ -196,7 +196,7 @@ public class StatisticsTemplate extends AbstractTwitterOperations implements Sta
 	public StatisticsSnapshot byPromotedTweet(String accountId, String promotedTweetId, StatisticsOfPromotedTweetQuery query) {
 		requireUserAuthorization();
 		return restTemplate.getForObject(
-				new TwitterApiUriBuilder()
+				new TwitterApiBuilderForUri()
 					.withResource(TwitterApiUriResourceForAdvertising.STATS_PROMOTED_TWEET)
 					.withArgument("account_id", accountId)
 					.withArgument("promoted_tweet_id", promotedTweetId)

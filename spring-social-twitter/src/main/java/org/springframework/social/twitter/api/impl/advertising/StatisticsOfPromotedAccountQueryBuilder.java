@@ -1,12 +1,12 @@
 /*
  * Copyright 2014 the original author or authors.
- *
+ * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
- *
- *      http://www.apache.org/licenses/LICENSE-2.0
- *
+ * 
+ * http://www.apache.org/licenses/LICENSE-2.0
+ * 
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -29,23 +29,26 @@ import org.springframework.util.MultiValueMap;
  * 
  * @author Hudson Mendes
  */
-public class StatisticsOfPromotedAccountQueryBuilder extends AbstractTwitterQueryForStatsBuilder<StatisticsOfPromotedAccountQuery> implements StatisticsOfPromotedAccountQuery {
-	private List<String> promotedAccountIds;
-	
-	/* (non-Javadoc)
-	 * @see org.springframework.social.twitter.api.impl.advertising.TwitterQueryForStatsOfPromotedAccount#withPromotedAccounts(java.lang.String)
-	 */
-	@Override
-	public StatisticsOfPromotedAccountQueryBuilder withPromotedAccounts(String... promotedAccountIds) {
-		this.promotedAccountIds = new ArrayList<String>();
-		for (int i = 0; i < promotedAccountIds.length; i++)
-			this.promotedAccountIds.add(promotedAccountIds[i]);
-		return this;
-	}
+public class StatisticsOfPromotedAccountQueryBuilder extends AbstractTwitterQueryForStatsBuilder<StatisticsOfPromotedAccountQuery> implements
+        StatisticsOfPromotedAccountQuery {
+    private List<String> promotedAccountIds;
 
-	@Override
-	protected void makeParameters(MultiValueMap<String, Object> map) {
-		appendParameter(map, "promoted_account_ids", this.promotedAccountIds);
-	}
+    /*
+     * (non-Javadoc)
+     * 
+     * @see org.springframework.social.twitter.api.impl.advertising.TwitterQueryForStatsOfPromotedAccount#withPromotedAccounts(java.lang.String)
+     */
+    @Override
+    public StatisticsOfPromotedAccountQueryBuilder withPromotedAccounts(String... promotedAccountIds) {
+        this.promotedAccountIds = new ArrayList<String>();
+        for (int i = 0; i < promotedAccountIds.length; i++)
+            this.promotedAccountIds.add(promotedAccountIds[i]);
+        return this;
+    }
+
+    @Override
+    protected void makeParameters(MultiValueMap<String, String> map) {
+        appendParameter(map, "promoted_account_ids", this.promotedAccountIds);
+    }
 
 }

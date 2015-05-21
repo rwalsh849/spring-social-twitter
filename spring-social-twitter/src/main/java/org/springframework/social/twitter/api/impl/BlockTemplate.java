@@ -41,7 +41,7 @@ public class BlockTemplate extends AbstractTwitterOperations implements BlockOpe
 	public TwitterProfile block(long userId) {
 		requireUserAuthorization();
 		return restTemplate.postForObject(
-				new TwitterApiUriBuilder().withResource(TwitterApiUriResourceForStandard.BLOCKS_CREATE).build(),
+				new TwitterApiBuilderForUri().withResource(TwitterApiUriResourceForStandard.BLOCKS_CREATE).build(),
 				new RestRequestBodyBuilder().withField("user_id", String.valueOf(userId)).build(),
 				TwitterProfile.class);
 	}
@@ -49,7 +49,7 @@ public class BlockTemplate extends AbstractTwitterOperations implements BlockOpe
 	public TwitterProfile block(String screenName) {
 		requireUserAuthorization();
 		return restTemplate.postForObject(
-				new TwitterApiUriBuilder().withResource(TwitterApiUriResourceForStandard.BLOCKS_CREATE).build(),
+				new TwitterApiBuilderForUri().withResource(TwitterApiUriResourceForStandard.BLOCKS_CREATE).build(),
 				new RestRequestBodyBuilder().withField("screen_name", screenName).build(),
 				TwitterProfile.class);
 	}
@@ -57,7 +57,7 @@ public class BlockTemplate extends AbstractTwitterOperations implements BlockOpe
 	public TwitterProfile unblock(long userId) {
 		requireUserAuthorization();
 		return restTemplate.postForObject(
-				new TwitterApiUriBuilder().withResource(TwitterApiUriResourceForStandard.BLOCKS_DESTROY).build(),
+				new TwitterApiBuilderForUri().withResource(TwitterApiUriResourceForStandard.BLOCKS_DESTROY).build(),
 				new RestRequestBodyBuilder().withField("user_id", String.valueOf(userId)).build(),
 				TwitterProfile.class);
 	}
@@ -66,7 +66,7 @@ public class BlockTemplate extends AbstractTwitterOperations implements BlockOpe
 		requireUserAuthorization();
 		MultiValueMap<String, String> request = new LinkedMultiValueMap<String, String>();
 		request.set("screen_name", screenName);
-		URI resourceUri = new TwitterApiUriBuilder().withResource(TwitterApiUriResourceForStandard.BLOCKS_DESTROY).build();
+		URI resourceUri = new TwitterApiBuilderForUri().withResource(TwitterApiUriResourceForStandard.BLOCKS_DESTROY).build();
 		return restTemplate.postForObject(resourceUri, request, TwitterProfile.class);
 	}
 	
@@ -77,7 +77,7 @@ public class BlockTemplate extends AbstractTwitterOperations implements BlockOpe
 	public CursoredList<TwitterProfile> getBlockedUsersInCursor(long cursor) {
 		requireUserAuthorization();
 		return restTemplate.getForObject(
-				new TwitterApiUriBuilder()
+				new TwitterApiBuilderForUri()
 					.withResource(TwitterApiUriResourceForStandard.BLOCKS)
 					.withArgument("cursor", String.valueOf(cursor))
 					.build(),
@@ -92,7 +92,7 @@ public class BlockTemplate extends AbstractTwitterOperations implements BlockOpe
 	public CursoredList<Long> getBlockedUserIdsInCursor(long cursor) {
 		requireUserAuthorization();
 		return restTemplate.getForObject(
-				new TwitterApiUriBuilder()
+				new TwitterApiBuilderForUri()
 					.withResource(TwitterApiUriResourceForStandard.BLOCKS_IDS)
 					.withArgument("cursor", String.valueOf(cursor))
 					.build(),

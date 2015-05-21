@@ -44,7 +44,7 @@ public class FriendTemplate extends AbstractTwitterOperations implements FriendO
 	public CursoredList<TwitterProfile> getFriendsInCursor(long cursor) {
 		requireUserAuthorization();
 		return restTemplate.getForObject(
-				new TwitterApiUriBuilder()
+				new TwitterApiBuilderForUri()
 					.withResource(TwitterApiUriResourceForStandard.FRIENDS)
 					.withArgument("cursor", String.valueOf(cursor))
 					.build(),
@@ -59,7 +59,7 @@ public class FriendTemplate extends AbstractTwitterOperations implements FriendO
 	public CursoredList<TwitterProfile> getFriendsInCursor(long userId, long cursor) {
 		requireEitherUserOrAppAuthorization();
 		return restTemplate.getForObject(
-				new TwitterApiUriBuilder()
+				new TwitterApiBuilderForUri()
 					.withResource(TwitterApiUriResourceForStandard.FRIENDS)
 					.withArgument("cursor", String.valueOf(cursor))
 					.withArgument("user_id", String.valueOf(userId))
@@ -75,7 +75,7 @@ public class FriendTemplate extends AbstractTwitterOperations implements FriendO
 	public CursoredList<TwitterProfile> getFriendsInCursor(String screenName, long cursor) {
 		requireEitherUserOrAppAuthorization();
 		return restTemplate.getForObject(
-				new TwitterApiUriBuilder()
+				new TwitterApiBuilderForUri()
 					.withResource(TwitterApiUriResourceForStandard.FRIENDS)
 					.withArgument("cursor", String.valueOf(cursor))
 					.withArgument("screen_name", String.valueOf(screenName))
@@ -91,7 +91,7 @@ public class FriendTemplate extends AbstractTwitterOperations implements FriendO
 	public CursoredList<Long> getFriendIdsInCursor(long cursor) {
 		requireUserAuthorization();
 		return restTemplate.getForObject(
-				new TwitterApiUriBuilder()
+				new TwitterApiBuilderForUri()
 					.withResource(TwitterApiUriResourceForStandard.FRIENDS_IDS)
 					.withArgument("cursor", String.valueOf(cursor))
 					.build(),
@@ -106,7 +106,7 @@ public class FriendTemplate extends AbstractTwitterOperations implements FriendO
 	public CursoredList<Long> getFriendIdsInCursor(long userId, long cursor) {
 		requireEitherUserOrAppAuthorization();
 		return restTemplate.getForObject(
-				new TwitterApiUriBuilder()
+				new TwitterApiBuilderForUri()
 					.withResource(TwitterApiUriResourceForStandard.FRIENDS_IDS)
 					.withArgument("cursor", String.valueOf(cursor))
 					.withArgument("user_id", String.valueOf(userId))
@@ -122,7 +122,7 @@ public class FriendTemplate extends AbstractTwitterOperations implements FriendO
 	public CursoredList<Long> getFriendIdsInCursor(String screenName, long cursor) {
 		requireEitherUserOrAppAuthorization();
 		return restTemplate.getForObject(
-				new TwitterApiUriBuilder()
+				new TwitterApiBuilderForUri()
 					.withResource(TwitterApiUriResourceForStandard.FRIENDS_IDS)
 					.withArgument("cursor", String.valueOf(cursor))
 					.withArgument("screen_name", screenName)
@@ -138,7 +138,7 @@ public class FriendTemplate extends AbstractTwitterOperations implements FriendO
 	public CursoredList<TwitterProfile> getFollowersInCursor(long cursor) {
 		requireUserAuthorization();
 		return restTemplate.getForObject(
-				new TwitterApiUriBuilder()
+				new TwitterApiBuilderForUri()
 					.withResource(TwitterApiUriResourceForStandard.FOLLOWERS)
 					.withArgument("cursor", String.valueOf(cursor))
 					.build(),
@@ -153,7 +153,7 @@ public class FriendTemplate extends AbstractTwitterOperations implements FriendO
 	public CursoredList<TwitterProfile> getFollowersInCursor(long userId, long cursor) {
 		requireEitherUserOrAppAuthorization();
 		return restTemplate.getForObject(
-				new TwitterApiUriBuilder()
+				new TwitterApiBuilderForUri()
 					.withResource(TwitterApiUriResourceForStandard.FOLLOWERS)
 					.withArgument("cursor", String.valueOf(cursor))
 					.withArgument("user_id", String.valueOf(userId))
@@ -169,7 +169,7 @@ public class FriendTemplate extends AbstractTwitterOperations implements FriendO
 	public CursoredList<TwitterProfile> getFollowersInCursor(String screenName, long cursor) {
 		requireEitherUserOrAppAuthorization();
 		return restTemplate.getForObject(
-				new TwitterApiUriBuilder()
+				new TwitterApiBuilderForUri()
 					.withResource(TwitterApiUriResourceForStandard.FOLLOWERS)
 					.withArgument("cursor", String.valueOf(cursor))
 					.withArgument("screen_name", String.valueOf(screenName))
@@ -185,7 +185,7 @@ public class FriendTemplate extends AbstractTwitterOperations implements FriendO
 	public CursoredList<Long> getFollowerIdsInCursor(long cursor) {
 		requireUserAuthorization();
 		return restTemplate.getForObject(
-				new TwitterApiUriBuilder()
+				new TwitterApiBuilderForUri()
 					.withResource(TwitterApiUriResourceForStandard.FOLLOWERS_IDS)
 					.withArgument("cursor", String.valueOf(cursor))
 					.build(),
@@ -200,7 +200,7 @@ public class FriendTemplate extends AbstractTwitterOperations implements FriendO
 	public CursoredList<Long> getFollowerIdsInCursor(long userId, long cursor) {
 		requireEitherUserOrAppAuthorization();
 		return restTemplate.getForObject(
-				new TwitterApiUriBuilder()
+				new TwitterApiBuilderForUri()
 					.withResource(TwitterApiUriResourceForStandard.FOLLOWERS_IDS)
 					.withArgument("cursor", String.valueOf(cursor))
 					.withArgument("user_id", String.valueOf(userId))
@@ -216,7 +216,7 @@ public class FriendTemplate extends AbstractTwitterOperations implements FriendO
 	public CursoredList<Long> getFollowerIdsInCursor(String screenName, long cursor) {
 		requireEitherUserOrAppAuthorization();
 		return restTemplate.getForObject(
-				new TwitterApiUriBuilder()
+				new TwitterApiBuilderForUri()
 					.withResource(TwitterApiUriResourceForStandard.FOLLOWERS_IDS)
 					.withArgument("cursor", String.valueOf(cursor))
 					.withArgument("screen_name", screenName)
@@ -228,7 +228,7 @@ public class FriendTemplate extends AbstractTwitterOperations implements FriendO
 	public String follow(long userId) {
 		requireUserAuthorization();
 		return (String) restTemplate.postForObject(
-				new TwitterApiUriBuilder()
+				new TwitterApiBuilderForUri()
 					.withResource(TwitterApiUriResourceForStandard.FRIENDSHIPS_CREATE)
 					.withArgument("user_id", String.valueOf(userId))
 					.build(),
@@ -240,7 +240,7 @@ public class FriendTemplate extends AbstractTwitterOperations implements FriendO
 	public String follow(String screenName) {
 		requireUserAuthorization();
 		return (String) restTemplate.postForObject(
-				new TwitterApiUriBuilder()
+				new TwitterApiBuilderForUri()
 					.withResource(TwitterApiUriResourceForStandard.FRIENDSHIPS_CREATE)
 					.withArgument("screen_name", screenName)
 					.build(),
@@ -252,7 +252,7 @@ public class FriendTemplate extends AbstractTwitterOperations implements FriendO
 	public String unfollow(long userId) {
 		requireUserAuthorization();
 		return (String) restTemplate.postForObject(
-				new TwitterApiUriBuilder()
+				new TwitterApiBuilderForUri()
 					.withResource(TwitterApiUriResourceForStandard.FRIENDSHIPS_DESTROY)
 					.withArgument("user_id", String.valueOf(userId))
 					.build(),
@@ -264,7 +264,7 @@ public class FriendTemplate extends AbstractTwitterOperations implements FriendO
 	public String unfollow(String screenName) {
 		requireUserAuthorization();
 		return (String) restTemplate.postForObject(
-				new TwitterApiUriBuilder()
+				new TwitterApiBuilderForUri()
 					.withResource(TwitterApiUriResourceForStandard.FRIENDSHIPS_DESTROY)
 					.withArgument("screen_name", screenName)
 					.build(),
@@ -276,7 +276,7 @@ public class FriendTemplate extends AbstractTwitterOperations implements FriendO
 	public TwitterProfile enableNotifications(long userId) {
 		requireUserAuthorization();
 		return restTemplate.postForObject(
-				new TwitterApiUriBuilder()
+				new TwitterApiBuilderForUri()
 					.withResource(TwitterApiUriResourceForStandard.FRIENDSHIPS_UPDATE)
 					.withArgument("user_id", String.valueOf(userId))
 					.withArgument("device", "true")
@@ -288,7 +288,7 @@ public class FriendTemplate extends AbstractTwitterOperations implements FriendO
 	public TwitterProfile enableNotifications(String screenName) {
 		requireUserAuthorization();
 		return restTemplate.postForObject(
-				new TwitterApiUriBuilder()
+				new TwitterApiBuilderForUri()
 					.withResource(TwitterApiUriResourceForStandard.FRIENDSHIPS_UPDATE)
 					.withArgument("screen_name", screenName)
 					.withArgument("device", "true")
@@ -300,7 +300,7 @@ public class FriendTemplate extends AbstractTwitterOperations implements FriendO
 	public TwitterProfile disableNotifications(long userId) {
 		requireUserAuthorization();
 		return restTemplate.postForObject(
-				new TwitterApiUriBuilder()
+				new TwitterApiBuilderForUri()
 					.withResource(TwitterApiUriResourceForStandard.FRIENDSHIPS_UPDATE)
 					.withArgument("user_id", String.valueOf(userId))
 					.withArgument("device", "false")
@@ -312,7 +312,7 @@ public class FriendTemplate extends AbstractTwitterOperations implements FriendO
 	public TwitterProfile disableNotifications(String screenName) {
 		requireUserAuthorization();
 		return restTemplate.postForObject(
-				new TwitterApiUriBuilder()
+				new TwitterApiBuilderForUri()
 					.withResource(TwitterApiUriResourceForStandard.FRIENDSHIPS_UPDATE)
 					.withArgument("screen_name", screenName)
 					.withArgument("device", "false")
@@ -328,7 +328,7 @@ public class FriendTemplate extends AbstractTwitterOperations implements FriendO
 	public CursoredList<Long> getIncomingFriendships(long cursor) {
 		requireUserAuthorization();
 		return restTemplate.getForObject(
-				new TwitterApiUriBuilder()
+				new TwitterApiBuilderForUri()
 					.withResource(TwitterApiUriResourceForStandard.FRIENDSHIPS_INCOMING)
 					.withArgument("cursor", String.valueOf(cursor))
 					.build(),
@@ -343,7 +343,7 @@ public class FriendTemplate extends AbstractTwitterOperations implements FriendO
 	public CursoredList<Long> getOutgoingFriendships(long cursor) {
 		requireUserAuthorization();
 		return restTemplate.getForObject(
-				new TwitterApiUriBuilder()
+				new TwitterApiBuilderForUri()
 					.withResource(TwitterApiUriResourceForStandard.FRIENDSHIPS_OUTGOING)
 					.withArgument("cursor", String.valueOf(cursor))
 					.build(),

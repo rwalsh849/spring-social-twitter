@@ -60,8 +60,8 @@ public class TargetingCriteriaFormBuilder extends AbstractTwitterFormBuilder {
     }
 
     @Override
-    public MultiValueMap<String, Object> toRequestBody() {
-        MultiValueMap<String, Object> params = new LinkedMultiValueMap<String, Object>();
+    public MultiValueMap<String, String> toRequestBody() {
+        MultiValueMap<String, String> params = new LinkedMultiValueMap<String, String>();
 
         appendParameter(params, "line_item_id", this.lineItemId);
         appendParameter(params, "name", this.name);

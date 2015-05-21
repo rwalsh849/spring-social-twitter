@@ -26,43 +26,43 @@ import org.springframework.util.MultiValueMap;
  * 
  * @author Hudson Mendes
  */
-public class TwitterApiUriBuilder {
+public class TwitterApiBuilderForUri {
 
-    private final MultiValueMap<String, Object> parameters = new LinkedMultiValueMap<String, Object>();
+    private final MultiValueMap<String, String> parameters = new LinkedMultiValueMap<String, String>();
     private String resource;
     private String baseLocation = treatBaseUrl(TwitterApiHosts.getStandardApi());
 
-    public TwitterApiUriBuilder forStandardApi() {
+    public TwitterApiBuilderForUri forStandardApi() {
         this.baseLocation = treatBaseUrl(TwitterApiHosts.getStandardApi());
         return this;
     }
 
-    public TwitterApiUriBuilder forAdCampaignsApi() {
+    public TwitterApiBuilderForUri forAdCampaignsApi() {
         this.baseLocation = treatBaseUrl(TwitterApiHosts.getAdsApi());
         return this;
     }
 
-    public TwitterApiUriBuilder withResource(String resource) {
+    public TwitterApiBuilderForUri withResource(String resource) {
         this.resource = resource;
         return this;
     }
 
-    public TwitterApiUriBuilder withResource(TwitterApiUriResourceForAdvertising resource) {
+    public TwitterApiBuilderForUri withResource(TwitterApiUriResourceForAdvertising resource) {
         this.resource = resource.getPath();
         return this.forAdCampaignsApi();
     }
 
-    public TwitterApiUriBuilder withResource(TwitterApiUriResourceForStandard resource) {
+    public TwitterApiBuilderForUri withResource(TwitterApiUriResourceForStandard resource) {
         this.resource = resource.getPath();
         return this.forStandardApi();
     }
 
-    public TwitterApiUriBuilder withArgument(String argument, Object value) {
+    public TwitterApiBuilderForUri withArgument(String argument, Object value) {
         this.parameters.add(argument, value.toString());
         return this;
     }
 
-    public TwitterApiUriBuilder withArgument(MultiValueMap<String, Object> arguments) {
+    public TwitterApiBuilderForUri withArgument(MultiValueMap<String, String> arguments) {
         this.parameters.putAll(arguments);
         return this;
     }
@@ -107,7 +107,7 @@ public class TwitterApiUriBuilder {
             String argName = (":" + key).toLowerCase();
 
             if (path.toLowerCase().contains(argName)) {
-                List<Object> values = this.parameters.get(key);
+                List<String> values = this.parameters.get(key);
                 for (int j = 0; j < values.size(); j++) {
                     Object value = values.get(j);
                     finalPath = finalPath.replace(argName, value.toString());
