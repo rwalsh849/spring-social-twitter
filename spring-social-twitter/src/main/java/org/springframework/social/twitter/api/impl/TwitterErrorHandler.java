@@ -86,8 +86,17 @@ public class TwitterErrorHandler extends DefaultResponseErrorHandler {
             if (errors instanceof List) {
                 @SuppressWarnings("unchecked")
                 List<Map<String, String>> errorsList = (List<Map<String, String>>) errors;
-                for (Map<String, String> error : errorsList)
-                    if (error.get("code").equals("INVALID_PARAMETER")) {
+                for (Map<String, String> error : errorsList) {
+                    Object rawError = error.get("code");
+                    String treatedError = "";
+                    if (rawError.getClass() == Integer.class) {
+                        treatedError = ((Integer) rawError).toString();
+                    }
+                    else {
+                        treatedError = rawError.toString();
+                    }
+
+                    if (treatedError.equals("INVALID_PARAMETER")) {
                         validationErrors.add(error.get("message"));
                     }
                     else {
@@ -96,6 +105,7 @@ public class TwitterErrorHandler extends DefaultResponseErrorHandler {
 
                         errorText += error.get("message");
                     }
+                }
             }
             else if (errors instanceof String) {
                 errorText = (String) errors;
