@@ -109,10 +109,10 @@ public class LineItemTemplateTest extends AbstractTwitterApiTest {
                         "objective=" + AdvertisingObjective.APP_INSTALLS + "&" +
                         "include_sentiment=" + AdvertisingSentiment.POSITIVE_ONLY + "&" +
                         "optimization=" + LineItemOptimization.WEBSITE_CONVERSIONS + "&" +
-                        "total_budget_amount=" + doesntMatterDecimal.multiply(new BigDecimal(1000000L)) + "&" +
-                        "bid_amount=" + doesntMatterDecimal.multiply(new BigDecimal(1000000L)) + "&" +
-                        "suggested_high_cpe_bid=" + doesntMatterDecimal.add(new BigDecimal(10)).multiply(new BigDecimal(1000000L)) + "&" +
-                        "suggested_low_cpe_bid=" + doesntMatterDecimal.multiply(new BigDecimal(1000000L)) + "&" +
+                        "total_budget_amount_local_micro=" + doesntMatterDecimal.multiply(new BigDecimal(1000000L)) + "&" +
+                        "bid_amount_local_micro=" + doesntMatterDecimal.multiply(new BigDecimal(1000000L)) + "&" +
+                        "suggested_high_cpe_bid_local_micro=" + doesntMatterDecimal.add(new BigDecimal(10)).multiply(new BigDecimal(1000000L)) + "&" +
+                        "suggested_low_cpe_bid_local_micro=" + doesntMatterDecimal.multiply(new BigDecimal(1000000L)) + "&" +
                         "paused=" + !doesntMatterBool + "&" +
                         "deleted=" + doesntMatterBool;
 
@@ -155,10 +155,10 @@ public class LineItemTemplateTest extends AbstractTwitterApiTest {
                         "objective=" + AdvertisingObjective.FOLLOWERS + "&" +
                         "include_sentiment=" + AdvertisingSentiment.ALL + "&" +
                         "optimization=" + LineItemOptimization.DEFAULT + "&" +
-                        "total_budget_amount=" + doesntMatterDecimal.multiply(new BigDecimal(1000000L)) + "&" +
-                        "bid_amount=" + doesntMatterDecimal.multiply(new BigDecimal(1000000L)) + "&" +
-                        "suggested_high_cpe_bid=" + doesntMatterDecimal.add(new BigDecimal(10)).multiply(new BigDecimal(1000000L)) + "&" +
-                        "suggested_low_cpe_bid=" + doesntMatterDecimal.multiply(new BigDecimal(1000000L)) + "&" +
+                        "total_budget_amount_local_micro=" + doesntMatterDecimal.multiply(new BigDecimal(1000000L)) + "&" +
+                        "bid_amount_local_micro=" + doesntMatterDecimal.multiply(new BigDecimal(1000000L)) + "&" +
+                        "suggested_high_cpe_bid_local_micro=" + doesntMatterDecimal.add(new BigDecimal(10)).multiply(new BigDecimal(1000000L)) + "&" +
+                        "suggested_low_cpe_bid_local_micro=" + doesntMatterDecimal.multiply(new BigDecimal(1000000L)) + "&" +
                         "paused=" + !doesntMatterBool + "&" +
                         "deleted=" + doesntMatterBool;
 

@@ -87,16 +87,17 @@ public class TwitterErrorHandler extends DefaultResponseErrorHandler {
                 @SuppressWarnings("unchecked")
                 List<Map<String, String>> errorsList = (List<Map<String, String>>) errors;
                 for (Map<String, String> error : errorsList) {
-                    Object rawError = error.get("code");
-                    String treatedError = "";
-                    if (rawError.getClass() == Integer.class) {
-                        treatedError = ((Integer) rawError).toString();
+                    Object rawErrorCode = error.get("code");
+                    String treatedErrorCode = "";
+                    if (rawErrorCode.getClass() == Integer.class) {
+                        treatedErrorCode = ((Integer) rawErrorCode).toString();
                     }
                     else {
-                        treatedError = rawError.toString();
+                        treatedErrorCode = rawErrorCode.toString();
                     }
 
-                    if (treatedError.equals("INVALID_PARAMETER")) {
+                    boolean isValidationError = treatedErrorCode.equals("INVALID_PARAMETER") || treatedErrorCode.equals("INVALID");
+                    if (isValidationError) {
                         validationErrors.add(error.get("message"));
                     }
                     else {

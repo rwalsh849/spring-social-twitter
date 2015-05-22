@@ -96,13 +96,25 @@ public class ApiErrorTest extends AbstractTwitterApiTest {
     }
 
     @Test(expected = InvalidInputDataException.class)
-    public void validationErrors() {
+    public void requiredErrors() {
         mockServer
                 .expect(requestTo("https://api.twitter.com/1.1/search/tweets.json?q=%23spring&count=50"))
                 .andExpect(method(GET))
                 .andRespond(
                         withStatus(HttpStatus.valueOf(400)).body(
                                 "{\"errors\":[ {\"code\":\"INVALID_PARAMETER\", \"message\":\"'start_time' is required.\"} ] }").contentType(
+                                APPLICATION_JSON));
+        twitter.searchOperations().search("#spring");
+    }
+
+    @Test(expected = InvalidInputDataException.class)
+    public void validationErrors() {
+        mockServer
+                .expect(requestTo("https://api.twitter.com/1.1/search/tweets.json?q=%23spring&count=50"))
+                .andExpect(method(GET))
+                .andRespond(
+                        withStatus(HttpStatus.valueOf(400)).body(
+                                "{\"errors\":[ {\"code\":\"INVALID\", \"message\":\"'start_time' is required.\"} ] }").contentType(
                                 APPLICATION_JSON));
         twitter.searchOperations().search("#spring");
     }

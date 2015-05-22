@@ -124,10 +124,10 @@ public class LineItemFormBuilder extends AbstractTwitterFormBuilder {
         appendParameter(params, "include_sentiment", this.includeSentiment);
         appendParameter(params, "optimization", this.optimization);
 
-        appendParameter(params, "total_budget_amount", translateBigDecimalIntoMicro(this.totalBudgetAmount));
-        appendParameter(params, "bid_amount", translateBigDecimalIntoMicro(this.bidAmount));
-        appendParameter(params, "suggested_high_cpe_bid", translateBigDecimalIntoMicro(this.suggestedHighCpeBid));
-        appendParameter(params, "suggested_low_cpe_bid", translateBigDecimalIntoMicro(this.suggestedLowCpeBid));
+        appendParameter(params, "total_budget_amount_local_micro", translateBigDecimalIntoMicro(this.totalBudgetAmount));
+        appendParameter(params, "bid_amount_local_micro", translateBigDecimalIntoMicro(this.bidAmount));
+        appendParameter(params, "suggested_high_cpe_bid_local_micro", translateBigDecimalIntoMicro(this.suggestedHighCpeBid));
+        appendParameter(params, "suggested_low_cpe_bid_local_micro", translateBigDecimalIntoMicro(this.suggestedLowCpeBid));
 
         appendParameter(params, "paused", this.paused);
         appendParameter(params, "deleted", this.deleted);
