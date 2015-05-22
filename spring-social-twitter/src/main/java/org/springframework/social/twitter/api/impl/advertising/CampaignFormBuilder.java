@@ -18,6 +18,7 @@ package org.springframework.social.twitter.api.impl.advertising;
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
 import java.time.ZoneOffset;
+import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -131,9 +132,9 @@ public class CampaignFormBuilder extends AbstractTwitterFormBuilder {
         appendParameter(params, "daily_budget_amount_local_micro", translateBigDecimalIntoMicro(this.dailyBudget));
 
         if (this.startTime != null)
-            appendParameter(params, "start_time", this.startTime.toInstant(ZoneOffset.UTC));
+            appendParameter(params, "start_time", this.startTime.toInstant(ZoneOffset.UTC).truncatedTo(ChronoUnit.SECONDS));
         if (this.endTime != null)
-            appendParameter(params, "end_time", this.endTime.toInstant(ZoneOffset.UTC));
+            appendParameter(params, "end_time", this.endTime.toInstant(ZoneOffset.UTC).truncatedTo(ChronoUnit.SECONDS));
 
         appendParameter(params, "reasons_not_servable", this.reasonsNotServable);
         appendParameter(params, "standard_delivery", this.standardDelivery);
@@ -142,5 +143,4 @@ public class CampaignFormBuilder extends AbstractTwitterFormBuilder {
 
         return params;
     }
-
 }
