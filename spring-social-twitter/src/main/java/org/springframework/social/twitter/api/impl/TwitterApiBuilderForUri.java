@@ -117,10 +117,6 @@ public class TwitterApiBuilderForUri {
         }
 
         toRemove.forEach(key -> this.parameters.remove(key));
-
-        if (finalPath.contains("/line_items"))
-            finalPath = finalPath.replace("https://ads-api-sandbox.twitter.com/0", "http://localhost:9999/0");
-
         return finalPath;
     }
 
