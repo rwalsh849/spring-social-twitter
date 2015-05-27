@@ -16,10 +16,8 @@
 package org.springframework.social.twitter.api.impl.advertising;
 
 import static org.junit.Assert.assertEquals;
-import static org.springframework.http.HttpMethod.DELETE;
 import static org.springframework.http.HttpMethod.GET;
 import static org.springframework.http.HttpMethod.POST;
-import static org.springframework.http.HttpMethod.PUT;
 import static org.springframework.http.MediaType.APPLICATION_JSON;
 import static org.springframework.test.web.client.match.MockRestRequestMatchers.content;
 import static org.springframework.test.web.client.match.MockRestRequestMatchers.method;
@@ -100,47 +98,6 @@ public class TargetingCriteriaTemplateTest extends AbstractTwitterApiTest {
                         .active());
 
         assertSingleTargetingCriteriaContents(criteria);
-    }
-
-    @Test
-    public void updateTargetingCriteria() {
-        String mockedAccountId = "hkk5";
-        String mockedTargetingCriteriaId = "2rqqn";
-        String doesntMatterString = "doesnt-matter";
-        Boolean doesntMatterBool = false;
-        String chainedPostContent =
-                "line_item_id=" + doesntMatterString + "&" +
-                        "name=" + doesntMatterString + "&" +
-                        "targeting_type=" + "APP_STORE_CATEGORY" + "&" +
-                        "targeting_value=" + doesntMatterString + "&" +
-                        "deleted=" + doesntMatterBool;
-
-        mockServer
-                .expect(requestTo("https://ads-api.twitter.com/0/accounts/" + mockedAccountId + "/targeting_criteria/" + mockedTargetingCriteriaId))
-                .andExpect(method(PUT))
-                .andExpect(content().string(chainedPostContent))
-                .andRespond(withSuccess(jsonResource("ad-targetingcriteria-single"), APPLICATION_JSON));
-
-        twitter.targetingCriteriaOperations().updateTargetingCriteria(
-                mockedAccountId,
-                mockedTargetingCriteriaId,
-                new TargetingCriteriaFormBuilder()
-                        .withLineItem(doesntMatterString)
-                        .withName(doesntMatterString)
-                        .targeting("APP_STORE_CATEGORY", doesntMatterString)
-                        .active());
-    }
-
-    @Test
-    public void deleteTargetingCriteria() {
-        String mockedAccountId = "0ga0yn";
-        String mockedLineItemId = "92ph";
-        mockServer
-                .expect(requestTo("https://ads-api.twitter.com/0/accounts/" + mockedAccountId + "/targeting_criteria/" + mockedLineItemId))
-                .andExpect(method(DELETE))
-                .andRespond(withSuccess());
-
-        twitter.targetingCriteriaOperations().deleteTargetingCriteria(mockedAccountId, mockedLineItemId);
     }
 
     private void assertTargetCriteriaContents(List<TargetingCriteria> criterias) {

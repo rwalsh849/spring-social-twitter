@@ -89,18 +89,6 @@ public class TargetingCriteriaTemplate extends AbstractTwitterOperations impleme
     }
 
     @Override
-    public void updateTargetingCriteria(String accountId, String id, TwitterForm data) {
-        requireUserAuthorization();
-        restTemplate.put(
-                new TwitterApiBuilderForUri()
-                        .withResource(TwitterApiUriResourceForAdvertising.TARGETING_CRITERIA)
-                        .withArgument("account_id", accountId)
-                        .withArgument("targeting_criteria_id", id)
-                        .build(),
-                data.toRequestBody());
-    }
-
-    @Override
     public void deleteTargetingCriteria(String accountId, String id) {
         requireUserAuthorization();
         restTemplate.delete(new TwitterApiBuilderForUri()
