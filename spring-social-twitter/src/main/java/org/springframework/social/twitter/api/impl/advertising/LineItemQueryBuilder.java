@@ -15,6 +15,8 @@
  */
 package org.springframework.social.twitter.api.impl.advertising;
 
+import java.time.LocalDateTime;
+import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -39,6 +41,8 @@ public class LineItemQueryBuilder
     private List<String> lineItemIds;
     private Integer count;
     private Integer cursor;
+    private LocalDateTime startTime;
+    private LocalDateTime endTime;
 
     @Override
     public LineItemQuery withCampaigns(String... campaignIds) {
@@ -78,12 +82,32 @@ public class LineItemQueryBuilder
     }
 
     @Override
+    public LineItemQuery activeFrom(LocalDateTime time) {
+        this.activeBeetween(time, null);
+        return this;
+    }
+
+    @Override
+    public LineItemQuery activeBeetween(LocalDateTime from, LocalDateTime until) {
+        this.activeBeetween(from, until);
+        return null;
+    }
+
+    @Override
     protected void makeParameters(MultiValueMap<String, String> map) {
         appendParameter(map, "campaign_ids", this.campaignIds);
         appendParameter(map, "funding_instrument_ids", this.fundingInstrumentIds);
         appendParameter(map, "line_item_ids", this.lineItemIds);
         appendParameter(map, "count", this.count);
         appendParameter(map, "cursor", this.cursor);
+        appendParameter(map, "with_deleted", true);
+
+        if (this.startTime != null)
+            appendParameter(map, "start_time", this.startTime.truncatedTo(ChronoUnit.SECONDS).toString());
+
+
+        if (this.endTime != null)
+            appendParameter(map, "end_time", this.endTime.truncatedTo(ChronoUnit.SECONDS).toString());
     }
 
 }

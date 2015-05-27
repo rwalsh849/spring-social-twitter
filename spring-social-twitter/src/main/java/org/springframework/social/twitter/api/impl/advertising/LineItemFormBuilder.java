@@ -76,19 +76,19 @@ public class LineItemFormBuilder extends AbstractTwitterFormBuilder {
         return this;
     }
 
-    public LineItemFormBuilder withTotalBudget(BigDecimal totalBudgetAmount) {
-        this.totalBudgetAmount = totalBudgetAmount;
+    public LineItemFormBuilder withTotalBudget(String totalBudgetAmount) {
+        this.totalBudgetAmount = new BigDecimal(totalBudgetAmount);
         return this;
     }
 
-    public LineItemFormBuilder withBidAmount(BigDecimal bidAmount) {
-        this.bidAmount = bidAmount;
+    public LineItemFormBuilder withBidAmount(String bidAmount) {
+        this.bidAmount = new BigDecimal(bidAmount);
         return this;
     }
 
-    public LineItemFormBuilder withSuggestedCpeBid(BigDecimal low, BigDecimal high) {
-        this.suggestedHighCpeBid = high;
-        this.suggestedLowCpeBid = low;
+    public LineItemFormBuilder withSuggestedCpeBid(String low, String high) {
+        this.suggestedHighCpeBid = new BigDecimal(high);
+        this.suggestedLowCpeBid = new BigDecimal(low);
         return this;
     }
 

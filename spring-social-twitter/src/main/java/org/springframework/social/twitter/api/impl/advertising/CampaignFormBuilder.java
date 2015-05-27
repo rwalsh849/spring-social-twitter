@@ -67,9 +67,9 @@ public class CampaignFormBuilder extends AbstractTwitterFormBuilder {
         return this;
     }
 
-    public CampaignFormBuilder withBudget(BigDecimal totalBudget, BigDecimal dailyBudget) {
-        this.totalBudget = totalBudget;
-        this.dailyBudget = dailyBudget;
+    public CampaignFormBuilder withBudget(String totalBudget, String dailyBudget) {
+        this.totalBudget = new BigDecimal(totalBudget);
+        this.dailyBudget = new BigDecimal(dailyBudget);
         return this;
     }
 

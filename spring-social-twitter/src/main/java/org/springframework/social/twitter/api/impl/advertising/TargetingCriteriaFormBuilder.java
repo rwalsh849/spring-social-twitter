@@ -16,6 +16,7 @@
 package org.springframework.social.twitter.api.impl.advertising;
 
 import org.springframework.social.twitter.api.advertising.TargetingCriteria;
+import org.springframework.social.twitter.api.advertising.TargetingType;
 import org.springframework.social.twitter.api.impl.AbstractTwitterFormBuilder;
 import org.springframework.util.LinkedMultiValueMap;
 import org.springframework.util.MultiValueMap;
@@ -47,6 +48,10 @@ public class TargetingCriteriaFormBuilder extends AbstractTwitterFormBuilder {
         this.targetingType = targetingType;
         this.targetingValue = targetingValue;
         return this;
+    }
+
+    public TargetingCriteriaFormBuilder targeting(TargetingType targetingType, String targetingValue) {
+        return targeting(targetingType.toString(), targetingValue);
     }
 
     public TargetingCriteriaFormBuilder active() {
