@@ -20,7 +20,7 @@ public abstract class TwitterApiHosts {
         return hostForAdsApi;
     }
 
-    public static void setAdsApiHost(String host) {
+    static void setAdsApiHost(String host) {
         if (StringUtils.hasText(host))
             hostForAdsApi = host;
     }
@@ -29,7 +29,7 @@ public abstract class TwitterApiHosts {
         return hostForStandardApi;
     }
 
-    public static void setStandardApiHost(String host) {
+    static void setStandardApiHost(String host) {
         if (StringUtils.hasText(host))
             hostForStandardApi = host;
     }

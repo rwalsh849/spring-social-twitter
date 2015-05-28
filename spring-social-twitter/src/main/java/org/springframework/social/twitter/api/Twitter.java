@@ -111,4 +111,11 @@ public interface Twitter extends ApiBinding {
      * @return a RestOperations object instrumented for including an OAuth Authorization header on requests.
      */
     RestOperations restOperations();
+
+    /**
+     * Retrieve dynamic settings inherent to the setup of the twitter api.
+     * 
+     * @return an implementation of {@link Settings} responsible for communicating the settings
+     */
+    Settings settings();
 }

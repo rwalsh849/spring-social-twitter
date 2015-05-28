@@ -26,6 +26,7 @@ import org.springframework.social.twitter.api.FriendOperations;
 import org.springframework.social.twitter.api.GeoOperations;
 import org.springframework.social.twitter.api.ListOperations;
 import org.springframework.social.twitter.api.SearchOperations;
+import org.springframework.social.twitter.api.Settings;
 import org.springframework.social.twitter.api.StreamingOperations;
 import org.springframework.social.twitter.api.TimelineOperations;
 import org.springframework.social.twitter.api.Twitter;
@@ -86,6 +87,8 @@ public class TwitterTemplate extends AbstractOAuth1ApiBinding implements Twitter
     private TargetingCriteriaOperations targetingCriteriaOperations;
 
     private RestTemplate clientRestTemplate = null;
+
+    private Settings settings = null;
 
     /**
      * Create a new instance of TwitterTemplate.
@@ -224,6 +227,11 @@ public class TwitterTemplate extends AbstractOAuth1ApiBinding implements Twitter
     }
 
     @Override
+    public Settings settings() {
+        return settings;
+    }
+
+    @Override
     public RestOperations restOperations() {
         return getRestTemplate();
     }
@@ -285,6 +293,8 @@ public class TwitterTemplate extends AbstractOAuth1ApiBinding implements Twitter
         this.campaignOperations = new CampaignTemplate(getRestTemplate(), isAuthorized(), isAuthorized());
         this.lineItemOperations = new LineItemTemplate(getRestTemplate(), isAuthorized(), isAuthorized());
         this.targetingCriteriaOperations = new TargetingCriteriaTemplate(getRestTemplate(), isAuthorized(), isAuthorized());
+
+        this.settings = new SettingsImpl();
     }
 
     private void initHosts(String standardApiHost, String adsApiHost) {
