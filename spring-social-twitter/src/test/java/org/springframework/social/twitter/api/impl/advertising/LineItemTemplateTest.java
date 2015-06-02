@@ -198,27 +198,27 @@ public class LineItemTemplateTest extends AbstractTwitterApiTest {
     }
 
     private void assertLineItemContents(List<LineItem> lineItems) {
-        assertEquals(1, lineItems.size());
+        assertEquals(22, lineItems.size());
 
-        assertEquals("5woz", lineItems.get(0).getId());
-        assertEquals("hkk5", lineItems.get(0).getAccountId());
-        assertEquals("7jem", lineItems.get(0).getCampaignId());
-        assertEquals(ProductType.PROMOTED_ACCOUNT, lineItems.get(0).getProductType());
-        assertEquals(BidUnit.ENGAGEMENT, lineItems.get(0).getBidUnit());
+        assertEquals("awvv", lineItems.get(0).getId());
+        assertEquals("gq0vqj", lineItems.get(0).getAccountId());
+        assertEquals("e094", lineItems.get(0).getCampaignId());
+        assertEquals(ProductType.PROMOTED_TWEETS, lineItems.get(0).getProductType());
+        assertEquals(BidUnit.APP_CLICK, lineItems.get(0).getBidUnit());
         assertEquals(LineItemOptimization.DEFAULT, lineItems.get(0).getOptimization());
-        assertEquals(AdvertisingObjective.TWEET_ENGAGEMENTS, lineItems.get(0).getObjective());
+        assertEquals(AdvertisingObjective.APP_ENGAGEMENTS, lineItems.get(0).getObjective());
         assertEquals(AdvertisingSentiment.POSITIVE_ONLY, lineItems.get(0).getIncludeSentiment());
-        assertEquals(AdvertisingPlacementType.PROMOTED_TWEETS_FOR_TIMELINES, lineItems.get(0).getPlacementType());
+        assertEquals(AdvertisingPlacementType.PROMOTED_TWEETS, lineItems.get(0).getPlacementType());
         assertEquals("USD", lineItems.get(0).getCurrency());
         assertEquals(null, lineItems.get(0).getTotalBudgetAmount());
-        assertEquals(new BigDecimal(0.69).round(MathContext.DECIMAL32), lineItems.get(0).getBidAmount());
+        assertEquals(new BigDecimal("10"), lineItems.get(0).getBidAmount());
         assertEquals(null, lineItems.get(0).getSuggestedHighCpeBid());
         assertEquals(null, lineItems.get(0).getSuggestedLowCpeBid());
-        assertEquals(true, lineItems.get(0).isAutomaticallySelectBid());
-        assertEquals(false, lineItems.get(0).isPaused());
-        assertEquals(true, lineItems.get(0).isDeleted());
-        assertEquals(LocalDateTime.of(2012, Month.NOVEMBER, 20, 23, 29, 10), lineItems.get(0).getCreatedAt());
-        assertEquals(LocalDateTime.of(2012, Month.DECEMBER, 06, 00, 53, 57), lineItems.get(0).getUpdatedAt());
+        assertEquals(false, lineItems.get(0).isAutomaticallySelectBid());
+        assertEquals(true, lineItems.get(0).isPaused());
+        assertEquals(false, lineItems.get(0).isDeleted());
+        assertEquals(LocalDateTime.of(2015, Month.MAY, 29, 20, 32, 20), lineItems.get(0).getCreatedAt());
+        assertEquals(LocalDateTime.of(2015, Month.MAY, 29, 20, 38, 43), lineItems.get(0).getUpdatedAt());
     }
 
     private void assertSingleLineItemContents(LineItem lineItem) {
