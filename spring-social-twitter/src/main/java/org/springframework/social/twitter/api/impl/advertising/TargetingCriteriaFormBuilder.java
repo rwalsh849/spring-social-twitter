@@ -17,7 +17,6 @@ package org.springframework.social.twitter.api.impl.advertising;
 
 import org.springframework.social.twitter.api.advertising.TargetingCriteria;
 import org.springframework.social.twitter.api.advertising.TargetingType;
-import org.springframework.social.twitter.api.impl.AbstractTwitterFormBuilder;
 import org.springframework.util.LinkedMultiValueMap;
 import org.springframework.util.MultiValueMap;
 

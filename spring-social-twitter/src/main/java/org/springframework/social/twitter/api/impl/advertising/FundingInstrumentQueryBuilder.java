@@ -21,7 +21,6 @@ import java.util.List;
 import org.springframework.social.twitter.api.advertising.FundingInstrument;
 import org.springframework.social.twitter.api.advertising.FundingInstrumentQuery;
 import org.springframework.social.twitter.api.advertising.FundingInstrumentSorting;
-import org.springframework.social.twitter.api.impl.AbstractTwitterQueryForEntityBuilder;
 import org.springframework.util.MultiValueMap;
 
 /**

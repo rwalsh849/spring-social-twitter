@@ -18,7 +18,6 @@ package org.springframework.social.twitter.api.impl.advertising;
 import org.springframework.social.twitter.api.advertising.TargetingCriteria;
 import org.springframework.social.twitter.api.advertising.TargetingCriteriaQuery;
 import org.springframework.social.twitter.api.advertising.TargetingCriteriaSorting;
-import org.springframework.social.twitter.api.impl.AbstractTwitterQueryForEntityBuilder;
 import org.springframework.util.MultiValueMap;
 
 /**

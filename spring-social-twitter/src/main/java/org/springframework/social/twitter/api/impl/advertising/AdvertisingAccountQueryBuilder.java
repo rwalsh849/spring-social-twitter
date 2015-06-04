@@ -18,7 +18,6 @@ package org.springframework.social.twitter.api.impl.advertising;
 import org.springframework.social.twitter.api.advertising.AdvertisingAccount;
 import org.springframework.social.twitter.api.advertising.AdvertisingAccountQuery;
 import org.springframework.social.twitter.api.advertising.AdvertisingAccountSorting;
-import org.springframework.social.twitter.api.impl.AbstractTwitterQueryForEntityBuilder;
 import org.springframework.util.MultiValueMap;
 
 /**

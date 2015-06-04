@@ -15,8 +15,6 @@
  */
 package org.springframework.social.twitter.api.impl.advertising;
 
-import java.util.List;
-
 import org.springframework.core.ParameterizedTypeReference;
 import org.springframework.http.HttpMethod;
 import org.springframework.social.twitter.api.TwitterForm;
@@ -56,7 +54,7 @@ public class LineItemTemplate extends AbstractTwitterOperations implements LineI
     }
 
     @Override
-    public List<LineItem> getLineItems(String accountId, LineItemQuery query) {
+    public DataListHolder<LineItem> getLineItems(String accountId, LineItemQuery query) {
         requireUserAuthorization();
         return restTemplate.exchange(
                 new TwitterApiBuilderForUri()
@@ -67,7 +65,7 @@ public class LineItemTemplate extends AbstractTwitterOperations implements LineI
                 HttpMethod.GET,
                 null,
                 new ParameterizedTypeReference<DataListHolder<LineItem>>() {}
-                ).getBody().getData();
+                ).getBody();
     }
 
     @Override

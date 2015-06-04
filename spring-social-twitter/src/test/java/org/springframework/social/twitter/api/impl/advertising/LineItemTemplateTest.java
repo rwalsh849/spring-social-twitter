@@ -43,6 +43,7 @@ import org.springframework.social.twitter.api.advertising.LineItem;
 import org.springframework.social.twitter.api.advertising.LineItemOptimization;
 import org.springframework.social.twitter.api.advertising.ProductType;
 import org.springframework.social.twitter.api.impl.AbstractTwitterApiTest;
+import org.springframework.social.twitter.api.impl.DataListHolder;
 
 /**
  * @author Hudson mendes
@@ -84,7 +85,7 @@ public class LineItemTemplateTest extends AbstractTwitterApiTest {
                 .andExpect(method(GET))
                 .andRespond(withSuccess(jsonResource("line-items"), APPLICATION_JSON));
 
-        List<LineItem> lineItems = twitter.lineItemOperations().getLineItems(
+        DataListHolder<LineItem> lineItems = twitter.lineItemOperations().getLineItems(
                 mockedAccountId,
                 new LineItemQueryBuilder()
                         .withCampaigns(mockedCampaignId1, mockedCampaignId2)
@@ -92,7 +93,7 @@ public class LineItemTemplateTest extends AbstractTwitterApiTest {
                         .withLineItems(mockedLineItemId1, mockedLineItemId2)
                         .includeDeleted(false));
 
-        assertLineItemContents(lineItems);
+        assertLineItemContents(lineItems.getList());
     }
 
     @Test

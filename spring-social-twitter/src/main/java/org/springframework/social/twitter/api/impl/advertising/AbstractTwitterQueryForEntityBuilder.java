@@ -13,11 +13,12 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.springframework.social.twitter.api.impl;
+package org.springframework.social.twitter.api.impl.advertising;
 
 import org.springframework.social.twitter.api.TwitterQueryForEntity;
 import org.springframework.util.LinkedMultiValueMap;
 import org.springframework.util.MultiValueMap;
+import org.springframework.util.StringUtils;
 
 /**
  * Basic representation of the QueryString parameters builders
@@ -36,12 +37,22 @@ public abstract class AbstractTwitterQueryForEntityBuilder<TBuilderInterface, TS
         implements TwitterQueryForEntity<TBuilderInterface, TSort> {
 
     private TSort sort;
+    private String cursor;
+    private Integer pageSize;
     private Boolean includeDeleted;
 
     @Override
     @SuppressWarnings("unchecked")
     public TBuilderInterface includeDeleted(Boolean include) {
         this.includeDeleted = include;
+        return (TBuilderInterface) this;
+    }
+
+    @Override
+    @SuppressWarnings("unchecked")
+    public TBuilderInterface pagedBy(String cursor, Integer pageSize) {
+        this.cursor = cursor;
+        this.pageSize = pageSize;
         return (TBuilderInterface) this;
     }
 
@@ -56,8 +67,16 @@ public abstract class AbstractTwitterQueryForEntityBuilder<TBuilderInterface, TS
     public MultiValueMap<String, String> toQueryParameters() {
         MultiValueMap<String, String> map = new LinkedMultiValueMap<String, String>();
         makeParameters(map);
+
         appendParameter(map, "with_deleted", this.includeDeleted);
         appendParameter(map, "sort", this.sort);
+
+        if (!StringUtils.isEmpty(this.cursor))
+            appendParameter(map, "cursor", this.cursor);
+
+        if (this.pageSize != null)
+            appendParameter(map, "count", this.cursor);
+
         return map;
     }
 

@@ -43,6 +43,7 @@ import org.junit.Test;
 import org.springframework.social.twitter.api.advertising.Campaign;
 import org.springframework.social.twitter.api.advertising.ReasonNotServable;
 import org.springframework.social.twitter.api.impl.AbstractTwitterApiTest;
+import org.springframework.social.twitter.api.impl.DataListHolder;
 
 /**
  * @author Hudson mendes
@@ -81,14 +82,14 @@ public class CampaignTemplateTest extends AbstractTwitterApiTest {
                 .andExpect(method(GET))
                 .andRespond(withSuccess(jsonResource("ad-campaigns"), APPLICATION_JSON));
 
-        List<Campaign> campaigns = twitter.campaignOperations().getCampaigns(
+        DataListHolder<Campaign> campaigns = twitter.campaignOperations().getCampaigns(
                 mockedAccountId,
                 new CampaignQueryBuilder()
                         .withCampaigns(mockedCampaignId1, mockedCampaignId2)
                         .withFundingInstruments(mockedFundingInstrumentId1, mockedFundingInstrumentId2)
                         .includeDeleted(false));
 
-        assertCampaignContents(campaigns);
+        assertCampaignContents(campaigns.getList());
     }
 
     @Test

@@ -33,5 +33,7 @@ public interface TwitterQueryForEntity<TBuilderInterface, TSort> {
 
     public TBuilderInterface sortBy(TSort sort);
 
+    public TBuilderInterface pagedBy(String cursor, Integer pageSize);
+
     public MultiValueMap<String, String> toQueryParameters();
 }

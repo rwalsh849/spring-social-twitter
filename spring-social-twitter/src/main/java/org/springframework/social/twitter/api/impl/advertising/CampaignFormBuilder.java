@@ -25,7 +25,6 @@ import java.util.List;
 
 import org.springframework.social.twitter.api.advertising.Campaign;
 import org.springframework.social.twitter.api.advertising.ReasonNotServable;
-import org.springframework.social.twitter.api.impl.AbstractTwitterFormBuilder;
 import org.springframework.util.LinkedMultiValueMap;
 import org.springframework.util.MultiValueMap;
 

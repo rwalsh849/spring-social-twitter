@@ -15,8 +15,6 @@
  */
 package org.springframework.social.twitter.api.impl.advertising;
 
-import java.util.List;
-
 import org.springframework.core.ParameterizedTypeReference;
 import org.springframework.http.HttpMethod;
 import org.springframework.social.twitter.api.TwitterForm;
@@ -62,7 +60,7 @@ public class CampaignTemplate extends AbstractTwitterOperations implements Campa
     }
 
     @Override
-    public List<Campaign> getCampaigns(String accountId, CampaignQuery query) {
+    public DataListHolder<Campaign> getCampaigns(String accountId, CampaignQuery query) {
         requireUserAuthorization();
         return restTemplate.exchange(
                 new TwitterApiBuilderForUri()
@@ -73,7 +71,7 @@ public class CampaignTemplate extends AbstractTwitterOperations implements Campa
                 HttpMethod.GET,
                 null,
                 new ParameterizedTypeReference<DataListHolder<Campaign>>() {}
-                ).getBody().getData();
+                ).getBody();
     }
 
     @Override

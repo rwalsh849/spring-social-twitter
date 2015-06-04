@@ -20,7 +20,6 @@ import java.util.List;
 
 import org.springframework.social.twitter.api.advertising.StatisticsOfFundingInstrumentQuery;
 import org.springframework.social.twitter.api.advertising.StatisticsSnapshot;
-import org.springframework.social.twitter.api.impl.AbstractTwitterQueryForStatsBuilder;
 import org.springframework.util.MultiValueMap;
 
 /**

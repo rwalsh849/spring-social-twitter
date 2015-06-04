@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.springframework.social.twitter.api.impl;
+package org.springframework.social.twitter.api.impl.advertising;
 
 import java.time.LocalDateTime;
 import java.time.ZoneOffset;

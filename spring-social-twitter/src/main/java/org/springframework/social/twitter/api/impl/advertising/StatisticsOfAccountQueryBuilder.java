@@ -17,7 +17,6 @@ package org.springframework.social.twitter.api.impl.advertising;
 
 import org.springframework.social.twitter.api.advertising.StatisticsOfAccountQuery;
 import org.springframework.social.twitter.api.advertising.StatisticsSnapshot;
-import org.springframework.social.twitter.api.impl.AbstractTwitterQueryForStatsBuilder;
 import org.springframework.util.MultiValueMap;
 
 /**

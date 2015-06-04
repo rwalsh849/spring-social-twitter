@@ -23,7 +23,6 @@ import java.util.List;
 import org.springframework.social.twitter.api.advertising.LineItem;
 import org.springframework.social.twitter.api.advertising.LineItemQuery;
 import org.springframework.social.twitter.api.advertising.LineItemSorting;
-import org.springframework.social.twitter.api.impl.AbstractTwitterQueryForEntityBuilder;
 import org.springframework.util.MultiValueMap;
 
 /**

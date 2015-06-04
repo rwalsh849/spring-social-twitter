@@ -1,12 +1,12 @@
 /*
  * Copyright 2014 the original author or authors.
- *
+ * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
- *
- *      http://www.apache.org/licenses/LICENSE-2.0
- *
+ * 
+ * http://www.apache.org/licenses/LICENSE-2.0
+ * 
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -33,18 +33,49 @@ import com.fasterxml.jackson.annotation.JsonProperty;
  * 
  * Our {@link DataSingleHolder} is the abstract/generic object that kills all
  * the repetition necessary to create on holder for each of those.
+ * 
  * @author Hudson Mendes
  */
-@JsonIgnoreProperties(ignoreUnknown=true)
+@JsonIgnoreProperties(ignoreUnknown = true)
 public class DataListHolder<TEntity> {
-	private final List<TEntity> data;
-	
-	@JsonCreator
-	DataListHolder(@JsonProperty("data") List<TEntity> data) {
-		this.data = new ArrayList<TEntity>(data);
-	}
-	
-	public List<TEntity> getData() {
-		return this.data;
-	}
+    private final List<TEntity> list;
+    private final String dataType;
+    private final String previousCursor;
+    private final String nextCursor;
+    private final Long totalCount;
+
+    @JsonCreator
+    DataListHolder(
+            @JsonProperty("data") List<TEntity> list,
+            @JsonProperty("data_type") String dataType,
+            @JsonProperty("previous_cursor") String previousCursor,
+            @JsonProperty("next_cursor") String nextCursor,
+            @JsonProperty("total_count") Long totalCount) {
+
+        this.list = new ArrayList<TEntity>(list);
+        this.dataType = dataType;
+        this.previousCursor = previousCursor;
+        this.nextCursor = nextCursor;
+        this.totalCount = totalCount;
+    }
+
+    public List<TEntity> getList() {
+        return this.list;
+    }
+
+    public String getDataType() {
+        return this.dataType;
+    }
+
+    public String getPreviousCursor() {
+        return this.previousCursor;
+    }
+
+    public String getNextCursor() {
+        return this.nextCursor;
+    }
+
+    public Long getTotalCount() {
+        return totalCount;
+    }
 }

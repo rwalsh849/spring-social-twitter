@@ -22,7 +22,6 @@ import org.springframework.social.twitter.api.advertising.AdvertisingPlacementTy
 import org.springframework.social.twitter.api.advertising.AdvertisingSentiment;
 import org.springframework.social.twitter.api.advertising.LineItem;
 import org.springframework.social.twitter.api.advertising.LineItemOptimization;
-import org.springframework.social.twitter.api.impl.AbstractTwitterFormBuilder;
 import org.springframework.util.LinkedMultiValueMap;
 import org.springframework.util.MultiValueMap;
 

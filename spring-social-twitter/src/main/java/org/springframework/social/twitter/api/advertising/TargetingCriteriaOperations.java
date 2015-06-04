@@ -15,11 +15,10 @@
  */
 package org.springframework.social.twitter.api.advertising;
 
-import java.util.List;
-
 import org.springframework.social.ApiException;
 import org.springframework.social.MissingAuthorizationException;
 import org.springframework.social.twitter.api.TwitterForm;
+import org.springframework.social.twitter.api.impl.DataListHolder;
 
 /**
  * Interface defining the operations for targeting criterias (Ads API).
@@ -44,7 +43,7 @@ public interface TargetingCriteriaOperations {
      * @param query The query parameters that will filter the request
      * @return a list of {@link TargetingCriteria}.
      */
-    List<TargetingCriteria> getTargetingCriterias(String accountId, TargetingCriteriaQuery query);
+    DataListHolder<TargetingCriteria> getTargetingCriterias(String accountId, TargetingCriteriaQuery query);
 
     /**
      * Creates a {@link TargetingCriteria} related to an {@link AdvertisingAccount}

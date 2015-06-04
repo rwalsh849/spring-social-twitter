@@ -31,6 +31,7 @@ import java.util.List;
 import org.junit.Test;
 import org.springframework.social.twitter.api.advertising.TargetingCriteria;
 import org.springframework.social.twitter.api.impl.AbstractTwitterApiTest;
+import org.springframework.social.twitter.api.impl.DataListHolder;
 
 /**
  * @author Hudson mendes
@@ -49,13 +50,13 @@ public class TargetingCriteriaTemplateTest extends AbstractTwitterApiTest {
                 .andExpect(method(GET))
                 .andRespond(withSuccess(jsonResource("ad-targeting-criteria"), APPLICATION_JSON));
 
-        List<TargetingCriteria> targetingCriterias = twitter.targetingCriteriaOperations().getTargetingCriterias(
+        DataListHolder<TargetingCriteria> targetingCriterias = twitter.targetingCriteriaOperations().getTargetingCriterias(
                 mockedAccountId,
                 new TargetingCriteriaQueryBuilder()
                         .withLineItem(mockedLineItemId)
                         .includeDeleted(false));
 
-        assertTargetCriteriaContents(targetingCriterias);
+        assertTargetCriteriaContents(targetingCriterias.getList());
     }
 
     @Test

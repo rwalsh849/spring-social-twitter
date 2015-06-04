@@ -21,7 +21,6 @@ import java.util.List;
 import org.springframework.social.twitter.api.advertising.Campaign;
 import org.springframework.social.twitter.api.advertising.CampaignQuery;
 import org.springframework.social.twitter.api.advertising.CampaignSorting;
-import org.springframework.social.twitter.api.impl.AbstractTwitterQueryForEntityBuilder;
 import org.springframework.util.MultiValueMap;
 
 /**
