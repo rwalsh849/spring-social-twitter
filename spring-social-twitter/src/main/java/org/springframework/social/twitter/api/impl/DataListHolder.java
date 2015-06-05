@@ -40,7 +40,6 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 public class DataListHolder<TEntity> {
     private final List<TEntity> list;
     private final String dataType;
-    private final String previousCursor;
     private final String nextCursor;
     private final Long totalCount;
 
@@ -48,13 +47,11 @@ public class DataListHolder<TEntity> {
     DataListHolder(
             @JsonProperty("data") List<TEntity> list,
             @JsonProperty("data_type") String dataType,
-            @JsonProperty("previous_cursor") String previousCursor,
             @JsonProperty("next_cursor") String nextCursor,
             @JsonProperty("total_count") Long totalCount) {
 
         this.list = new ArrayList<TEntity>(list);
         this.dataType = dataType;
-        this.previousCursor = previousCursor;
         this.nextCursor = nextCursor;
         this.totalCount = totalCount;
     }
@@ -65,10 +62,6 @@ public class DataListHolder<TEntity> {
 
     public String getDataType() {
         return this.dataType;
-    }
-
-    public String getPreviousCursor() {
-        return this.previousCursor;
     }
 
     public String getNextCursor() {

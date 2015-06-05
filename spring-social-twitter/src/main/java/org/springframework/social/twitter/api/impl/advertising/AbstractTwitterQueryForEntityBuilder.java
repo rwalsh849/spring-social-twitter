@@ -75,7 +75,7 @@ public abstract class AbstractTwitterQueryForEntityBuilder<TBuilderInterface, TS
             appendParameter(map, "cursor", this.cursor);
 
         if (this.pageSize != null)
-            appendParameter(map, "count", this.cursor);
+            appendParameter(map, "count", this.pageSize);
 
         return map;
     }
