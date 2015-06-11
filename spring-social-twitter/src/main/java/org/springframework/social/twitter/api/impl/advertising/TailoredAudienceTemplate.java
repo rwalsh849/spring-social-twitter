@@ -83,7 +83,7 @@ public class TailoredAudienceTemplate extends AbstractTwitterOperations implemen
     public void deleteTailoredAudience(String accountId, String id) {
         requireUserAuthorization();
         restTemplate.delete(new TwitterApiBuilderForUri()
-                .withResource(TwitterApiUriResourceForAdvertising.TAILORED_AUDIENCES)
+                .withResource(TwitterApiUriResourceForAdvertising.TAILORED_AUDIENCE)
                 .withArgument("account_id", accountId)
                 .withArgument("tailored_audience_id", id)
                 .build());

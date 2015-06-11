@@ -2,6 +2,7 @@ package org.springframework.social.twitter.api.impl.advertising;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertThat;
+import static org.springframework.http.HttpMethod.DELETE;
 import static org.springframework.http.HttpMethod.GET;
 import static org.springframework.http.HttpMethod.POST;
 import static org.springframework.http.HttpMethod.PUT;
@@ -109,6 +110,18 @@ public class TailoredAudienceTemplateTest extends AbstractTwitterApiTest {
                         .withAccount(mockedAccountId)
                         .named(doesntMatterString)
                         .ofListType(TailoredAudienceListType.TWITTER_ID));
+    }
+
+    @Test
+    public void deleteTailoredAudience() {
+        String mockedAccountId = "0ga0yn";
+        String mockedTailoredAudienceId = "qq4u";
+        mockServer
+                .expect(requestTo("https://ads-api.twitter.com/0/accounts/" + mockedAccountId + "/tailored_audiences/" + mockedTailoredAudienceId))
+                .andExpect(method(DELETE))
+                .andRespond(withSuccess());
+
+        twitter.tailoredAudienceOperations().deleteTailoredAudience(mockedAccountId, mockedTailoredAudienceId);
     }
 
     private void assertSingleTailoredAudienceContents(TailoredAudience audience) {
