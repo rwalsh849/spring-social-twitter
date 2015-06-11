@@ -63,7 +63,8 @@ public abstract class AbstractTwitterQueryForEntityBuilder<TBuilderInterface ext
 
         MultiValueMap<String, String> parentMap = super.toQueryParameters();
         for (String parentKey : parentMap.keySet())
-            appendParameter(map, parentKey, parentMap.get(parentKey));
+            if (parentMap.get(parentKey).size() != 0)
+                appendParameter(map, parentKey, parentMap.get(parentKey).get(0));
 
         if (this.sort != null)
             appendParameter(map, "sort", this.sort);
