@@ -1,10 +1,11 @@
 package org.springframework.social.twitter.api.impl.advertising;
 
+import org.springframework.social.twitter.api.TailoredAudienceForm;
 import org.springframework.social.twitter.api.advertising.TailoredAudienceListType;
 import org.springframework.util.LinkedMultiValueMap;
 import org.springframework.util.MultiValueMap;
 
-public class TailoredAudienceFormBuilder extends AbstractTwitterFormBuilder {
+public class TailoredAudienceFormBuilder extends AbstractTwitterFormBuilder implements TailoredAudienceForm {
 
     private String accountId;
     private String name;
@@ -21,17 +22,20 @@ public class TailoredAudienceFormBuilder extends AbstractTwitterFormBuilder {
         return params;
     }
 
+    @Override
     public TailoredAudienceFormBuilder withAccount(String accountId) {
         this.accountId = accountId;
         return this;
     }
 
-    public TailoredAudienceFormBuilder withName(String name) {
+    @Override
+    public TailoredAudienceFormBuilder named(String name) {
         this.name = name;
         return this;
     }
 
-    public TailoredAudienceFormBuilder OfListType(TailoredAudienceListType listType) {
+    @Override
+    public TailoredAudienceFormBuilder ofListType(TailoredAudienceListType listType) {
         this.listType = listType;
         return this;
     }

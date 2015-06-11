@@ -3,7 +3,9 @@ package org.springframework.social.twitter.api.impl.advertising;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertThat;
 import static org.springframework.http.HttpMethod.GET;
+import static org.springframework.http.HttpMethod.POST;
 import static org.springframework.http.MediaType.APPLICATION_JSON;
+import static org.springframework.test.web.client.match.MockRestRequestMatchers.content;
 import static org.springframework.test.web.client.match.MockRestRequestMatchers.method;
 import static org.springframework.test.web.client.match.MockRestRequestMatchers.requestTo;
 import static org.springframework.test.web.client.response.MockRestResponseCreators.withSuccess;
@@ -40,6 +42,48 @@ public class TailoredAudienceTemplateTest extends AbstractTwitterApiTest {
         assertSingleTailoredAudienceContents(tailoredAudience);
     }
 
+    @Test
+    public void getTailoredAudiences() {
+        String mockedAccountId = "hkk5";
+        mockServer
+                .expect(requestTo("https://ads-api.twitter.com/0/accounts/" + mockedAccountId + "/tailored_audiences?with_deleted=false"))
+                .andExpect(method(GET))
+                .andRespond(withSuccess(jsonResource("ad-tailored-audiences"), APPLICATION_JSON));
+
+        DataListHolder<TailoredAudience> tailoredAudiences = twitter.tailoredAudienceOperations()
+                .getTailoredAudiences(
+                        mockedAccountId,
+                        new TailoredAudienceQueryBuilder().includeDeleted(false));
+
+        assertTailoredAudienceContents(tailoredAudiences.getList());
+    }
+
+    @Test
+    public void createTailoredAudience() {
+        String mockedAccountId = "hkk5";
+        String doesntMatterString = "doesn-matter";
+
+        String chainedPostContent =
+                "account_id=" + mockedAccountId + "&" +
+                        "name=" + doesntMatterString + "&" +
+                        "list_type=" + TailoredAudienceListType.TWITTER_ID;
+
+        mockServer
+                .expect(requestTo("https://ads-api.twitter.com/0/accounts/" + mockedAccountId + "/tailored_audiences"))
+                .andExpect(method(POST))
+                .andExpect(content().string(chainedPostContent))
+                .andRespond(withSuccess(jsonResource("ad-tailored-audiences-single"), APPLICATION_JSON));
+
+        TailoredAudience tailoredAudience = twitter.tailoredAudienceOperations().createTailoredAudience(
+                mockedAccountId,
+                new TailoredAudienceFormBuilder()
+                        .withAccount(mockedAccountId)
+                        .named(doesntMatterString)
+                        .ofListType(TailoredAudienceListType.TWITTER_ID));
+
+        assertSingleTailoredAudienceContents(tailoredAudience);
+    }
+
     private void assertSingleTailoredAudienceContents(TailoredAudience audience) {
         assertEquals("qq4u", audience.getId());
         assertEquals("twitter%20ids", audience.getName());
@@ -61,22 +105,6 @@ public class TailoredAudienceTemplateTest extends AbstractTwitterApiTest {
 
         assertEquals("2015-06-08T20:13:40", audience.getCreatedAt().toString());
         assertEquals("2015-06-08T20:13:40", audience.getUpdatedAt().toString());
-    }
-
-    @Test
-    public void getTailoredAudiences() {
-        String mockedAccountId = "hkk5";
-        mockServer
-                .expect(requestTo("https://ads-api.twitter.com/0/accounts/" + mockedAccountId + "/tailored_audiences?with_deleted=false"))
-                .andExpect(method(GET))
-                .andRespond(withSuccess(jsonResource("ad-tailored-audiences"), APPLICATION_JSON));
-
-        DataListHolder<TailoredAudience> tailoredAudiences = twitter.tailoredAudienceOperations()
-                .getTailoredAudiences(
-                        mockedAccountId,
-                        new TailoredAudienceQueryBuilder().includeDeleted(false));
-
-        assertTailoredAudienceContents(tailoredAudiences.getList());
     }
 
     private void assertTailoredAudienceContents(List<TailoredAudience> audiences) {

@@ -4,9 +4,9 @@ import org.springframework.social.twitter.api.advertising.TailoredAudienceListTy
 
 public interface TailoredAudienceForm extends TwitterForm {
 
-    public TailoredAudienceForm named(String name);
-
     public TailoredAudienceForm withAccount(String account);
 
-    public TailoredAudienceForm withListType(TailoredAudienceListType listType);
+    public TailoredAudienceForm ofListType(TailoredAudienceListType listType);
+
+    public TailoredAudienceForm named(String name);
 }
