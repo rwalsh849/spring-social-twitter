@@ -5,10 +5,13 @@ import java.time.LocalDateTime;
 import org.springframework.social.twitter.api.advertising.TailoredAudience;
 import org.springframework.social.twitter.api.advertising.TailoredAudienceListType;
 import org.springframework.social.twitter.api.advertising.TailoredAudienceType;
+import org.springframework.social.twitter.api.impl.LocalDateTimeDeserializer;
+import org.springframework.social.twitter.api.impl.TwitterObjectMixin;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 
 /**
  * Mixin class for adding Jackson annotations to {@link TailoredAudience}.
@@ -16,7 +19,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
  * @author Hudson Mendes
  */
 @JsonIgnoreProperties(ignoreUnknown = true)
-public class TailoredAudienceMixin {
+public abstract class TailoredAudienceMixin extends TwitterObjectMixin {
 
     @JsonCreator
     TailoredAudienceMixin(
@@ -30,7 +33,7 @@ public class TailoredAudienceMixin {
             @JsonProperty("targetable") Boolean targetable,
             @JsonProperty("reasons_not_targetable") String[] reasonsNotTargetable,
             @JsonProperty("targetable_types") String[] targetableTypes,
-            @JsonProperty("created_at") LocalDateTime createdAt,
-            @JsonProperty("updated_at") LocalDateTime updatedAt) {}
+            @JsonProperty("created_at") @JsonDeserialize(using = LocalDateTimeDeserializer.class) LocalDateTime createdAt,
+            @JsonProperty("updated_at") @JsonDeserialize(using = LocalDateTimeDeserializer.class) LocalDateTime updatedAt) {}
 
 }

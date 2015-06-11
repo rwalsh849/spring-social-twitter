@@ -30,8 +30,8 @@ public class TailoredAudience extends TwitterObject {
     public TailoredAudience(
             String id,
             String name,
-            TailoredAudienceType audienceType,
             TailoredAudienceListType listType,
+            TailoredAudienceType audienceType,
             Integer audienceSize,
             String partnerSource,
             Boolean deleted,
@@ -84,11 +84,11 @@ public class TailoredAudience extends TwitterObject {
         return partnerSource;
     }
 
-    public Boolean getDeleted() {
+    public Boolean isDeleted() {
         return deleted;
     }
 
-    public Boolean getTargetable() {
+    public Boolean isTargetable() {
         return targetable;
     }
 
