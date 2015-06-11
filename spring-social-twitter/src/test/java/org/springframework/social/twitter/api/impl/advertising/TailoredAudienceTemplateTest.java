@@ -25,6 +25,45 @@ import org.springframework.social.twitter.api.impl.DataListHolder;
 public class TailoredAudienceTemplateTest extends AbstractTwitterApiTest {
 
     @Test
+    public void getTailoredAudience() {
+        String mockedAccountId = "hkk5";
+        String mockedTailoredAudience = "qq4u";
+        mockServer
+                .expect(requestTo(
+                        "https://ads-api.twitter.com/0/accounts/" + mockedAccountId + "/tailored_audiences" +
+                                "/" + mockedTailoredAudience +
+                                "?with_deleted=true"))
+                .andExpect(method(GET))
+                .andRespond(withSuccess(jsonResource("ad-tailored-audiences-single"), APPLICATION_JSON));
+
+        TailoredAudience tailoredAudience = twitter.tailoredAudienceOperations().getTailoredAudience(mockedAccountId, mockedTailoredAudience);
+        assertSingleTailoredAudienceContents(tailoredAudience);
+    }
+
+    private void assertSingleTailoredAudienceContents(TailoredAudience audience) {
+        assertEquals("qq4u", audience.getId());
+        assertEquals("twitter%20ids", audience.getName());
+
+        assertEquals("OTHER", audience.getPartnerSource());
+        assertEquals(TailoredAudienceListType.TWITTER_ID, audience.getListType());
+
+        for (String reason : new String[] {"PROCESSING", "TOO_SMALL"})
+            assertThat(Arrays.asList(audience.getReasonsNotTargetable()), CoreMatchers.hasItem(reason));
+
+        for (String targetableType : new String[] {"CRM", "EXCLUDED_CRM"})
+            assertThat(Arrays.asList(audience.getTargetableTypes()), CoreMatchers.hasItem(targetableType));
+
+        assertEquals(null, audience.getAudienceSize());
+        assertEquals(TailoredAudienceType.CRM, audience.getAudienceType());
+
+        assertEquals(false, audience.isDeleted());
+        assertEquals(false, audience.isTargetable());
+
+        assertEquals("2015-06-08T20:13:40", audience.getCreatedAt().toString());
+        assertEquals("2015-06-08T20:13:40", audience.getUpdatedAt().toString());
+    }
+
+    @Test
     public void getTailoredAudiences() {
         String mockedAccountId = "hkk5";
         mockServer
@@ -40,28 +79,28 @@ public class TailoredAudienceTemplateTest extends AbstractTwitterApiTest {
         assertTailoredAudienceContents(tailoredAudiences.getList());
     }
 
-    private void assertTailoredAudienceContents(List<TailoredAudience> criterias) {
-        assertEquals(1, criterias.size());
+    private void assertTailoredAudienceContents(List<TailoredAudience> audiences) {
+        assertEquals(1, audiences.size());
 
-        assertEquals("qq4u", criterias.get(0).getId());
-        assertEquals("twitter%20ids", criterias.get(0).getName());
+        assertEquals("qq4u", audiences.get(0).getId());
+        assertEquals("twitter%20ids", audiences.get(0).getName());
 
-        assertEquals("OTHER", criterias.get(0).getPartnerSource());
-        assertEquals(TailoredAudienceListType.TWITTER_ID, criterias.get(0).getListType());
+        assertEquals("OTHER", audiences.get(0).getPartnerSource());
+        assertEquals(TailoredAudienceListType.TWITTER_ID, audiences.get(0).getListType());
 
         for (String reason : new String[] {"PROCESSING", "TOO_SMALL"})
-            assertThat(Arrays.asList(criterias.get(0).getReasonsNotTargetable()), CoreMatchers.hasItem(reason));
+            assertThat(Arrays.asList(audiences.get(0).getReasonsNotTargetable()), CoreMatchers.hasItem(reason));
 
         for (String targetableType : new String[] {"CRM", "EXCLUDED_CRM"})
-            assertThat(Arrays.asList(criterias.get(0).getTargetableTypes()), CoreMatchers.hasItem(targetableType));
+            assertThat(Arrays.asList(audiences.get(0).getTargetableTypes()), CoreMatchers.hasItem(targetableType));
 
-        assertEquals(null, criterias.get(0).getAudienceSize());
-        assertEquals(TailoredAudienceType.CRM, criterias.get(0).getAudienceType());
+        assertEquals(null, audiences.get(0).getAudienceSize());
+        assertEquals(TailoredAudienceType.CRM, audiences.get(0).getAudienceType());
 
-        assertEquals(false, criterias.get(0).isDeleted());
-        assertEquals(false, criterias.get(0).isTargetable());
+        assertEquals(false, audiences.get(0).isDeleted());
+        assertEquals(false, audiences.get(0).isTargetable());
 
-        assertEquals("2015-06-08T20:13:40", criterias.get(0).getCreatedAt().toString());
-        assertEquals("2015-06-08T20:13:40", criterias.get(0).getUpdatedAt().toString());
+        assertEquals("2015-06-08T20:13:40", audiences.get(0).getCreatedAt().toString());
+        assertEquals("2015-06-08T20:13:40", audiences.get(0).getUpdatedAt().toString());
     }
 }
