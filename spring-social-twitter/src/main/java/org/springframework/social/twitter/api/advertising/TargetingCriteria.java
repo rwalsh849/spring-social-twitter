@@ -37,6 +37,8 @@ public class TargetingCriteria extends TwitterObject {
     private final String name;
     private final String targetingType;
     private final String targetingValue;
+    private final Boolean tailoredAudienceExpansion;
+    private final TailoredAudienceType tailoredAudienceType;
     private final Boolean deleted;
     private final LocalDateTime createdAt;
     private final LocalDateTime updatedAt;
@@ -48,6 +50,8 @@ public class TargetingCriteria extends TwitterObject {
             String name,
             String targetingType,
             String targetingValue,
+            Boolean tailoredAudienceExpansion,
+            TailoredAudienceType tailoredAudienceType,
             Boolean deleted,
             LocalDateTime createdAt,
             LocalDateTime updatedAt) {
@@ -59,6 +63,9 @@ public class TargetingCriteria extends TwitterObject {
 
         this.targetingType = targetingType;
         this.targetingValue = targetingValue;
+
+        this.tailoredAudienceExpansion = tailoredAudienceExpansion;
+        this.tailoredAudienceType = tailoredAudienceType;
 
         this.deleted = deleted;
         this.createdAt = createdAt;
@@ -87,6 +94,14 @@ public class TargetingCriteria extends TwitterObject {
 
     public String getTargetingValue() {
         return targetingValue;
+    }
+
+    public boolean isTailoredAudienceExpansion() {
+        return tailoredAudienceExpansion;
+    }
+
+    public TailoredAudienceType getTailoredAudienceType() {
+        return tailoredAudienceType;
     }
 
     public Boolean isDeleted() {
