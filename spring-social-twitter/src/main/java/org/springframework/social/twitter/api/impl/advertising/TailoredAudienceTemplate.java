@@ -72,7 +72,7 @@ public class TailoredAudienceTemplate extends AbstractTwitterOperations implemen
         requireUserAuthorization();
         restTemplate.put(
                 new TwitterApiBuilderForUri()
-                        .withResource(TwitterApiUriResourceForAdvertising.TAILORED_AUDIENCES)
+                        .withResource(TwitterApiUriResourceForAdvertising.TAILORED_AUDIENCE)
                         .withArgument("account_id", accountId)
                         .withArgument("tailored_audience_id", id)
                         .build(),
