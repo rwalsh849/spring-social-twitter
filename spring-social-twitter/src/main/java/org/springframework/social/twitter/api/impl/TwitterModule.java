@@ -1,12 +1,12 @@
 /*
  * Copyright 2014 the original author or authors.
- *
+ * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
- *
- *      http://www.apache.org/licenses/LICENSE-2.0
- *
+ * 
+ * http://www.apache.org/licenses/LICENSE-2.0
+ * 
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -37,12 +37,14 @@ import org.springframework.social.twitter.api.advertising.Campaign;
 import org.springframework.social.twitter.api.advertising.FundingInstrument;
 import org.springframework.social.twitter.api.advertising.LineItem;
 import org.springframework.social.twitter.api.advertising.StatisticsSnapshot;
+import org.springframework.social.twitter.api.advertising.TailoredAudience;
 import org.springframework.social.twitter.api.advertising.TargetingCriteria;
 import org.springframework.social.twitter.api.impl.advertising.AdvertisingAccountMixin;
 import org.springframework.social.twitter.api.impl.advertising.CampaignMixin;
 import org.springframework.social.twitter.api.impl.advertising.FundingInstrumentMixin;
 import org.springframework.social.twitter.api.impl.advertising.LineItemMixin;
 import org.springframework.social.twitter.api.impl.advertising.StatisticsSnapshotMixin;
+import org.springframework.social.twitter.api.impl.advertising.TailoredAudienceMixin;
 import org.springframework.social.twitter.api.impl.advertising.TargetingCriteriaMixin;
 
 import com.fasterxml.jackson.databind.module.SimpleModule;
@@ -53,42 +55,43 @@ import com.fasterxml.jackson.databind.module.SimpleModule;
 @SuppressWarnings("serial")
 public class TwitterModule extends SimpleModule {
 
-	public TwitterModule() {
-		super("TwitterModule");
-	}
-	
-	@Override
-	public void setupModule(SetupContext context) {
-		context.setMixInAnnotations(TwitterProfile.class, TwitterProfileMixin.class);
-		context.setMixInAnnotations(SavedSearch.class, SavedSearchMixin.class);
-		context.setMixInAnnotations(Trend.class, TrendMixin.class);
-		context.setMixInAnnotations(Trends.class, TrendsMixin.class);
-		context.setMixInAnnotations(SuggestionCategory.class, SuggestionCategoryMixin.class);
-		context.setMixInAnnotations(DirectMessage.class, DirectMessageMixin.class);
-		context.setMixInAnnotations(UserList.class, UserListMixin.class);
-		context.setMixInAnnotations(Tweet.class, TweetMixin.class);
-		context.setMixInAnnotations(SearchResults.class, SearchResultsMixin.class);
-		context.setMixInAnnotations(Place.class, PlaceMixin.class);
-		context.setMixInAnnotations(SimilarPlacesResponse.class, SimilarPlacesMixin.class);
-		context.setMixInAnnotations(Entities.class, EntitiesMixin.class);
-		context.setMixInAnnotations(HashTagEntity.class, HashTagEntityMixin.class);
-		context.setMixInAnnotations(MediaEntity.class, MediaEntityMixin.class);
-		context.setMixInAnnotations(MentionEntity.class, MentionEntityMixin.class);
-		context.setMixInAnnotations(UrlEntity.class, UrlEntityMixin.class);
-		
-		context.setMixInAnnotations(AdvertisingAccount.class, AdvertisingAccountMixin.class);
-		context.setMixInAnnotations(FundingInstrument.class, FundingInstrumentMixin.class);
-		context.setMixInAnnotations(LineItem.class, LineItemMixin.class);
-		context.setMixInAnnotations(Campaign.class, CampaignMixin.class);
-		context.setMixInAnnotations(TargetingCriteria.class, TargetingCriteriaMixin.class);
-		context.setMixInAnnotations(StatisticsSnapshot.class, StatisticsSnapshotMixin.class);
-		
-		context.setMixInAnnotations(AccountSettings.class, AccountSettingsMixin.class);
-		context.setMixInAnnotations(AccountSettings.TimeZone.class, AccountSettingsMixin.TimeZoneMixin.class);
-		context.setMixInAnnotations(AccountSettings.SleepTime.class, AccountSettingsMixin.SleepTimeMixin.class);
-		context.setMixInAnnotations(AccountSettings.TrendLocation.class, AccountSettingsMixin.TrendLocationMixin.class);
-		
-		context.setMixInAnnotations(OEmbedTweet.class, OEmbedTweetMixin.class);
-	}
+    public TwitterModule() {
+        super("TwitterModule");
+    }
+
+    @Override
+    public void setupModule(SetupContext context) {
+        context.setMixInAnnotations(TwitterProfile.class, TwitterProfileMixin.class);
+        context.setMixInAnnotations(SavedSearch.class, SavedSearchMixin.class);
+        context.setMixInAnnotations(Trend.class, TrendMixin.class);
+        context.setMixInAnnotations(Trends.class, TrendsMixin.class);
+        context.setMixInAnnotations(SuggestionCategory.class, SuggestionCategoryMixin.class);
+        context.setMixInAnnotations(DirectMessage.class, DirectMessageMixin.class);
+        context.setMixInAnnotations(UserList.class, UserListMixin.class);
+        context.setMixInAnnotations(Tweet.class, TweetMixin.class);
+        context.setMixInAnnotations(SearchResults.class, SearchResultsMixin.class);
+        context.setMixInAnnotations(Place.class, PlaceMixin.class);
+        context.setMixInAnnotations(SimilarPlacesResponse.class, SimilarPlacesMixin.class);
+        context.setMixInAnnotations(Entities.class, EntitiesMixin.class);
+        context.setMixInAnnotations(HashTagEntity.class, HashTagEntityMixin.class);
+        context.setMixInAnnotations(MediaEntity.class, MediaEntityMixin.class);
+        context.setMixInAnnotations(MentionEntity.class, MentionEntityMixin.class);
+        context.setMixInAnnotations(UrlEntity.class, UrlEntityMixin.class);
+
+        context.setMixInAnnotations(AdvertisingAccount.class, AdvertisingAccountMixin.class);
+        context.setMixInAnnotations(FundingInstrument.class, FundingInstrumentMixin.class);
+        context.setMixInAnnotations(LineItem.class, LineItemMixin.class);
+        context.setMixInAnnotations(Campaign.class, CampaignMixin.class);
+        context.setMixInAnnotations(TargetingCriteria.class, TargetingCriteriaMixin.class);
+        context.setMixInAnnotations(StatisticsSnapshot.class, StatisticsSnapshotMixin.class);
+        context.setMixInAnnotations(TailoredAudience.class, TailoredAudienceMixin.class);
+
+        context.setMixInAnnotations(AccountSettings.class, AccountSettingsMixin.class);
+        context.setMixInAnnotations(AccountSettings.TimeZone.class, AccountSettingsMixin.TimeZoneMixin.class);
+        context.setMixInAnnotations(AccountSettings.SleepTime.class, AccountSettingsMixin.SleepTimeMixin.class);
+        context.setMixInAnnotations(AccountSettings.TrendLocation.class, AccountSettingsMixin.TrendLocationMixin.class);
+
+        context.setMixInAnnotations(OEmbedTweet.class, OEmbedTweetMixin.class);
+    }
 
 }
