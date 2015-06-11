@@ -35,11 +35,13 @@ import org.springframework.social.twitter.api.advertising.AdvertisingOperations;
 import org.springframework.social.twitter.api.advertising.CampaignOperations;
 import org.springframework.social.twitter.api.advertising.LineItemOperations;
 import org.springframework.social.twitter.api.advertising.StatisticsOperations;
+import org.springframework.social.twitter.api.advertising.TailoredAudienceOperations;
 import org.springframework.social.twitter.api.advertising.TargetingCriteriaOperations;
 import org.springframework.social.twitter.api.impl.advertising.AdvertisingTemplate;
 import org.springframework.social.twitter.api.impl.advertising.CampaignTemplate;
 import org.springframework.social.twitter.api.impl.advertising.LineItemTemplate;
 import org.springframework.social.twitter.api.impl.advertising.StatisticsTemplate;
+import org.springframework.social.twitter.api.impl.advertising.TailoredAudienceTemplate;
 import org.springframework.social.twitter.api.impl.advertising.TargetingCriteriaTemplate;
 import org.springframework.util.Assert;
 import org.springframework.web.client.RestOperations;
@@ -85,6 +87,8 @@ public class TwitterTemplate extends AbstractOAuth1ApiBinding implements Twitter
     private LineItemOperations lineItemOperations;
 
     private TargetingCriteriaOperations targetingCriteriaOperations;
+
+    private TailoredAudienceOperations tailoredAudienceOperations;
 
     private RestTemplate clientRestTemplate = null;
 
@@ -227,6 +231,11 @@ public class TwitterTemplate extends AbstractOAuth1ApiBinding implements Twitter
     }
 
     @Override
+    public TailoredAudienceOperations tailoredAudienceOperations() {
+        return tailoredAudienceOperations;
+    }
+
+    @Override
     public Settings settings() {
         return settings;
     }
@@ -293,6 +302,7 @@ public class TwitterTemplate extends AbstractOAuth1ApiBinding implements Twitter
         this.campaignOperations = new CampaignTemplate(getRestTemplate(), isAuthorized(), isAuthorized());
         this.lineItemOperations = new LineItemTemplate(getRestTemplate(), isAuthorized(), isAuthorized());
         this.targetingCriteriaOperations = new TargetingCriteriaTemplate(getRestTemplate(), isAuthorized(), isAuthorized());
+        this.tailoredAudienceOperations = new TailoredAudienceTemplate(getRestTemplate(), isAuthorized(), isAuthorized());
 
         this.settings = new SettingsImpl();
     }
