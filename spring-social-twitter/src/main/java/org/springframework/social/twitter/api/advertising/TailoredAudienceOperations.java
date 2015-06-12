@@ -2,8 +2,8 @@ package org.springframework.social.twitter.api.advertising;
 
 import org.springframework.social.ApiException;
 import org.springframework.social.MissingAuthorizationException;
-import org.springframework.social.twitter.api.TailoredAudienceForm;
 import org.springframework.social.twitter.api.impl.DataListHolder;
+import org.springframework.social.twitter.api.impl.TailoredAudienceForm;
 
 /**
  * Interface defining the operations for targeting audience operations.

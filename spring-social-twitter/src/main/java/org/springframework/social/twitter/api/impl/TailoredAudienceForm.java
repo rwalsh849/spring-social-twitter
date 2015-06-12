@@ -1,5 +1,6 @@
-package org.springframework.social.twitter.api;
+package org.springframework.social.twitter.api.impl;
 
+import org.springframework.social.twitter.api.TwitterForm;
 import org.springframework.social.twitter.api.advertising.TailoredAudienceListType;
 
 public interface TailoredAudienceForm extends TwitterForm {

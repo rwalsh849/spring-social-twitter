@@ -1,7 +1,7 @@
 package org.springframework.social.twitter.api.impl.advertising;
 
-import org.springframework.social.twitter.api.TailoredAudienceForm;
 import org.springframework.social.twitter.api.advertising.TailoredAudienceListType;
+import org.springframework.social.twitter.api.impl.TailoredAudienceForm;
 import org.springframework.util.LinkedMultiValueMap;
 import org.springframework.util.MultiValueMap;
 

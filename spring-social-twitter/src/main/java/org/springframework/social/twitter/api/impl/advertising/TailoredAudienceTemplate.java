@@ -2,13 +2,13 @@ package org.springframework.social.twitter.api.impl.advertising;
 
 import org.springframework.core.ParameterizedTypeReference;
 import org.springframework.http.HttpMethod;
-import org.springframework.social.twitter.api.TailoredAudienceForm;
 import org.springframework.social.twitter.api.advertising.TailoredAudience;
 import org.springframework.social.twitter.api.advertising.TailoredAudienceOperations;
 import org.springframework.social.twitter.api.advertising.TailoredAudienceQuery;
 import org.springframework.social.twitter.api.impl.AbstractTwitterOperations;
 import org.springframework.social.twitter.api.impl.DataListHolder;
 import org.springframework.social.twitter.api.impl.DataSingleHolder;
+import org.springframework.social.twitter.api.impl.TailoredAudienceForm;
 import org.springframework.social.twitter.api.impl.TwitterApiBuilderForBody;
 import org.springframework.social.twitter.api.impl.TwitterApiBuilderForUri;
 import org.springframework.social.twitter.api.impl.TwitterApiUriResourceForAdvertising;
