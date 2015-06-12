@@ -16,18 +16,16 @@
 package org.springframework.social.twitter.api.impl.ton;
 
 import static org.junit.Assert.assertEquals;
-import static org.springframework.http.HttpMethod.GET;
-import static org.springframework.http.MediaType.APPLICATION_JSON;
+import static org.springframework.http.HttpMethod.POST;
 import static org.springframework.test.web.client.match.MockRestRequestMatchers.method;
 import static org.springframework.test.web.client.match.MockRestRequestMatchers.requestTo;
-import static org.springframework.test.web.client.response.MockRestResponseCreators.withSuccess;
+import static org.springframework.test.web.client.response.MockRestResponseCreators.withCreatedEntity;
 
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.URI;
 import java.net.URLConnection;
-import java.time.LocalDateTime;
 import java.time.ZonedDateTime;
 
 import org.apache.commons.logging.Log;
@@ -43,13 +41,14 @@ public class TonTemplateTest extends AbstractTwitterApiTest {
 	@SuppressWarnings("unused")
 	private final static Log logger = LogFactory.getLog(TonTemplateTest.class);
 	private final static String BUCKET_NAME = "ta_partner";
-
+	private final static String RESPONSE_URI = "https://ton.twitter.com/1.1/ton/data/ta_partner/390472547/ffs.txt";
+	
     @Test
     public void uploadChunk() throws IOException {
-//        mockServer
-//                .expect(requestTo("https://ads-api.twitter.com/0/accounts?with_deleted=true&sort=updated_at"))
-//                .andExpect(method(GET))
-//                .andRespond(withSuccess(jsonResource("ad-accounts"), APPLICATION_JSON));
+        mockServer
+                .expect(requestTo("https://ton.twitter.com/1.1/ton/bucket/ta_partner"))
+                .andExpect(method(POST))
+                .andRespond(withCreatedEntity(URI.create(RESPONSE_URI)));
 
         Resource resource = dataResource("hashed_twitter.txt");
         InputStream is = resource.getInputStream();
@@ -57,10 +56,10 @@ public class TonTemplateTest extends AbstractTwitterApiTest {
         byte[] data = bufferObj(is);
         ZonedDateTime expiry = ZonedDateTime.now().plusDays(7);
         URI uri = twitter.tonOperations().uploadSingleChunk(BUCKET_NAME, data, contentType, expiry);
-        assertEquals(uri.toString(),"mofo");
+        assertEquals(uri.toString(),RESPONSE_URI);
     }
 
-    private byte[] bufferObj(final InputStream is) throws IOException {
+	private byte[] bufferObj(final InputStream is) throws IOException {
     	ByteArrayOutputStream buffer = new ByteArrayOutputStream();
     	int count;
     	byte[] data = new byte[16384];

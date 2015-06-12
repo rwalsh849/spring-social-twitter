@@ -20,10 +20,7 @@ import java.time.LocalDateTime;
 import java.time.ZonedDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.Arrays;
-import java.util.List;
 
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
 import org.springframework.http.HttpEntity;
 import org.springframework.social.twitter.api.ton.TonOperations;
 import org.springframework.social.twitter.api.impl.AbstractTwitterOperations;
@@ -38,7 +35,6 @@ import org.springframework.web.client.RestTemplate;
  * @author Chris Latko
  */
 public class TonTemplate extends AbstractTwitterOperations implements TonOperations {
-	private final static Log logger = LogFactory.getLog(TonTemplate.class);
 	
 	private final RestTemplate restTemplate;
 
@@ -62,12 +58,7 @@ public class TonTemplate extends AbstractTwitterOperations implements TonOperati
 		.addHeader("X-TON-Expires", Arrays.asList(expiry.format(DateTimeFormatter.RFC_1123_DATE_TIME)))
 		.build();
 
-        logger.info("URI: " + uri);
-        logger.info("HttpEntity: " + entity);
-
-        URI location = restTemplate.postForLocation(uri, entity);
-        String ffs = uri.toString();
-        return location;
+        return restTemplate.postForLocation(uri, entity);
 	}
 
 	@Override
