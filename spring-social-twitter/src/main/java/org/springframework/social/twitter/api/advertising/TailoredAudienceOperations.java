@@ -17,6 +17,7 @@ package org.springframework.social.twitter.api.advertising;
 
 import org.springframework.social.ApiException;
 import org.springframework.social.MissingAuthorizationException;
+import org.springframework.social.twitter.api.TwitterForm;
 import org.springframework.social.twitter.api.impl.DataListHolder;
 import org.springframework.social.twitter.api.impl.TailoredAudienceForm;
 
@@ -69,4 +70,15 @@ public interface TailoredAudienceOperations {
      * @throws MissingAuthorizationException if TwitterTemplate was not created with OAuth credentials.
      */
     void deleteTailoredAudience(String accountId, String id);
+
+    /**
+     * Creates an entry in the global opt-out list that points
+     * to a file of people who will be ignored even if sent
+     * as part of tailored audiences.
+     * 
+     * @param accountId defines the id of the account for which this opt-out post will function.
+     * @param input defines the parameters that will be posted.
+     * @return the instance of {@link GlobalOptOut} that has been just created.
+     */
+    GlobalOptOut createGlobalOptOut(String accountId, TwitterForm input);
 }

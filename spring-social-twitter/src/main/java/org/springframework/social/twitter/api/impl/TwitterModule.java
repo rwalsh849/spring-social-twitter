@@ -35,6 +35,7 @@ import org.springframework.social.twitter.api.UserList;
 import org.springframework.social.twitter.api.advertising.AdvertisingAccount;
 import org.springframework.social.twitter.api.advertising.Campaign;
 import org.springframework.social.twitter.api.advertising.FundingInstrument;
+import org.springframework.social.twitter.api.advertising.GlobalOptOut;
 import org.springframework.social.twitter.api.advertising.LineItem;
 import org.springframework.social.twitter.api.advertising.StatisticsSnapshot;
 import org.springframework.social.twitter.api.advertising.TailoredAudience;
@@ -42,6 +43,7 @@ import org.springframework.social.twitter.api.advertising.TargetingCriteria;
 import org.springframework.social.twitter.api.impl.advertising.AdvertisingAccountMixin;
 import org.springframework.social.twitter.api.impl.advertising.CampaignMixin;
 import org.springframework.social.twitter.api.impl.advertising.FundingInstrumentMixin;
+import org.springframework.social.twitter.api.impl.advertising.GlobalOptOutMixin;
 import org.springframework.social.twitter.api.impl.advertising.LineItemMixin;
 import org.springframework.social.twitter.api.impl.advertising.StatisticsSnapshotMixin;
 import org.springframework.social.twitter.api.impl.advertising.TailoredAudienceMixin;
@@ -85,6 +87,7 @@ public class TwitterModule extends SimpleModule {
         context.setMixInAnnotations(TargetingCriteria.class, TargetingCriteriaMixin.class);
         context.setMixInAnnotations(StatisticsSnapshot.class, StatisticsSnapshotMixin.class);
         context.setMixInAnnotations(TailoredAudience.class, TailoredAudienceMixin.class);
+        context.setMixInAnnotations(GlobalOptOut.class, GlobalOptOutMixin.class);
 
         context.setMixInAnnotations(AccountSettings.class, AccountSettingsMixin.class);
         context.setMixInAnnotations(AccountSettings.TimeZone.class, AccountSettingsMixin.TimeZoneMixin.class);

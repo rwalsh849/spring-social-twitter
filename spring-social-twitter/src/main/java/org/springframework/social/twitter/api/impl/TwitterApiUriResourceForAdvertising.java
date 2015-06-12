@@ -16,6 +16,7 @@ public enum TwitterApiUriResourceForAdvertising {
 
     TAILORED_AUDIENCES("accounts/:account_id/tailored_audiences"),
     TAILORED_AUDIENCE("accounts/:account_id/tailored_audiences/:tailored_audience_id"),
+    GLOBAL_OPT_OUT("accounts/:account_id/tailored_audiences/global_opt_out"),
 
     STATS_ACCOUNT("stats/accounts/:account_id"),
     STATS_CAMPAIGNS("stats/accounts/:account_id/campaigns"),

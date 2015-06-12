@@ -5,6 +5,7 @@ import static org.junit.Assert.assertThat;
 import static org.springframework.http.HttpMethod.DELETE;
 import static org.springframework.http.HttpMethod.GET;
 import static org.springframework.http.HttpMethod.POST;
+import static org.springframework.http.HttpMethod.PUT;
 import static org.springframework.http.MediaType.APPLICATION_JSON;
 import static org.springframework.test.web.client.match.MockRestRequestMatchers.content;
 import static org.springframework.test.web.client.match.MockRestRequestMatchers.method;
@@ -143,5 +144,21 @@ public class TailoredAudienceTemplateTest extends AbstractTwitterApiTest {
 
         assertEquals("2015-06-08T20:13:40", audiences.get(0).getCreatedAt().toString());
         assertEquals("2015-06-08T20:13:40", audiences.get(0).getUpdatedAt().toString());
+    }
+
+    @Test
+    public void createGlobalOptOut() {
+        String mockedAccountId = "0ga0yn";
+        mockServer
+                .expect(requestTo("https://ads-api.twitter.com/0/accounts/" + mockedAccountId + "/tailored_audiences/global_opt_out"))
+                .andExpect(method(PUT))
+                .andRespond(withSuccess(jsonResource("ad-global-opt-out"), APPLICATION_JSON));
+
+        twitter.tailoredAudienceOperations().createGlobalOptOut(
+                mockedAccountId,
+                new GlobalOptOutFormBuilder()
+                        .withAccount(mockedAccountId)
+                        .withTonFile("/1.1/ton/data/ta_partner/390472547/oNJvLHs-6e2NUNa.txt")
+                        .withListType(TailoredAudienceListType.TWITTER_ID));
     }
 }

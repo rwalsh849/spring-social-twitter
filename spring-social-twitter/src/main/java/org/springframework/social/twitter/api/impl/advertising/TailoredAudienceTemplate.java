@@ -2,6 +2,8 @@ package org.springframework.social.twitter.api.impl.advertising;
 
 import org.springframework.core.ParameterizedTypeReference;
 import org.springframework.http.HttpMethod;
+import org.springframework.social.twitter.api.TwitterForm;
+import org.springframework.social.twitter.api.advertising.GlobalOptOut;
 import org.springframework.social.twitter.api.advertising.TailoredAudience;
 import org.springframework.social.twitter.api.advertising.TailoredAudienceOperations;
 import org.springframework.social.twitter.api.advertising.TailoredAudienceQuery;
@@ -75,6 +77,20 @@ public class TailoredAudienceTemplate extends AbstractTwitterOperations implemen
                 .withArgument("account_id", accountId)
                 .withArgument("tailored_audience_id", id)
                 .build());
+    }
+
+    @Override
+    public GlobalOptOut createGlobalOptOut(String accountId, TwitterForm input) {
+        requireUserAuthorization();
+        return restTemplate.exchange(
+                new TwitterApiBuilderForUri()
+                        .withResource(TwitterApiUriResourceForAdvertising.GLOBAL_OPT_OUT)
+                        .withArgument("account_id", accountId)
+                        .build(),
+                HttpMethod.PUT,
+                new TwitterApiBuilderForBody<>(input.toRequestBody()).build(),
+                new ParameterizedTypeReference<DataSingleHolder<GlobalOptOut>>() {}
+                ).getBody().getData();
     }
 
 }
