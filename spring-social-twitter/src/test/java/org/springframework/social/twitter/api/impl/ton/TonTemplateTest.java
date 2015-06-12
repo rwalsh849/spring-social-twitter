@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.springframework.social.twitter.api.impl.advertising;
+package org.springframework.social.twitter.api.impl.ton;
 
 import static org.junit.Assert.assertEquals;
 import static org.springframework.http.HttpMethod.GET;
@@ -46,10 +46,10 @@ public class TonTemplateTest extends AbstractTwitterApiTest {
 
     @Test
     public void uploadChunk() throws IOException {
-        mockServer
-                .expect(requestTo("https://ads-api.twitter.com/0/accounts?with_deleted=true&sort=updated_at"))
-                .andExpect(method(GET))
-                .andRespond(withSuccess(jsonResource("ad-accounts"), APPLICATION_JSON));
+//        mockServer
+//                .expect(requestTo("https://ads-api.twitter.com/0/accounts?with_deleted=true&sort=updated_at"))
+//                .andExpect(method(GET))
+//                .andRespond(withSuccess(jsonResource("ad-accounts"), APPLICATION_JSON));
 
         Resource resource = dataResource("hashed_twitter.txt");
         InputStream is = resource.getInputStream();
