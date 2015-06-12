@@ -28,13 +28,9 @@ import org.springframework.util.MultiValueMap;
  * 
  * @author Hudson mendes
  */
-public interface TwitterQueryForEntity<TBuilderInterface extends TwitterQueryForData<TBuilderInterface>, TSort> extends
-        TwitterQueryForData<TBuilderInterface> {
+public interface TwitterQueryForData<TBuilder extends TwitterQueryForData<TBuilder>> {
 
-    public TBuilderInterface sortBy(TSort sort);
+    public TBuilder includeDeleted(Boolean include);
 
-    public TBuilderInterface pagedBy(String cursor, Integer pageSize);
-
-    @Override
     public MultiValueMap<String, String> toQueryParameters();
 }

@@ -16,12 +16,17 @@
 package org.springframework.social.twitter.api.advertising;
 
 /**
- * This {@link TargetingCriteriaSorting} was created to keep compatibility with
- * the {@link TargetingCriteriaQuery} interface. This has no option and should
- * not be used.
+ * Represents the types of lists you can use for a
+ * Tailored Audience file. That will define which
+ * type of data the tailored audience (or the opt-out)
+ * file will contain.
  * 
  * @author Hudson Mendes
- *
  */
-public enum TargetingCriteriaSorting {
+public enum TailoredAudienceListType {
+    EMAIL,
+    DEVICE_ID,
+    TWITTER_ID,
+    HANDLE,
+    PHONE_NUMBER
 }

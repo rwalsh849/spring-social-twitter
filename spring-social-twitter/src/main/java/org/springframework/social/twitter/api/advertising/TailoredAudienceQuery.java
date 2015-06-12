@@ -15,21 +15,22 @@
  */
 package org.springframework.social.twitter.api.advertising;
 
-import org.springframework.social.twitter.api.TwitterQueryForEntity;
+import org.springframework.social.twitter.api.TwitterQueryForData;
 
 /**
- * Defines the data that will be used to query a list of {@link TargetingCriteria}.
+ * Defines the data that will be used to query a list of {@link TailoredAudience}.
  * 
  * @author Hudson Mendes
- *
  */
-public interface TargetingCriteriaQuery extends TwitterQueryForEntity<TargetingCriteriaQuery, TargetingCriteriaSorting> {
+public interface TailoredAudienceQuery extends TwitterQueryForData<TailoredAudienceQuery> {
 
     /**
-     * Filter the results by a particular {@link LineItem}.
+     * The parameters that shall set the page and the pageSize
+     * and set the amount of results and which results will be returned.
      * 
-     * @param lineItemId defines the id of the line item for which we are filtering.
-     * @return itself, allowing you to keep going with the setup of your filter.
+     * @param cursor defines the cursor (from which entry) we will start counting
+     * @param pageSize defines the maximum number of entries that shall be retrieved.
+     * @return itself, allowing you to keep defining your query parameters.
      */
-    public TargetingCriteriaQuery withLineItem(String lineItemId);
+    public TailoredAudienceQuery pagedBy(String cursor, Integer pageSize);
 }

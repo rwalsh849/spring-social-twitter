@@ -66,7 +66,7 @@ public class TargetingCriteriaTemplateTest extends AbstractTwitterApiTest {
         mockServer
                 .expect(requestTo("https://ads-api.twitter.com/0/accounts/" + mockedAccountId + "/targeting_criteria/" + mockedTargetingCriteriaId))
                 .andExpect(method(GET))
-                .andRespond(withSuccess(jsonResource("ad-targetingcriteria-single"), APPLICATION_JSON));
+                .andRespond(withSuccess(jsonResource("ad-targeting-criteria-single"), APPLICATION_JSON));
 
         TargetingCriteria criteria = twitter.targetingCriteriaOperations().getTargetingCriteria(mockedAccountId, mockedTargetingCriteriaId);
         assertSingleTargetingCriteriaContents(criteria);
@@ -88,7 +88,7 @@ public class TargetingCriteriaTemplateTest extends AbstractTwitterApiTest {
                 .expect(requestTo("https://ads-api.twitter.com/0/accounts/" + mockedAccountId + "/targeting_criteria"))
                 .andExpect(method(POST))
                 .andExpect(content().string(chainedPostContent))
-                .andRespond(withSuccess(jsonResource("ad-targetingcriteria-single"), APPLICATION_JSON));
+                .andRespond(withSuccess(jsonResource("ad-targeting-criteria-single"), APPLICATION_JSON));
 
         TargetingCriteria criteria = twitter.targetingCriteriaOperations().createTargetingCriteria(
                 mockedAccountId,

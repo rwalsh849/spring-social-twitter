@@ -17,6 +17,7 @@ package org.springframework.social.twitter.api.impl.advertising;
 
 import java.time.LocalDateTime;
 
+import org.springframework.social.twitter.api.advertising.TailoredAudienceType;
 import org.springframework.social.twitter.api.advertising.TargetingCriteria;
 import org.springframework.social.twitter.api.impl.LocalDateTimeDeserializer;
 import org.springframework.social.twitter.api.impl.TwitterObjectMixin;
@@ -42,6 +43,8 @@ public abstract class TargetingCriteriaMixin extends TwitterObjectMixin {
             @JsonProperty("name") String name,
             @JsonProperty("targeting_type") String targetingType,
             @JsonProperty("targeting_value") String targetingValue,
+            @JsonProperty("tailored_audience_expansion") Boolean tailordAudienceExpansion,
+            @JsonProperty("tailored_audience_type") TailoredAudienceType tailoredAudienceType,
             @JsonProperty("deleted") Boolean deleted,
             @JsonProperty("created_at") @JsonDeserialize(using = LocalDateTimeDeserializer.class) LocalDateTime createdAt,
             @JsonProperty("updated_at") @JsonDeserialize(using = LocalDateTimeDeserializer.class) LocalDateTime updatedAt) {}

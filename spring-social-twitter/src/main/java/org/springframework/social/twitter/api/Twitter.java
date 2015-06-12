@@ -20,6 +20,7 @@ import org.springframework.social.twitter.api.advertising.AdvertisingOperations;
 import org.springframework.social.twitter.api.advertising.CampaignOperations;
 import org.springframework.social.twitter.api.advertising.LineItemOperations;
 import org.springframework.social.twitter.api.advertising.StatisticsOperations;
+import org.springframework.social.twitter.api.advertising.TailoredAudienceOperations;
 import org.springframework.social.twitter.api.advertising.TargetingCriteriaOperations;
 import org.springframework.social.twitter.api.ton.TonOperations;
 import org.springframework.web.client.RestOperations;
@@ -105,6 +106,11 @@ public interface Twitter extends ApiBinding {
     TargetingCriteriaOperations targetingCriteriaOperations();
 
     /**
+     * @return the portion of the Twitter ADS API containing the tailored audience operations.
+     */
+    TailoredAudienceOperations tailoredAudienceOperations();
+
+    /**
      * @return the Twitter Object Nest operations.
      */
 	TonOperations tonOperations();
@@ -124,5 +130,4 @@ public interface Twitter extends ApiBinding {
      * @return an implementation of {@link Settings} responsible for communicating the settings
      */
     Settings settings();
-
 }

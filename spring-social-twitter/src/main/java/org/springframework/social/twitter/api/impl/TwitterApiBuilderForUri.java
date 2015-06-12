@@ -101,7 +101,7 @@ public class TwitterApiBuilderForUri {
         for (Iterator<String> i = this.parameters.keySet().iterator(); i.hasNext();) {
             String key = i.next();
             this.parameters.get(key).forEach(value -> {
-                output.add(key, value.toString());
+                output.add(key, value);
             });
         }
         return output;

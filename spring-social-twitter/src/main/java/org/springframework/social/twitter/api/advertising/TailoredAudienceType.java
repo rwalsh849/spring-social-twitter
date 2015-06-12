@@ -16,12 +16,16 @@
 package org.springframework.social.twitter.api.advertising;
 
 /**
- * This {@link TargetingCriteriaSorting} was created to keep compatibility with
- * the {@link TargetingCriteriaQuery} interface. This has no option and should
- * not be used.
+ * Defines the channel of {@link TailoredAudience} that will
+ * be created / updated or, in any way, managed.
  * 
  * @author Hudson Mendes
- *
  */
-public enum TargetingCriteriaSorting {
+public enum TailoredAudienceType {
+    WEB,
+    CRM,
+    MOBILE,
+    EXCLUDED_WEB,
+    EXCLUDED_CRM,
+    EXCLUDED_MOBILE
 }
