@@ -1,45 +1,54 @@
 package org.springframework.social.twitter.api.impl;
 
+import java.util.Collection;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.Map.Entry;
+
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
-import org.springframework.util.MultiValueMap;
+import org.springframework.util.StringUtils;
 
-public class TwitterApiBuilderForBody<TData> {
-    private final TData data;
-    private boolean multipart = false;
+public class TwitterApiBuilderForHttpEntity<TData> {
+	private final TData data;
+	private boolean multipart = false;
+	Map<String, Collection<String>> headers = new HashMap<String, Collection<String>>();
 
-    public TwitterApiBuilderForBody(TData data) {
-        this.data = data;
-    }
+	public TwitterApiBuilderForHttpEntity(TData data) {
+		this.data = data;
+	}
 
-    public TwitterApiBuilderForBody<TData> multipart(boolean multipart) {
-        this.multipart = multipart;
-        return this;
-    }
+	public TwitterApiBuilderForHttpEntity<TData> addHeader(String key, Collection<String> values) {
+		this.headers.put(key, values);
+		return this;
+	}
 
-    public HttpEntity<?> build() {
-        assertDataType();
-        return new HttpEntity<>(
-                this.data,
-                this.makeHeaders());
-    }
+	public TwitterApiBuilderForHttpEntity<TData> multipart(boolean multipart) {
+		this.multipart = multipart;
+		return this;
+	}
 
-    private void assertDataType() {
-        if (!MultiValueMap.class.isAssignableFrom(data.getClass())) {
-            throw new IllegalArgumentException("'data' must be an instance of MultiValueMap.");
-        }
-    }
+	public HttpEntity<?> build() {
+		return new HttpEntity<>(
+				this.data,
+				this.makeHeaders());
+	}
 
-    private HttpHeaders makeHeaders() {
-        HttpHeaders headers = new HttpHeaders();
-        if (this.multipart) {
-            headers.setContentType(MediaType.MULTIPART_FORM_DATA);
-        }
-        else {
-            headers.setContentType(MediaType.APPLICATION_FORM_URLENCODED);
-        }
+	private HttpHeaders makeHeaders() {
+		HttpHeaders httpHeaders = new HttpHeaders();
+		for(Entry<String, Collection<String>> header: headers.entrySet()) {
+			httpHeaders.add(header.getKey(), StringUtils.collectionToDelimitedString(header.getValue(), ";"));
+		}
 
-        return headers;
-    }
+		if(null == httpHeaders.getContentType()) {
+			if(this.multipart) {
+				httpHeaders.setContentType(MediaType.MULTIPART_FORM_DATA);
+			} else {
+				httpHeaders.setContentType(MediaType.APPLICATION_FORM_URLENCODED);
+			}
+		}
+
+		return httpHeaders;
+	}
 }
