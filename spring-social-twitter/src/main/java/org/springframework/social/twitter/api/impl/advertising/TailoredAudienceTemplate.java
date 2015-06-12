@@ -68,18 +68,6 @@ public class TailoredAudienceTemplate extends AbstractTwitterOperations implemen
     }
 
     @Override
-    public void updateTailoredAudience(String accountId, String id, TailoredAudienceForm input) {
-        requireUserAuthorization();
-        restTemplate.put(
-                new TwitterApiBuilderForUri()
-                        .withResource(TwitterApiUriResourceForAdvertising.TAILORED_AUDIENCE)
-                        .withArgument("account_id", accountId)
-                        .withArgument("tailored_audience_id", id)
-                        .build(),
-                input.toRequestBody());
-    }
-
-    @Override
     public void deleteTailoredAudience(String accountId, String id) {
         requireUserAuthorization();
         restTemplate.delete(new TwitterApiBuilderForUri()

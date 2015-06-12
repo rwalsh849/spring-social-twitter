@@ -46,17 +46,6 @@ public interface TailoredAudienceOperations {
     TailoredAudience createTailoredAudience(String accountId, TailoredAudienceForm input);
 
     /**
-     * Updates {@link TailoredAudience} linked to a particular {@link AdvertisingAccount} referred to by its id.
-     * 
-     * @param accountId identifies the account for which we want to update a {@link TailoredAudience}.
-     * @param id identifies which {@link TailoredAudience} we wish to update.
-     * @param input is the request data builder that will generate the request body for the operation.
-     * @throws ApiException if there is an error while communicating with Twitter.
-     * @throws MissingAuthorizationException if TwitterTemplate was not created with OAuth credentials.
-     */
-    void updateTailoredAudience(String accountId, String id, TailoredAudienceForm input);
-
-    /**
      * Deletes a {@link TailoredAudience} related to an {@link AdvertisingAccount} found by its campaignId.
      * 
      * @param accountId identifies the account of which {@link TailoredAudience} we wish to delete.

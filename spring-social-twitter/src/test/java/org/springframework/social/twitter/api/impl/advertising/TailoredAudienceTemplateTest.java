@@ -5,7 +5,6 @@ import static org.junit.Assert.assertThat;
 import static org.springframework.http.HttpMethod.DELETE;
 import static org.springframework.http.HttpMethod.GET;
 import static org.springframework.http.HttpMethod.POST;
-import static org.springframework.http.HttpMethod.PUT;
 import static org.springframework.http.MediaType.APPLICATION_JSON;
 import static org.springframework.test.web.client.match.MockRestRequestMatchers.content;
 import static org.springframework.test.web.client.match.MockRestRequestMatchers.method;
@@ -84,32 +83,6 @@ public class TailoredAudienceTemplateTest extends AbstractTwitterApiTest {
                         .ofListType(TailoredAudienceListType.TWITTER_ID));
 
         assertSingleTailoredAudienceContents(tailoredAudience);
-    }
-
-    @Test
-    public void updateTailoredAudience() {
-        String mockedAccountId = "hkk5";
-        String mockedTailoredAudienceId = "qq4u";
-        String doesntMatterString = "doesn-matter-altered";
-
-        String chainedPostContent =
-                "account_id=" + mockedAccountId + "&" +
-                        "name=" + doesntMatterString + "&" +
-                        "list_type=" + TailoredAudienceListType.TWITTER_ID;
-
-        mockServer
-                .expect(requestTo("https://ads-api.twitter.com/0/accounts/" + mockedAccountId + "/tailored_audiences/" + mockedTailoredAudienceId))
-                .andExpect(method(PUT))
-                .andExpect(content().string(chainedPostContent))
-                .andRespond(withSuccess(jsonResource("ad-tailored-audiences-single"), APPLICATION_JSON));
-
-        twitter.tailoredAudienceOperations().updateTailoredAudience(
-                mockedAccountId,
-                mockedTailoredAudienceId,
-                new TailoredAudienceFormBuilder()
-                        .withAccount(mockedAccountId)
-                        .named(doesntMatterString)
-                        .ofListType(TailoredAudienceListType.TWITTER_ID));
     }
 
     @Test
