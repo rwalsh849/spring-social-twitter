@@ -29,6 +29,7 @@ import org.springframework.util.MultiValueMap;
  * @author Hudson mendes
  */
 public interface TwitterQueryForData<TBuilder extends TwitterQueryForData<TBuilder>> {
+
     public TBuilder includeDeleted(Boolean include);
 
     public MultiValueMap<String, String> toQueryParameters();

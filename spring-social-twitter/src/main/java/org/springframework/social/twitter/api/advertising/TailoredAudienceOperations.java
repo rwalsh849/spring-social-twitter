@@ -38,7 +38,7 @@ public interface TailoredAudienceOperations {
      * Creates {@link TailoredAudience} linked to a particular {@link AdvertisingAccount}.
      * 
      * @param accountId identifies the account for which we want to create a {@link TailoredAudience}.
-     * @param data is the request data builder that will generate the request body for the operation.
+     * @param input is the request data builder that will generate the request body for the operation.
      * @return an instance of {@link TailoredAudience}
      * @throws ApiException if there is an error while communicating with Twitter.
      * @throws MissingAuthorizationException if TwitterTemplate was not created with OAuth credentials.
@@ -50,7 +50,7 @@ public interface TailoredAudienceOperations {
      * 
      * @param accountId identifies the account for which we want to update a {@link TailoredAudience}.
      * @param id identifies which {@link TailoredAudience} we wish to update.
-     * @param data is the request data builder that will generate the request body for the operation.
+     * @param input is the request data builder that will generate the request body for the operation.
      * @throws ApiException if there is an error while communicating with Twitter.
      * @throws MissingAuthorizationException if TwitterTemplate was not created with OAuth credentials.
      */

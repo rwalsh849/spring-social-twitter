@@ -28,8 +28,6 @@ import org.springframework.util.MultiValueMap;
  * builder will become a richer asset to the Api.
  * 
  * @author Hudson Mendes
- *
- * @param <TSort> the sort enumberation that varies for each entity being requested.
  */
 public abstract class AbstractTwitterQueryForDataBuilder<TBuilderInterface extends TwitterQueryForData<TBuilderInterface>>
         extends AbstractTwitterParametersBuilder
