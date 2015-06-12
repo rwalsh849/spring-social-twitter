@@ -54,6 +54,10 @@ public abstract class AbstractTwitterApiTest {
 		return new ClassPathResource(filename + ".json", getClass());
 	}
 
+	protected Resource dataResource(String filename) {
+		return new ClassPathResource(filename, getClass());
+	}
+
 	protected void assertSingleTweet(Tweet tweet) {
 		assertSingleTweet(tweet, false);
 	}

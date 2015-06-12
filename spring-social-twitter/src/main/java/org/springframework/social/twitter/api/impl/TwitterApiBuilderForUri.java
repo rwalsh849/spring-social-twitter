@@ -42,6 +42,11 @@ public class TwitterApiBuilderForUri {
         return this;
     }
 
+    public TwitterApiBuilderForUri forTonApi() {
+        this.baseLocation = treatBaseUrl(TwitterApiHosts.getTonApi());
+        return this;
+    }
+
     public TwitterApiBuilderForUri withResource(String resource) {
         this.resource = resource;
         return this;
@@ -56,6 +61,11 @@ public class TwitterApiBuilderForUri {
         this.resource = resource.getPath();
         return this.forStandardApi();
     }
+
+	public TwitterApiBuilderForUri withResource(TwitterApiUriResourceForTon resource) {
+        this.resource = resource.getPath();
+        return this.forTonApi();
+	}
 
     public TwitterApiBuilderForUri withArgument(String argument, Object value) {
         this.parameters.add(argument, value.toString());
@@ -145,4 +155,5 @@ public class TwitterApiBuilderForUri {
 
         return apiHost;
     }
+
 }

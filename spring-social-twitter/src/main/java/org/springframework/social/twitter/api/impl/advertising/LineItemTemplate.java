@@ -24,7 +24,7 @@ import org.springframework.social.twitter.api.advertising.LineItemQuery;
 import org.springframework.social.twitter.api.impl.AbstractTwitterOperations;
 import org.springframework.social.twitter.api.impl.DataListHolder;
 import org.springframework.social.twitter.api.impl.DataSingleHolder;
-import org.springframework.social.twitter.api.impl.TwitterApiBuilderForBody;
+import org.springframework.social.twitter.api.impl.TwitterApiBuilderForHttpEntity;
 import org.springframework.social.twitter.api.impl.TwitterApiBuilderForUri;
 import org.springframework.social.twitter.api.impl.TwitterApiUriResourceForAdvertising;
 import org.springframework.web.client.RestTemplate;
@@ -77,7 +77,7 @@ public class LineItemTemplate extends AbstractTwitterOperations implements LineI
                         .withArgument("account_id", accountId)
                         .build(),
                 HttpMethod.POST,
-                new TwitterApiBuilderForBody<>(data.toRequestBody()).build(),
+                new TwitterApiBuilderForHttpEntity<>(data.toRequestBody()).build(),
                 new ParameterizedTypeReference<DataSingleHolder<LineItem>>() {}
                 ).getBody().getData();
     }

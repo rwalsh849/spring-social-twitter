@@ -21,6 +21,7 @@ import org.springframework.social.twitter.api.advertising.CampaignOperations;
 import org.springframework.social.twitter.api.advertising.LineItemOperations;
 import org.springframework.social.twitter.api.advertising.StatisticsOperations;
 import org.springframework.social.twitter.api.advertising.TargetingCriteriaOperations;
+import org.springframework.social.twitter.api.ton.TonOperations;
 import org.springframework.web.client.RestOperations;
 
 
@@ -104,6 +105,11 @@ public interface Twitter extends ApiBinding {
     TargetingCriteriaOperations targetingCriteriaOperations();
 
     /**
+     * @return the Twitter Object Nest operations.
+     */
+	TonOperations tonOperations();
+
+    /**
      * Returns the underlying {@link RestOperations} object allowing for consumption of Twitter endpoints that may not be otherwise covered by the API
      * binding.
      * The RestOperations object returned is configured to include an OAuth "Authorization" header on all requests.
@@ -118,4 +124,5 @@ public interface Twitter extends ApiBinding {
      * @return an implementation of {@link Settings} responsible for communicating the settings
      */
     Settings settings();
+
 }

@@ -73,9 +73,9 @@ public enum TwitterApiUriResourceForStandard {
 	STATUSES_UPDATE_WITH_MEDIA("statuses/update_with_media.json"),
 	STATUSES_DESTROY("statuses/destroy/:tweet_id.json"),
 	STATUSES_RETWEET("statuses/retweet/:tweet_id.json"),
-	STATUSES_RETWEETS("statuses/retweets/:tweet_id.json"),
+	STATUSES_RETWEETS("statuses/retweets/:tweet_id.json"),	
 	STATUSES_OEMBEDED("statuses/oembed.json"),
-	
+
 	FAVORITES_LIST("favorites/list.json"),
 	FAVORITES_CREATE("favorites/create.json"),
 	FAVORITES_DESTROY("favorites/destroy.json"),
