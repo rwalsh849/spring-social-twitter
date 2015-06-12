@@ -16,16 +16,30 @@
 package org.springframework.social.twitter.api.advertising;
 
 /**
- * Defines the channel of {@link TailoredAudience} that will
- * be created / updated or, in any way, managed.
+ * Represents the resulting entity of an attempt to mark
+ * customers to be excluded from tailored audiences do
+ * to their opt-out.
  * 
  * @author Hudson Mendes
+ *
  */
-public enum TailoredAudienceType {
-    WEB,
-    CRM,
-    MOBILE,
-    EXCLUDED_WEB,
-    EXCLUDED_CRM,
-    EXCLUDED_MOBILE
+public class GlobalOptOut {
+    private final String inputFilePath;
+    private final TailoredAudienceListType listType;
+
+    public GlobalOptOut(
+            String inputFilePath,
+            TailoredAudienceListType listType) {
+
+        this.inputFilePath = inputFilePath;
+        this.listType = listType;
+    }
+
+    public String getInputFilePath() {
+        return inputFilePath;
+    }
+
+    public TailoredAudienceListType getListType() {
+        return listType;
+    }
 }

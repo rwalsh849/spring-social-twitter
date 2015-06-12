@@ -15,17 +15,6 @@
  */
 package org.springframework.social.twitter.api.advertising;
 
-/**
- * Defines the channel of {@link TailoredAudience} that will
- * be created / updated or, in any way, managed.
- * 
- * @author Hudson Mendes
- */
-public enum TailoredAudienceType {
-    WEB,
-    CRM,
-    MOBILE,
-    EXCLUDED_WEB,
-    EXCLUDED_CRM,
-    EXCLUDED_MOBILE
+public interface GlobalOptOutOperations {
+
 }
