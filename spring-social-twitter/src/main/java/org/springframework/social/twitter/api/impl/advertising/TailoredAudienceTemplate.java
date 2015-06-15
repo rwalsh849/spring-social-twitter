@@ -21,6 +21,7 @@ import org.springframework.social.twitter.api.TwitterForm;
 import org.springframework.social.twitter.api.advertising.GlobalOptOut;
 import org.springframework.social.twitter.api.advertising.TailoredAudience;
 import org.springframework.social.twitter.api.advertising.TailoredAudienceFile;
+import org.springframework.social.twitter.api.advertising.TailoredAudienceFileForm;
 import org.springframework.social.twitter.api.advertising.TailoredAudienceForm;
 import org.springframework.social.twitter.api.advertising.TailoredAudienceOperations;
 import org.springframework.social.twitter.api.advertising.TailoredAudienceQuery;
@@ -102,9 +103,17 @@ public class TailoredAudienceTemplate extends AbstractTwitterOperations implemen
     }
 
     @Override
-    public TailoredAudienceFile createTailoredAudienceFile(String accountId, TwitterForm input) {
-        // TODO Auto-generated method stub
-        return null;
+    public TailoredAudienceFile createTailoredAudienceFile(String accountId, TailoredAudienceFileForm input) {
+        requireUserAuthorization();
+        return restTemplate.exchange(
+                new TwitterApiBuilderForUri()
+                        .withResource(TwitterApiUriResourceForAdvertising.TAILORED_AUDIENCE_CHANGES)
+                        .withArgument("account_id", accountId)
+                        .build(),
+                HttpMethod.POST,
+                new TwitterApiBuilderForHttpEntity<>(input.toRequestBody()).build(),
+                new ParameterizedTypeReference<DataSingleHolder<TailoredAudienceFile>>() {}
+                ).getBody().getData();
     }
 
     @Override

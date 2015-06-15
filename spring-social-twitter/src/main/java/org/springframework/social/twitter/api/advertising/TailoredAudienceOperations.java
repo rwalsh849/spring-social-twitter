@@ -78,7 +78,7 @@ public interface TailoredAudienceOperations {
      * @param input defines the data used for this tailored audience change.
      * @return a {@link TailoredAudienceFile} describing what the change posted was.
      */
-    TailoredAudienceFile createTailoredAudienceFile(String accountId, TwitterForm input);
+    TailoredAudienceFile createTailoredAudienceFile(String accountId, TailoredAudienceFileForm input);
 
     /**
      * Creates an entry in the global opt-out list that points

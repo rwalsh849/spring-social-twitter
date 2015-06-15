@@ -15,13 +15,18 @@
  */
 package org.springframework.social.twitter.api.advertising;
 
+import org.springframework.social.twitter.api.TwitterForm;
+
 /**
- * Define the operations that can be run for a {@link TailoredAudienceFile}.
+ * Describes the contract for the builder of {@link TailoredAudienceFile}'s
+ * data that will be posted / patched to the endpoint.
  * 
  * @author Hudson Mendes
  */
-public enum TailoredAudienceFileOperation {
-    ADD,
-    REMOVE,
-    REPLACE
+public interface TailoredAudienceFileForm extends TwitterForm {
+    public TailoredAudienceFileForm withTailoredAudience(String tailoredAudienceId);
+
+    public TailoredAudienceFileForm withInputFilePath(String inputFilePath);
+
+    public TailoredAudienceFileForm withOperation(TailoredAudienceFileOperation operation);
 }
