@@ -30,7 +30,7 @@ import org.springframework.social.twitter.api.impl.TwitterApiUriResourceForTon;
 import org.springframework.web.client.RestTemplate;
 
 /**
- * Implementation of {@link BinaryOperations}, providing a binding to the Twitter Object Nest.
+ * Implementation of {@link TonOperations}, providing a binding to the Twitter Object Nest.
  * 
  * @author Chris Latko
  */

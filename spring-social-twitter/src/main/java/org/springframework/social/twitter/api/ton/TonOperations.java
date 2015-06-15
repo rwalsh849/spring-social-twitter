@@ -33,23 +33,22 @@ public interface TonOperations {
      * Photo uploads and small tailored audiences will typically be under 64MB and can use non-resumable upload.
      * 
      * @param bucketName must be "ta_partner" for ads api
-     * @param the binary data
-     * @param mime type of data, must conform to http://www.iana.org/assignments/media-types/media-types.xhtml
-     * @param TON expiry date, up to 7 days, but ruby script has 10 days.
-     * @return 
+     * @param data the binary data
+     * @param contentType mime type of data, must conform to http://www.iana.org/assignments/media-types/media-types.xhtml
+     * @param expiry TON expiry date, up to 7 days, but ruby script has 10 days.
      * @throws ApiException if there is an error while communicating with Twitter.
      * @throws MissingAuthorizationException if TwitterTemplate was not created with OAuth credentials.
      */
     URI uploadSingleChunk(final String bucketName, final byte[] data, final String contentType, final ZonedDateTime expiry);
 
     /**
-     * Retrieves a list of all {@link FundingInstrument} linked to a particular {@link AdvertisingAccount}.
+     * Uploads larger than 64MB. They are chunked and uploaded via a resumeId.
      * 
      * @param bucketName must be "ta_partner" for ads api
-     * @param identifier used to resume an upload
-     * @param the binary data
-     * @param mime type of data, must conform to http://www.iana.org/assignments/media-types/media-types.xhtml
-     * @param TON expiry date, up to 7 days, but ruby script has 10 days.
+     * @param resumeId identifier used to resume an upload
+     * @param data the binary data
+     * @param contentType mime type of data, must conform to http://www.iana.org/assignments/media-types/media-types.xhtml
+     * @param expiry TON expiry date, up to 7 days, but ruby script has 10 days.
      * @throws ApiException if there is an error while communicating with Twitter.
      * @throws MissingAuthorizationException if TwitterTemplate was not created with OAuth credentials.
      */

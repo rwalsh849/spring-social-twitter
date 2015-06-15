@@ -88,7 +88,7 @@ public class TailoredAudienceTemplate extends AbstractTwitterOperations implemen
                         .withArgument("account_id", accountId)
                         .build(),
                 HttpMethod.PUT,
-                new TwitterApiBuilderForBody<>(input.toRequestBody()).build(),
+                new TwitterApiBuilderForHttpEntity<>(input.toRequestBody()).build(),
                 new ParameterizedTypeReference<DataSingleHolder<GlobalOptOut>>() {}
                 ).getBody().getData();
     }
