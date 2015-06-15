@@ -18,6 +18,7 @@ import java.util.List;
 import org.hamcrest.CoreMatchers;
 import org.junit.Test;
 import org.springframework.social.twitter.api.advertising.TailoredAudience;
+import org.springframework.social.twitter.api.advertising.TailoredAudienceFileOperation;
 import org.springframework.social.twitter.api.advertising.TailoredAudienceListType;
 import org.springframework.social.twitter.api.advertising.TailoredAudienceType;
 import org.springframework.social.twitter.api.impl.AbstractTwitterApiTest;
@@ -147,6 +148,23 @@ public class TailoredAudienceTemplateTest extends AbstractTwitterApiTest {
     }
 
     @Test
+    public void createTailoredAudienceFile() {
+        String mockedAccountId = "0ga0yn";
+        String mockedTailoredAudienceId = "13sf";
+        mockServer
+                .expect(requestTo("https://ads-api.twitter.com/0/accounts/" + mockedAccountId + "/tailored_audience_changes"))
+                .andExpect(method(POST))
+                .andRespond(withSuccess(jsonResource("ad-tailored-audience-changes"), APPLICATION_JSON));
+
+        twitter.tailoredAudienceOperations().createTailoredAudienceFile(
+                mockedAccountId,
+                new TailoredAudienceFileFormBuilder()
+                        .withTailoredAudience(mockedTailoredAudienceId)
+                        .withOperation(TailoredAudienceFileOperation.ADD)
+                        .withInputFilePath("/1.1/ton/data/ta_partner/390472547/oNJvLHs-6e2NUNa.txt"));
+    }
+
+    @Test
     public void createGlobalOptOut() {
         String mockedAccountId = "0ga0yn";
         mockServer
@@ -158,7 +176,7 @@ public class TailoredAudienceTemplateTest extends AbstractTwitterApiTest {
                 mockedAccountId,
                 new GlobalOptOutFormBuilder()
                         .withAccount(mockedAccountId)
-                        .withTonFile("/1.1/ton/data/ta_partner/390472547/oNJvLHs-6e2NUNa.txt")
-                        .withListType(TailoredAudienceListType.TWITTER_ID));
+                        .withListType(TailoredAudienceListType.TWITTER_ID)
+                        .withInputFilePath("/1.1/ton/data/ta_partner/390472547/oNJvLHs-6e2NUNa.txt"));
     }
 }

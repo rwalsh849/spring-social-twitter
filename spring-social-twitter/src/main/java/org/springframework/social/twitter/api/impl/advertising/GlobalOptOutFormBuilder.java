@@ -23,7 +23,7 @@ public class GlobalOptOutFormBuilder extends AbstractTwitterFormBuilder {
         return this;
     }
 
-    public GlobalOptOutFormBuilder withTonFile(String tonFilePath) {
+    public GlobalOptOutFormBuilder withInputFilePath(String tonFilePath) {
         this.tonFilePath = tonFilePath;
         return this;
     }
