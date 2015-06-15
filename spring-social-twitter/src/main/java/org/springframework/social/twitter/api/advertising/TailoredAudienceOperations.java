@@ -17,7 +17,6 @@ package org.springframework.social.twitter.api.advertising;
 
 import org.springframework.social.ApiException;
 import org.springframework.social.MissingAuthorizationException;
-import org.springframework.social.twitter.api.TwitterForm;
 import org.springframework.social.twitter.api.impl.DataListHolder;
 
 /**
@@ -71,14 +70,25 @@ public interface TailoredAudienceOperations {
     void deleteTailoredAudience(String accountId, String id);
 
     /**
-     * Updates a {@link TailoredAudience} indicating a TON file and a {@link TailoredAudienceFileOperation} to a tailored_audience_change
+     * Updates a {@link TailoredAudience} indicating a TON file and a {@link TailoredAudienceChangeOperation} to a tailored_audience_change
      * (https://dev.twitter.com/ads/reference/post/accounts/%3Aaccount_id/tailored_audience_change)
      * 
      * @param accountId identifies the account for which we sending the change.
      * @param input defines the data used for this tailored audience change.
-     * @return a {@link TailoredAudienceFile} describing what the change posted was.
+     * @return a {@link TailoredAudienceChange} describing what the change posted was.
      */
-    TailoredAudienceFile createTailoredAudienceFile(String accountId, TailoredAudienceFileForm input);
+    TailoredAudienceChange createTailoredAudienceChange(String accountId, TailoredAudienceChangeForm input);
+
+    /**
+     * Retrieves a {@link TailoredAudienceChange} with information about the file,
+     * the operation and its status.
+     * (https://dev.twitter.com/ads/reference/get/accounts/%3Aaccount_id/tailored_audience_change/%3Aid)
+     * 
+     * @param accountId identifies the account for which we sending the change.
+     * @param id identifies the file (or change) in the {@link TailoredAudience}.
+     * @return the matching {@link TailoredAudienceChange}
+     */
+    TailoredAudienceChange getTailoredAudienceChange(String accountId, String id);
 
     /**
      * Creates an entry in the global opt-out list that points
@@ -89,5 +99,5 @@ public interface TailoredAudienceOperations {
      * @param input defines the parameters that will be posted.
      * @return the instance of {@link GlobalOptOut} that has been just created.
      */
-    GlobalOptOut createGlobalOptOut(String accountId, TwitterForm input);
+    GlobalOptOut createGlobalOptOut(String accountId, GlobalOptOutForm input);
 }

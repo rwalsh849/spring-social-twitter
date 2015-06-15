@@ -24,19 +24,19 @@ import org.springframework.social.twitter.api.TwitterObject;
  * 
  * @author Hudson Mendes
  */
-public class TailoredAudienceFile extends TwitterObject {
+public class TailoredAudienceChange extends TwitterObject {
     private final String id;
     private final String tailoredAudienceId;
     private final String inputFilePath;
-    private final TailoredAudienceFileOperation operation;
-    private final TailoredAudienceFileState state;
+    private final TailoredAudienceChangeOperation operation;
+    private final TailoredAudienceChangeState state;
 
-    public TailoredAudienceFile(
+    public TailoredAudienceChange(
             String id,
             String tailoredAudienceId,
             String inputFilePath,
-            TailoredAudienceFileOperation operation,
-            TailoredAudienceFileState state) {
+            TailoredAudienceChangeOperation operation,
+            TailoredAudienceChangeState state) {
 
         this.id = id;
         this.tailoredAudienceId = tailoredAudienceId;
@@ -57,11 +57,11 @@ public class TailoredAudienceFile extends TwitterObject {
         return inputFilePath;
     }
 
-    public TailoredAudienceFileOperation getOperation() {
+    public TailoredAudienceChangeOperation getOperation() {
         return operation;
     }
 
-    public TailoredAudienceFileState getState() {
+    public TailoredAudienceChangeState getState() {
         return state;
     }
 }

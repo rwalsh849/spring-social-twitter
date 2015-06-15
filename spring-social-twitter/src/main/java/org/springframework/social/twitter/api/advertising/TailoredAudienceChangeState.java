@@ -16,11 +16,11 @@
 package org.springframework.social.twitter.api.advertising;
 
 /**
- * Defines the status in which a {@link TailoredAudienceFile} can be.
+ * Defines the status in which a {@link TailoredAudienceChange} can be.
  * 
  * @author Hudson Mendes
  */
-public enum TailoredAudienceFileState {
+public enum TailoredAudienceChangeState {
     UPLOADING,
     PROCESSING,
     COMPLETED,

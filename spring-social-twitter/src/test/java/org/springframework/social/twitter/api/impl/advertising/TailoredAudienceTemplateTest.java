@@ -18,7 +18,9 @@ import java.util.List;
 import org.hamcrest.CoreMatchers;
 import org.junit.Test;
 import org.springframework.social.twitter.api.advertising.TailoredAudience;
-import org.springframework.social.twitter.api.advertising.TailoredAudienceFileOperation;
+import org.springframework.social.twitter.api.advertising.TailoredAudienceChange;
+import org.springframework.social.twitter.api.advertising.TailoredAudienceChangeOperation;
+import org.springframework.social.twitter.api.advertising.TailoredAudienceChangeState;
 import org.springframework.social.twitter.api.advertising.TailoredAudienceListType;
 import org.springframework.social.twitter.api.advertising.TailoredAudienceType;
 import org.springframework.social.twitter.api.impl.AbstractTwitterApiTest;
@@ -156,12 +158,32 @@ public class TailoredAudienceTemplateTest extends AbstractTwitterApiTest {
                 .andExpect(method(POST))
                 .andRespond(withSuccess(jsonResource("ad-tailored-audience-changes"), APPLICATION_JSON));
 
-        twitter.tailoredAudienceOperations().createTailoredAudienceFile(
+        twitter.tailoredAudienceOperations().createTailoredAudienceChange(
                 mockedAccountId,
-                new TailoredAudienceFileFormBuilder()
+                new TailoredAudienceChangeFormBuilder()
                         .withTailoredAudience(mockedTailoredAudienceId)
-                        .withOperation(TailoredAudienceFileOperation.ADD)
+                        .withOperation(TailoredAudienceChangeOperation.ADD)
                         .withInputFilePath("/1.1/ton/data/ta_partner/390472547/oNJvLHs-6e2NUNa.txt"));
+    }
+
+    @Test
+    public void getTailoredAudienceFile() {
+        String mockedAccountId = "0ga0yn";
+        String mockedTailoredAudienceChangeId = "13sf";
+        mockServer
+                .expect(requestTo("https://ads-api.twitter.com/0/accounts/" + mockedAccountId + "/tailored_audience_changes/"
+                        + mockedTailoredAudienceChangeId))
+                .andExpect(method(GET))
+                .andRespond(withSuccess(jsonResource("ad-tailored-audience-changes"), APPLICATION_JSON));
+
+        TailoredAudienceChange change = twitter.tailoredAudienceOperations().getTailoredAudienceChange(
+                mockedAccountId,
+                mockedTailoredAudienceChangeId);
+
+        assertEquals("13sf", change.getTailoredAudienceId());
+        assertEquals("/ta_partner/3wyo1gwuqF7_Lhr", change.getInputFilePath());
+        assertEquals(TailoredAudienceChangeOperation.ADD, change.getOperation());
+        assertEquals(TailoredAudienceChangeState.COMPLETED, change.getState());
     }
 
     @Test
@@ -175,7 +197,6 @@ public class TailoredAudienceTemplateTest extends AbstractTwitterApiTest {
         twitter.tailoredAudienceOperations().createGlobalOptOut(
                 mockedAccountId,
                 new GlobalOptOutFormBuilder()
-                        .withAccount(mockedAccountId)
                         .withListType(TailoredAudienceListType.TWITTER_ID)
                         .withInputFilePath("/1.1/ton/data/ta_partner/390472547/oNJvLHs-6e2NUNa.txt"));
     }

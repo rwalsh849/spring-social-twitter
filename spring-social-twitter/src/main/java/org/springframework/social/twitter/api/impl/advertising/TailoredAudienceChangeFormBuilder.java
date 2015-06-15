@@ -1,30 +1,30 @@
 package org.springframework.social.twitter.api.impl.advertising;
 
-import org.springframework.social.twitter.api.advertising.TailoredAudienceFileForm;
-import org.springframework.social.twitter.api.advertising.TailoredAudienceFileOperation;
+import org.springframework.social.twitter.api.advertising.TailoredAudienceChangeForm;
+import org.springframework.social.twitter.api.advertising.TailoredAudienceChangeOperation;
 import org.springframework.util.LinkedMultiValueMap;
 import org.springframework.util.MultiValueMap;
 
-public class TailoredAudienceFileFormBuilder extends AbstractTwitterFormBuilder implements TailoredAudienceFileForm {
+public class TailoredAudienceChangeFormBuilder extends AbstractTwitterFormBuilder implements TailoredAudienceChangeForm {
 
     private String tailoredAudienceId;
     private String inputFilePath;
-    private TailoredAudienceFileOperation operation;
+    private TailoredAudienceChangeOperation operation;
 
     @Override
-    public TailoredAudienceFileForm withTailoredAudience(String tailoredAudienceId) {
+    public TailoredAudienceChangeForm withTailoredAudience(String tailoredAudienceId) {
         this.tailoredAudienceId = tailoredAudienceId;
         return this;
     }
 
     @Override
-    public TailoredAudienceFileForm withInputFilePath(String inputFilePath) {
+    public TailoredAudienceChangeForm withInputFilePath(String inputFilePath) {
         this.inputFilePath = inputFilePath;
         return this;
     }
 
     @Override
-    public TailoredAudienceFileForm withOperation(TailoredAudienceFileOperation operation) {
+    public TailoredAudienceChangeForm withOperation(TailoredAudienceChangeOperation operation) {
         this.operation = operation;
         return this;
     }

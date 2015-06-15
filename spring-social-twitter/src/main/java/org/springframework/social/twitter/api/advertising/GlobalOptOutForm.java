@@ -18,15 +18,27 @@ package org.springframework.social.twitter.api.advertising;
 import org.springframework.social.twitter.api.TwitterForm;
 
 /**
- * Describes the contract for the builder of {@link TailoredAudienceFile}'s
+ * Describes the contract for the builder of {@link GlobalOptOut}'s
  * data that will be posted / patched to the endpoint.
  * 
  * @author Hudson Mendes
  */
-public interface TailoredAudienceFileForm extends TwitterForm {
-    public TailoredAudienceFileForm withTailoredAudience(String tailoredAudienceId);
+public interface GlobalOptOutForm extends TwitterForm {
 
-    public TailoredAudienceFileForm withInputFilePath(String inputFilePath);
+    /**
+     * The TON file path that will be linked with the opt-out operation.
+     * 
+     * @param tonFilePath in TON.
+     * @return the fluent builder.
+     */
+    public abstract GlobalOptOutForm withInputFilePath(String tonFilePath);
 
-    public TailoredAudienceFileForm withOperation(TailoredAudienceFileOperation operation);
+    /**
+     * The list type of the data in the TON file.
+     * 
+     * @param listType of the data in the TON file.
+     * @return the fluent builder.
+     */
+    public abstract GlobalOptOutForm withListType(TailoredAudienceListType listType);
+
 }

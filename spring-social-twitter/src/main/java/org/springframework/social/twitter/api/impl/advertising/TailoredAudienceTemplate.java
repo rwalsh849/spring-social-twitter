@@ -17,11 +17,11 @@ package org.springframework.social.twitter.api.impl.advertising;
 
 import org.springframework.core.ParameterizedTypeReference;
 import org.springframework.http.HttpMethod;
-import org.springframework.social.twitter.api.TwitterForm;
 import org.springframework.social.twitter.api.advertising.GlobalOptOut;
+import org.springframework.social.twitter.api.advertising.GlobalOptOutForm;
 import org.springframework.social.twitter.api.advertising.TailoredAudience;
-import org.springframework.social.twitter.api.advertising.TailoredAudienceFile;
-import org.springframework.social.twitter.api.advertising.TailoredAudienceFileForm;
+import org.springframework.social.twitter.api.advertising.TailoredAudienceChange;
+import org.springframework.social.twitter.api.advertising.TailoredAudienceChangeForm;
 import org.springframework.social.twitter.api.advertising.TailoredAudienceForm;
 import org.springframework.social.twitter.api.advertising.TailoredAudienceOperations;
 import org.springframework.social.twitter.api.advertising.TailoredAudienceQuery;
@@ -103,7 +103,7 @@ public class TailoredAudienceTemplate extends AbstractTwitterOperations implemen
     }
 
     @Override
-    public TailoredAudienceFile createTailoredAudienceFile(String accountId, TailoredAudienceFileForm input) {
+    public TailoredAudienceChange createTailoredAudienceChange(String accountId, TailoredAudienceChangeForm input) {
         requireUserAuthorization();
         return restTemplate.exchange(
                 new TwitterApiBuilderForUri()
@@ -112,12 +112,27 @@ public class TailoredAudienceTemplate extends AbstractTwitterOperations implemen
                         .build(),
                 HttpMethod.POST,
                 new TwitterApiBuilderForHttpEntity<>(input.toRequestBody()).build(),
-                new ParameterizedTypeReference<DataSingleHolder<TailoredAudienceFile>>() {}
+                new ParameterizedTypeReference<DataSingleHolder<TailoredAudienceChange>>() {}
                 ).getBody().getData();
     }
 
     @Override
-    public GlobalOptOut createGlobalOptOut(String accountId, TwitterForm input) {
+    public TailoredAudienceChange getTailoredAudienceChange(String accountId, String id) {
+        requireUserAuthorization();
+        return restTemplate.exchange(
+                new TwitterApiBuilderForUri()
+                        .withResource(TwitterApiUriResourceForAdvertising.TAILORED_AUDIENCE_CHANGE)
+                        .withArgument("account_id", accountId)
+                        .withArgument("tailored_audience_change_id", id)
+                        .build(),
+                HttpMethod.GET,
+                null,
+                new ParameterizedTypeReference<DataSingleHolder<TailoredAudienceChange>>() {}
+                ).getBody().getData();
+    }
+
+    @Override
+    public GlobalOptOut createGlobalOptOut(String accountId, GlobalOptOutForm input) {
         requireUserAuthorization();
         return restTemplate.exchange(
                 new TwitterApiBuilderForUri()

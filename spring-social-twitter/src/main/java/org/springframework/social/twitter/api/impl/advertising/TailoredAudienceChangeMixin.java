@@ -15,8 +15,8 @@
  */
 package org.springframework.social.twitter.api.impl.advertising;
 
-import org.springframework.social.twitter.api.advertising.TailoredAudienceFileOperation;
-import org.springframework.social.twitter.api.advertising.TailoredAudienceFileState;
+import org.springframework.social.twitter.api.advertising.TailoredAudienceChangeOperation;
+import org.springframework.social.twitter.api.advertising.TailoredAudienceChangeState;
 import org.springframework.social.twitter.api.impl.TwitterObjectMixin;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
@@ -27,14 +27,14 @@ import com.fasterxml.jackson.annotation.JsonProperty;
  * @author Hudson Mendes
  */
 @JsonIgnoreProperties(ignoreUnknown = true)
-public abstract class TailoredAudienceFileMixin extends TwitterObjectMixin {
+public abstract class TailoredAudienceChangeMixin extends TwitterObjectMixin {
 
     @JsonCreator
-    TailoredAudienceFileMixin(
+    TailoredAudienceChangeMixin(
             @JsonProperty("id") String id,
             @JsonProperty("tailored_audience_id") String tailoredAudienceId,
             @JsonProperty("input_file_path") String inputFilePath,
-            @JsonProperty("operation") TailoredAudienceFileOperation operation,
-            @JsonProperty("state") TailoredAudienceFileState state) {}
+            @JsonProperty("operation") TailoredAudienceChangeOperation operation,
+            @JsonProperty("state") TailoredAudienceChangeState state) {}
 
 }

@@ -16,11 +16,11 @@
 package org.springframework.social.twitter.api.advertising;
 
 /**
- * Define the operations that can be run for a {@link TailoredAudienceFile}.
+ * Define the operations that can be run for a {@link TailoredAudienceChange}.
  * 
  * @author Hudson Mendes
  */
-public enum TailoredAudienceFileOperation {
+public enum TailoredAudienceChangeOperation {
     ADD,
     REMOVE,
     REPLACE
