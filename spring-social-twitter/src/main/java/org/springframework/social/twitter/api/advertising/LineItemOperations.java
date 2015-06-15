@@ -17,7 +17,6 @@ package org.springframework.social.twitter.api.advertising;
 
 import org.springframework.social.ApiException;
 import org.springframework.social.MissingAuthorizationException;
-import org.springframework.social.twitter.api.TwitterForm;
 import org.springframework.social.twitter.api.impl.DataListHolder;
 
 /**
@@ -58,7 +57,7 @@ public interface LineItemOperations {
      * @throws ApiException if there is an error while communicating with Twitter.
      * @throws MissingAuthorizationException if TwitterTemplate was not created with OAuth credentials.
      */
-    LineItem createLineItem(String accountId, TwitterForm data);
+    LineItem createLineItem(String accountId, LineItemForm data);
 
     /**
      * Updates {@link LineItem} linked to a particular {@link AdvertisingAccount} referred to by its id.
@@ -69,7 +68,7 @@ public interface LineItemOperations {
      * @throws ApiException if there is an error while communicating with Twitter.
      * @throws MissingAuthorizationException if TwitterTemplate was not created with OAuth credentials.
      */
-    void updateLineItem(String accountId, String id, TwitterForm data);
+    void updateLineItem(String accountId, String id, LineItemForm data);
 
     /**
      * Deletes a {@link LineItem} related to an {@link AdvertisingAccount} found by its campaignId.

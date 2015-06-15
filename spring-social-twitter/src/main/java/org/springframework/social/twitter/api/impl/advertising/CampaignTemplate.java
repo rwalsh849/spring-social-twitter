@@ -17,9 +17,9 @@ package org.springframework.social.twitter.api.impl.advertising;
 
 import org.springframework.core.ParameterizedTypeReference;
 import org.springframework.http.HttpMethod;
-import org.springframework.social.twitter.api.TwitterForm;
 import org.springframework.social.twitter.api.advertising.AdvertisingOperations;
 import org.springframework.social.twitter.api.advertising.Campaign;
+import org.springframework.social.twitter.api.advertising.CampaignForm;
 import org.springframework.social.twitter.api.advertising.CampaignOperations;
 import org.springframework.social.twitter.api.advertising.CampaignQuery;
 import org.springframework.social.twitter.api.impl.AbstractTwitterOperations;
@@ -75,7 +75,7 @@ public class CampaignTemplate extends AbstractTwitterOperations implements Campa
     }
 
     @Override
-    public Campaign createCampaign(String accountId, TwitterForm data) {
+    public Campaign createCampaign(String accountId, CampaignForm data) {
         requireUserAuthorization();
         return restTemplate.exchange(
                 new TwitterApiBuilderForUri()
@@ -89,7 +89,7 @@ public class CampaignTemplate extends AbstractTwitterOperations implements Campa
     }
 
     @Override
-    public void updateCampaign(String accountId, String id, TwitterForm data) {
+    public void updateCampaign(String accountId, String id, CampaignForm data) {
         requireUserAuthorization();
         restTemplate.put(
                 new TwitterApiBuilderForUri()

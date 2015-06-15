@@ -105,15 +105,12 @@ public class LineItemTemplateTest extends AbstractTwitterApiTest {
 
         String chainedPostContent =
                 "campaign_id=" + doesntMatterString + "&" +
-                        "currency=" + doesntMatterString + "&" +
                         "placement_type=" + AdvertisingPlacementType.PROMOTED_TWEETS_FOR_SEARCH + "&" +
                         "objective=" + AdvertisingObjective.APP_INSTALLS + "&" +
                         "include_sentiment=" + AdvertisingSentiment.POSITIVE_ONLY + "&" +
                         "optimization=" + LineItemOptimization.WEBSITE_CONVERSIONS + "&" +
                         "total_budget_amount_local_micro=" + doesntMatterDecimal.multiply(new BigDecimal(1000000L)) + "&" +
                         "bid_amount_local_micro=" + doesntMatterDecimal.multiply(new BigDecimal(1000000L)) + "&" +
-                        "suggested_high_cpe_bid_local_micro=" + doesntMatterDecimal.add(new BigDecimal(10)).multiply(new BigDecimal(1000000L)) + "&" +
-                        "suggested_low_cpe_bid_local_micro=" + doesntMatterDecimal.multiply(new BigDecimal(1000000L)) + "&" +
                         "paused=" + !doesntMatterBool + "&" +
                         "deleted=" + doesntMatterBool;
 
@@ -127,10 +124,8 @@ public class LineItemTemplateTest extends AbstractTwitterApiTest {
                 mockedAccountId,
                 new LineItemFormBuilder()
                         .withCampaign(doesntMatterString)
-                        .withCurrency(doesntMatterString)
                         .withTotalBudget(doesntMatterDecimal.toString())
                         .withBidAmount(doesntMatterDecimal.toString())
-                        .withSuggestedCpeBid(doesntMatterDecimal.toString(), doesntMatterDecimal.add(new BigDecimal(10)).toString())
                         .withPlacementType(AdvertisingPlacementType.PROMOTED_TWEETS_FOR_SEARCH)
                         .withObjective(AdvertisingObjective.APP_INSTALLS)
                         .optimizingFor(LineItemOptimization.WEBSITE_CONVERSIONS)
@@ -151,15 +146,12 @@ public class LineItemTemplateTest extends AbstractTwitterApiTest {
 
         String chainedPostContent =
                 "campaign_id=" + doesntMatterString + "&" +
-                        "currency=" + doesntMatterString + "&" +
                         "placement_type=" + AdvertisingPlacementType.PROMOTED_TWEETS_FOR_TIMELINES + "&" +
                         "objective=" + AdvertisingObjective.FOLLOWERS + "&" +
                         "include_sentiment=" + AdvertisingSentiment.ALL + "&" +
                         "optimization=" + LineItemOptimization.DEFAULT + "&" +
                         "total_budget_amount_local_micro=" + doesntMatterDecimal.multiply(new BigDecimal(1000000L)) + "&" +
                         "bid_amount_local_micro=" + doesntMatterDecimal.multiply(new BigDecimal(1000000L)) + "&" +
-                        "suggested_high_cpe_bid_local_micro=" + doesntMatterDecimal.add(new BigDecimal(10)).multiply(new BigDecimal(1000000L)) + "&" +
-                        "suggested_low_cpe_bid_local_micro=" + doesntMatterDecimal.multiply(new BigDecimal(1000000L)) + "&" +
                         "paused=" + !doesntMatterBool + "&" +
                         "deleted=" + doesntMatterBool;
 
@@ -174,10 +166,8 @@ public class LineItemTemplateTest extends AbstractTwitterApiTest {
                 mockedLineItemId,
                 new LineItemFormBuilder()
                         .withCampaign(doesntMatterString)
-                        .withCurrency(doesntMatterString)
                         .withTotalBudget(doesntMatterDecimal.toString())
                         .withBidAmount(doesntMatterDecimal.toString())
-                        .withSuggestedCpeBid(doesntMatterDecimal.toString(), doesntMatterDecimal.add(new BigDecimal(10)).toString())
                         .withPlacementType(AdvertisingPlacementType.PROMOTED_TWEETS_FOR_TIMELINES)
                         .withObjective(AdvertisingObjective.FOLLOWERS)
                         .optimizingFor(LineItemOptimization.DEFAULT)

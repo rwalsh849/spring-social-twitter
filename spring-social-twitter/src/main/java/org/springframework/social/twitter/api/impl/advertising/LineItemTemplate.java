@@ -17,8 +17,8 @@ package org.springframework.social.twitter.api.impl.advertising;
 
 import org.springframework.core.ParameterizedTypeReference;
 import org.springframework.http.HttpMethod;
-import org.springframework.social.twitter.api.TwitterForm;
 import org.springframework.social.twitter.api.advertising.LineItem;
+import org.springframework.social.twitter.api.advertising.LineItemForm;
 import org.springframework.social.twitter.api.advertising.LineItemOperations;
 import org.springframework.social.twitter.api.advertising.LineItemQuery;
 import org.springframework.social.twitter.api.impl.AbstractTwitterOperations;
@@ -69,7 +69,7 @@ public class LineItemTemplate extends AbstractTwitterOperations implements LineI
     }
 
     @Override
-    public LineItem createLineItem(String accountId, TwitterForm data) {
+    public LineItem createLineItem(String accountId, LineItemForm data) {
         requireUserAuthorization();
         return restTemplate.exchange(
                 new TwitterApiBuilderForUri()
@@ -83,7 +83,7 @@ public class LineItemTemplate extends AbstractTwitterOperations implements LineI
     }
 
     @Override
-    public void updateLineItem(String accountId, String id, TwitterForm data) {
+    public void updateLineItem(String accountId, String id, LineItemForm data) {
         requireUserAuthorization();
         restTemplate.put(
                 new TwitterApiBuilderForUri()

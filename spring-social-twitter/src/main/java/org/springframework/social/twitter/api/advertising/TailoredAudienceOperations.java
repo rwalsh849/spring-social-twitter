@@ -19,7 +19,6 @@ import org.springframework.social.ApiException;
 import org.springframework.social.MissingAuthorizationException;
 import org.springframework.social.twitter.api.TwitterForm;
 import org.springframework.social.twitter.api.impl.DataListHolder;
-import org.springframework.social.twitter.api.impl.TailoredAudienceForm;
 
 /**
  * Interface defining the operations for targeting audience operations.
@@ -70,6 +69,16 @@ public interface TailoredAudienceOperations {
      * @throws MissingAuthorizationException if TwitterTemplate was not created with OAuth credentials.
      */
     void deleteTailoredAudience(String accountId, String id);
+
+    /**
+     * Updates a {@link TailoredAudience} indicating a TON file and a {@link TailoredAudienceFileOperation} to a tailored_audience_change
+     * (https://dev.twitter.com/ads/reference/post/accounts/%3Aaccount_id/tailored_audience_change)
+     * 
+     * @param accountId identifies the account for which we sending the change.
+     * @param input defines the data used for this tailored audience change.
+     * @return a {@link TailoredAudienceFile} describing what the change posted was.
+     */
+    TailoredAudienceFile createTailoredAudienceFile(String accountId, TwitterForm input);
 
     /**
      * Creates an entry in the global opt-out list that points

@@ -17,8 +17,8 @@ package org.springframework.social.twitter.api.impl.advertising;
 
 import org.springframework.core.ParameterizedTypeReference;
 import org.springframework.http.HttpMethod;
-import org.springframework.social.twitter.api.TwitterForm;
 import org.springframework.social.twitter.api.advertising.TargetingCriteria;
+import org.springframework.social.twitter.api.advertising.TargetingCriteriaForm;
 import org.springframework.social.twitter.api.advertising.TargetingCriteriaOperations;
 import org.springframework.social.twitter.api.advertising.TargetingCriteriaQuery;
 import org.springframework.social.twitter.api.impl.AbstractTwitterOperations;
@@ -73,7 +73,7 @@ public class TargetingCriteriaTemplate extends AbstractTwitterOperations impleme
     }
 
     @Override
-    public TargetingCriteria createTargetingCriteria(String accountId, TwitterForm data) {
+    public TargetingCriteria createTargetingCriteria(String accountId, TargetingCriteriaForm data) {
         requireUserAuthorization();
         return restTemplate.exchange(
                 new TwitterApiBuilderForUri()

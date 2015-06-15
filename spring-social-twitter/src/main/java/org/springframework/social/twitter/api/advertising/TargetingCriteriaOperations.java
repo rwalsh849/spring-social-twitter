@@ -17,7 +17,6 @@ package org.springframework.social.twitter.api.advertising;
 
 import org.springframework.social.ApiException;
 import org.springframework.social.MissingAuthorizationException;
-import org.springframework.social.twitter.api.TwitterForm;
 import org.springframework.social.twitter.api.impl.DataListHolder;
 
 /**
@@ -52,7 +51,7 @@ public interface TargetingCriteriaOperations {
      * @param data defines the parameters that we shall use to generate the targeting criteria
      * @return an instance of {@link TargetingCriteria}
      */
-    TargetingCriteria createTargetingCriteria(String accountId, TwitterForm data);
+    TargetingCriteria createTargetingCriteria(String accountId, TargetingCriteriaForm data);
 
     /**
      * Deletes a {@link TargetingCriteria} related to an {@link AdvertisingAccount} found by its campaignId.

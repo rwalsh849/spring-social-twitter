@@ -88,6 +88,7 @@ public class TwitterModule extends SimpleModule {
         context.setMixInAnnotations(StatisticsSnapshot.class, StatisticsSnapshotMixin.class);
         context.setMixInAnnotations(TailoredAudience.class, TailoredAudienceMixin.class);
         context.setMixInAnnotations(GlobalOptOut.class, GlobalOptOutMixin.class);
+        context.setMixInAnnotations(TailoredAudience.class, TailoredAudienceMixin.class);
 
         context.setMixInAnnotations(AccountSettings.class, AccountSettingsMixin.class);
         context.setMixInAnnotations(AccountSettings.TimeZone.class, AccountSettingsMixin.TimeZoneMixin.class);
