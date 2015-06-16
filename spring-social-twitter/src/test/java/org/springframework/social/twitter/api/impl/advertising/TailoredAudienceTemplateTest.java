@@ -69,8 +69,7 @@ public class TailoredAudienceTemplateTest extends AbstractTwitterApiTest {
         String doesntMatterString = "doesn-matter";
 
         String chainedPostContent =
-                "account_id=" + mockedAccountId + "&" +
-                        "name=" + doesntMatterString + "&" +
+                "name=" + doesntMatterString + "&" +
                         "list_type=" + TailoredAudienceListType.TWITTER_ID;
 
         mockServer
@@ -82,7 +81,6 @@ public class TailoredAudienceTemplateTest extends AbstractTwitterApiTest {
         TailoredAudience tailoredAudience = twitter.tailoredAudienceOperations().createTailoredAudience(
                 mockedAccountId,
                 new TailoredAudienceFormBuilder()
-                        .withAccount(mockedAccountId)
                         .named(doesntMatterString)
                         .ofListType(TailoredAudienceListType.TWITTER_ID));
 
