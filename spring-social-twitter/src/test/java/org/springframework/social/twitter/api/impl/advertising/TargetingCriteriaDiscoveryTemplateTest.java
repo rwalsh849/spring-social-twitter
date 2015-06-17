@@ -33,18 +33,16 @@ import org.springframework.social.twitter.api.impl.DataListHolder;
 /**
  * @author Hudson Mendes
  */
-public class TargetingCriteriaDeliveryTemplateTest extends AbstractTwitterApiTest {
+public class TargetingCriteriaDiscoveryTemplateTest extends AbstractTwitterApiTest {
 
     @Test
     public void tvShows() {
-        String mockedAccountId = "hkk5";
         mockServer
-                .expect(requestTo("https://ads-api.twitter.com/0/accounts/" + mockedAccountId + "/targeting_criteria/tv_shows?tv_market_locale=pt_BR"))
+                .expect(requestTo("https://ads-api.twitter.com/0/targeting_criteria/tv_shows?tv_market_locale=pt-BR"))
                 .andExpect(method(GET))
                 .andRespond(withSuccess(jsonResource("ad-targetings-tv_shows"), APPLICATION_JSON));
 
         DataListHolder<TargetingCriteriaDiscoveryForTvShow> discoveries = twitter.targetingCriteriaDiscoveryOperations().tvShow(
-                mockedAccountId,
                 new TargetingCriteriaDiscoveryForTvShowQueryBuilder()
                         .withLocale(Locale.forLanguageTag("pt-BR")));
 
@@ -52,16 +50,16 @@ public class TargetingCriteriaDeliveryTemplateTest extends AbstractTwitterApiTes
     }
 
     private void assertTvShowsDiscoveries(List<TargetingCriteriaDiscoveryForTvShow> actual) {
-        Assert.assertEquals(2, actual.size());
+        Assert.assertEquals(50, actual.size());
 
-        Assert.assertEquals(actual.get(0).getId(), new Long("10002546242"));
-        Assert.assertEquals(actual.get(0).getEstimatedUsers(), new Long("154958"));
-        Assert.assertEquals(actual.get(0).getName(), "BBC World News");
-        Assert.assertEquals(actual.get(0).getGenre(), "TALK");
+        Assert.assertEquals(actual.get(0).getId(), new Long("10032876335"));
+        Assert.assertEquals(actual.get(0).getEstimatedUsers(), new Long("1000"));
+        Assert.assertEquals(actual.get(0).getName(), "Debate 2014 - Presidente");
+        Assert.assertEquals(actual.get(0).getGenre(), "SPECIAL");
 
-        Assert.assertEquals(actual.get(1).getId(), new Long("10000283242"));
-        Assert.assertEquals(actual.get(1).getEstimatedUsers(), new Long("93330"));
-        Assert.assertEquals(actual.get(1).getName(), "E! News");
-        Assert.assertEquals(actual.get(1).getGenre(), "TALK");
+        Assert.assertEquals(actual.get(1).getId(), new Long("10032994279"));
+        Assert.assertEquals(actual.get(1).getEstimatedUsers(), new Long("1000"));
+        Assert.assertEquals(actual.get(1).getName(), "2014 FIBA World Cup");
+        Assert.assertEquals(actual.get(1).getGenre(), "SPORTS");
     }
 }

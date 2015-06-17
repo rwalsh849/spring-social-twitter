@@ -27,8 +27,7 @@ public interface TargetingCriteriaDiscoveryOperations {
     /**
      * Retireves a {@link TargetingCriteriaDiscoveryForTvShow}.
      * 
-     * @param accountId is the account for which we want to retrieve the discovery data.
      * @return an instance of {@link TargetingCriteriaDiscoveryForTvShow}
      */
-    DataListHolder<TargetingCriteriaDiscoveryForTvShow> tvShow(String accountId, TargetingCriteriaDiscoveryForTvShowQuery query);
+    DataListHolder<TargetingCriteriaDiscoveryForTvShow> tvShow(TargetingCriteriaDiscoveryForTvShowQuery query);
 }

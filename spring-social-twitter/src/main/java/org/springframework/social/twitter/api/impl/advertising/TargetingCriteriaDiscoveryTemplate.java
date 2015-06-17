@@ -35,12 +35,11 @@ public class TargetingCriteriaDiscoveryTemplate extends AbstractTwitterOperation
     }
 
     @Override
-    public DataListHolder<TargetingCriteriaDiscoveryForTvShow> tvShow(String accountId, TargetingCriteriaDiscoveryForTvShowQuery query) {
+    public DataListHolder<TargetingCriteriaDiscoveryForTvShow> tvShow(TargetingCriteriaDiscoveryForTvShowQuery query) {
         requireUserAuthorization();
         return restTemplate.exchange(
                 new TwitterApiBuilderForUri()
                         .withResource(TwitterApiUriResourceForAdvertising.TARGETINGS_DISCOVERY_TVSHOWS)
-                        .withArgument("account_id", accountId)
                         .withArgument(query.toQueryParameters())
                         .build(),
                 HttpMethod.GET,

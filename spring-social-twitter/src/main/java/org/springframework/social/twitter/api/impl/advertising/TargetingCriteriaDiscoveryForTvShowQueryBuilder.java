@@ -19,7 +19,7 @@ public class TargetingCriteriaDiscoveryForTvShowQueryBuilder
 
     @Override
     protected void makeParameters(MultiValueMap<String, String> map) {
-        appendParameter(map, "tv_market_locale", this.tvMarketLocale.toString());
+        if (this.tvMarketLocale != null)
+            appendParameter(map, "tv_market_locale", this.tvMarketLocale.toString().replace('_', '-'));
     }
-
 }
