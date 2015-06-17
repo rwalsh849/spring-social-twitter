@@ -15,6 +15,8 @@
  */
 package org.springframework.social.twitter.api.impl.advertising;
 
+import java.net.URI;
+
 import org.springframework.core.ParameterizedTypeReference;
 import org.springframework.http.HttpMethod;
 import org.springframework.social.twitter.api.advertising.TargetingCriteriaDiscoveryForTvShow;
@@ -37,11 +39,13 @@ public class TargetingCriteriaDiscoveryTemplate extends AbstractTwitterOperation
     @Override
     public DataListHolder<TargetingCriteriaDiscoveryForTvShow> tvShow(TargetingCriteriaDiscoveryForTvShowQuery query) {
         requireUserAuthorization();
+        URI endpoint = new TwitterApiBuilderForUri()
+                .withResource(TwitterApiUriResourceForAdvertising.TARGETINGS_DISCOVERY_TVSHOWS)
+                .withArgument(query.toQueryParameters())
+                .build();
+
         return restTemplate.exchange(
-                new TwitterApiBuilderForUri()
-                        .withResource(TwitterApiUriResourceForAdvertising.TARGETINGS_DISCOVERY_TVSHOWS)
-                        .withArgument(query.toQueryParameters())
-                        .build(),
+                endpoint,
                 HttpMethod.GET,
                 null,
                 new ParameterizedTypeReference<DataListHolder<TargetingCriteriaDiscoveryForTvShow>>() {}

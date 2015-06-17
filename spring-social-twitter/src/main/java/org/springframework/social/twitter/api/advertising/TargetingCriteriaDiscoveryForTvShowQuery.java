@@ -15,8 +15,6 @@
  */
 package org.springframework.social.twitter.api.advertising;
 
-import java.util.Locale;
-
 import org.springframework.social.twitter.api.TwitterQueryForDiscovery;
 
 /**
@@ -26,5 +24,5 @@ import org.springframework.social.twitter.api.TwitterQueryForDiscovery;
  */
 public interface TargetingCriteriaDiscoveryForTvShowQuery extends TwitterQueryForDiscovery<TargetingCriteriaDiscoveryForTvShowQuery> {
 
-    TargetingCriteriaDiscoveryForTvShowQuery withLocale(Locale tvMarketLocale);
+    TargetingCriteriaDiscoveryForTvShowQuery withLocale(String tvMarketLocale);
 }

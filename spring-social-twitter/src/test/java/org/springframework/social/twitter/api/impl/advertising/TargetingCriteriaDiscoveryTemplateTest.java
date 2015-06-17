@@ -22,7 +22,6 @@ import static org.springframework.test.web.client.match.MockRestRequestMatchers.
 import static org.springframework.test.web.client.response.MockRestResponseCreators.withSuccess;
 
 import java.util.List;
-import java.util.Locale;
 
 import org.junit.Assert;
 import org.junit.Test;
@@ -44,7 +43,7 @@ public class TargetingCriteriaDiscoveryTemplateTest extends AbstractTwitterApiTe
 
         DataListHolder<TargetingCriteriaDiscoveryForTvShow> discoveries = twitter.targetingCriteriaDiscoveryOperations().tvShow(
                 new TargetingCriteriaDiscoveryForTvShowQueryBuilder()
-                        .withLocale(Locale.forLanguageTag("pt-BR")));
+                        .withLocale("pt-BR"));
 
         assertTvShowsDiscoveries(discoveries.getList());
     }
