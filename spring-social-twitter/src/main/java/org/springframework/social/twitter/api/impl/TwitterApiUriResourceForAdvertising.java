@@ -14,6 +14,8 @@ public enum TwitterApiUriResourceForAdvertising {
     TARGETING_CRITERIAS("accounts/:account_id/targeting_criteria"),
     TARGETING_CRITERIA("accounts/:account_id/targeting_criteria/:targeting_criteria_id"),
 
+    TARGETINGS_DISCOVERY_TVSHOWS("accounts/:account_id/targeting_criteria/tv_shows"),
+
     TAILORED_AUDIENCES("accounts/:account_id/tailored_audiences"),
     TAILORED_AUDIENCE("accounts/:account_id/tailored_audiences/:tailored_audience_id"),
     TAILORED_AUDIENCE_CHANGES("accounts/:account_id/tailored_audience_changes"),

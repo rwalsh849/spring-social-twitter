@@ -1,0 +1,22 @@
+{
+  "next_cursor": "c-2",
+  "data_type": "targeting_criterion",
+  "request": {
+    "params": {
+    }
+  },
+  "data": [
+    {
+      "estimated_users": 154958,
+      "id": 10002546242,
+      "name": "BBC World News",
+      "genre": "TALK"
+    },
+    {
+      "estimated_users": 93330,
+      "id": 10000283242,
+      "name": "E! News",
+      "genre": "TALK"
+    }
+  ]
+}

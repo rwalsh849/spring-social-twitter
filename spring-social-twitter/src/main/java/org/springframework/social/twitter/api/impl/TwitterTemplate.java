@@ -36,19 +36,21 @@ import org.springframework.social.twitter.api.TimelineOperations;
 import org.springframework.social.twitter.api.Twitter;
 import org.springframework.social.twitter.api.UserOperations;
 import org.springframework.social.twitter.api.advertising.AdvertisingOperations;
-import org.springframework.social.twitter.api.ton.TonOperations;
 import org.springframework.social.twitter.api.advertising.CampaignOperations;
 import org.springframework.social.twitter.api.advertising.LineItemOperations;
 import org.springframework.social.twitter.api.advertising.StatisticsOperations;
 import org.springframework.social.twitter.api.advertising.TailoredAudienceOperations;
+import org.springframework.social.twitter.api.advertising.TargetingCriteriaDiscoveryOperations;
 import org.springframework.social.twitter.api.advertising.TargetingCriteriaOperations;
 import org.springframework.social.twitter.api.impl.advertising.AdvertisingTemplate;
 import org.springframework.social.twitter.api.impl.advertising.CampaignTemplate;
 import org.springframework.social.twitter.api.impl.advertising.LineItemTemplate;
 import org.springframework.social.twitter.api.impl.advertising.StatisticsTemplate;
 import org.springframework.social.twitter.api.impl.advertising.TailoredAudienceTemplate;
+import org.springframework.social.twitter.api.impl.advertising.TargetingCriteriaDiscoveryTemplate;
 import org.springframework.social.twitter.api.impl.advertising.TargetingCriteriaTemplate;
 import org.springframework.social.twitter.api.impl.ton.TonTemplate;
+import org.springframework.social.twitter.api.ton.TonOperations;
 import org.springframework.util.Assert;
 import org.springframework.web.client.RestOperations;
 import org.springframework.web.client.RestTemplate;
@@ -93,6 +95,8 @@ public class TwitterTemplate extends AbstractOAuth1ApiBinding implements Twitter
     private LineItemOperations lineItemOperations;
 
     private TargetingCriteriaOperations targetingCriteriaOperations;
+
+    private TargetingCriteriaDiscoveryOperations targetingCriteriaDiscoveryOperations;
 
     private TailoredAudienceOperations tailoredAudienceOperations;
 
@@ -172,12 +176,12 @@ public class TwitterTemplate extends AbstractOAuth1ApiBinding implements Twitter
     /**
      * Add additional media types for TON upload
      */
-	protected ByteArrayHttpMessageConverter getByteArrayMessageConverter() {
-		ByteArrayHttpMessageConverter converter = new ByteArrayHttpMessageConverter();
-		converter.setSupportedMediaTypes(Arrays.asList(MediaType.TEXT_PLAIN, MediaType.IMAGE_JPEG, MediaType.IMAGE_GIF, MediaType.IMAGE_PNG));
-		return converter;
-	}
-    
+    protected ByteArrayHttpMessageConverter getByteArrayMessageConverter() {
+        ByteArrayHttpMessageConverter converter = new ByteArrayHttpMessageConverter();
+        converter.setSupportedMediaTypes(Arrays.asList(MediaType.TEXT_PLAIN, MediaType.IMAGE_JPEG, MediaType.IMAGE_GIF, MediaType.IMAGE_PNG));
+        return converter;
+    }
+
     @Override
     public TimelineOperations timelineOperations() {
         return timelineOperations;
@@ -254,6 +258,11 @@ public class TwitterTemplate extends AbstractOAuth1ApiBinding implements Twitter
     }
 
     @Override
+    public TargetingCriteriaDiscoveryOperations targetingCriteriaDiscoveryOperations() {
+        return targetingCriteriaDiscoveryOperations;
+    }
+
+    @Override
     public TonOperations tonOperations() {
         return tonOperations;
     }
@@ -325,9 +334,10 @@ public class TwitterTemplate extends AbstractOAuth1ApiBinding implements Twitter
         this.campaignOperations = new CampaignTemplate(getRestTemplate(), isAuthorized(), isAuthorized());
         this.lineItemOperations = new LineItemTemplate(getRestTemplate(), isAuthorized(), isAuthorized());
         this.targetingCriteriaOperations = new TargetingCriteriaTemplate(getRestTemplate(), isAuthorized(), isAuthorized());
+        this.targetingCriteriaDiscoveryOperations = new TargetingCriteriaDiscoveryTemplate(getRestTemplate(), isAuthorized(), isAuthorized());
         this.tailoredAudienceOperations = new TailoredAudienceTemplate(getRestTemplate(), isAuthorized(), isAuthorized());
         this.tonOperations = new TonTemplate(getRestTemplate(), isAuthorized(), isAuthorized());
-        
+
         this.settings = new SettingsImpl();
     }
 

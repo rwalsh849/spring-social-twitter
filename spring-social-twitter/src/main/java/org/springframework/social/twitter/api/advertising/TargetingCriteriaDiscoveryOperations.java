@@ -15,28 +15,20 @@
  */
 package org.springframework.social.twitter.api.advertising;
 
-import org.springframework.social.twitter.api.TwitterForm;
+import org.springframework.social.twitter.api.impl.DataListHolder;
 
 /**
- * Defines the contract for the input form builder of {@link TailoredAudience}.
+ * Interface defining the operations for advertising statistical operations.
  * 
  * @author Hudson Mendes
  */
-public interface TailoredAudienceForm extends TwitterForm {
+public interface TargetingCriteriaDiscoveryOperations {
 
     /**
-     * Defines the type of the list for the {@link TailoredAudience}
+     * Retireves a {@link TargetingCriteriaDiscoveryForTvShow}.
      * 
-     * @param listType is one amongst the set out in {@link TailoredAudienceListType}
-     * @return the fluent builder
+     * @param accountId is the account for which we want to retrieve the discovery data.
+     * @return an instance of {@link TargetingCriteriaDiscoveryForTvShow}
      */
-    public TailoredAudienceForm ofListType(TailoredAudienceListType listType);
-
-    /**
-     * Defines the name of the tailored {@link TailoredAudience}
-     * 
-     * @param name of the {@link TailoredAudience}.
-     * @return the fluent builder
-     */
-    public TailoredAudienceForm named(String name);
+    DataListHolder<TargetingCriteriaDiscoveryForTvShow> tvShow(String accountId, TargetingCriteriaDiscoveryForTvShowQuery query);
 }
