@@ -17,6 +17,8 @@ package org.springframework.social.twitter.api.impl.advertising;
 
 import org.springframework.core.ParameterizedTypeReference;
 import org.springframework.http.HttpMethod;
+import org.springframework.social.twitter.api.advertising.TargetingCriteriaDiscoveryForTvChannel;
+import org.springframework.social.twitter.api.advertising.TargetingCriteriaDiscoveryForTvChannelQuery;
 import org.springframework.social.twitter.api.advertising.TargetingCriteriaDiscoveryForTvGenre;
 import org.springframework.social.twitter.api.advertising.TargetingCriteriaDiscoveryForTvGenreQuery;
 import org.springframework.social.twitter.api.advertising.TargetingCriteriaDiscoveryForTvMarket;
@@ -80,4 +82,17 @@ public class TargetingCriteriaDiscoveryTemplate extends AbstractTwitterOperation
                 ).getBody();
     }
 
+    @Override
+    public DataListHolder<TargetingCriteriaDiscoveryForTvChannel> tvChannels(TargetingCriteriaDiscoveryForTvChannelQuery query) {
+        requireUserAuthorization();
+        return restTemplate.exchange(
+                new TwitterApiBuilderForUri()
+                        .withResource(TwitterApiUriResourceForAdvertising.TARGETINGS_DISCOVERY_TV_CHANNELS)
+                        .withArgument(query.toQueryParameters())
+                        .build(),
+                HttpMethod.GET,
+                null,
+                new ParameterizedTypeReference<DataListHolder<TargetingCriteriaDiscoveryForTvChannel>>() {}
+                ).getBody();
+    }
 }

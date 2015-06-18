@@ -25,6 +25,7 @@ import java.util.List;
 
 import org.junit.Assert;
 import org.junit.Test;
+import org.springframework.social.twitter.api.advertising.TargetingCriteriaDiscoveryForTvChannel;
 import org.springframework.social.twitter.api.advertising.TargetingCriteriaDiscoveryForTvGenre;
 import org.springframework.social.twitter.api.advertising.TargetingCriteriaDiscoveryForTvMarket;
 import org.springframework.social.twitter.api.advertising.TargetingCriteriaDiscoveryForTvShow;
@@ -112,5 +113,28 @@ public class TargetingCriteriaDiscoveryTemplateTest extends AbstractTwitterApiTe
 
         Assert.assertEquals(new Long("11"), actual.get(1).getId());
         Assert.assertEquals("SPORTS", actual.get(1).getName());
+    }
+
+    @Test
+    public void tvChannels() {
+        mockServer
+                .expect(requestTo("https://ads-api.twitter.com/0/targeting_criteria/tv_channels"))
+                .andExpect(method(GET))
+                .andRespond(withSuccess(jsonResource("ad-targetings-tv_channels"), APPLICATION_JSON));
+
+        DataListHolder<TargetingCriteriaDiscoveryForTvChannel> discoveries = twitter.targetingCriteriaDiscoveryOperations().tvChannels(
+                new TargetingCriteriaDiscoveryForTvChannelQueryBuilder());
+
+        assertTvChannelsDiscoveries(discoveries.getList());
+    }
+
+    private void assertTvChannelsDiscoveries(List<TargetingCriteriaDiscoveryForTvChannel> actual) {
+        Assert.assertEquals(200, actual.size());
+
+        Assert.assertEquals(new Long("1003"), actual.get(0).getId());
+        Assert.assertEquals("ESPN", actual.get(0).getName());
+
+        Assert.assertEquals(new Long("1004"), actual.get(1).getId());
+        Assert.assertEquals("Cartoon Network", actual.get(1).getName());
     }
 }
