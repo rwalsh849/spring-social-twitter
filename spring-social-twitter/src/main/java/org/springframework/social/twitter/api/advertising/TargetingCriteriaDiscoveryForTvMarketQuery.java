@@ -15,22 +15,12 @@
  */
 package org.springframework.social.twitter.api.advertising;
 
-import org.springframework.social.twitter.api.impl.DataListHolder;
+import org.springframework.social.twitter.api.TwitterQueryForDiscovery;
 
 /**
- * Interface defining the operations for advertising statistical operations.
+ * Defines the data that will be used to query a list of {@link TargetingCriteriaDiscoveryForTvMarket}.
  * 
  * @author Hudson Mendes
  */
-public interface TargetingCriteriaDiscoveryOperations {
-
-    /**
-     * @return an instance of {@link TargetingCriteriaDiscoveryForTvShow}
-     */
-    DataListHolder<TargetingCriteriaDiscoveryForTvShow> tvShow(TargetingCriteriaDiscoveryForTvShowQuery query);
-
-    /**
-     * @return an instance of {@link TargetingCriteriaDiscoveryForTvMarket}
-     */
-    DataListHolder<TargetingCriteriaDiscoveryForTvMarket> tvMarkets(TargetingCriteriaDiscoveryForTvMarketQuery query);
+public interface TargetingCriteriaDiscoveryForTvMarketQuery extends TwitterQueryForDiscovery<TargetingCriteriaDiscoveryForTvMarketQuery> {
 }

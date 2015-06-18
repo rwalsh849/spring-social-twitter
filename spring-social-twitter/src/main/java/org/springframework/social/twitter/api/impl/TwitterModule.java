@@ -41,6 +41,7 @@ import org.springframework.social.twitter.api.advertising.StatisticsSnapshot;
 import org.springframework.social.twitter.api.advertising.TailoredAudience;
 import org.springframework.social.twitter.api.advertising.TailoredAudienceChange;
 import org.springframework.social.twitter.api.advertising.TargetingCriteria;
+import org.springframework.social.twitter.api.advertising.TargetingCriteriaDiscoveryForTvMarket;
 import org.springframework.social.twitter.api.advertising.TargetingCriteriaDiscoveryForTvShow;
 import org.springframework.social.twitter.api.impl.advertising.AdvertisingAccountMixin;
 import org.springframework.social.twitter.api.impl.advertising.CampaignMixin;
@@ -50,6 +51,7 @@ import org.springframework.social.twitter.api.impl.advertising.LineItemMixin;
 import org.springframework.social.twitter.api.impl.advertising.StatisticsSnapshotMixin;
 import org.springframework.social.twitter.api.impl.advertising.TailoredAudienceChangeMixin;
 import org.springframework.social.twitter.api.impl.advertising.TailoredAudienceMixin;
+import org.springframework.social.twitter.api.impl.advertising.TargetingCriteriaDiscoveryForTvMarketMixin;
 import org.springframework.social.twitter.api.impl.advertising.TargetingCriteriaDiscoveryForTvShowMixin;
 import org.springframework.social.twitter.api.impl.advertising.TargetingCriteriaMixin;
 
@@ -94,6 +96,7 @@ public class TwitterModule extends SimpleModule {
         context.setMixInAnnotations(GlobalOptOut.class, GlobalOptOutMixin.class);
         context.setMixInAnnotations(TailoredAudience.class, TailoredAudienceMixin.class);
         context.setMixInAnnotations(TailoredAudienceChange.class, TailoredAudienceChangeMixin.class);
+        context.setMixInAnnotations(TargetingCriteriaDiscoveryForTvMarket.class, TargetingCriteriaDiscoveryForTvMarketMixin.class);
         context.setMixInAnnotations(TargetingCriteriaDiscoveryForTvShow.class, TargetingCriteriaDiscoveryForTvShowMixin.class);
 
         context.setMixInAnnotations(AccountSettings.class, AccountSettingsMixin.class);

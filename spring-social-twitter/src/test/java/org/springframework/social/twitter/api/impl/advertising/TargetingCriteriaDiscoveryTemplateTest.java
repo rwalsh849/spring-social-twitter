@@ -25,6 +25,7 @@ import java.util.List;
 
 import org.junit.Assert;
 import org.junit.Test;
+import org.springframework.social.twitter.api.advertising.TargetingCriteriaDiscoveryForTvMarket;
 import org.springframework.social.twitter.api.advertising.TargetingCriteriaDiscoveryForTvShow;
 import org.springframework.social.twitter.api.impl.AbstractTwitterApiTest;
 import org.springframework.social.twitter.api.impl.DataListHolder;
@@ -51,14 +52,41 @@ public class TargetingCriteriaDiscoveryTemplateTest extends AbstractTwitterApiTe
     private void assertTvShowsDiscoveries(List<TargetingCriteriaDiscoveryForTvShow> actual) {
         Assert.assertEquals(50, actual.size());
 
-        Assert.assertEquals(actual.get(0).getId(), new Long("10032876335"));
-        Assert.assertEquals(actual.get(0).getEstimatedUsers(), new Long("1000"));
-        Assert.assertEquals(actual.get(0).getName(), "Debate 2014 - Presidente");
-        Assert.assertEquals(actual.get(0).getGenre(), "SPECIAL");
+        Assert.assertEquals(new Long("10032876335"), actual.get(0).getId());
+        Assert.assertEquals(new Long("1000"), actual.get(0).getEstimatedUsers());
+        Assert.assertEquals("Debate 2014 - Presidente", actual.get(0).getName());
+        Assert.assertEquals("SPECIAL", actual.get(0).getGenre());
 
-        Assert.assertEquals(actual.get(1).getId(), new Long("10032994279"));
-        Assert.assertEquals(actual.get(1).getEstimatedUsers(), new Long("1000"));
-        Assert.assertEquals(actual.get(1).getName(), "2014 FIBA World Cup");
-        Assert.assertEquals(actual.get(1).getGenre(), "SPORTS");
+        Assert.assertEquals(new Long("10032994279"), actual.get(1).getId());
+        Assert.assertEquals(new Long("1000"), actual.get(1).getEstimatedUsers());
+        Assert.assertEquals("2014 FIBA World Cup", actual.get(1).getName());
+        Assert.assertEquals("SPORTS", actual.get(1).getGenre());
+    }
+
+    @Test
+    public void tvMarkets() {
+        mockServer
+                .expect(requestTo("https://ads-api.twitter.com/0/targeting_criteria/tv_markets"))
+                .andExpect(method(GET))
+                .andRespond(withSuccess(jsonResource("ad-targetings-tv_markets"), APPLICATION_JSON));
+
+        DataListHolder<TargetingCriteriaDiscoveryForTvMarket> discoveries = twitter.targetingCriteriaDiscoveryOperations().tvMarkets(
+                new TargetingCriteriaDiscoveryForTvMarketQueryBuilder());
+
+        assertTvMarketsDiscoveries(discoveries.getList());
+    }
+
+    private void assertTvMarketsDiscoveries(List<TargetingCriteriaDiscoveryForTvMarket> actual) {
+        Assert.assertEquals(17, actual.size());
+
+        Assert.assertEquals("6", actual.get(0).getId());
+        Assert.assertEquals("France", actual.get(0).getName());
+        Assert.assertEquals("FR", actual.get(0).getCountryCode());
+        Assert.assertEquals("fr-FR", actual.get(0).getLocale());
+
+        Assert.assertEquals("i", actual.get(1).getId());
+        Assert.assertEquals("Chile", actual.get(1).getName());
+        Assert.assertEquals("CL", actual.get(1).getCountryCode());
+        Assert.assertEquals("es-CL", actual.get(1).getLocale());
     }
 }
