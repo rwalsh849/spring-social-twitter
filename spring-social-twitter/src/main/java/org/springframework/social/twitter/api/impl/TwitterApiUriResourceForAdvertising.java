@@ -14,8 +14,9 @@ public enum TwitterApiUriResourceForAdvertising {
     TARGETING_CRITERIAS("accounts/:account_id/targeting_criteria"),
     TARGETING_CRITERIA("accounts/:account_id/targeting_criteria/:targeting_criteria_id"),
 
-    TARGETINGS_DISCOVERY_TVMARKETS("targeting_criteria/tv_markets"),
-    TARGETINGS_DISCOVERY_TVSHOWS("targeting_criteria/tv_shows"),
+    TARGETINGS_DISCOVERY_TV_GENRES("targeting_criteria/tv_genres"),
+    TARGETINGS_DISCOVERY_TV_MARKETS("targeting_criteria/tv_markets"),
+    TARGETINGS_DISCOVERY_TV_SHOWS("targeting_criteria/tv_shows"),
 
     TAILORED_AUDIENCES("accounts/:account_id/tailored_audiences"),
     TAILORED_AUDIENCE("accounts/:account_id/tailored_audiences/:tailored_audience_id"),

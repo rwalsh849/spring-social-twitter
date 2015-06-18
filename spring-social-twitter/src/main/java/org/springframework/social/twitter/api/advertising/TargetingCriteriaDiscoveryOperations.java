@@ -33,4 +33,9 @@ public interface TargetingCriteriaDiscoveryOperations {
      * @return an instance of {@link TargetingCriteriaDiscoveryForTvMarket}
      */
     DataListHolder<TargetingCriteriaDiscoveryForTvMarket> tvMarkets(TargetingCriteriaDiscoveryForTvMarketQuery query);
+
+    /**
+     * @return an instance of {@link TargetingCriteriaDiscoveryForTvGenre}
+     */
+    DataListHolder<TargetingCriteriaDiscoveryForTvGenre> tvGenres(TargetingCriteriaDiscoveryForTvGenreQuery query);
 }

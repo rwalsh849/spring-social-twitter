@@ -19,41 +19,27 @@ import org.springframework.social.twitter.api.TwitterObject;
 
 
 /**
- * Data discovery for targeting criterias based in tv-markets.
+ * Data discovery for targeting criterias based in tv-genres.
  * 
  * @author Hudson Mendes
  */
-public class TargetingCriteriaDiscoveryForTvMarket extends TwitterObject {
-    private final String id;
+public class TargetingCriteriaDiscoveryForTvGenre extends TwitterObject {
+    private final Long id;
     private final String name;
-    private final String countryCode;
-    private final String locale;
 
-    public TargetingCriteriaDiscoveryForTvMarket(
-            String id,
-            String name,
-            String countryCode,
-            String locale) {
+    public TargetingCriteriaDiscoveryForTvGenre(
+            Long id,
+            String name) {
 
         this.id = id;
         this.name = name;
-        this.countryCode = countryCode;
-        this.locale = locale;
     }
 
-    public String getCountryCode() {
-        return countryCode;
-    }
-
-    public String getId() {
+    public Long getId() {
         return id;
     }
 
     public String getName() {
         return name;
-    }
-
-    public String getLocale() {
-        return locale;
     }
 }

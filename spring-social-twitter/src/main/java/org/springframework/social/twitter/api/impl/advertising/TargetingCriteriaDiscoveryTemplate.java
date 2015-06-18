@@ -17,6 +17,8 @@ package org.springframework.social.twitter.api.impl.advertising;
 
 import org.springframework.core.ParameterizedTypeReference;
 import org.springframework.http.HttpMethod;
+import org.springframework.social.twitter.api.advertising.TargetingCriteriaDiscoveryForTvGenre;
+import org.springframework.social.twitter.api.advertising.TargetingCriteriaDiscoveryForTvGenreQuery;
 import org.springframework.social.twitter.api.advertising.TargetingCriteriaDiscoveryForTvMarket;
 import org.springframework.social.twitter.api.advertising.TargetingCriteriaDiscoveryForTvMarketQuery;
 import org.springframework.social.twitter.api.advertising.TargetingCriteriaDiscoveryForTvShow;
@@ -41,7 +43,7 @@ public class TargetingCriteriaDiscoveryTemplate extends AbstractTwitterOperation
         requireUserAuthorization();
         return restTemplate.exchange(
                 new TwitterApiBuilderForUri()
-                        .withResource(TwitterApiUriResourceForAdvertising.TARGETINGS_DISCOVERY_TVSHOWS)
+                        .withResource(TwitterApiUriResourceForAdvertising.TARGETINGS_DISCOVERY_TV_SHOWS)
                         .withArgument(query.toQueryParameters())
                         .build(),
                 HttpMethod.GET,
@@ -55,12 +57,26 @@ public class TargetingCriteriaDiscoveryTemplate extends AbstractTwitterOperation
         requireUserAuthorization();
         return restTemplate.exchange(
                 new TwitterApiBuilderForUri()
-                        .withResource(TwitterApiUriResourceForAdvertising.TARGETINGS_DISCOVERY_TVMARKETS)
+                        .withResource(TwitterApiUriResourceForAdvertising.TARGETINGS_DISCOVERY_TV_MARKETS)
                         .withArgument(query.toQueryParameters())
                         .build(),
                 HttpMethod.GET,
                 null,
                 new ParameterizedTypeReference<DataListHolder<TargetingCriteriaDiscoveryForTvMarket>>() {}
+                ).getBody();
+    }
+
+    @Override
+    public DataListHolder<TargetingCriteriaDiscoveryForTvGenre> tvGenres(TargetingCriteriaDiscoveryForTvGenreQuery query) {
+        requireUserAuthorization();
+        return restTemplate.exchange(
+                new TwitterApiBuilderForUri()
+                        .withResource(TwitterApiUriResourceForAdvertising.TARGETINGS_DISCOVERY_TV_GENRES)
+                        .withArgument(query.toQueryParameters())
+                        .build(),
+                HttpMethod.GET,
+                null,
+                new ParameterizedTypeReference<DataListHolder<TargetingCriteriaDiscoveryForTvGenre>>() {}
                 ).getBody();
     }
 
