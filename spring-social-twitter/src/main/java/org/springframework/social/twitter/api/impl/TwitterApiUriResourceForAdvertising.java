@@ -6,6 +6,8 @@ public enum TwitterApiUriResourceForAdvertising {
     CAMPAIGNS("accounts/:account_id/campaigns"),
     CAMPAIGN("accounts/:account_id/campaigns/:campaign_id"),
 
+    PROMOTED_TWEETS("accounts/:account_id/tweet"),
+
     FUNDING_INSTRUMENTS("accounts/:account_id/funding_instruments"),
 
     LINE_ITEMS("accounts/:account_id/line_items"),
