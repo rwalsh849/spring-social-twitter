@@ -15,33 +15,33 @@
  */
 package org.springframework.social.twitter.api.impl.advertising;
 
-import org.springframework.social.twitter.api.TwitterQueryForDiscovery;
+import org.springframework.social.twitter.api.TwitterQueryForEntity;
+import org.springframework.social.twitter.api.TwitterQueryForSortableEntity;
 import org.springframework.util.LinkedMultiValueMap;
 import org.springframework.util.MultiValueMap;
-import org.springframework.util.StringUtils;
 
 /**
  * Basic representation of the QueryString parameters builders
- * that shall be used for querying basic data in the APIs.
+ * that shall be used for querying any data in the APIs.
  * Important: unfortunately, the basic API is a lot less standardized than the ADs Api
  * and therefore we cannot use this base builder for _everything_. However,
  * it's reasonable the Twitter moves towards standardization and then, this
  * builder will become a richer asset to the Api.
  * 
  * @author Hudson Mendes
+ *
+ * @param <TSort> the sort enumberation that varies for each entity being requested.
  */
-public abstract class AbstractTwitterQueryForDiscoveryBuilder<TBuilderInterface extends TwitterQueryForDiscovery<TBuilderInterface>>
-        extends AbstractTwitterParametersBuilder
-        implements TwitterQueryForDiscovery<TBuilderInterface> {
+public abstract class AbstractTwitterQueryForSortableEntityBuilder<TBuilderInterface extends TwitterQueryForEntity<TBuilderInterface>, TSort>
+        extends AbstractTwitterQueryForEntityBuilder<TBuilderInterface>
+        implements TwitterQueryForSortableEntity<TBuilderInterface, TSort> {
 
-    private String cursor;
-    private Integer pageSize;
+    private TSort sort;
 
     @Override
     @SuppressWarnings("unchecked")
-    public TBuilderInterface pagedBy(String cursor, Integer pageSize) {
-        this.cursor = cursor;
-        this.pageSize = pageSize;
+    public TBuilderInterface sortBy(TSort sort) {
+        this.sort = sort;
         return (TBuilderInterface) this;
     }
 
@@ -50,14 +50,14 @@ public abstract class AbstractTwitterQueryForDiscoveryBuilder<TBuilderInterface 
         MultiValueMap<String, String> map = new LinkedMultiValueMap<String, String>();
         makeParameters(map);
 
-        if (!StringUtils.isEmpty(this.cursor))
-            appendParameter(map, "cursor", this.cursor);
+        MultiValueMap<String, String> parentMap = super.toQueryParameters();
+        for (String parentKey : parentMap.keySet())
+            if (parentMap.get(parentKey).size() != 0)
+                appendParameter(map, parentKey, parentMap.get(parentKey).get(0));
 
-        if (this.pageSize != null)
-            appendParameter(map, "count", this.pageSize);
+        if (this.sort != null)
+            appendParameter(map, "sort", this.sort);
 
         return map;
     }
-
-    protected abstract void makeParameters(MultiValueMap<String, String> map);
 }

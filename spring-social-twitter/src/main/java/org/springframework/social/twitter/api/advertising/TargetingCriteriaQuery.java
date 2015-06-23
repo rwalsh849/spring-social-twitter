@@ -15,7 +15,7 @@
  */
 package org.springframework.social.twitter.api.advertising;
 
-import org.springframework.social.twitter.api.TwitterQueryForEntity;
+import org.springframework.social.twitter.api.TwitterQueryForSortableEntity;
 
 /**
  * Defines the data that will be used to query a list of {@link TargetingCriteria}.
@@ -23,7 +23,7 @@ import org.springframework.social.twitter.api.TwitterQueryForEntity;
  * @author Hudson Mendes
  *
  */
-public interface TargetingCriteriaQuery extends TwitterQueryForEntity<TargetingCriteriaQuery, TargetingCriteriaSorting> {
+public interface TargetingCriteriaQuery extends TwitterQueryForSortableEntity<TargetingCriteriaQuery, TargetingCriteriaSorting> {
 
     /**
      * Filter the results by a particular {@link LineItem}.

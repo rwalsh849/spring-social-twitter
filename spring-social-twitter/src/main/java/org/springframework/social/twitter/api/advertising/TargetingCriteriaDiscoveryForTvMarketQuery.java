@@ -15,12 +15,12 @@
  */
 package org.springframework.social.twitter.api.advertising;
 
-import org.springframework.social.twitter.api.TwitterQueryForDiscovery;
+import org.springframework.social.twitter.api.TwitterQueryForEntity;
 
 /**
  * Defines the data that will be used to query a list of {@link TargetingCriteriaDiscoveryForTvMarket}.
  * 
  * @author Hudson Mendes
  */
-public interface TargetingCriteriaDiscoveryForTvMarketQuery extends TwitterQueryForDiscovery<TargetingCriteriaDiscoveryForTvMarketQuery> {
+public interface TargetingCriteriaDiscoveryForTvMarketQuery extends TwitterQueryForEntity<TargetingCriteriaDiscoveryForTvMarketQuery> {
 }

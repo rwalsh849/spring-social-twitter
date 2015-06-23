@@ -15,7 +15,6 @@
  */
 package org.springframework.social.twitter.api;
 
-import org.springframework.util.MultiValueMap;
 
 /**
  * Generic data query builder contract that can be used to build
@@ -28,9 +27,8 @@ import org.springframework.util.MultiValueMap;
  * 
  * @author Hudson mendes
  */
-public interface TwitterQueryForDiscovery<TBuilderInterface extends TwitterQueryForDiscovery<TBuilderInterface>> {
+public interface TwitterQueryForSortableEntity<TBuilderInterface extends TwitterQueryForEntity<TBuilderInterface>, TSort> extends
+        TwitterQueryForEntity<TBuilderInterface> {
 
-    public TBuilderInterface pagedBy(String cursor, Integer pageSize);
-
-    public MultiValueMap<String, String> toQueryParameters();
+    public TBuilderInterface sortBy(TSort sort);
 }

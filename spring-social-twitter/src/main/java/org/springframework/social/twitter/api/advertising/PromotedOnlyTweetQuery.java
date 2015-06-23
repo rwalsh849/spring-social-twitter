@@ -15,21 +15,16 @@
  */
 package org.springframework.social.twitter.api.advertising;
 
-import org.springframework.social.twitter.api.Tweet;
+import org.springframework.social.twitter.api.TwitterQueryForEntity;
 
 /**
- * Interface defining the operations for promoted tweets (Ads API).
- * 
  * @author Hudson Mendes
  */
-public interface PromotedTweetOperations {
+public interface PromotedOnlyTweetQuery extends TwitterQueryForEntity<PromotedOnlyTweetQuery> {
 
-    /**
-     * Creates a {@link Tweet} that is a promoted-only tweet.
-     * 
-     * @param accountId identifies the account for which the promoted-only tweet will be created.
-     * @param input is the data of the tweet.
-     * @return the {@link Tweet} that has been created.
-     */
-    Tweet createPromotedOnlyTweet(String accountId, PromotedOnlyTweetForm input);
+    public PromotedOnlyTweetQuery ofUsers(Long... userIds);
+
+    public PromotedOnlyTweetQuery withObjective(AdvertisingObjective objective);
+
+    public PromotedOnlyTweetQuery trimUser(Boolean trimUser);
 }

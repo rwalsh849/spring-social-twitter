@@ -4,7 +4,7 @@ import org.springframework.social.twitter.api.advertising.TargetingCriteriaDisco
 import org.springframework.util.MultiValueMap;
 
 public class TargetingCriteriaDiscoveryForTvMarketQueryBuilder
-        extends AbstractTwitterQueryForDiscoveryBuilder<TargetingCriteriaDiscoveryForTvMarketQuery>
+        extends AbstractTwitterQueryForEntityBuilder<TargetingCriteriaDiscoveryForTvMarketQuery>
         implements TargetingCriteriaDiscoveryForTvMarketQuery {
 
     @Override

@@ -27,12 +27,11 @@ import org.springframework.util.MultiValueMap;
  * @author Hudson Mendes
  */
 public class AdvertisingAccountQueryBuilder
-        extends AbstractTwitterQueryForEntityBuilder<AdvertisingAccountQuery, AdvertisingAccountSorting>
+        extends AbstractTwitterQueryForSortableEntityBuilder<AdvertisingAccountQuery, AdvertisingAccountSorting>
         implements AdvertisingAccountQuery {
 
     @Override
     protected void makeParameters(MultiValueMap<String, String> map) {
         // no parameters to add here
     }
-
 }

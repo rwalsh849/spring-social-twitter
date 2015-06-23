@@ -15,11 +15,11 @@
  */
 package org.springframework.social.twitter.api.advertising;
 
-import org.springframework.social.twitter.api.TwitterQueryForEntity;
+import org.springframework.social.twitter.api.TwitterQueryForSortableEntity;
 
 /**
  * Defines the contract for any {@link AdvertisingAccount} query.
  * @author Hudson Mendes
  */
-public interface AdvertisingAccountQuery extends TwitterQueryForEntity<AdvertisingAccountQuery, AdvertisingAccountSorting> {
+public interface AdvertisingAccountQuery extends TwitterQueryForSortableEntity<AdvertisingAccountQuery, AdvertisingAccountSorting> {
 }

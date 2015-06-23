@@ -30,7 +30,7 @@ import org.springframework.util.MultiValueMap;
  * @author Hudson Mendes
  */
 public class FundingInstrumentQueryBuilder
-        extends AbstractTwitterQueryForEntityBuilder<FundingInstrumentQuery, FundingInstrumentSorting>
+        extends AbstractTwitterQueryForSortableEntityBuilder<FundingInstrumentQuery, FundingInstrumentSorting>
         implements FundingInstrumentQuery {
 
     private List<String> fundingInstrumentIds;

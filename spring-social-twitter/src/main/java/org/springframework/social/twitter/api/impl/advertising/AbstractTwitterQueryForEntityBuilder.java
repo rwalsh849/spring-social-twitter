@@ -33,11 +33,10 @@ import org.springframework.util.StringUtils;
  *
  * @param <TSort> the sort enumberation that varies for each entity being requested.
  */
-public abstract class AbstractTwitterQueryForEntityBuilder<TBuilderInterface extends TwitterQueryForData<TBuilderInterface>, TSort>
+public abstract class AbstractTwitterQueryForEntityBuilder<TBuilderInterface extends TwitterQueryForData<TBuilderInterface>>
         extends AbstractTwitterQueryForDataBuilder<TBuilderInterface>
-        implements TwitterQueryForEntity<TBuilderInterface, TSort> {
+        implements TwitterQueryForEntity<TBuilderInterface> {
 
-    private TSort sort;
     private String cursor;
     private Integer pageSize;
 
@@ -46,13 +45,6 @@ public abstract class AbstractTwitterQueryForEntityBuilder<TBuilderInterface ext
     public TBuilderInterface pagedBy(String cursor, Integer pageSize) {
         this.cursor = cursor;
         this.pageSize = pageSize;
-        return (TBuilderInterface) this;
-    }
-
-    @Override
-    @SuppressWarnings("unchecked")
-    public TBuilderInterface sortBy(TSort sort) {
-        this.sort = sort;
         return (TBuilderInterface) this;
     }
 
@@ -66,9 +58,6 @@ public abstract class AbstractTwitterQueryForEntityBuilder<TBuilderInterface ext
             if (parentMap.get(parentKey).size() != 0)
                 appendParameter(map, parentKey, parentMap.get(parentKey).get(0));
 
-        if (this.sort != null)
-            appendParameter(map, "sort", this.sort);
-
         if (!StringUtils.isEmpty(this.cursor))
             appendParameter(map, "cursor", this.cursor);
 
@@ -77,7 +66,4 @@ public abstract class AbstractTwitterQueryForEntityBuilder<TBuilderInterface ext
 
         return map;
     }
-
-    @Override
-    protected abstract void makeParameters(MultiValueMap<String, String> map);
 }

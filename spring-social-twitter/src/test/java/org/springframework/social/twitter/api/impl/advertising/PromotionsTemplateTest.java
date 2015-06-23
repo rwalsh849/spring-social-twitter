@@ -15,6 +15,7 @@
  */
 package org.springframework.social.twitter.api.impl.advertising;
 
+import static org.springframework.http.HttpMethod.GET;
 import static org.springframework.http.HttpMethod.POST;
 import static org.springframework.http.MediaType.APPLICATION_JSON;
 import static org.springframework.test.web.client.match.MockRestRequestMatchers.content;
@@ -27,16 +28,62 @@ import java.util.List;
 
 import org.hamcrest.CoreMatchers;
 import org.junit.Assert;
+import org.junit.Ignore;
 import org.junit.Test;
 import org.springframework.social.twitter.api.Tweet;
+import org.springframework.social.twitter.api.advertising.PromotableUser;
 import org.springframework.social.twitter.api.impl.AbstractTwitterApiTest;
 
 /**
- * @author Hudson mendes
+ * @author Hudson Mendes
  */
-public class PromotedTweetTemplateTest extends AbstractTwitterApiTest {
+public class PromotionsTemplateTest extends AbstractTwitterApiTest {
 
     @Test
+    public void getPromotableUsers() {
+        String mockedAccountId = "0ga0yn";
+        mockServer
+                .expect(requestTo("https://ads-api.twitter.com/0/accounts/" + mockedAccountId + "/promotable_users?with_deleted=true"))
+                .andExpect(method(GET))
+                .andRespond(withSuccess(jsonResource("ad-promotable-users"), APPLICATION_JSON));
+
+        List<PromotableUser> promotables = twitter.promotionOperations().getPromotableUsers(
+                mockedAccountId,
+                new PromotableUserQueryBuilder().includeDeleted(true)).getList();
+
+        Assert.assertNotEquals(0, promotables.size());
+        Assert.assertEquals("13phg", promotables.get(0).getId());
+        Assert.assertEquals("gq0vqj", promotables.get(0).getAccountId());
+        Assert.assertEquals(new Long("390472547"), promotables.get(0).getUserId());
+        Assert.assertEquals("FULL", promotables.get(0).getPromotableUserType());
+        Assert.assertEquals(false, promotables.get(0).isDeleted());
+        Assert.assertEquals("2015-04-13T20:42:39", promotables.get(0).getCreatedAt().toString());
+        Assert.assertEquals("2015-04-13T20:42:39", promotables.get(0).getUpdatedAt().toString());
+    }
+
+    @Test
+    @Ignore
+    public void getPromotedOnlyTweets() {
+        String mockedAccountId = "0ga0yn";
+        mockServer
+                .expect(requestTo("https://ads-api.twitter.com/0/accounts/" + mockedAccountId
+                        + "/scoped_timeline?scoped_to=none&user_ids=390472547&trim_user=true&count=1"))
+                .andExpect(method(GET))
+                .andRespond(withSuccess(jsonResource("ad-promoted-only-tweets"), APPLICATION_JSON));
+
+        List<Tweet> tweets = twitter.promotionOperations().getPromotedOnlyTweets(
+                mockedAccountId,
+                new PromotedOnlyTweetQueryBuilder()
+                        .ofUsers(new Long("390472547"))
+                        .pagedBy(null, 1)
+                        .trimUser(true)).getList();
+
+        Assert.assertNotEquals(0, tweets.size());
+        assertTweetContents(tweets.get(0));
+    }
+
+    @Test
+    @Ignore
     public void createPromotedOnlyTweet() {
         String mockedAccountId = "hkk5";
 
@@ -46,9 +93,9 @@ public class PromotedTweetTemplateTest extends AbstractTwitterApiTest {
                 .expect(requestTo("https://ads-api.twitter.com/0/accounts/" + mockedAccountId + "/tweet"))
                 .andExpect(method(POST))
                 .andExpect(content().string(chainedPostContent))
-                .andRespond(withSuccess(jsonResource("ad-promoted-only-tweet"), APPLICATION_JSON));
+                .andRespond(withSuccess(jsonResource("ad-promoted-only-tweets-single"), APPLICATION_JSON));
 
-        Tweet tweet = twitter.promotedTweetOperations().createPromotedOnlyTweet(
+        Tweet tweet = twitter.promotionOperations().createPromotedOnlyTweet(
                 mockedAccountId,
                 new PromotedOnlyTweetFormBuilder());
 

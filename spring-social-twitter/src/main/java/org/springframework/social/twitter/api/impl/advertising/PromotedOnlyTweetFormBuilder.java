@@ -15,6 +15,9 @@
  */
 package org.springframework.social.twitter.api.impl.advertising;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import org.springframework.social.twitter.api.advertising.PromotedOnlyTweetForm;
 import org.springframework.util.LinkedMultiValueMap;
 import org.springframework.util.MultiValueMap;
@@ -22,10 +25,45 @@ import org.springframework.util.MultiValueMap;
 /**
  * @author Hudson Mendes
  */
-public class PromotedOnlyTweetFormBuilder implements PromotedOnlyTweetForm {
+public class PromotedOnlyTweetFormBuilder extends AbstractTwitterFormBuilder implements PromotedOnlyTweetForm {
+
+    private String text;
+    private Long asUserId;
+    private Boolean trimUser;
+    private final List<Long> mediaIds = new ArrayList<>();
 
     @Override
     public MultiValueMap<String, String> toRequestBody() {
-        return new LinkedMultiValueMap<String, String>();
+        MultiValueMap<String, String> map = new LinkedMultiValueMap<String, String>();
+        appendParameter(map, "text", this.text);
+        appendParameter(map, "as_user_id", this.asUserId);
+        appendParameter(map, "trim_user", this.trimUser);
+        appendParameter(map, "media_ids", this.mediaIds);
+        return map;
+    }
+
+    @Override
+    public PromotedOnlyTweetForm withText(String text) {
+        this.text = text;
+        return this;
+    }
+
+    @Override
+    public PromotedOnlyTweetForm asUser(Long userId) {
+        this.asUserId = userId;
+        return this;
+    }
+
+    @Override
+    public PromotedOnlyTweetForm trimUser(Boolean trimUser) {
+        this.trimUser = trimUser;
+        return this;
+    }
+
+    @Override
+    public PromotedOnlyTweetForm withMediaIds(Long... mediaIds) {
+        for (Long mediaId : mediaIds)
+            this.mediaIds.add(mediaId);
+        return this;
     }
 }

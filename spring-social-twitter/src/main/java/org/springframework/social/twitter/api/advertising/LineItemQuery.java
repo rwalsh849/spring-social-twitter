@@ -17,14 +17,14 @@ package org.springframework.social.twitter.api.advertising;
 
 import java.time.LocalDateTime;
 
-import org.springframework.social.twitter.api.TwitterQueryForEntity;
+import org.springframework.social.twitter.api.TwitterQueryForSortableEntity;
 
 /**
  * Defines the contract for any {@link LineItemQuery}.
  * 
  * @author Hudson Mendes
  */
-public interface LineItemQuery extends TwitterQueryForEntity<LineItemQuery, LineItemSorting> {
+public interface LineItemQuery extends TwitterQueryForSortableEntity<LineItemQuery, LineItemSorting> {
     public LineItemQuery withCampaigns(String... campaignIds);
 
     public LineItemQuery withFundingInstruments(String... fundingInstrumentIds);

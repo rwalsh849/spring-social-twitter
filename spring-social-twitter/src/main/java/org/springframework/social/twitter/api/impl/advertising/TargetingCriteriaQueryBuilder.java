@@ -27,7 +27,7 @@ import org.springframework.util.MultiValueMap;
  * @author Hudson Mendes
  */
 public class TargetingCriteriaQueryBuilder
-        extends AbstractTwitterQueryForEntityBuilder<TargetingCriteriaQuery, TargetingCriteriaSorting>
+        extends AbstractTwitterQueryForSortableEntityBuilder<TargetingCriteriaQuery, TargetingCriteriaSorting>
         implements TargetingCriteriaQuery {
 
     private String lineItemId;

@@ -30,7 +30,7 @@ import org.springframework.util.MultiValueMap;
  * @author Hudson Mendes
  */
 public class CampaignQueryBuilder
-        extends AbstractTwitterQueryForEntityBuilder<CampaignQuery, CampaignSorting>
+        extends AbstractTwitterQueryForSortableEntityBuilder<CampaignQuery, CampaignSorting>
         implements CampaignQuery {
 
     private List<String> fundingInstrumentIds;

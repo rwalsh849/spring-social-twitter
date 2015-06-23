@@ -32,7 +32,7 @@ import org.springframework.util.MultiValueMap;
  * @author Hudson Mendes
  */
 public class LineItemQueryBuilder
-        extends AbstractTwitterQueryForEntityBuilder<LineItemQuery, LineItemSorting>
+        extends AbstractTwitterQueryForSortableEntityBuilder<LineItemQuery, LineItemSorting>
         implements LineItemQuery {
 
     private List<String> fundingInstrumentIds;

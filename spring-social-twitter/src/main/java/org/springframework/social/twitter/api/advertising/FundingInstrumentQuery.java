@@ -15,12 +15,12 @@
  */
 package org.springframework.social.twitter.api.advertising;
 
-import org.springframework.social.twitter.api.TwitterQueryForEntity;
+import org.springframework.social.twitter.api.TwitterQueryForSortableEntity;
 
 /**
  * Defines the contract for any {@link FundingInstrumentQuery}.
  * @author Hudson Mendes
  */
-public interface FundingInstrumentQuery extends TwitterQueryForEntity<FundingInstrumentQuery, FundingInstrumentSorting> {
+public interface FundingInstrumentQuery extends TwitterQueryForSortableEntity<FundingInstrumentQuery, FundingInstrumentSorting> {
 	public FundingInstrumentQuery withFundingInstruments(String... fundingInstrumentIds);
 }

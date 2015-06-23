@@ -28,4 +28,11 @@ import org.springframework.social.twitter.api.TwitterForm;
  */
 public interface PromotedOnlyTweetForm extends TwitterForm {
 
+    public PromotedOnlyTweetForm withText(String text);
+
+    public PromotedOnlyTweetForm asUser(Long userId);
+
+    public PromotedOnlyTweetForm trimUser(Boolean trimUser);
+
+    public PromotedOnlyTweetForm withMediaIds(Long... mediaIds);
 }

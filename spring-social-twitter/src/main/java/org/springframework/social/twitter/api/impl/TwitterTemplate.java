@@ -38,7 +38,7 @@ import org.springframework.social.twitter.api.UserOperations;
 import org.springframework.social.twitter.api.advertising.AdvertisingOperations;
 import org.springframework.social.twitter.api.advertising.CampaignOperations;
 import org.springframework.social.twitter.api.advertising.LineItemOperations;
-import org.springframework.social.twitter.api.advertising.PromotedTweetOperations;
+import org.springframework.social.twitter.api.advertising.PromotionOperations;
 import org.springframework.social.twitter.api.advertising.StatisticsOperations;
 import org.springframework.social.twitter.api.advertising.TailoredAudienceOperations;
 import org.springframework.social.twitter.api.advertising.TargetingCriteriaDiscoveryOperations;
@@ -46,7 +46,7 @@ import org.springframework.social.twitter.api.advertising.TargetingCriteriaOpera
 import org.springframework.social.twitter.api.impl.advertising.AdvertisingTemplate;
 import org.springframework.social.twitter.api.impl.advertising.CampaignTemplate;
 import org.springframework.social.twitter.api.impl.advertising.LineItemTemplate;
-import org.springframework.social.twitter.api.impl.advertising.PromotedTweetTemplate;
+import org.springframework.social.twitter.api.impl.advertising.PromotionTemplate;
 import org.springframework.social.twitter.api.impl.advertising.StatisticsTemplate;
 import org.springframework.social.twitter.api.impl.advertising.TailoredAudienceTemplate;
 import org.springframework.social.twitter.api.impl.advertising.TargetingCriteriaDiscoveryTemplate;
@@ -90,7 +90,7 @@ public class TwitterTemplate extends AbstractOAuth1ApiBinding implements Twitter
 
     private AdvertisingOperations advertisingOperations;
 
-    private PromotedTweetOperations promotedTweetOperations;
+    private PromotionOperations promotionOperations;
 
     private StatisticsOperations statisticsOperations;
 
@@ -237,8 +237,8 @@ public class TwitterTemplate extends AbstractOAuth1ApiBinding implements Twitter
     }
 
     @Override
-    public PromotedTweetOperations promotedTweetOperations() {
-        return promotedTweetOperations;
+    public PromotionOperations promotionOperations() {
+        return promotionOperations;
     }
 
     @Override
@@ -339,7 +339,7 @@ public class TwitterTemplate extends AbstractOAuth1ApiBinding implements Twitter
         this.streamOperations = new StreamingTemplate(getRestTemplate(), isAuthorized(), isAuthorizedForApp());
 
         this.advertisingOperations = new AdvertisingTemplate(getRestTemplate(), isAuthorized(), isAuthorized());
-        this.promotedTweetOperations = new PromotedTweetTemplate(getRestTemplate(), isAuthorized(), isAuthorized());
+        this.promotionOperations = new PromotionTemplate(getRestTemplate(), isAuthorized(), isAuthorized());
         this.statisticsOperations = new StatisticsTemplate(getRestTemplate(), isAuthorized(), isAuthorized());
         this.campaignOperations = new CampaignTemplate(getRestTemplate(), isAuthorized(), isAuthorized());
         this.lineItemOperations = new LineItemTemplate(getRestTemplate(), isAuthorized(), isAuthorized());

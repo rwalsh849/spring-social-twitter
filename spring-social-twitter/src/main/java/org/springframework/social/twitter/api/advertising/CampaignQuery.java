@@ -15,13 +15,13 @@
  */
 package org.springframework.social.twitter.api.advertising;
 
-import org.springframework.social.twitter.api.TwitterQueryForEntity;
+import org.springframework.social.twitter.api.TwitterQueryForSortableEntity;
 
 /**
  * Defines the contract for any {@link Campaign} query.
  * @author Hudson Mendes
  */
-public interface CampaignQuery extends TwitterQueryForEntity<CampaignQuery, CampaignSorting> {
+public interface CampaignQuery extends TwitterQueryForSortableEntity<CampaignQuery, CampaignSorting> {
 	public CampaignQuery withCampaigns(String... campaignIds);
 	public CampaignQuery withFundingInstruments(String... fundingInstrumentIds);
 	public CampaignQuery withCount(Integer count);
