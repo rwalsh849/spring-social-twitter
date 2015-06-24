@@ -10,7 +10,7 @@
     ],
     "hashtags": [
       {
-        "text": "peterfalk",
+        "text": "ads",
         "indices": [
           35,
           45
@@ -22,7 +22,7 @@
     ]
   },
   "in_reply_to_user_id_str": null,
-  "text": "Maybe he'll finally find his keys. #peterfalk",
+  "text": "Hey, here is a promoted-only tweet that we are creating via #ads API.",
   "contributors": null,
   "retweet_count": 0,
   "id": 243145735212777472,
@@ -41,7 +41,7 @@
     "location": "",
     "is_translator": true,
     "follow_request_sent": false,
-    "id_str": "14927800",
+    "id_str": "390472547",
     "profile_link_color": "FF3300",
     "entities": {
       "url": {
@@ -68,7 +68,7 @@
     "url": "http://t.co/YCA3ZKY",
     "favourites_count": 883,
     "utc_offset": -28800,
-    "id": 14927800,
+    "id": 390472547,
     "profile_image_url_https":"https://si0.twimg.com/profile_images/1751674923/new_york_beard_normal.jpg",
     "profile_use_background_image": true,
     "listed_count": 150,

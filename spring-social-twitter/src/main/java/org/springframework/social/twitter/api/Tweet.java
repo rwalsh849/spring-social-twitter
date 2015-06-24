@@ -43,6 +43,8 @@ public class Tweet extends TwitterObject implements Serializable {
     private Tweet retweetedStatus;
     private boolean favorited;
     private Integer favoriteCount;
+    private Boolean truncated;
+    private Boolean possiblySensitive;
     private Entities entities;
     private TwitterProfile user;
 
@@ -194,6 +196,22 @@ public class Tweet extends TwitterObject implements Serializable {
 
     public boolean isFavorited() {
         return favorited;
+    }
+
+    public Boolean isTruncated() {
+        return truncated;
+    }
+
+    public Boolean isPossiblySensitive() {
+        return possiblySensitive;
+    }
+
+    public void setPossiblySensitive(Boolean possiblySensitive) {
+        this.possiblySensitive = possiblySensitive;
+    }
+
+    public void setTruncated(Boolean truncated) {
+        this.truncated = truncated;
     }
 
     public void setFavoriteCount(Integer favoriteCount) {

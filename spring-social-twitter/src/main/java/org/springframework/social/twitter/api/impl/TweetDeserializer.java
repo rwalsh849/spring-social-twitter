@@ -68,25 +68,42 @@ public class TweetDeserializer extends JsonDeserializer<Tweet> {
         readReplyParameters(node, tweet);
         readRetweetParameters(node, tweet);
         readFavoriteParameters(node, tweet);
+        readTruncatedParameters(node, tweet);
+        readSensitivityParameters(node, tweet);
         return tweet;
     }
 
     private Tweet readTweetFromJson(JsonNode node, Long id, String text) throws IOException {
         JsonNode fromUserNode = node.get("user");
         String dateFormat = TIMELINE_DATE_FORMAT;
-        String fromScreenName = fromUserNode.get("screen_name").asText();
 
-        long fromId = fromUserNode.get("id").asLong();
-        String fromImageUrl = fromUserNode.get("profile_image_url").asText();
+        String fromScreenName = null;
+        JsonNode fromScreenNameNode = fromUserNode.get("screen_name");
+        if (fromScreenNameNode != null)
+            fromScreenName = fromScreenNameNode.asText();
+
+        Long fromId = null;
+        JsonNode fromIdNode = fromUserNode.get("id");
+        if (fromIdNode != null)
+            fromId = fromIdNode.asLong();
+
+        String fromImageUrl = null;
+        JsonNode fromImageUrlNode = fromUserNode.get("profile_image_url");
+        if (fromImageUrlNode != null)
+            fromImageUrl = fromImageUrlNode.asText();
 
         Date createdAt = toDate(node.get("created_at").asText(), new SimpleDateFormat(dateFormat, Locale.ENGLISH));
         String source = node.get("source").asText();
 
+        Long toUserId = null;
         JsonNode toUserIdNode = node.get("in_reply_to_user_id");
-        Long toUserId = toUserIdNode != null ? toUserIdNode.asLong() : null;
+        if (toUserIdNode != null)
+            toUserId = toUserIdNode.asLong();
 
+        String languageCode = null;
         JsonNode langNode = node.get("lang");
-        String languageCode = langNode != null ? langNode.asText() : null;
+        if (langNode != null)
+            languageCode = langNode.asText();
 
         Tweet tweet = new Tweet(id, text, createdAt, fromScreenName, fromImageUrl, toUserId, fromId, languageCode, source);
         readUserDataFromUserNode(node, fromUserNode, text, tweet);
@@ -109,6 +126,18 @@ public class TweetDeserializer extends JsonDeserializer<Tweet> {
         JsonNode favoriteCountNode = node.get("favorite_count");
         Integer favoriteCount = favoriteCountNode != null && !favoriteCountNode.isNull() ? favoriteCountNode.asInt() : null;
         tweet.setFavoriteCount(favoriteCount);
+    }
+
+    private void readTruncatedParameters(JsonNode node, Tweet tweet) {
+        JsonNode truncatedNode = node.get("truncated");
+        if (truncatedNode != null)
+            tweet.setTruncated(truncatedNode.asBoolean());
+    }
+
+    private void readSensitivityParameters(JsonNode node, Tweet tweet) {
+        JsonNode possiblySensitiveNode = node.get("possibly_sensitive");
+        if (possiblySensitiveNode != null)
+            tweet.setPossiblySensitive(possiblySensitiveNode.asBoolean());
     }
 
     private void readRetweetParameters(JsonNode node, Tweet tweet) throws JsonProcessingException, IOException {

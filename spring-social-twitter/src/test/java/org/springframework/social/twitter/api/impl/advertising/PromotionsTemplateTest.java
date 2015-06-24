@@ -23,12 +23,11 @@ import static org.springframework.test.web.client.match.MockRestRequestMatchers.
 import static org.springframework.test.web.client.match.MockRestRequestMatchers.requestTo;
 import static org.springframework.test.web.client.response.MockRestResponseCreators.withSuccess;
 
-import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 import org.hamcrest.CoreMatchers;
 import org.junit.Assert;
-import org.junit.Ignore;
 import org.junit.Test;
 import org.springframework.social.twitter.api.Tweet;
 import org.springframework.social.twitter.api.advertising.PromotableUser;
@@ -62,7 +61,6 @@ public class PromotionsTemplateTest extends AbstractTwitterApiTest {
     }
 
     @Test
-    @Ignore
     public void getPromotedOnlyTweets() {
         String mockedAccountId = "0ga0yn";
         mockServer
@@ -78,16 +76,43 @@ public class PromotionsTemplateTest extends AbstractTwitterApiTest {
                         .pagedBy(null, 1)
                         .trimUser(true)).getList();
 
-        Assert.assertNotEquals(0, tweets.size());
-        assertTweetContents(tweets.get(0));
+        assertTweetsContents(tweets);
+    }
+
+    private void assertTweetsContents(List<Tweet> tweets) {
+        Assert.assertEquals(3, tweets.size());
+
+        Assert.assertEquals(new Long("540565364179226624").longValue(), tweets.get(0).getId());
+        Assert.assertEquals(new Long("390472547").longValue(), tweets.get(0).getFromUserId());
+        Assert.assertEquals("en", tweets.get(0).getLanguageCode());
+        Assert.assertEquals("MemeTV wants to bring meme-worthy TV clips to Tumblr and... http://t.co/cfxJOQ9zpF", tweets.get(0).getText());
+        Assert.assertEquals("<a href=\"http://ifttt.com\" rel=\"nofollow\">IFTTT</a>", tweets.get(0).getSource());
+        Assert.assertEquals(false, tweets.get(0).isFavorited());
+        Assert.assertEquals(Integer.valueOf(0), tweets.get(0).getFavoriteCount());
+        Assert.assertEquals(false, tweets.get(0).isRetweeted());
+        Assert.assertEquals(Integer.valueOf(0), tweets.get(0).getRetweetCount());
+        Assert.assertEquals(false, tweets.get(0).isTruncated());
+        Assert.assertEquals(false, tweets.get(0).isPossiblySensitive());
+        Assert.assertEquals(0, tweets.get(0).getEntities().getHashTags().size());
+        Assert.assertEquals(0, tweets.get(0).getEntities().getTickerSymbols().size());
+        Assert.assertEquals(1, tweets.get(0).getEntities().getUrls().size());
+        Assert.assertEquals("http://t.co/cfxJOQ9zpF", tweets.get(0).getEntities().getUrls().get(0).getUrl());
+        Assert.assertEquals("http://ift.tt/1tLavU9", tweets.get(0).getEntities().getUrls().get(0).getExpandedUrl());
+        Assert.assertEquals("ift.tt/1tLavU9", tweets.get(0).getEntities().getUrls().get(0).getDisplayUrl());
+        Assert.assertEquals("Thu Dec 04 09:56:40 PST 2014", tweets.get(0).getCreatedAt().toString());
+        Assert.assertThat(
+                Arrays.asList(Arrays.stream(tweets.get(0).getEntities().getUrls().get(0).getIndices()).mapToObj(i -> Integer.valueOf(i))
+                        .toArray(size -> new Integer[size])),
+                CoreMatchers.hasItems(Integer.valueOf(60), Integer.valueOf(82)));
     }
 
     @Test
-    @Ignore
     public void createPromotedOnlyTweet() {
         String mockedAccountId = "hkk5";
+        String mockedTweetText = "Hey, here is a promoted-only tweet that we are creating via #ads API.";
+        long mockedUserId = 390472547L;
 
-        String chainedPostContent = "";
+        String chainedPostContent = "text=Hey%2C+here+is+a+promoted-only+tweet+that+we+are+creating+via+%23ads+API.&as_user_id=390472547";
 
         mockServer
                 .expect(requestTo("https://ads-api.twitter.com/0/accounts/" + mockedAccountId + "/tweet"))
@@ -97,56 +122,14 @@ public class PromotionsTemplateTest extends AbstractTwitterApiTest {
 
         Tweet tweet = twitter.promotionOperations().createPromotedOnlyTweet(
                 mockedAccountId,
-                new PromotedOnlyTweetFormBuilder());
+                new PromotedOnlyTweetFormBuilder()
+                        .asUser(mockedUserId)
+                        .withText(mockedTweetText));
 
-        assertTweetContents(tweet);
-    }
-
-    private void assertTweetContents(Tweet tweet) {
-        Assert.assertNotNull(tweet);
-
-        Assert.assertEquals(243145735212777472L, tweet.getId());
-        Assert.assertEquals("Maybe he'll finally find his keys. #peterfalk", tweet.getText());
-        Assert.assertEquals("jasoncosta", tweet.getFromUser());
-        Assert.assertNull(tweet.getInReplyToScreenName());
-
-        //Assert.assertNotNull(tweet.getLanguageCode()); -> not required
-
-        Assert.assertEquals("http://a0.twimg.com/profile_images/1751674923/new_york_beard_normal.jpg", tweet.getProfileImageUrl());
-        Assert.assertEquals("<a>My Shiny App</a>", tweet.getSource());
-        Assert.assertEquals("Maybe he'll finally find his keys. #peterfalk", tweet.getUnmodifiedText());
-        Assert.assertEquals("Tue Sep 04 17:37:15 PDT 2012", tweet.getCreatedAt().toString());
-
-        List<String> hashtags = new ArrayList<>();
-        List<Integer> indices = new ArrayList<>();
-        tweet.getEntities().getHashTags().stream().forEach(i -> {
-            hashtags.add(i.getText());
-            for (int index : i.getIndices())
-                indices.add(index);
-        });
-        Assert.assertThat(hashtags, CoreMatchers.hasItem("peterfalk"));
-        Assert.assertThat(indices, CoreMatchers.hasItems(35, 45));
-
-        Assert.assertNotNull(tweet.getEntities().getMedia());
-        Assert.assertNotNull(tweet.getEntities().getMentions());
-        Assert.assertNotNull(tweet.getEntities().getTickerSymbols());
-
-        Assert.assertEquals(0, tweet.getEntities().getUrls().size());
-
-        //Assert.assertNotNull(tweet.getFavoriteCount()); -> not required
-        Assert.assertNotNull(tweet.getFromUserId());
-
-        //Assert.assertNotNull(tweet.getInReplyToStatusId()); -> not required
-        //Assert.assertNotNull(tweet.getInReplyToUserId()); -> not required
-
-        Assert.assertNotNull(tweet.getRetweetCount());
-        //Assert.assertNotNull(tweet.getRetweetedStatus()); -> not required
-
-        Assert.assertNotNull(tweet.getToUserId());
-        Assert.assertNotNull(tweet.getUser());
-
-        Assert.assertEquals(false, tweet.isRetweet());
-        Assert.assertEquals(false, tweet.isFavorited());
-        Assert.assertEquals(false, tweet.isRetweeted());
+        Assert.assertEquals(mockedUserId, tweet.getFromUserId());
+        Assert.assertEquals(mockedTweetText, tweet.getText());
+        Assert.assertThat(
+                Arrays.asList(tweet.getEntities().getHashTags().stream().map(i -> i.getText()).toArray(size -> new String[size])),
+                CoreMatchers.hasItems("ads"));
     }
 }
