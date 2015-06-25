@@ -112,7 +112,7 @@ public class PromotionsTemplateTest extends AbstractTwitterApiTest {
         String mockedTweetText = "Hey, here is a promoted-only tweet that we are creating via #ads API.";
         long mockedUserId = 390472547L;
 
-        String chainedPostContent = "text=Hey%2C+here+is+a+promoted-only+tweet+that+we+are+creating+via+%23ads+API.&as_user_id=390472547";
+        String chainedPostContent = "status=Hey%2C+here+is+a+promoted-only+tweet+that+we+are+creating+via+%23ads+API.&as_user_id=390472547";
 
         mockServer
                 .expect(requestTo("https://ads-api.twitter.com/0/accounts/" + mockedAccountId + "/tweet"))
@@ -124,7 +124,7 @@ public class PromotionsTemplateTest extends AbstractTwitterApiTest {
                 mockedAccountId,
                 new PromotedOnlyTweetFormBuilder()
                         .asUser(mockedUserId)
-                        .withText(mockedTweetText));
+                        .withStatus(mockedTweetText));
 
         Assert.assertEquals(mockedUserId, tweet.getFromUserId());
         Assert.assertEquals(mockedTweetText, tweet.getText());

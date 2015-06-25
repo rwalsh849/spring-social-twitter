@@ -27,7 +27,7 @@ import org.springframework.util.MultiValueMap;
  */
 public class PromotedOnlyTweetFormBuilder extends AbstractTwitterFormBuilder implements PromotedOnlyTweetForm {
 
-    private String text;
+    private String status;
     private Long asUserId;
     private Boolean trimUser;
     private final List<Long> mediaIds = new ArrayList<>();
@@ -35,7 +35,7 @@ public class PromotedOnlyTweetFormBuilder extends AbstractTwitterFormBuilder imp
     @Override
     public MultiValueMap<String, String> toRequestBody() {
         MultiValueMap<String, String> map = new LinkedMultiValueMap<String, String>();
-        appendParameter(map, "text", this.text);
+        appendParameter(map, "status", this.status);
         appendParameter(map, "as_user_id", this.asUserId);
         appendParameter(map, "trim_user", this.trimUser);
         appendParameter(map, "media_ids", this.mediaIds);
@@ -43,8 +43,8 @@ public class PromotedOnlyTweetFormBuilder extends AbstractTwitterFormBuilder imp
     }
 
     @Override
-    public PromotedOnlyTweetForm withText(String text) {
-        this.text = text;
+    public PromotedOnlyTweetForm withStatus(String text) {
+        this.status = text;
         return this;
     }
 

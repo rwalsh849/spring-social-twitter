@@ -25,6 +25,8 @@ import org.springframework.social.twitter.api.advertising.PromotedOnlyTweetQuery
 import org.springframework.social.twitter.api.advertising.PromotionOperations;
 import org.springframework.social.twitter.api.impl.AbstractTwitterOperations;
 import org.springframework.social.twitter.api.impl.DataListHolder;
+import org.springframework.social.twitter.api.impl.DataSingleHolder;
+import org.springframework.social.twitter.api.impl.TwitterApiBuilderForHttpEntity;
 import org.springframework.social.twitter.api.impl.TwitterApiBuilderForUri;
 import org.springframework.social.twitter.api.impl.TwitterApiUriResourceForAdvertising;
 import org.springframework.web.client.RestTemplate;
@@ -83,12 +85,13 @@ public class PromotionTemplate extends AbstractTwitterOperations implements Prom
             PromotedOnlyTweetForm input) {
 
         requireUserAuthorization();
-        return restTemplate.postForObject(
+        return restTemplate.exchange(
                 new TwitterApiBuilderForUri()
                         .withResource(TwitterApiUriResourceForAdvertising.PROMOTED_TWEETS_CREATE)
                         .withArgument("account_id", accountId)
                         .build(),
-                input.toRequestBody(),
-                Tweet.class);
+                HttpMethod.POST,
+                new TwitterApiBuilderForHttpEntity<>(input.toRequestBody()).build(),
+                new ParameterizedTypeReference<DataSingleHolder<Tweet>>() {}).getBody().getData();
     }
 }

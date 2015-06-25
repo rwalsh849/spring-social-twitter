@@ -28,7 +28,7 @@ import org.springframework.social.twitter.api.TwitterForm;
  */
 public interface PromotedOnlyTweetForm extends TwitterForm {
 
-    public PromotedOnlyTweetForm withText(String text);
+    public PromotedOnlyTweetForm withStatus(String text);
 
     public PromotedOnlyTweetForm asUser(Long userId);
 
