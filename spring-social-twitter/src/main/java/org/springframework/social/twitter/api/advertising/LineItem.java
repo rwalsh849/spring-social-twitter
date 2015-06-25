@@ -50,8 +50,6 @@ public class LineItem extends TwitterObject {
     private final String currency;
     private final BigDecimal totalBudgetAmount;
     private final BigDecimal bidAmount;
-    private final BigDecimal suggestedHighCpeBid;
-    private final BigDecimal suggestedLowCpeBid;
 
     private final Boolean paused;
     private final Boolean deleted;
@@ -72,8 +70,6 @@ public class LineItem extends TwitterObject {
             String currency,
             BigDecimal totalBudgetAmount,
             BigDecimal bidAmount,
-            BigDecimal suggestedHighCpeBid,
-            BigDecimal suggestedLowCpeBid,
             Boolean automaticallySelectBid,
             Boolean paused,
             Boolean deleted,
@@ -94,8 +90,6 @@ public class LineItem extends TwitterObject {
         this.currency = currency;
         this.totalBudgetAmount = totalBudgetAmount;
         this.bidAmount = bidAmount;
-        this.suggestedHighCpeBid = suggestedHighCpeBid;
-        this.suggestedLowCpeBid = suggestedLowCpeBid;
 
         this.paused = paused;
         this.deleted = deleted;
@@ -153,14 +147,6 @@ public class LineItem extends TwitterObject {
         return bidAmount;
     }
 
-    public BigDecimal getSuggestedHighCpeBid() {
-        return suggestedHighCpeBid;
-    }
-
-    public BigDecimal getSuggestedLowCpeBid() {
-        return suggestedLowCpeBid;
-    }
-
     public Boolean isPaused() {
         return paused;
     }
@@ -169,7 +155,7 @@ public class LineItem extends TwitterObject {
         return deleted;
     }
 
-    public Boolean isAutomaticallySelectBid() {
+    public Boolean isAutomaticallySetBid() {
         return automaticallySelectBid;
     }
 

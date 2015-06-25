@@ -42,138 +42,87 @@ public class LineItemFormBuilder extends AbstractTwitterFormBuilder implements L
     private BigDecimal bidAmount;
     private Boolean paused;
     private Boolean deleted;
+    private Boolean automaticallySelectBid;
 
-    /*
-     * (non-Javadoc)
-     * 
-     * @see org.springframework.social.twitter.api.impl.advertising.LineItemForm#withCampaign(java.lang.String)
-     */
     @Override
     public LineItemForm withCampaign(String campaignId) {
         this.campaignId = campaignId;
         return this;
     }
 
-    /*
-     * (non-Javadoc)
-     * 
-     * @see org.springframework.social.twitter.api.impl.advertising.LineItemForm#withPlacementType(org.springframework.social.twitter.api.advertising.
-     * AdvertisingPlacementType)
-     */
     @Override
     public LineItemForm withPlacementType(AdvertisingPlacementType placementType) {
         this.placementType = placementType;
         return this;
     }
 
-    /*
-     * (non-Javadoc)
-     * 
-     * @see org.springframework.social.twitter.api.impl.advertising.LineItemForm#withObjective(org.springframework.social.twitter.api.advertising.
-     * AdvertisingObjective)
-     */
     @Override
     public LineItemForm withObjective(AdvertisingObjective objective) {
         this.objective = objective;
         return this;
     }
 
-    /*
-     * (non-Javadoc)
-     * 
-     * @see
-     * org.springframework.social.twitter.api.impl.advertising.LineItemForm#includingSentiment(org.springframework.social.twitter.api.advertising.
-     * AdvertisingSentiment)
-     */
     @Override
     public LineItemForm includingSentiment(AdvertisingSentiment sentiment) {
         this.includeSentiment = sentiment;
         return this;
     }
 
-    /*
-     * (non-Javadoc)
-     * 
-     * @see org.springframework.social.twitter.api.impl.advertising.LineItemForm#optimizingFor(org.springframework.social.twitter.api.advertising.
-     * LineItemOptimization)
-     */
     @Override
     public LineItemForm optimizingFor(LineItemOptimization optimization) {
         this.optimization = optimization;
         return this;
     }
 
-    /*
-     * (non-Javadoc)
-     * 
-     * @see org.springframework.social.twitter.api.impl.advertising.LineItemForm#withTotalBudget(java.lang.String)
-     */
     @Override
     public LineItemForm withTotalBudget(String totalBudgetAmount) {
         this.totalBudgetAmount = new BigDecimal(totalBudgetAmount);
         return this;
     }
 
-    /*
-     * (non-Javadoc)
-     * 
-     * @see org.springframework.social.twitter.api.impl.advertising.LineItemForm#withBidAmount(java.lang.String)
-     */
     @Override
     public LineItemForm withBidAmount(String bidAmount) {
-        this.bidAmount = new BigDecimal(bidAmount);
+        if (bidAmount != null) {
+            this.bidAmount = new BigDecimal(bidAmount);
+            this.automaticallySelectBid = false;
+        }
+        else
+            this.bidAmount = null;
         return this;
     }
 
-    /*
-     * (non-Javadoc)
-     * 
-     * @see org.springframework.social.twitter.api.impl.advertising.LineItemForm#paused()
-     */
+    @Override
+    public LineItemForm automaticallySelectBid(Boolean auto) {
+        this.automaticallySelectBid = auto;
+        if (auto)
+            this.bidAmount = null;
+        return this;
+    }
+
     @Override
     public LineItemForm paused() {
         this.paused = true;
         return this;
     }
 
-    /*
-     * (non-Javadoc)
-     * 
-     * @see org.springframework.social.twitter.api.impl.advertising.LineItemForm#unpaused()
-     */
     @Override
     public LineItemForm unpaused() {
         this.paused = false;
         return this;
     }
 
-    /*
-     * (non-Javadoc)
-     * 
-     * @see org.springframework.social.twitter.api.impl.advertising.LineItemForm#deleted()
-     */
     @Override
     public LineItemFormBuilder deleted() {
         this.deleted = true;
         return this;
     }
 
-    /*
-     * (non-Javadoc)
-     * 
-     * @see org.springframework.social.twitter.api.impl.advertising.LineItemForm#active()
-     */
     @Override
     public LineItemFormBuilder active() {
         this.deleted = false;
         return this;
     }
 
-    /*
-     * (non-Javadoc)
-     * 
-     * @see org.springframework.social.twitter.api.impl.advertising.LineItemForm#toRequestBody()
-     */
     @Override
     public MultiValueMap<String, String> toRequestBody() {
         MultiValueMap<String, String> params = new LinkedMultiValueMap<String, String>();
@@ -185,11 +134,12 @@ public class LineItemFormBuilder extends AbstractTwitterFormBuilder implements L
         appendParameter(params, "include_sentiment", this.includeSentiment);
         appendParameter(params, "optimization", this.optimization);
 
-        appendParameter(params, "total_budget_amount_local_micro", translateBigDecimalIntoMicro(this.totalBudgetAmount));
-        appendParameter(params, "bid_amount_local_micro", translateBigDecimalIntoMicro(this.bidAmount));
-
+        appendParameter(params, "automatically_select_bid", this.automaticallySelectBid);
         appendParameter(params, "paused", this.paused);
         appendParameter(params, "deleted", this.deleted);
+
+        appendParameter(params, "total_budget_amount_local_micro", translateBigDecimalIntoMicro(this.totalBudgetAmount), true);
+        appendParameter(params, "bid_amount_local_micro", translateBigDecimalIntoMicro(this.bidAmount), true);
 
         return params;
     }

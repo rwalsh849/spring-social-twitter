@@ -96,7 +96,8 @@ public class TwitterErrorHandler extends DefaultResponseErrorHandler {
                         treatedErrorCode = rawErrorCode.toString();
                     }
 
-                    boolean isValidationError = treatedErrorCode.equals("INVALID_PARAMETER") ||
+                    boolean isValidationError = treatedErrorCode.equals("MISSING_PARAMETER") ||
+                            treatedErrorCode.equals("INVALID_PARAMETER") ||
                             treatedErrorCode.equals("INVALID") ||
                             treatedErrorCode.equals("INVALID_DENOMINATION");
 

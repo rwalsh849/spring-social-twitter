@@ -30,14 +30,28 @@ import org.springframework.util.MultiValueMap;
 public abstract class AbstractTwitterParametersBuilder {
     private static final BigDecimal MICRO_MULTIPLIER = new BigDecimal(1000000);
 
-    @SuppressWarnings({"rawtypes", "unchecked"})
-    protected static void appendParameter(
+    protected static <TValue> void appendParameter(
             MultiValueMap<String, String> params,
             String name,
-            Object value) {
+            TValue value) {
+
+        appendParameter(params, name, value, false);
+    }
+
+    @SuppressWarnings({"rawtypes", "unchecked"})
+    protected static <TValue> void appendParameter(
+            MultiValueMap<String, String> params,
+            String name,
+            TValue value,
+            Boolean showIfNull) {
 
         if (value == null)
-            return;
+            if (!showIfNull)
+                return;
+            else {
+                params.set(name, (String) null);
+                return;
+            }
         if (value instanceof String && ((String) value).isEmpty())
             return;
         if (value instanceof ArrayList && ((ArrayList) value).size() == 0)
@@ -55,7 +69,8 @@ public abstract class AbstractTwitterParametersBuilder {
 
     protected static Long translateBigDecimalIntoMicro(BigDecimal value) {
         if (value == null)
-            return new Long(0);
+            return null;
+
         return value.multiply(MICRO_MULTIPLIER).longValue();
     }
 }

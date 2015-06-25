@@ -109,10 +109,11 @@ public class LineItemTemplateTest extends AbstractTwitterApiTest {
                         "objective=" + AdvertisingObjective.APP_INSTALLS + "&" +
                         "include_sentiment=" + AdvertisingSentiment.POSITIVE_ONLY + "&" +
                         "optimization=" + LineItemOptimization.WEBSITE_CONVERSIONS + "&" +
-                        "total_budget_amount_local_micro=" + doesntMatterDecimal.multiply(new BigDecimal(1000000L)) + "&" +
-                        "bid_amount_local_micro=" + doesntMatterDecimal.multiply(new BigDecimal(1000000L)) + "&" +
+                        "automatically_select_bid=" + doesntMatterBool + "&" +
                         "paused=" + !doesntMatterBool + "&" +
-                        "deleted=" + doesntMatterBool;
+                        "deleted=" + doesntMatterBool + "&" +
+                        "total_budget_amount_local_micro=" + doesntMatterDecimal.multiply(new BigDecimal(1000000L)) + "&" +
+                        "bid_amount_local_micro=" + doesntMatterDecimal.multiply(new BigDecimal(1000000L));
 
         mockServer
                 .expect(requestTo("https://ads-api.twitter.com/0/accounts/" + mockedAccountId + "/line_items"))
@@ -144,16 +145,16 @@ public class LineItemTemplateTest extends AbstractTwitterApiTest {
         BigDecimal doesntMatterDecimal = new BigDecimal(2.00);
         Boolean doesntMatterBool = true;
 
-        String chainedPostContent =
-                "campaign_id=" + doesntMatterString + "&" +
-                        "placement_type=" + AdvertisingPlacementType.PROMOTED_TWEETS_FOR_TIMELINES + "&" +
-                        "objective=" + AdvertisingObjective.FOLLOWERS + "&" +
-                        "include_sentiment=" + AdvertisingSentiment.ALL + "&" +
-                        "optimization=" + LineItemOptimization.DEFAULT + "&" +
-                        "total_budget_amount_local_micro=" + doesntMatterDecimal.multiply(new BigDecimal(1000000L)) + "&" +
-                        "bid_amount_local_micro=" + doesntMatterDecimal.multiply(new BigDecimal(1000000L)) + "&" +
-                        "paused=" + !doesntMatterBool + "&" +
-                        "deleted=" + doesntMatterBool;
+        String chainedPostContent = "campaign_id=" + doesntMatterString + "&" +
+                "placement_type=" + AdvertisingPlacementType.PROMOTED_TWEETS_FOR_TIMELINES + "&" +
+                "objective=" + AdvertisingObjective.FOLLOWERS + "&" +
+                "include_sentiment=" + AdvertisingSentiment.ALL + "&" +
+                "optimization=" + LineItemOptimization.DEFAULT + "&" +
+                "automatically_select_bid=" + !doesntMatterBool + "&" +
+                "paused=" + !doesntMatterBool + "&" +
+                "deleted=" + doesntMatterBool + "&" +
+                "total_budget_amount_local_micro=" + doesntMatterDecimal.multiply(new BigDecimal(1000000L)) + "&" +
+                "bid_amount_local_micro=" + doesntMatterDecimal.multiply(new BigDecimal(1000000L));
 
         mockServer
                 .expect(requestTo("https://ads-api.twitter.com/0/accounts/" + mockedAccountId + "/line_items/" + mockedLineItemId))
@@ -203,9 +204,7 @@ public class LineItemTemplateTest extends AbstractTwitterApiTest {
         assertEquals("USD", lineItems.get(0).getCurrency());
         assertEquals(null, lineItems.get(0).getTotalBudgetAmount());
         assertEquals(new BigDecimal("10"), lineItems.get(0).getBidAmount());
-        assertEquals(null, lineItems.get(0).getSuggestedHighCpeBid());
-        assertEquals(null, lineItems.get(0).getSuggestedLowCpeBid());
-        assertEquals(false, lineItems.get(0).isAutomaticallySelectBid());
+        assertEquals(false, lineItems.get(0).isAutomaticallySetBid());
         assertEquals(true, lineItems.get(0).isPaused());
         assertEquals(false, lineItems.get(0).isDeleted());
         assertEquals(LocalDateTime.of(2015, Month.MAY, 29, 20, 32, 20), lineItems.get(0).getCreatedAt());
@@ -223,8 +222,6 @@ public class LineItemTemplateTest extends AbstractTwitterApiTest {
         assertEquals(LineItemOptimization.DEFAULT, lineItem.getOptimization());
         assertEquals(null, lineItem.getTotalBudgetAmount());
         assertEquals(new BigDecimal(1.75).round(MathContext.DECIMAL32), lineItem.getBidAmount());
-        assertEquals(null, lineItem.getSuggestedHighCpeBid());
-        assertEquals(null, lineItem.getSuggestedLowCpeBid());
         assertEquals(false, lineItem.isPaused());
         assertEquals(false, lineItem.isDeleted());
         assertEquals(LocalDateTime.of(2012, Month.NOVEMBER, 30, 22, 58, 11), lineItem.getCreatedAt());

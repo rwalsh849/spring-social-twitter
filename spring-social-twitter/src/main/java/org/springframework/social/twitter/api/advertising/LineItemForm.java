@@ -85,6 +85,14 @@ public interface LineItemForm extends TwitterForm {
     public abstract LineItemForm withBidAmount(String bidAmount);
 
     /**
+     * Defines wether the bid should be automatically selected or not
+     * 
+     * @param auto true means yes, it should be automatic; false says otherwise.
+     * @return the fluent builder
+     */
+    public abstract LineItemForm automaticallySelectBid(Boolean auto);
+
+    /**
      * Set the {@link LineItem} to paused.
      * 
      * @return the fluent builder
