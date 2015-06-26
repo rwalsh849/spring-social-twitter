@@ -34,6 +34,7 @@ import org.springframework.util.MultiValueMap;
  */
 public class LineItemFormBuilder extends AbstractTwitterFormBuilder implements LineItemForm {
     private String campaignId;
+    private String name;
     private AdvertisingPlacementType placementType;
     private AdvertisingObjective objective;
     private AdvertisingSentiment includeSentiment;
@@ -45,19 +46,25 @@ public class LineItemFormBuilder extends AbstractTwitterFormBuilder implements L
     private Boolean automaticallySelectBid;
 
     @Override
-    public LineItemForm withCampaign(String campaignId) {
+    public LineItemForm forCampaign(String campaignId) {
         this.campaignId = campaignId;
         return this;
     }
 
     @Override
-    public LineItemForm withPlacementType(AdvertisingPlacementType placementType) {
+    public LineItemForm named(String name) {
+        this.name = name;
+        return this;
+    }
+
+    @Override
+    public LineItemForm placedOn(AdvertisingPlacementType placementType) {
         this.placementType = placementType;
         return this;
     }
 
     @Override
-    public LineItemForm withObjective(AdvertisingObjective objective) {
+    public LineItemForm objective(AdvertisingObjective objective) {
         this.objective = objective;
         return this;
     }
@@ -75,7 +82,7 @@ public class LineItemFormBuilder extends AbstractTwitterFormBuilder implements L
     }
 
     @Override
-    public LineItemForm withTotalBudget(String totalBudgetAmount) {
+    public LineItemForm totalBudget(String totalBudgetAmount) {
         if (totalBudgetAmount != null)
             this.totalBudgetAmount = new BigDecimal(totalBudgetAmount);
         else
@@ -84,7 +91,7 @@ public class LineItemFormBuilder extends AbstractTwitterFormBuilder implements L
     }
 
     @Override
-    public LineItemForm withBidAmount(String bidAmount) {
+    public LineItemForm bidAmount(String bidAmount) {
         if (bidAmount != null) {
             this.bidAmount = new BigDecimal(bidAmount);
             this.automaticallySelectBid = false;
@@ -131,6 +138,7 @@ public class LineItemFormBuilder extends AbstractTwitterFormBuilder implements L
         MultiValueMap<String, String> params = new LinkedMultiValueMap<String, String>();
 
         appendParameter(params, "campaign_id", this.campaignId);
+        appendParameter(params, "name", this.name);
 
         appendParameter(params, "placement_type", this.placementType);
         appendParameter(params, "objective", this.objective);

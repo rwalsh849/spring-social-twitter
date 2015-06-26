@@ -103,17 +103,17 @@ public class LineItemTemplateTest extends AbstractTwitterApiTest {
         BigDecimal doesntMatterDecimal = new BigDecimal(1.00);
         Boolean doesntMatterBool = false;
 
-        String chainedPostContent =
-                "campaign_id=" + doesntMatterString + "&" +
-                        "placement_type=" + AdvertisingPlacementType.PROMOTED_TWEETS_FOR_SEARCH + "&" +
-                        "objective=" + AdvertisingObjective.APP_INSTALLS + "&" +
-                        "include_sentiment=" + AdvertisingSentiment.POSITIVE_ONLY + "&" +
-                        "optimization=" + LineItemOptimization.WEBSITE_CONVERSIONS + "&" +
-                        "automatically_select_bid=" + doesntMatterBool + "&" +
-                        "paused=" + !doesntMatterBool + "&" +
-                        "deleted=" + doesntMatterBool + "&" +
-                        "total_budget_amount_local_micro=" + doesntMatterDecimal.multiply(new BigDecimal(1000000L)) + "&" +
-                        "bid_amount_local_micro=" + doesntMatterDecimal.multiply(new BigDecimal(1000000L));
+        String chainedPostContent = "campaign_id=" + doesntMatterString + "&" +
+                "name=" + doesntMatterString + "&" +
+                "placement_type=" + AdvertisingPlacementType.PROMOTED_TWEETS_FOR_SEARCH + "&" +
+                "objective=" + AdvertisingObjective.APP_INSTALLS + "&" +
+                "include_sentiment=" + AdvertisingSentiment.POSITIVE_ONLY + "&" +
+                "optimization=" + LineItemOptimization.WEBSITE_CONVERSIONS + "&" +
+                "automatically_select_bid=" + doesntMatterBool + "&" +
+                "paused=" + !doesntMatterBool + "&" +
+                "deleted=" + doesntMatterBool + "&" +
+                "total_budget_amount_local_micro=" + doesntMatterDecimal.multiply(new BigDecimal(1000000L)) + "&" +
+                "bid_amount_local_micro=" + doesntMatterDecimal.multiply(new BigDecimal(1000000L));
 
         mockServer
                 .expect(requestTo("https://ads-api.twitter.com/0/accounts/" + mockedAccountId + "/line_items"))
@@ -124,11 +124,12 @@ public class LineItemTemplateTest extends AbstractTwitterApiTest {
         LineItem lineItem = twitter.lineItemOperations().createLineItem(
                 mockedAccountId,
                 new LineItemFormBuilder()
-                        .withCampaign(doesntMatterString)
-                        .withTotalBudget(doesntMatterDecimal.toString())
-                        .withBidAmount(doesntMatterDecimal.toString())
-                        .withPlacementType(AdvertisingPlacementType.PROMOTED_TWEETS_FOR_SEARCH)
-                        .withObjective(AdvertisingObjective.APP_INSTALLS)
+                        .forCampaign(doesntMatterString)
+                        .named(doesntMatterString)
+                        .totalBudget(doesntMatterDecimal.toString())
+                        .bidAmount(doesntMatterDecimal.toString())
+                        .placedOn(AdvertisingPlacementType.PROMOTED_TWEETS_FOR_SEARCH)
+                        .objective(AdvertisingObjective.APP_INSTALLS)
                         .optimizingFor(LineItemOptimization.WEBSITE_CONVERSIONS)
                         .includingSentiment(AdvertisingSentiment.POSITIVE_ONLY)
                         .paused()
@@ -146,6 +147,7 @@ public class LineItemTemplateTest extends AbstractTwitterApiTest {
         Boolean doesntMatterBool = true;
 
         String chainedPostContent = "campaign_id=" + doesntMatterString + "&" +
+                "name=" + doesntMatterString + "&" +
                 "placement_type=" + AdvertisingPlacementType.PROMOTED_TWEETS_FOR_TIMELINES + "&" +
                 "objective=" + AdvertisingObjective.FOLLOWERS + "&" +
                 "include_sentiment=" + AdvertisingSentiment.ALL + "&" +
@@ -166,11 +168,12 @@ public class LineItemTemplateTest extends AbstractTwitterApiTest {
                 mockedAccountId,
                 mockedLineItemId,
                 new LineItemFormBuilder()
-                        .withCampaign(doesntMatterString)
-                        .withTotalBudget(doesntMatterDecimal.toString())
-                        .withBidAmount(doesntMatterDecimal.toString())
-                        .withPlacementType(AdvertisingPlacementType.PROMOTED_TWEETS_FOR_TIMELINES)
-                        .withObjective(AdvertisingObjective.FOLLOWERS)
+                        .forCampaign(doesntMatterString)
+                        .named(doesntMatterString)
+                        .totalBudget(doesntMatterDecimal.toString())
+                        .bidAmount(doesntMatterDecimal.toString())
+                        .placedOn(AdvertisingPlacementType.PROMOTED_TWEETS_FOR_TIMELINES)
+                        .objective(AdvertisingObjective.FOLLOWERS)
                         .optimizingFor(LineItemOptimization.DEFAULT)
                         .includingSentiment(AdvertisingSentiment.ALL)
                         .unpaused()

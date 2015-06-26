@@ -32,7 +32,15 @@ public interface LineItemForm extends TwitterForm {
      * @param campaignId is the id of the {@link Campaign} related to the {@link LineItem}.
      * @return the fluent builder
      */
-    public abstract LineItemForm withCampaign(String campaignId);
+    public abstract LineItemForm forCampaign(String campaignId);
+
+    /**
+     * Name of the {@link LineItem}
+     * 
+     * @param name is the name of the {@link LineItem}.
+     * @return the fluent builder
+     */
+    public abstract LineItemForm named(String name);
 
     /**
      * The type of placement for ads of a {@link LineItem}
@@ -40,7 +48,7 @@ public interface LineItemForm extends TwitterForm {
      * @param placementType the type of placement.
      * @return the fluent builder
      */
-    public abstract LineItemForm withPlacementType(AdvertisingPlacementType placementType);
+    public abstract LineItemForm placedOn(AdvertisingPlacementType placementType);
 
     /**
      * The objective of this {@link LineItem}
@@ -48,7 +56,7 @@ public interface LineItemForm extends TwitterForm {
      * @param objective is the objective set for this particular {@link LineItem}.
      * @return the fluent builder
      */
-    public abstract LineItemForm withObjective(AdvertisingObjective objective);
+    public abstract LineItemForm objective(AdvertisingObjective objective);
 
     /**
      * The sentiment of the {@link LineItem} amongst the ones
@@ -74,7 +82,7 @@ public interface LineItemForm extends TwitterForm {
      * @param totalBudgetAmount of the {@link LineItem}
      * @return the fluent builder
      */
-    public abstract LineItemForm withTotalBudget(String totalBudgetAmount);
+    public abstract LineItemForm totalBudget(String totalBudgetAmount);
 
     /**
      * The bid amoung for the {@link LineItem}.
@@ -82,7 +90,7 @@ public interface LineItemForm extends TwitterForm {
      * @param bidAmount of the {@link LineItem}
      * @return the fluent builder
      */
-    public abstract LineItemForm withBidAmount(String bidAmount);
+    public abstract LineItemForm bidAmount(String bidAmount);
 
     /**
      * Defines wether the bid should be automatically selected or not
