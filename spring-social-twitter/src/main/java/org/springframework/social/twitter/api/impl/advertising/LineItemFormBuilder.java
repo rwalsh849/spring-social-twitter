@@ -20,6 +20,7 @@ import java.math.BigDecimal;
 import org.springframework.social.twitter.api.advertising.AdvertisingObjective;
 import org.springframework.social.twitter.api.advertising.AdvertisingPlacementType;
 import org.springframework.social.twitter.api.advertising.AdvertisingSentiment;
+import org.springframework.social.twitter.api.advertising.BidUnit;
 import org.springframework.social.twitter.api.advertising.LineItem;
 import org.springframework.social.twitter.api.advertising.LineItemForm;
 import org.springframework.social.twitter.api.advertising.LineItemOptimization;
@@ -39,6 +40,7 @@ public class LineItemFormBuilder extends AbstractTwitterFormBuilder implements L
     private AdvertisingObjective objective;
     private AdvertisingSentiment includeSentiment;
     private LineItemOptimization optimization;
+    private BidUnit bidUnit;
     private BigDecimal totalBudgetAmount;
     private BigDecimal bidAmount;
     private Boolean paused;
@@ -76,8 +78,14 @@ public class LineItemFormBuilder extends AbstractTwitterFormBuilder implements L
     }
 
     @Override
-    public LineItemForm optimizingFor(LineItemOptimization optimization) {
+    public LineItemForm optimizedFor(LineItemOptimization optimization) {
         this.optimization = optimization;
+        return this;
+    }
+
+    @Override
+    public LineItemForm bidUnit(BidUnit bidUnit) {
+        this.bidUnit = bidUnit;
         return this;
     }
 
@@ -149,6 +157,7 @@ public class LineItemFormBuilder extends AbstractTwitterFormBuilder implements L
         appendParameter(params, "paused", this.paused);
         appendParameter(params, "deleted", this.deleted);
 
+        appendParameter(params, "bid_unit", this.bidUnit);
         appendParameter(params, "total_budget_amount_local_micro", translateBigDecimalIntoMicro(this.totalBudgetAmount));
         appendParameter(params, "bid_amount_local_micro", translateBigDecimalIntoMicro(this.bidAmount), true);
 

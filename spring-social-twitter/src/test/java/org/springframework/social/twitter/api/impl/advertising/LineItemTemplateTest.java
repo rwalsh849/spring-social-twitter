@@ -112,6 +112,7 @@ public class LineItemTemplateTest extends AbstractTwitterApiTest {
                 "automatically_select_bid=" + doesntMatterBool + "&" +
                 "paused=" + !doesntMatterBool + "&" +
                 "deleted=" + doesntMatterBool + "&" +
+                "bid_unit=" + BidUnit.VIEW + "&" +
                 "total_budget_amount_local_micro=" + doesntMatterDecimal.multiply(new BigDecimal(1000000L)) + "&" +
                 "bid_amount_local_micro=" + doesntMatterDecimal.multiply(new BigDecimal(1000000L));
 
@@ -128,9 +129,10 @@ public class LineItemTemplateTest extends AbstractTwitterApiTest {
                         .named(doesntMatterString)
                         .totalBudget(doesntMatterDecimal.toString())
                         .bidAmount(doesntMatterDecimal.toString())
+                        .bidUnit(BidUnit.VIEW)
                         .placedOn(AdvertisingPlacementType.PROMOTED_TWEETS_FOR_SEARCH)
                         .objective(AdvertisingObjective.APP_INSTALLS)
-                        .optimizingFor(LineItemOptimization.WEBSITE_CONVERSIONS)
+                        .optimizedFor(LineItemOptimization.WEBSITE_CONVERSIONS)
                         .includingSentiment(AdvertisingSentiment.POSITIVE_ONLY)
                         .paused()
                         .active());
@@ -146,16 +148,12 @@ public class LineItemTemplateTest extends AbstractTwitterApiTest {
         BigDecimal doesntMatterDecimal = new BigDecimal(2.00);
         Boolean doesntMatterBool = true;
 
-        String chainedPostContent = "campaign_id=" + doesntMatterString + "&" +
-                "name=" + doesntMatterString + "&" +
-                "placement_type=" + AdvertisingPlacementType.PROMOTED_TWEETS_FOR_TIMELINES + "&" +
-                "objective=" + AdvertisingObjective.FOLLOWERS + "&" +
+        String chainedPostContent = "name=" + doesntMatterString + "&" +
                 "include_sentiment=" + AdvertisingSentiment.ALL + "&" +
                 "optimization=" + LineItemOptimization.DEFAULT + "&" +
                 "automatically_select_bid=" + !doesntMatterBool + "&" +
                 "paused=" + !doesntMatterBool + "&" +
                 "deleted=" + doesntMatterBool + "&" +
-                "total_budget_amount_local_micro=" + doesntMatterDecimal.multiply(new BigDecimal(1000000L)) + "&" +
                 "bid_amount_local_micro=" + doesntMatterDecimal.multiply(new BigDecimal(1000000L));
 
         mockServer
@@ -168,13 +166,9 @@ public class LineItemTemplateTest extends AbstractTwitterApiTest {
                 mockedAccountId,
                 mockedLineItemId,
                 new LineItemFormBuilder()
-                        .forCampaign(doesntMatterString)
                         .named(doesntMatterString)
-                        .totalBudget(doesntMatterDecimal.toString())
                         .bidAmount(doesntMatterDecimal.toString())
-                        .placedOn(AdvertisingPlacementType.PROMOTED_TWEETS_FOR_TIMELINES)
-                        .objective(AdvertisingObjective.FOLLOWERS)
-                        .optimizingFor(LineItemOptimization.DEFAULT)
+                        .optimizedFor(LineItemOptimization.DEFAULT)
                         .includingSentiment(AdvertisingSentiment.ALL)
                         .unpaused()
                         .deleted());

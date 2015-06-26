@@ -74,7 +74,7 @@ public interface LineItemForm extends TwitterForm {
      * @param optimization can be either DEFAULT, WEBSITE_CONVERSIONS (check {@link LineItemOptimization})
      * @return the fluent builder
      */
-    public abstract LineItemForm optimizingFor(LineItemOptimization optimization);
+    public abstract LineItemForm optimizedFor(LineItemOptimization optimization);
 
     /**
      * The total budget for the {@link LineItem}.
@@ -85,12 +85,20 @@ public interface LineItemForm extends TwitterForm {
     public abstract LineItemForm totalBudget(String totalBudgetAmount);
 
     /**
-     * The bid amoung for the {@link LineItem}.
+     * The bid amount for the {@link LineItem}.
      * 
      * @param bidAmount of the {@link LineItem}
      * @return the fluent builder
      */
     public abstract LineItemForm bidAmount(String bidAmount);
+
+    /**
+     * The {@link BidUnit} for the {@link LineItem}.
+     * 
+     * @param bidUnit is the unit that will be used for the {@link LineItem}.
+     * @return the fluent builder
+     */
+    public abstract LineItemForm bidUnit(BidUnit bidUnit);
 
     /**
      * Defines wether the bid should be automatically selected or not
