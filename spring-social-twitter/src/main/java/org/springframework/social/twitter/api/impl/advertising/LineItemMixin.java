@@ -54,7 +54,7 @@ public abstract class LineItemMixin extends TwitterObjectMixin {
             @JsonProperty("include_sentiment") AdvertisingSentiment includeSentiment,
             @JsonProperty("placement_type") AdvertisingPlacementType placementType,
             @JsonProperty("currency") String currency,
-            @JsonProperty("total_buget_amount_local_micro") @JsonDeserialize(using = BigDecimalMicroAmountDeserializer.class) BigDecimal totalBudgetAmount,
+            @JsonProperty("total_budget_amount_local_micro") @JsonDeserialize(using = BigDecimalMicroAmountDeserializer.class) BigDecimal totalBudgetAmount,
             @JsonProperty("bid_amount_local_micro") @JsonDeserialize(using = BigDecimalMicroAmountDeserializer.class) BigDecimal bidAmount,
             @JsonProperty("automatically_select_bid") Boolean automaticallySelectBid,
             @JsonProperty("paused") Boolean paused,
