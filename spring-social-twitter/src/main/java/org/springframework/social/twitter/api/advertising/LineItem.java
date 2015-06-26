@@ -39,6 +39,7 @@ public class LineItem extends TwitterObject {
     private final String id;
     private final String accountId;
     private final String campaignId;
+    private final String name;
     private final ProductType productType;
 
     private final BidUnit bidUnit;
@@ -61,6 +62,7 @@ public class LineItem extends TwitterObject {
             String id,
             String accountId,
             String campaignId,
+            String name,
             ProductType productType,
             BidUnit bidUnit,
             LineItemOptimization optimization,
@@ -79,6 +81,7 @@ public class LineItem extends TwitterObject {
         this.id = id;
         this.accountId = accountId;
         this.campaignId = campaignId;
+        this.name = name;
         this.productType = productType;
 
         this.bidUnit = bidUnit;
@@ -109,6 +112,10 @@ public class LineItem extends TwitterObject {
 
     public String getCampaignId() {
         return campaignId;
+    }
+
+    public String getName() {
+        return name;
     }
 
     public ProductType getProductType() {

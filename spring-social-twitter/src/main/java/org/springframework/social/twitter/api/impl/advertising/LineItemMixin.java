@@ -46,6 +46,7 @@ public abstract class LineItemMixin extends TwitterObjectMixin {
             @JsonProperty("id") String id,
             @JsonProperty("account_id") String accountId,
             @JsonProperty("campaign_id") String campaignId,
+            @JsonProperty("name") String name,
             @JsonProperty("product_type") ProductType productType,
             @JsonProperty("bid_unit") BidUnit bidUnit,
             @JsonProperty("optimization") LineItemOptimization optimization,
