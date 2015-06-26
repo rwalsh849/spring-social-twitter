@@ -76,7 +76,10 @@ public class LineItemFormBuilder extends AbstractTwitterFormBuilder implements L
 
     @Override
     public LineItemForm withTotalBudget(String totalBudgetAmount) {
-        this.totalBudgetAmount = new BigDecimal(totalBudgetAmount);
+        if (totalBudgetAmount != null)
+            this.totalBudgetAmount = new BigDecimal(totalBudgetAmount);
+        else
+            this.totalBudgetAmount = null;
         return this;
     }
 
@@ -138,7 +141,7 @@ public class LineItemFormBuilder extends AbstractTwitterFormBuilder implements L
         appendParameter(params, "paused", this.paused);
         appendParameter(params, "deleted", this.deleted);
 
-        appendParameter(params, "total_budget_amount_local_micro", translateBigDecimalIntoMicro(this.totalBudgetAmount), true);
+        appendParameter(params, "total_budget_amount_local_micro", translateBigDecimalIntoMicro(this.totalBudgetAmount));
         appendParameter(params, "bid_amount_local_micro", translateBigDecimalIntoMicro(this.bidAmount), true);
 
         return params;
