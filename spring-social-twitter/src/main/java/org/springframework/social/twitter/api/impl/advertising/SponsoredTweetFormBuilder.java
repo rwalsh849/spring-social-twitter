@@ -18,14 +18,14 @@ package org.springframework.social.twitter.api.impl.advertising;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.springframework.social.twitter.api.advertising.PromotedOnlyTweetForm;
+import org.springframework.social.twitter.api.advertising.SponsoredTweetForm;
 import org.springframework.util.LinkedMultiValueMap;
 import org.springframework.util.MultiValueMap;
 
 /**
  * @author Hudson Mendes
  */
-public class SponsoredTweetFormBuilder extends AbstractTwitterFormBuilder implements PromotedOnlyTweetForm {
+public class SponsoredTweetFormBuilder extends AbstractTwitterFormBuilder implements SponsoredTweetForm {
 
     private String status;
     private Long asUserId;
@@ -43,25 +43,25 @@ public class SponsoredTweetFormBuilder extends AbstractTwitterFormBuilder implem
     }
 
     @Override
-    public PromotedOnlyTweetForm withStatus(String text) {
+    public SponsoredTweetForm withStatus(String text) {
         this.status = text;
         return this;
     }
 
     @Override
-    public PromotedOnlyTweetForm asUser(Long userId) {
+    public SponsoredTweetForm asUser(Long userId) {
         this.asUserId = userId;
         return this;
     }
 
     @Override
-    public PromotedOnlyTweetForm trimUser(Boolean trimUser) {
+    public SponsoredTweetForm trimUser(Boolean trimUser) {
         this.trimUser = trimUser;
         return this;
     }
 
     @Override
-    public PromotedOnlyTweetForm withMediaIds(Long... mediaIds) {
+    public SponsoredTweetForm withMediaIds(Long... mediaIds) {
         for (Long mediaId : mediaIds)
             this.mediaIds.add(mediaId);
         return this;

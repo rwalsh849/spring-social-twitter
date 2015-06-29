@@ -20,11 +20,11 @@ import org.springframework.social.twitter.api.TwitterQueryForEntity;
 /**
  * @author Hudson Mendes
  */
-public interface PromotedOnlyTweetQuery extends TwitterQueryForEntity<PromotedOnlyTweetQuery> {
+public interface SponsoredTweetQuery extends TwitterQueryForEntity<SponsoredTweetQuery> {
 
-    public PromotedOnlyTweetQuery ofUsers(Long... userIds);
+    public SponsoredTweetQuery ofUsers(Long... userIds);
 
-    public PromotedOnlyTweetQuery withObjective(AdvertisingObjective objective);
+    public SponsoredTweetQuery withObjective(AdvertisingObjective objective);
 
-    public PromotedOnlyTweetQuery trimUser(Boolean trimUser);
+    public SponsoredTweetQuery trimUser(Boolean trimUser);
 }

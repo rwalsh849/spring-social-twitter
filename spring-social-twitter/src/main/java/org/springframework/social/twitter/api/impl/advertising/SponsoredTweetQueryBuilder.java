@@ -4,29 +4,29 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.social.twitter.api.advertising.AdvertisingObjective;
-import org.springframework.social.twitter.api.advertising.PromotedOnlyTweetQuery;
+import org.springframework.social.twitter.api.advertising.SponsoredTweetQuery;
 import org.springframework.util.MultiValueMap;
 
-public class SponsoredTweetQueryBuilder extends AbstractTwitterQueryForEntityBuilder<PromotedOnlyTweetQuery> implements PromotedOnlyTweetQuery {
+public class SponsoredTweetQueryBuilder extends AbstractTwitterQueryForEntityBuilder<SponsoredTweetQuery> implements SponsoredTweetQuery {
     private final List<Long> userIds = new ArrayList<>();
     private AdvertisingObjective objective;
     private Boolean trimUser;
 
     @Override
-    public PromotedOnlyTweetQuery ofUsers(Long... userIds) {
+    public SponsoredTweetQuery ofUsers(Long... userIds) {
         for (Long userId : userIds)
             this.userIds.add(userId);
         return this;
     }
 
     @Override
-    public PromotedOnlyTweetQuery withObjective(AdvertisingObjective objective) {
+    public SponsoredTweetQuery withObjective(AdvertisingObjective objective) {
         this.objective = objective;
         return this;
     }
 
     @Override
-    public PromotedOnlyTweetQuery trimUser(Boolean trimUser) {
+    public SponsoredTweetQuery trimUser(Boolean trimUser) {
         this.trimUser = trimUser;
         return this;
     }

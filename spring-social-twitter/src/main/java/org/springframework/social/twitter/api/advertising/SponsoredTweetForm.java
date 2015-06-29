@@ -26,13 +26,13 @@ import org.springframework.social.twitter.api.TwitterForm;
  * 
  * @author Hudson Mendes
  */
-public interface PromotedOnlyTweetForm extends TwitterForm {
+public interface SponsoredTweetForm extends TwitterForm {
 
-    public PromotedOnlyTweetForm withStatus(String text);
+    public SponsoredTweetForm withStatus(String text);
 
-    public PromotedOnlyTweetForm asUser(Long userId);
+    public SponsoredTweetForm asUser(Long userId);
 
-    public PromotedOnlyTweetForm trimUser(Boolean trimUser);
+    public SponsoredTweetForm trimUser(Boolean trimUser);
 
-    public PromotedOnlyTweetForm withMediaIds(Long... mediaIds);
+    public SponsoredTweetForm withMediaIds(Long... mediaIds);
 }

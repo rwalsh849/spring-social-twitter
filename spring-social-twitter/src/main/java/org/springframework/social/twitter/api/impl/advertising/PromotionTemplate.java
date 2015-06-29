@@ -20,8 +20,8 @@ import org.springframework.http.HttpMethod;
 import org.springframework.social.twitter.api.Tweet;
 import org.springframework.social.twitter.api.advertising.PromotableUser;
 import org.springframework.social.twitter.api.advertising.PromotableUserQuery;
-import org.springframework.social.twitter.api.advertising.PromotedOnlyTweetForm;
-import org.springframework.social.twitter.api.advertising.PromotedOnlyTweetQuery;
+import org.springframework.social.twitter.api.advertising.SponsoredTweetForm;
+import org.springframework.social.twitter.api.advertising.SponsoredTweetQuery;
 import org.springframework.social.twitter.api.advertising.PromotedTweetReference;
 import org.springframework.social.twitter.api.advertising.PromotedTweetReferenceQuery;
 import org.springframework.social.twitter.api.advertising.PromotionOperations;
@@ -65,7 +65,7 @@ public class PromotionTemplate extends AbstractTwitterOperations implements Prom
     @Override
     public DataListHolder<Tweet> getSponsoredTweets(
             String accountId,
-            PromotedOnlyTweetQuery query) {
+            SponsoredTweetQuery query) {
 
         requireUserAuthorization();
         return restTemplate.exchange(
@@ -84,7 +84,7 @@ public class PromotionTemplate extends AbstractTwitterOperations implements Prom
     @Override
     public Tweet createSponsoredTweet(
             String accountId,
-            PromotedOnlyTweetForm input) {
+            SponsoredTweetForm input) {
 
         requireUserAuthorization();
         return restTemplate.exchange(
