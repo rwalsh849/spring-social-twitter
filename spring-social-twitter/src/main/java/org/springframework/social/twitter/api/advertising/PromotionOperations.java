@@ -57,10 +57,19 @@ public interface PromotionOperations {
      * Queries links between {@link Tweet} and {@link LineItem}.
      * Essential to advertise for targetted people.
      * 
-     * @param accountId identifies the account for which we will query link.
+     * @param accountId identifies the account for which we will query links.
      * @param lineItemId is the line item for which we will query.
      * @param query responsible for aditional parameters of the query, such as pagination.
      * @return a cursored list of {@link PromotedTweetReference}
      */
-    DataListHolder<PromotedTweetReference> getPromotedTweetReference(String accountId, String lineItemId, PromotedTweetReferenceQuery query);
+    DataListHolder<PromotedTweetReference> getPromotedTweetReferences(String accountId, String lineItemId, PromotedTweetReferenceQuery query);
+
+    /**
+     * Creates a {@link PromotedTweetReference} that links a {@link LineItem} to a {@link SponsoredTweet}.
+     * 
+     * @param accountId identifies the account for which we will create a link.
+     * @param input is the information of the link that we will create.
+     * @return a list of all {@link PromotedTweetReference} created for all the {@link Tweet} passed.
+     */
+    DataListHolder<PromotedTweetReference> createPromotedTweetReference(String accountId, PromotedTweetReferenceForm input);
 }

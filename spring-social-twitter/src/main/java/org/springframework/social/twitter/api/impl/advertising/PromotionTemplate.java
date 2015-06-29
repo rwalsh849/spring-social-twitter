@@ -21,6 +21,7 @@ import org.springframework.social.twitter.api.Tweet;
 import org.springframework.social.twitter.api.advertising.PromotableUser;
 import org.springframework.social.twitter.api.advertising.PromotableUserQuery;
 import org.springframework.social.twitter.api.advertising.PromotedTweetReference;
+import org.springframework.social.twitter.api.advertising.PromotedTweetReferenceForm;
 import org.springframework.social.twitter.api.advertising.PromotedTweetReferenceQuery;
 import org.springframework.social.twitter.api.advertising.PromotionOperations;
 import org.springframework.social.twitter.api.advertising.SponsoredTweetForm;
@@ -98,7 +99,7 @@ public class PromotionTemplate extends AbstractTwitterOperations implements Prom
     }
 
     @Override
-    public DataListHolder<PromotedTweetReference> getPromotedTweetReference(
+    public DataListHolder<PromotedTweetReference> getPromotedTweetReferences(
             String accountId,
             String lineItemId,
             PromotedTweetReferenceQuery query) {
@@ -115,5 +116,21 @@ public class PromotionTemplate extends AbstractTwitterOperations implements Prom
                 null,
                 new ParameterizedTypeReference<DataListHolder<PromotedTweetReference>>() {}
                 ).getBody();
+    }
+
+    @Override
+    public DataListHolder<PromotedTweetReference> createPromotedTweetReference(
+            String accountId,
+            PromotedTweetReferenceForm input) {
+
+        requireUserAuthorization();
+        return restTemplate.exchange(
+                new TwitterApiBuilderForUri()
+                        .withResource(TwitterApiUriResourceForAdvertising.PROMOTED_TWEET_REFERENCES)
+                        .withArgument("account_id", accountId)
+                        .build(),
+                HttpMethod.POST,
+                new TwitterApiBuilderForHttpEntity<>(input.toRequestBody()).build(),
+                new ParameterizedTypeReference<DataListHolder<PromotedTweetReference>>() {}).getBody();
     }
 }
