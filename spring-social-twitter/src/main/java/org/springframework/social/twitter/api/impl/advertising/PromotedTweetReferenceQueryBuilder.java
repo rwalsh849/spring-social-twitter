@@ -15,16 +15,18 @@
  */
 package org.springframework.social.twitter.api.impl.advertising;
 
-import org.springframework.social.twitter.api.advertising.PromotableUser;
-import org.springframework.social.twitter.api.advertising.PromotableUserQuery;
+import org.springframework.social.twitter.api.advertising.PromotedTweetReference;
+import org.springframework.social.twitter.api.advertising.PromotedTweetReferenceQuery;
 import org.springframework.util.MultiValueMap;
 
 /**
- * Query builder for {@link PromotableUser} queries.
+ * Query builder for {@link PromotedTweetReference} queries.
  * 
  * @author Hudson Mendes
  */
-public class PromotableUserQueryBuilder extends AbstractTwitterQueryForEntityBuilder<PromotableUserQuery> implements PromotableUserQuery {
+public class PromotedTweetReferenceQueryBuilder
+        extends AbstractTwitterQueryForEntityBuilder<PromotedTweetReferenceQuery>
+        implements PromotedTweetReferenceQuery {
 
     @Override
     protected void makeParameters(MultiValueMap<String, String> map) {}

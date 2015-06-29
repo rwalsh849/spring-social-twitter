@@ -20,11 +20,11 @@ import org.springframework.http.HttpMethod;
 import org.springframework.social.twitter.api.Tweet;
 import org.springframework.social.twitter.api.advertising.PromotableUser;
 import org.springframework.social.twitter.api.advertising.PromotableUserQuery;
-import org.springframework.social.twitter.api.advertising.SponsoredTweetForm;
-import org.springframework.social.twitter.api.advertising.SponsoredTweetQuery;
 import org.springframework.social.twitter.api.advertising.PromotedTweetReference;
 import org.springframework.social.twitter.api.advertising.PromotedTweetReferenceQuery;
 import org.springframework.social.twitter.api.advertising.PromotionOperations;
+import org.springframework.social.twitter.api.advertising.SponsoredTweetForm;
+import org.springframework.social.twitter.api.advertising.SponsoredTweetQuery;
 import org.springframework.social.twitter.api.impl.AbstractTwitterOperations;
 import org.springframework.social.twitter.api.impl.DataListHolder;
 import org.springframework.social.twitter.api.impl.DataSingleHolder;
@@ -108,6 +108,7 @@ public class PromotionTemplate extends AbstractTwitterOperations implements Prom
                 new TwitterApiBuilderForUri()
                         .withResource(TwitterApiUriResourceForAdvertising.PROMOTED_TWEET_REFERENCES)
                         .withArgument("account_id", accountId)
+                        .withArgument("line_item_id", lineItemId)
                         .withArgument(query.toQueryParameters())
                         .build(),
                 HttpMethod.GET,

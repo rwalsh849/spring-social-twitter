@@ -30,7 +30,9 @@ import org.hamcrest.CoreMatchers;
 import org.junit.Assert;
 import org.junit.Test;
 import org.springframework.social.twitter.api.Tweet;
+import org.springframework.social.twitter.api.advertising.ApprovalStatus;
 import org.springframework.social.twitter.api.advertising.PromotableUser;
+import org.springframework.social.twitter.api.advertising.PromotedTweetReference;
 import org.springframework.social.twitter.api.impl.AbstractTwitterApiTest;
 
 /**
@@ -61,7 +63,7 @@ public class PromotionsTemplateTest extends AbstractTwitterApiTest {
     }
 
     @Test
-    public void getPromotedOnlyTweets() {
+    public void getSponsoredTweets() {
         String mockedAccountId = "0ga0yn";
         mockServer
                 .expect(requestTo("https://ads-api.twitter.com/0/accounts/" + mockedAccountId
@@ -107,7 +109,7 @@ public class PromotionsTemplateTest extends AbstractTwitterApiTest {
     }
 
     @Test
-    public void createPromotedOnlyTweet() {
+    public void createSponsoredTweet() {
         String mockedAccountId = "hkk5";
         String mockedTweetText = "Hey, here is a sponsored tweet that we are creating via #ads API.";
         long mockedUserId = 390472547L;
@@ -131,5 +133,28 @@ public class PromotionsTemplateTest extends AbstractTwitterApiTest {
         Assert.assertThat(
                 Arrays.asList(tweet.getEntities().getHashTags().stream().map(i -> i.getText()).toArray(size -> new String[size])),
                 CoreMatchers.hasItems("ads"));
+    }
+
+    @Test
+    public void getPromotedTweets() {
+        String mockedAccountId = "0ga0yn";
+        String mockedLineItemId = "u4h4";
+        mockServer
+                .expect(requestTo("https://ads-api.twitter.com/0/accounts/" + mockedAccountId + "/promoted_tweets?line_item_id=" + mockedLineItemId))
+                .andExpect(method(GET))
+                .andRespond(withSuccess(jsonResource("ad-promoted-tweets"), APPLICATION_JSON));
+
+        List<PromotedTweetReference> reference = twitter.promotionOperations().getPromotedTweetReference(
+                mockedAccountId,
+                mockedLineItemId,
+                new PromotedTweetReferenceQueryBuilder()).getList();
+
+        Assert.assertNotEquals(0, reference.size());
+        Assert.assertEquals("tifo", reference.get(0).getId());
+        Assert.assertEquals("b51j", reference.get(0).getLineItemId());
+        Assert.assertEquals(Long.valueOf(614564626060062720L), reference.get(0).getTweetId());
+        Assert.assertEquals(ApprovalStatus.ACCEPTED, reference.get(0).getApprovalStatus());
+        Assert.assertEquals("2015-06-27T00:21:53", reference.get(0).getCreatedAt().toString());
+        Assert.assertEquals("2015-06-30T00:21:53", reference.get(0).getUpdatedAt().toString());
     }
 }

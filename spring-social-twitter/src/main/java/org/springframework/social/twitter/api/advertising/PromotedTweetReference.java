@@ -18,6 +18,7 @@ package org.springframework.social.twitter.api.advertising;
 import java.time.LocalDateTime;
 
 import org.springframework.social.twitter.api.Tweet;
+import org.springframework.social.twitter.api.TwitterObject;
 
 /**
  * Represents a link between {@link LineItem} and {@link Tweet},
@@ -25,7 +26,7 @@ import org.springframework.social.twitter.api.Tweet;
  * 
  * @author Hudson Mendes
  */
-public class PromotedTweetReference {
+public class PromotedTweetReference extends TwitterObject {
     private final String id;
     private final String lineItemId;
     private final Long tweetId;
