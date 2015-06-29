@@ -22,6 +22,8 @@ import org.springframework.social.twitter.api.advertising.PromotableUser;
 import org.springframework.social.twitter.api.advertising.PromotableUserQuery;
 import org.springframework.social.twitter.api.advertising.PromotedOnlyTweetForm;
 import org.springframework.social.twitter.api.advertising.PromotedOnlyTweetQuery;
+import org.springframework.social.twitter.api.advertising.PromotedTweetReference;
+import org.springframework.social.twitter.api.advertising.PromotedTweetReferenceQuery;
 import org.springframework.social.twitter.api.advertising.PromotionOperations;
 import org.springframework.social.twitter.api.impl.AbstractTwitterOperations;
 import org.springframework.social.twitter.api.impl.DataListHolder;
@@ -61,14 +63,14 @@ public class PromotionTemplate extends AbstractTwitterOperations implements Prom
     }
 
     @Override
-    public DataListHolder<Tweet> getPromotedOnlyTweets(
+    public DataListHolder<Tweet> getSponsoredTweets(
             String accountId,
             PromotedOnlyTweetQuery query) {
 
         requireUserAuthorization();
         return restTemplate.exchange(
                 new TwitterApiBuilderForUri()
-                        .withResource(TwitterApiUriResourceForAdvertising.PROMOTED_TWEETS)
+                        .withResource(TwitterApiUriResourceForAdvertising.SPONSORED_TWEETS)
                         .withArgument("account_id", accountId)
                         .withArgument("scoped_to", "none")
                         .withArgument(query.toQueryParameters())
@@ -80,18 +82,37 @@ public class PromotionTemplate extends AbstractTwitterOperations implements Prom
     }
 
     @Override
-    public Tweet createPromotedOnlyTweet(
+    public Tweet createSponsoredTweet(
             String accountId,
             PromotedOnlyTweetForm input) {
 
         requireUserAuthorization();
         return restTemplate.exchange(
                 new TwitterApiBuilderForUri()
-                        .withResource(TwitterApiUriResourceForAdvertising.PROMOTED_TWEETS_CREATE)
+                        .withResource(TwitterApiUriResourceForAdvertising.SPONSORED_TWEETS_CREATE)
                         .withArgument("account_id", accountId)
                         .build(),
                 HttpMethod.POST,
                 new TwitterApiBuilderForHttpEntity<>(input.toRequestBody()).build(),
                 new ParameterizedTypeReference<DataSingleHolder<Tweet>>() {}).getBody().getData();
+    }
+
+    @Override
+    public DataListHolder<PromotedTweetReference> getPromotedTweetReference(
+            String accountId,
+            String lineItemId,
+            PromotedTweetReferenceQuery query) {
+
+        requireUserAuthorization();
+        return restTemplate.exchange(
+                new TwitterApiBuilderForUri()
+                        .withResource(TwitterApiUriResourceForAdvertising.PROMOTED_TWEET_REFERENCES)
+                        .withArgument("account_id", accountId)
+                        .withArgument(query.toQueryParameters())
+                        .build(),
+                HttpMethod.GET,
+                null,
+                new ParameterizedTypeReference<DataListHolder<PromotedTweetReference>>() {}
+                ).getBody();
     }
 }

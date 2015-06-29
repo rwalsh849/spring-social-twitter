@@ -35,7 +35,7 @@
             "followers": false
         },
         "source": "<a href=\"http://spring.io\" rel=\"nofollow\">Spring Website</a>",
-        "text": "Hey, here is a promoted-only tweet that we are creating via #ads API.",
+        "text": "Hey, here is a sponsored tweet that we are creating via #ads API.",
         "truncated": false,
         "user": {
             "id": 390472547,

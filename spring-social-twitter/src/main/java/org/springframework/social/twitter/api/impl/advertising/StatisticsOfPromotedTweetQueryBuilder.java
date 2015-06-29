@@ -30,12 +30,12 @@ import org.springframework.util.MultiValueMap;
  */
 public class StatisticsOfPromotedTweetQueryBuilder extends AbstractTwitterQueryForStatsBuilder<StatisticsOfPromotedTweetQuery> implements
         StatisticsOfPromotedTweetQuery {
-    private List<String> promotedTweetIds;
+    private final List<String> promotedTweetIds = new ArrayList<>();
 
     public StatisticsOfPromotedTweetQueryBuilder withPromotedTweets(String... promotedAccountIds) {
-        this.promotedTweetIds = new ArrayList<String>();
-        for (int i = 0; i < promotedAccountIds.length; i++)
-            this.promotedTweetIds.add(promotedAccountIds[i]);
+        if (promotedAccountIds != null)
+            for (int i = 0; i < promotedAccountIds.length; i++)
+                this.promotedTweetIds.add(promotedAccountIds[i]);
         return this;
     }
 

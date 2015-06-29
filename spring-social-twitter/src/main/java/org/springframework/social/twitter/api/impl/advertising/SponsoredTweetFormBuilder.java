@@ -25,7 +25,7 @@ import org.springframework.util.MultiValueMap;
 /**
  * @author Hudson Mendes
  */
-public class PromotedOnlyTweetFormBuilder extends AbstractTwitterFormBuilder implements PromotedOnlyTweetForm {
+public class SponsoredTweetFormBuilder extends AbstractTwitterFormBuilder implements PromotedOnlyTweetForm {
 
     private String status;
     private Long asUserId;

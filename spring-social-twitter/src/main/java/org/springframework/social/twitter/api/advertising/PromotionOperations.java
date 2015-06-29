@@ -42,7 +42,7 @@ public interface PromotionOperations {
      * @param query are the parameters for which we want to retrieve tweets.
      * @return a cursored list of {@link Tweet}.
      */
-    DataListHolder<Tweet> getPromotedOnlyTweets(String accountId, PromotedOnlyTweetQuery query);
+    DataListHolder<Tweet> getSponsoredTweets(String accountId, PromotedOnlyTweetQuery query);
 
     /**
      * Creates a {@link Tweet} that is a promoted-only tweet.
@@ -51,5 +51,16 @@ public interface PromotionOperations {
      * @param input is the data of the tweet.
      * @return the {@link Tweet} that has been created.
      */
-    Tweet createPromotedOnlyTweet(String accountId, PromotedOnlyTweetForm input);
+    Tweet createSponsoredTweet(String accountId, PromotedOnlyTweetForm input);
+
+    /**
+     * Queries links between {@link Tweet} and {@link LineItem}.
+     * Essential to advertise for targetted people.
+     * 
+     * @param accountId identifies the account for which we will query link.
+     * @param lineItemId is the line item for which we will query.
+     * @param query responsible for aditional parameters of the query, such as pagination.
+     * @return a cursored list of {@link PromotedTweetReference}
+     */
+    DataListHolder<PromotedTweetReference> getPromotedTweetReference(String accountId, String lineItemId, PromotedTweetReferenceQuery query);
 }

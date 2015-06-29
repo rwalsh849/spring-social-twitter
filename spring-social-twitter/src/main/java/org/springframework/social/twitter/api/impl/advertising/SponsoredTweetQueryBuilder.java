@@ -7,7 +7,7 @@ import org.springframework.social.twitter.api.advertising.AdvertisingObjective;
 import org.springframework.social.twitter.api.advertising.PromotedOnlyTweetQuery;
 import org.springframework.util.MultiValueMap;
 
-public class PromotedOnlyTweetQueryBuilder extends AbstractTwitterQueryForEntityBuilder<PromotedOnlyTweetQuery> implements PromotedOnlyTweetQuery {
+public class SponsoredTweetQueryBuilder extends AbstractTwitterQueryForEntityBuilder<PromotedOnlyTweetQuery> implements PromotedOnlyTweetQuery {
     private final List<Long> userIds = new ArrayList<>();
     private AdvertisingObjective objective;
     private Boolean trimUser;

@@ -67,11 +67,11 @@ public class PromotionsTemplateTest extends AbstractTwitterApiTest {
                 .expect(requestTo("https://ads-api.twitter.com/0/accounts/" + mockedAccountId
                         + "/scoped_timeline?scoped_to=none&user_ids=390472547&trim_user=true&count=1"))
                 .andExpect(method(GET))
-                .andRespond(withSuccess(jsonResource("ad-promoted-only-tweets"), APPLICATION_JSON));
+                .andRespond(withSuccess(jsonResource("ad-sponsored-tweets"), APPLICATION_JSON));
 
-        List<Tweet> tweets = twitter.promotionOperations().getPromotedOnlyTweets(
+        List<Tweet> tweets = twitter.promotionOperations().getSponsoredTweets(
                 mockedAccountId,
-                new PromotedOnlyTweetQueryBuilder()
+                new SponsoredTweetQueryBuilder()
                         .ofUsers(new Long("390472547"))
                         .pagedBy(null, 1)
                         .trimUser(true)).getList();
@@ -109,20 +109,20 @@ public class PromotionsTemplateTest extends AbstractTwitterApiTest {
     @Test
     public void createPromotedOnlyTweet() {
         String mockedAccountId = "hkk5";
-        String mockedTweetText = "Hey, here is a promoted-only tweet that we are creating via #ads API.";
+        String mockedTweetText = "Hey, here is a sponsored tweet that we are creating via #ads API.";
         long mockedUserId = 390472547L;
 
-        String chainedPostContent = "status=Hey%2C+here+is+a+promoted-only+tweet+that+we+are+creating+via+%23ads+API.&as_user_id=390472547";
+        String chainedPostContent = "status=Hey%2C+here+is+a+sponsored+tweet+that+we+are+creating+via+%23ads+API.&as_user_id=390472547";
 
         mockServer
                 .expect(requestTo("https://ads-api.twitter.com/0/accounts/" + mockedAccountId + "/tweet"))
                 .andExpect(method(POST))
                 .andExpect(content().string(chainedPostContent))
-                .andRespond(withSuccess(jsonResource("ad-promoted-only-tweets-single"), APPLICATION_JSON));
+                .andRespond(withSuccess(jsonResource("ad-sponsored-tweets-single"), APPLICATION_JSON));
 
-        Tweet tweet = twitter.promotionOperations().createPromotedOnlyTweet(
+        Tweet tweet = twitter.promotionOperations().createSponsoredTweet(
                 mockedAccountId,
-                new PromotedOnlyTweetFormBuilder()
+                new SponsoredTweetFormBuilder()
                         .asUser(mockedUserId)
                         .withStatus(mockedTweetText));
 

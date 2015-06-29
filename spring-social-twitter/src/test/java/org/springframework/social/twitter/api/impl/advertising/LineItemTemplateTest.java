@@ -199,8 +199,8 @@ public class LineItemTemplateTest extends AbstractTwitterApiTest {
         assertEquals(AdvertisingSentiment.POSITIVE_ONLY, lineItems.get(0).getIncludeSentiment());
         assertEquals(AdvertisingPlacementType.PROMOTED_TWEETS, lineItems.get(0).getPlacementType());
         assertEquals("USD", lineItems.get(0).getCurrency());
-        assertEquals(null, lineItems.get(0).getTotalBudgetAmount());
-        assertEquals(new BigDecimal("10"), lineItems.get(0).getBidAmount());
+        assertEquals(BigDecimal.valueOf(100), lineItems.get(0).getTotalBudgetAmount());
+        assertEquals(BigDecimal.valueOf(10), lineItems.get(0).getBidAmount());
         assertEquals(false, lineItems.get(0).isAutomaticallySetBid());
         assertEquals(true, lineItems.get(0).isPaused());
         assertEquals(false, lineItems.get(0).isDeleted());
