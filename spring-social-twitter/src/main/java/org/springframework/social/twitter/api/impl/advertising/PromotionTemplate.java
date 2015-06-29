@@ -133,4 +133,15 @@ public class PromotionTemplate extends AbstractTwitterOperations implements Prom
                 new TwitterApiBuilderForHttpEntity<>(input.toRequestBody()).build(),
                 new ParameterizedTypeReference<DataListHolder<PromotedTweetReference>>() {}).getBody();
     }
+
+    @Override
+    public void deletePromotedTweetReference(String accountId, String promotedTweetId) {
+        requireUserAuthorization();
+        restTemplate.delete(
+                new TwitterApiBuilderForUri()
+                        .withResource(TwitterApiUriResourceForAdvertising.PROMOTED_TWEET_REFERENCE)
+                        .withArgument("account_id", accountId)
+                        .withArgument("promoted_tweet_id", promotedTweetId)
+                        .build());
+    }
 }

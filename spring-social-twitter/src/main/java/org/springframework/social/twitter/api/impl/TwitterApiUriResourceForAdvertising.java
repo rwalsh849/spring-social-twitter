@@ -11,6 +11,7 @@ public enum TwitterApiUriResourceForAdvertising {
     SPONSORED_TWEETS_CREATE("accounts/:account_id/tweet"),
 
     PROMOTED_TWEET_REFERENCES("accounts/:account_id/promoted_tweets"),
+    PROMOTED_TWEET_REFERENCE("accounts/:account_id/promoted_tweets/:promoted_tweet_id"),
 
     FUNDING_INSTRUMENTS("accounts/:account_id/funding_instruments"),
 

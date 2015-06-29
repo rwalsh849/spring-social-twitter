@@ -15,6 +15,7 @@
  */
 package org.springframework.social.twitter.api.impl.advertising;
 
+import static org.springframework.http.HttpMethod.DELETE;
 import static org.springframework.http.HttpMethod.GET;
 import static org.springframework.http.HttpMethod.POST;
 import static org.springframework.http.MediaType.APPLICATION_JSON;
@@ -185,5 +186,20 @@ public class PromotionsTemplateTest extends AbstractTwitterApiTest {
         Assert.assertEquals(ApprovalStatus.ACCEPTED, references.get(0).getApprovalStatus());
         Assert.assertEquals("2015-06-27T00:21:53", references.get(0).getCreatedAt().toString());
         Assert.assertEquals("2015-06-30T00:21:53", references.get(0).getUpdatedAt().toString());
+    }
+
+    @Test
+    public void deletePromotedTweetReference() {
+        String mockedAccountId = "0ga0yn";
+        String mockedPromotedTweetId = "ak34";
+
+        mockServer
+                .expect(requestTo("https://ads-api.twitter.com/0/accounts/" + mockedAccountId + "/promoted_tweets/" + mockedPromotedTweetId))
+                .andExpect(method(DELETE))
+                .andRespond(withSuccess());
+
+        twitter.promotionOperations().deletePromotedTweetReference(
+                mockedAccountId,
+                mockedPromotedTweetId);
     }
 }

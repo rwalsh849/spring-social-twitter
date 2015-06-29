@@ -72,4 +72,12 @@ public interface PromotionOperations {
      * @return a list of all {@link PromotedTweetReference} created for all the {@link Tweet} passed.
      */
     DataListHolder<PromotedTweetReference> createPromotedTweetReference(String accountId, PromotedTweetReferenceForm input);
+
+    /**
+     * Deletes a {@link PromotedTweetReference} by its reference.
+     * 
+     * @param accountId identifies the account for which we will create a link.
+     * @param promotedTweetId identifies the id of the promoted_tweet to be deleted.
+     */
+    void deletePromotedTweetReference(String accountId, String promotedTweetId);
 }
