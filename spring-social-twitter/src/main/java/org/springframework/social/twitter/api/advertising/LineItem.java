@@ -17,6 +17,8 @@ package org.springframework.social.twitter.api.advertising;
 
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
 
 import org.springframework.social.twitter.api.TwitterObject;
 
@@ -40,13 +42,14 @@ public class LineItem extends TwitterObject {
     private final String accountId;
     private final String campaignId;
     private final String name;
-    private final ProductType productType;
 
     private final BidUnit bidUnit;
     private final LineItemOptimization optimization;
     private final AdvertisingObjective objective;
     private final AdvertisingSentiment includeSentiment;
-    private final AdvertisingPlacementType placementType;
+
+    private final AdvertisingProductType productType;
+    private final List<AdvertisingPlacement> placements = new ArrayList<>();
 
     private final String currency;
     private final BigDecimal totalBudgetAmount;
@@ -63,12 +66,12 @@ public class LineItem extends TwitterObject {
             String accountId,
             String campaignId,
             String name,
-            ProductType productType,
             BidUnit bidUnit,
             LineItemOptimization optimization,
             AdvertisingObjective objective,
             AdvertisingSentiment includeSentiment,
-            AdvertisingPlacementType placementType,
+            AdvertisingProductType productType,
+            AdvertisingPlacement[] placements,
             String currency,
             BigDecimal totalBudgetAmount,
             BigDecimal bidAmount,
@@ -82,10 +85,13 @@ public class LineItem extends TwitterObject {
         this.accountId = accountId;
         this.campaignId = campaignId;
         this.name = name;
+
         this.productType = productType;
+        if (placements != null)
+            for (AdvertisingPlacement placement : placements)
+                this.placements.add(placement);
 
         this.bidUnit = bidUnit;
-        this.placementType = placementType;
         this.objective = objective;
         this.includeSentiment = includeSentiment;
         this.optimization = optimization;
@@ -118,7 +124,7 @@ public class LineItem extends TwitterObject {
         return name;
     }
 
-    public ProductType getProductType() {
+    public AdvertisingProductType getProductType() {
         return productType;
     }
 
@@ -138,8 +144,8 @@ public class LineItem extends TwitterObject {
         return includeSentiment;
     }
 
-    public AdvertisingPlacementType getPlacementType() {
-        return placementType;
+    public List<AdvertisingPlacement> getPlacements() {
+        return placements;
     }
 
     public String getCurrency() {

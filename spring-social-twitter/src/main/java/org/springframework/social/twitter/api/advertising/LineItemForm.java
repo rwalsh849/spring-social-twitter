@@ -43,12 +43,20 @@ public interface LineItemForm extends TwitterForm {
     public abstract LineItemForm named(String name);
 
     /**
-     * The type of placement for ads of a {@link LineItem}
+     * The type of product that will be advertised {@link AdvertisingProductType}
      * 
-     * @param placementType the type of placement.
+     * @param productType is the type of advertising product that we are using for the {@link LineItem}.
      * @return the fluent builder
      */
-    public abstract LineItemForm placedOn(AdvertisingPlacementType placementType);
+    public abstract LineItemForm productType(AdvertisingProductType productType);
+
+    /**
+     * The type of placement for ads of a {@link LineItem}
+     * 
+     * @param placements is where the items will be advertised.
+     * @return the fluent builder
+     */
+    public abstract LineItemForm placedOn(AdvertisingPlacement... placements);
 
     /**
      * The objective of this {@link LineItem}

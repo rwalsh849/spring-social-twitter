@@ -16,6 +16,7 @@
 package org.springframework.social.twitter.api.impl.advertising;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertThat;
 import static org.springframework.http.HttpMethod.DELETE;
 import static org.springframework.http.HttpMethod.GET;
 import static org.springframework.http.HttpMethod.POST;
@@ -34,14 +35,15 @@ import java.time.LocalDateTime;
 import java.time.Month;
 import java.util.List;
 
+import org.hamcrest.CoreMatchers;
 import org.junit.Test;
 import org.springframework.social.twitter.api.advertising.AdvertisingObjective;
-import org.springframework.social.twitter.api.advertising.AdvertisingPlacementType;
+import org.springframework.social.twitter.api.advertising.AdvertisingPlacement;
+import org.springframework.social.twitter.api.advertising.AdvertisingProductType;
 import org.springframework.social.twitter.api.advertising.AdvertisingSentiment;
 import org.springframework.social.twitter.api.advertising.BidUnit;
 import org.springframework.social.twitter.api.advertising.LineItem;
 import org.springframework.social.twitter.api.advertising.LineItemOptimization;
-import org.springframework.social.twitter.api.advertising.ProductType;
 import org.springframework.social.twitter.api.impl.AbstractTwitterApiTest;
 import org.springframework.social.twitter.api.impl.DataListHolder;
 
@@ -105,14 +107,15 @@ public class LineItemTemplateTest extends AbstractTwitterApiTest {
 
         String chainedPostContent = "campaign_id=" + doesntMatterString + "&" +
                 "name=" + doesntMatterString + "&" +
-                "placement_type=" + AdvertisingPlacementType.PROMOTED_TWEETS_FOR_SEARCH + "&" +
                 "objective=" + AdvertisingObjective.APP_INSTALLS + "&" +
                 "include_sentiment=" + AdvertisingSentiment.POSITIVE_ONLY + "&" +
                 "optimization=" + LineItemOptimization.WEBSITE_CONVERSIONS + "&" +
+                "bid_unit=" + BidUnit.LINK_CLICK + "&" +
+                "product_type=" + AdvertisingProductType.PROMOTED_ACCOUNT + "&" +
+                "placements=" + AdvertisingPlacement.ALL_ON_TWITTER + "%2C" + AdvertisingPlacement.PUBLISHER_NETWORK + "&" +
                 "automatically_select_bid=" + doesntMatterBool + "&" +
                 "paused=" + !doesntMatterBool + "&" +
                 "deleted=" + doesntMatterBool + "&" +
-                "bid_unit=" + BidUnit.VIEW + "&" +
                 "total_budget_amount_local_micro=" + doesntMatterDecimal.multiply(new BigDecimal(1000000L)) + "&" +
                 "bid_amount_local_micro=" + doesntMatterDecimal.multiply(new BigDecimal(1000000L));
 
@@ -129,8 +132,9 @@ public class LineItemTemplateTest extends AbstractTwitterApiTest {
                         .named(doesntMatterString)
                         .totalBudget(doesntMatterDecimal.toString())
                         .bidAmount(doesntMatterDecimal.toString())
-                        .bidUnit(BidUnit.VIEW)
-                        .placedOn(AdvertisingPlacementType.PROMOTED_TWEETS_FOR_SEARCH)
+                        .bidUnit(BidUnit.LINK_CLICK)
+                        .productType(AdvertisingProductType.PROMOTED_ACCOUNT)
+                        .placedOn(AdvertisingPlacement.ALL_ON_TWITTER, AdvertisingPlacement.PUBLISHER_NETWORK)
                         .objective(AdvertisingObjective.APP_INSTALLS)
                         .optimizedFor(LineItemOptimization.WEBSITE_CONVERSIONS)
                         .includingSentiment(AdvertisingSentiment.POSITIVE_ONLY)
@@ -192,12 +196,12 @@ public class LineItemTemplateTest extends AbstractTwitterApiTest {
         assertEquals("awvv", lineItems.get(0).getId());
         assertEquals("gq0vqj", lineItems.get(0).getAccountId());
         assertEquals("e094", lineItems.get(0).getCampaignId());
-        assertEquals(ProductType.PROMOTED_TWEETS, lineItems.get(0).getProductType());
         assertEquals(BidUnit.APP_CLICK, lineItems.get(0).getBidUnit());
         assertEquals(LineItemOptimization.DEFAULT, lineItems.get(0).getOptimization());
         assertEquals(AdvertisingObjective.APP_ENGAGEMENTS, lineItems.get(0).getObjective());
         assertEquals(AdvertisingSentiment.POSITIVE_ONLY, lineItems.get(0).getIncludeSentiment());
-        assertEquals(AdvertisingPlacementType.PROMOTED_TWEETS, lineItems.get(0).getPlacementType());
+        assertEquals(AdvertisingProductType.PROMOTED_TWEETS, lineItems.get(0).getProductType());
+        assertThat(lineItems.get(0).getPlacements(), CoreMatchers.hasItem(AdvertisingPlacement.ALL_ON_TWITTER));
         assertEquals("USD", lineItems.get(0).getCurrency());
         assertEquals(BigDecimal.valueOf(100), lineItems.get(0).getTotalBudgetAmount());
         assertEquals(BigDecimal.valueOf(10), lineItems.get(0).getBidAmount());
@@ -213,7 +217,9 @@ public class LineItemTemplateTest extends AbstractTwitterApiTest {
         assertEquals("hkk5", lineItem.getAccountId());
         assertEquals("7wdy", lineItem.getCampaignId());
         assertEquals("GBP", lineItem.getCurrency());
-        assertEquals(AdvertisingPlacementType.PROMOTED_ACCOUNT, lineItem.getPlacementType());
+        assertEquals(AdvertisingProductType.PROMOTED_ACCOUNT, lineItem.getProductType());
+        assertThat(lineItem.getPlacements(), CoreMatchers.hasItem(AdvertisingPlacement.ALL_ON_TWITTER));
+        assertThat(lineItem.getPlacements(), CoreMatchers.hasItem(AdvertisingPlacement.PUBLISHER_NETWORK));
         assertEquals(AdvertisingObjective.FOLLOWERS, lineItem.getObjective());
         assertEquals(null, lineItem.getIncludeSentiment());
         assertEquals(LineItemOptimization.DEFAULT, lineItem.getOptimization());
