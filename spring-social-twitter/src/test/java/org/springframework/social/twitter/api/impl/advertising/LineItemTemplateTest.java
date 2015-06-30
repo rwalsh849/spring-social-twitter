@@ -99,7 +99,7 @@ public class LineItemTemplateTest extends AbstractTwitterApiTest {
     }
 
     @Test
-    public void createLineItem() {
+    public void createLineItem() throws UnsupportedEncodingException {
         String mockedAccountId = "hkk5";
         String doesntMatterString = "doesn-matter-altered";
         BigDecimal doesntMatterDecimal = new BigDecimal(1.00);
@@ -112,7 +112,7 @@ public class LineItemTemplateTest extends AbstractTwitterApiTest {
                 "optimization=" + LineItemOptimization.WEBSITE_CONVERSIONS + "&" +
                 "bid_unit=" + BidUnit.LINK_CLICK + "&" +
                 "product_type=" + AdvertisingProductType.PROMOTED_ACCOUNT + "&" +
-                "placements=" + AdvertisingPlacement.ALL_ON_TWITTER + "%2C" + AdvertisingPlacement.PUBLISHER_NETWORK + "&" +
+                "placements=" + URLEncoder.encode(AdvertisingPlacement.ALL_ON_TWITTER + "," + AdvertisingPlacement.PUBLISHER_NETWORK, UTF8) + "&" +
                 "automatically_select_bid=" + doesntMatterBool + "&" +
                 "paused=" + !doesntMatterBool + "&" +
                 "deleted=" + doesntMatterBool + "&" +
