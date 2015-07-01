@@ -23,4 +23,6 @@ import org.springframework.social.twitter.api.TwitterQueryForEntity;
  * @author Hudson Mendes
  */
 public interface TargetingCriteriaDiscoveryForNetworkOperatorsQuery extends TwitterQueryForEntity<TargetingCriteriaDiscoveryForNetworkOperatorsQuery> {
+	public TargetingCriteriaDiscoveryForNetworkOperatorsQuery query(String query);
+	public TargetingCriteriaDiscoveryForNetworkOperatorsQuery withCountryCode(String countryCode);
 }

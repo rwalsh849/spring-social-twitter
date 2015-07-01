@@ -23,4 +23,6 @@ import org.springframework.social.twitter.api.TwitterQueryForEntity;
  * @author Hudson Mendes
  */
 public interface TargetingCriteriaDiscoveryForBehaviorTaxonomiesQuery extends TwitterQueryForEntity<TargetingCriteriaDiscoveryForBehaviorTaxonomiesQuery> {
+    public TargetingCriteriaDiscoveryForBehaviorTaxonomiesQuery ofTaxonomyIds(String... taxonomyIds);
+    public TargetingCriteriaDiscoveryForBehaviorTaxonomiesQuery ofParentTaxonomyIds(String... parentIds);
 }

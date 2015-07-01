@@ -23,4 +23,6 @@ import org.springframework.social.twitter.api.TwitterQueryForEntity;
  * @author Hudson Mendes
  */
 public interface TargetingCriteriaDiscoveryForAppStoreCategoriesQuery extends TwitterQueryForEntity<TargetingCriteriaDiscoveryForAppStoreCategoriesQuery> {
+	public TargetingCriteriaDiscoveryForAppStoreCategoriesQuery inAppStore(AppStore appStore);
+	public TargetingCriteriaDiscoveryForAppStoreCategoriesQuery query(String query);
 }

@@ -6,7 +6,25 @@ import org.springframework.util.MultiValueMap;
 public class TargetingCriteriaDiscoveryForPlatformVersionsQueryBuilder
         extends AbstractTwitterQueryForEntityBuilder<TargetingCriteriaDiscoveryForPlatformVersionsQuery>
         implements TargetingCriteriaDiscoveryForPlatformVersionsQuery {
+	private String query;
+	private String language;
+
+	@Override
+	public TargetingCriteriaDiscoveryForPlatformVersionsQuery query(String query) {
+		this.query = query;
+		return this;
+	}
+
+	@Override
+	public TargetingCriteriaDiscoveryForPlatformVersionsQuery withLanguage(String language) {
+		this.language = language;
+		return this;
+	}
 
     @Override
-    protected void makeParameters(MultiValueMap<String, String> map) {}
+    protected void makeParameters(MultiValueMap<String, String> map) {
+    	appendParameter(map, "q", this.query);
+    	appendParameter(map, "lang", this.language);
+    }
+
 }

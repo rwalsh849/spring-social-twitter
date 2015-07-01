@@ -23,4 +23,6 @@ import org.springframework.social.twitter.api.TwitterQueryForEntity;
  * @author Hudson Mendes
  */
 public interface TargetingCriteriaDiscoveryForBehaviorsQuery extends TwitterQueryForEntity<TargetingCriteriaDiscoveryForBehaviorsQuery> {
+    public TargetingCriteriaDiscoveryForBehaviorsQuery ofBehaviors(String... behaviorIds);
+    public TargetingCriteriaDiscoveryForBehaviorsQuery sortBy(BehaviorSorting condition);
 }

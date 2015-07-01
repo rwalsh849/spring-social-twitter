@@ -23,4 +23,5 @@ import org.springframework.social.twitter.api.TwitterQueryForEntity;
  * @author Hudson Mendes
  */
 public interface TargetingCriteriaDiscoveryForLanguagesQuery extends TwitterQueryForEntity<TargetingCriteriaDiscoveryForLanguagesQuery> {
+	public TargetingCriteriaDiscoveryForLanguagesQuery query(String query);
 }
