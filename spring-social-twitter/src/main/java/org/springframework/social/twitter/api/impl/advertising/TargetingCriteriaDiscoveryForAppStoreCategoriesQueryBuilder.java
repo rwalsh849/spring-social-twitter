@@ -9,7 +9,6 @@ public class TargetingCriteriaDiscoveryForAppStoreCategoriesQueryBuilder
         implements TargetingCriteriaDiscoveryForAppStoreCategoriesQuery {
 
 	private AppStore appStore;
-	private String query;
 	
 	@Override
 	public TargetingCriteriaDiscoveryForAppStoreCategoriesQuery inAppStore(AppStore appStore) {
@@ -18,15 +17,8 @@ public class TargetingCriteriaDiscoveryForAppStoreCategoriesQueryBuilder
 	}
 
 	@Override
-	public TargetingCriteriaDiscoveryForAppStoreCategoriesQuery query(String query) {
-		this.query = query;
-		return this;
-	}
-
-	@Override
     protected void makeParameters(MultiValueMap<String, String> map) {
 		appendParameter(map, "store", this.appStore);
-		appendParameter(map, "q", this.query);
 	}
 
 }

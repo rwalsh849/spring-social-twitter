@@ -24,6 +24,5 @@ import org.springframework.social.twitter.api.TwitterQueryForEntity;
  */
 public interface TargetingCriteriaDiscoveryForLocationsQuery extends TwitterQueryForEntity<TargetingCriteriaDiscoveryForLocationsQuery> {
 	public TargetingCriteriaDiscoveryForLocationsQuery withLocation(LocationType location);
-	public TargetingCriteriaDiscoveryForLocationsQuery query(String query);
 	public TargetingCriteriaDiscoveryForLocationsQuery withCountryCode(String countryCode);
 }

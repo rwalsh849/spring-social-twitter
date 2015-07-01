@@ -34,7 +34,7 @@ import org.springframework.util.StringUtils;
 public abstract class AbstractTwitterQueryForEntityBuilder<TBuilderInterface extends TwitterQueryForData<TBuilderInterface>>
         extends AbstractTwitterQueryForDataBuilder<TBuilderInterface>
         implements TwitterQueryForEntity<TBuilderInterface> {
-
+	private String query;
     private String cursor;
     private Integer pageSize;
 
@@ -47,6 +47,13 @@ public abstract class AbstractTwitterQueryForEntityBuilder<TBuilderInterface ext
     }
 
     @Override
+    @SuppressWarnings("unchecked")
+    public TBuilderInterface withQuery(String query) {
+        this.query = query;
+        return (TBuilderInterface) this;
+    }
+
+    @Override
     public MultiValueMap<String, String> toQueryParameters() {
         MultiValueMap<String, String> map = new LinkedMultiValueMap<String, String>();
         makeParameters(map);
@@ -55,6 +62,9 @@ public abstract class AbstractTwitterQueryForEntityBuilder<TBuilderInterface ext
         for (String parentKey : parentMap.keySet())
             if (parentMap.get(parentKey).size() != 0)
                 appendParameter(map, parentKey, parentMap.get(parentKey).get(0));
+
+        if (this.query != null)
+            appendParameter(map, "q", this.query);
 
         if (!StringUtils.isEmpty(this.cursor))
             appendParameter(map, "cursor", this.cursor);

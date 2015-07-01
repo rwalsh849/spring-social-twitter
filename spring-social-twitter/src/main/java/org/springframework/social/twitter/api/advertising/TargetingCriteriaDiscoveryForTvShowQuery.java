@@ -23,6 +23,5 @@ import org.springframework.social.twitter.api.TwitterQueryForEntity;
  * @author Hudson Mendes
  */
 public interface TargetingCriteriaDiscoveryForTvShowQuery extends TwitterQueryForEntity<TargetingCriteriaDiscoveryForTvShowQuery> {
-
     TargetingCriteriaDiscoveryForTvShowQuery withLocale(String tvMarketLocale);
 }
