@@ -25,6 +25,7 @@ import java.util.List;
 
 import org.junit.Assert;
 import org.junit.Test;
+import org.springframework.social.twitter.api.advertising.TargetingCriteriaDiscoveryForDevices;
 import org.springframework.social.twitter.api.advertising.TargetingCriteriaDiscoveryForTvChannel;
 import org.springframework.social.twitter.api.advertising.TargetingCriteriaDiscoveryForTvGenre;
 import org.springframework.social.twitter.api.advertising.TargetingCriteriaDiscoveryForTvMarket;
@@ -137,4 +138,26 @@ public class TargetingCriteriaDiscoveryTemplateTest extends AbstractTwitterApiTe
         Assert.assertEquals(new Long("1004"), actual.get(1).getId());
         Assert.assertEquals("Cartoon Network", actual.get(1).getName());
     }
+
+    @Test
+    public void devices() {
+        mockServer
+                .expect(requestTo("https://ads-api.twitter.com/0/targeting_criteria/devices"))
+                .andExpect(method(GET))
+                .andRespond(withSuccess(jsonResource("ad-targetings-devices"), APPLICATION_JSON));
+
+        DataListHolder<TargetingCriteriaDiscoveryForDevices> discoveries = twitter.targetingCriteriaDiscoveryOperations().devices(
+                new TargetingCriteriaDiscoveryForDevicesQueryBuilder());
+
+        assertDevicesDiscoveries(discoveries.getList());
+    }
+
+    private void assertDevicesDiscoveries(List<TargetingCriteriaDiscoveryForDevices> actual) {
+        Assert.assertEquals(132, actual.size());
+
+        Assert.assertEquals("HTC Butterfly", actual.get(12).getName());
+        Assert.assertEquals("iPad 4", actual.get(35).getName());
+    }
+
+
 }
