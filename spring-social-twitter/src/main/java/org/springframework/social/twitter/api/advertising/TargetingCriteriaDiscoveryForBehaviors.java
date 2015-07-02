@@ -15,6 +15,8 @@
  */
 package org.springframework.social.twitter.api.advertising;
 
+import java.util.List;
+
 import org.springframework.social.twitter.api.TwitterObject;
 
 
@@ -29,7 +31,7 @@ public class TargetingCriteriaDiscoveryForBehaviors extends TwitterObject {
     private final String id;
     private final String name;
     private final String partnerSource;
-    private final String targetableTypes;
+    private final List<String> targetableTypes;
     
     public TargetingCriteriaDiscoveryForBehaviors(
     	    String audienceSize,
@@ -37,7 +39,7 @@ public class TargetingCriteriaDiscoveryForBehaviors extends TwitterObject {
     	    String id,
     	    String name,
     	    String partnerSource,
-    	    String targetableTypes) {
+    	    List<String> targetableTypes) {
 
         this.audienceSize = audienceSize;
         this.behaviorTaxonomyId = behaviorTaxonomyId;
@@ -67,7 +69,7 @@ public class TargetingCriteriaDiscoveryForBehaviors extends TwitterObject {
 		return partnerSource;
 	}
 
-	public String getTargetableTypes() {
+	public List<String> getTargetableTypes() {
 		return targetableTypes;
 	}
 

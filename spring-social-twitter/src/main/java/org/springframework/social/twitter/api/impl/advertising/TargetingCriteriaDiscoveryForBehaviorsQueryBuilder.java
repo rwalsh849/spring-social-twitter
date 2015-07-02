@@ -3,7 +3,6 @@ package org.springframework.social.twitter.api.impl.advertising;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.springframework.social.twitter.api.advertising.BehaviorSorting;
 import org.springframework.social.twitter.api.advertising.TargetingCriteriaDiscoveryForBehaviorsQuery;
 import org.springframework.util.MultiValueMap;
 
@@ -12,7 +11,7 @@ public class TargetingCriteriaDiscoveryForBehaviorsQueryBuilder
         implements TargetingCriteriaDiscoveryForBehaviorsQuery {
 
 	private final List<String> behaviorIds = new ArrayList<>();
-	private BehaviorSorting condition;
+	private String condition;
 	
 	@Override
 	public TargetingCriteriaDiscoveryForBehaviorsQuery ofBehaviors(String... behaviorIds) {
@@ -23,8 +22,8 @@ public class TargetingCriteriaDiscoveryForBehaviorsQueryBuilder
 	}
 
 	@Override
-	public TargetingCriteriaDiscoveryForBehaviorsQuery sortBy(BehaviorSorting condition) {
-		this.condition = condition;
+	public TargetingCriteriaDiscoveryForBehaviorsQuery sortBy(String field, String direction) {
+		this.condition = field + "-" + direction;
 		return this;
 	}
 

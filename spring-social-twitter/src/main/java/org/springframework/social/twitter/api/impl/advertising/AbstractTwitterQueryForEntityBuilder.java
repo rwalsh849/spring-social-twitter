@@ -15,6 +15,8 @@
  */
 package org.springframework.social.twitter.api.impl.advertising;
 
+import java.net.URLEncoder;
+
 import org.springframework.social.twitter.api.TwitterQueryForData;
 import org.springframework.social.twitter.api.TwitterQueryForEntity;
 import org.springframework.util.LinkedMultiValueMap;
@@ -63,9 +65,13 @@ public abstract class AbstractTwitterQueryForEntityBuilder<TBuilderInterface ext
             if (parentMap.get(parentKey).size() != 0)
                 appendParameter(map, parentKey, parentMap.get(parentKey).get(0));
 
+        try {
         if (this.query != null)
-            appendParameter(map, "q", this.query);
-
+            appendParameter(map, "q", URLEncoder.encode(this.query, "UTF-8"));
+        } catch(Exception e) {
+        	appendParameter(map, "q", this.query);
+        }
+        
         if (!StringUtils.isEmpty(this.cursor))
             appendParameter(map, "cursor", this.cursor);
 
