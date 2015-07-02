@@ -38,6 +38,7 @@ public interface TonOperations {
      * @param expiry TON expiry date, up to 7 days, but ruby script has 10 days.
      * @throws ApiException if there is an error while communicating with Twitter.
      * @throws MissingAuthorizationException if TwitterTemplate was not created with OAuth credentials.
+     * @return the URI generated from the file uploaded using TON.
      */
     URI uploadSingleChunk(final String bucketName, final byte[] data, final String contentType, final ZonedDateTime expiry);
 

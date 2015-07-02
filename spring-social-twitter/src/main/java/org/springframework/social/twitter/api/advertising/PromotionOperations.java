@@ -30,7 +30,7 @@ public interface PromotionOperations {
      * 
      * @param accountId identifies the account for which we are trying to promote users.
      * @param query are the parameters used to query the user
-     * @return
+     * @return a cursored list of {@link PromotableUser}
      */
     DataListHolder<PromotableUser> getPromotableUsers(String accountId, PromotableUserQuery query);
 
@@ -65,7 +65,7 @@ public interface PromotionOperations {
     DataListHolder<PromotedTweetReference> getPromotedTweetReferences(String accountId, String lineItemId, PromotedTweetReferenceQuery query);
 
     /**
-     * Creates a {@link PromotedTweetReference} that links a {@link LineItem} to a {@link SponsoredTweet}.
+     * Creates a {@link PromotedTweetReference} that links a {@link LineItem} to a {@link Tweet}.
      * 
      * @param accountId identifies the account for which we will create a link.
      * @param input is the information of the link that we will create.
