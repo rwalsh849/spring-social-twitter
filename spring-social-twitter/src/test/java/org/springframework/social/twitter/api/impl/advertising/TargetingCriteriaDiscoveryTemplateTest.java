@@ -410,15 +410,15 @@ public class TargetingCriteriaDiscoveryTemplateTest extends AbstractTwitterApiTe
     private void assertNetworkOperatorsDiscoveries(List<TargetingCriteriaDiscoveryForNetworkOperators> actual) {
         Assert.assertEquals(200, actual.size());
 
-//        Assert.assertEquals("CA", actual.get(61).getName());
-//        Assert.assertEquals("XXXXXX", actual.get(61).getCountryCode());
-//        Assert.assertEquals("XXXXXX", actual.get(61).getTargetingType());
-//        Assert.assertEquals("XXXXXX", actual.get(61).getTargetingValue());
-//
-//        Assert.assertEquals("XXXXXX", actual.get(99).getName());
-//        Assert.assertEquals("XXXXXX", actual.get(99).getCountryCode());
-//        Assert.assertEquals("XXXXXX", actual.get(99).getTargetingType());
-//        Assert.assertEquals("XXXXXXXXXXXX", actual.get(99).getTargetingValue());
+        Assert.assertEquals("BC Tel Mobility (Telus)", actual.get(61).getName());
+        Assert.assertEquals("CA", actual.get(61).getCountryCode());
+        Assert.assertEquals("NETWORK_OPERATOR", actual.get(61).getTargetingType());
+        Assert.assertEquals("5k", actual.get(61).getTargetingValue());
+
+        Assert.assertEquals("Cellular One of East Texas", actual.get(99).getName());
+        Assert.assertEquals("US", actual.get(99).getCountryCode());
+        Assert.assertEquals("NETWORK_OPERATOR", actual.get(99).getTargetingType());
+        Assert.assertEquals("2k", actual.get(99).getTargetingValue());
     }
 
     @Test
@@ -439,10 +439,10 @@ public class TargetingCriteriaDiscoveryTemplateTest extends AbstractTwitterApiTe
     private void assertNetworkOperatorsDiscoveriesWithParams(List<TargetingCriteriaDiscoveryForNetworkOperators> actual) {
         Assert.assertEquals(7, actual.size());
 
-//        Assert.assertEquals("XXXXXX", actual.get(3).getName());
-//        Assert.assertEquals("XXXXXX", actual.get(3).getCountryCode());
-//        Assert.assertEquals("XXXXXX", actual.get(3).getTargetingType());
-//        Assert.assertEquals("XXXXXX", actual.get(3).getTargetingValue());
+        Assert.assertEquals("SeaMobile", actual.get(3).getName());
+        Assert.assertEquals("US", actual.get(3).getCountryCode());
+        Assert.assertEquals("NETWORK_OPERATOR", actual.get(3).getTargetingType());
+        Assert.assertEquals("1x", actual.get(3).getTargetingValue());
     }
 
     @Test

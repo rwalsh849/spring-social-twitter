@@ -24,19 +24,19 @@ import org.springframework.social.twitter.api.TwitterObject;
  * @author Hudson Mendes
  */
 public class TargetingCriteriaDiscoveryForNetworkOperators extends TwitterObject {
-    private final String name;
     private final String countryCode;
+    private final String name;
     private final String targetingType;
     private final String targetingValue;
 
     public TargetingCriteriaDiscoveryForNetworkOperators(
-    		String name,
     		String countryCode,
+    		String name,
     	    String targetingType,
     	    String targetingValue) {
 
-        this.name = name;
         this.countryCode = countryCode;
+        this.name = name;
         this.targetingType = targetingType;
         this.targetingValue = targetingValue;
     }
