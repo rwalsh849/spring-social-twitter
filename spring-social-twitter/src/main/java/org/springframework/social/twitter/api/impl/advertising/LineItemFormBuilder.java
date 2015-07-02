@@ -16,9 +16,12 @@
 package org.springframework.social.twitter.api.impl.advertising;
 
 import java.math.BigDecimal;
+import java.util.ArrayList;
+import java.util.List;
 
 import org.springframework.social.twitter.api.advertising.AdvertisingObjective;
-import org.springframework.social.twitter.api.advertising.AdvertisingPlacementType;
+import org.springframework.social.twitter.api.advertising.AdvertisingPlacement;
+import org.springframework.social.twitter.api.advertising.AdvertisingProductType;
 import org.springframework.social.twitter.api.advertising.AdvertisingSentiment;
 import org.springframework.social.twitter.api.advertising.BidUnit;
 import org.springframework.social.twitter.api.advertising.LineItem;
@@ -36,16 +39,42 @@ import org.springframework.util.MultiValueMap;
 public class LineItemFormBuilder extends AbstractTwitterFormBuilder implements LineItemForm {
     private String campaignId;
     private String name;
-    private AdvertisingPlacementType placementType;
     private AdvertisingObjective objective;
     private AdvertisingSentiment includeSentiment;
     private LineItemOptimization optimization;
     private BidUnit bidUnit;
+    private AdvertisingProductType productType;
+    private final List<AdvertisingPlacement> placements = new ArrayList<>();
     private BigDecimal totalBudgetAmount;
     private BigDecimal bidAmount;
     private Boolean paused;
     private Boolean deleted;
     private Boolean automaticallySelectBid;
+
+    @Override
+    public MultiValueMap<String, String> toRequestBody() {
+        MultiValueMap<String, String> params = new LinkedMultiValueMap<String, String>();
+
+        appendParameter(params, "campaign_id", this.campaignId);
+        appendParameter(params, "name", this.name);
+
+        appendParameter(params, "objective", this.objective);
+        appendParameter(params, "include_sentiment", this.includeSentiment);
+        appendParameter(params, "optimization", this.optimization);
+        appendParameter(params, "bid_unit", this.bidUnit);
+
+        appendParameter(params, "product_type", this.productType);
+        appendParameter(params, "placements", this.placements);
+
+        appendParameter(params, "automatically_select_bid", this.automaticallySelectBid);
+        appendParameter(params, "paused", this.paused);
+        appendParameter(params, "deleted", this.deleted);
+
+        appendParameter(params, "total_budget_amount_local_micro", translateBigDecimalIntoMicro(this.totalBudgetAmount));
+        appendParameter(params, "bid_amount_local_micro", translateBigDecimalIntoMicro(this.bidAmount), true);
+
+        return params;
+    }
 
     @Override
     public LineItemForm forCampaign(String campaignId) {
@@ -60,8 +89,16 @@ public class LineItemFormBuilder extends AbstractTwitterFormBuilder implements L
     }
 
     @Override
-    public LineItemForm placedOn(AdvertisingPlacementType placementType) {
-        this.placementType = placementType;
+    public LineItemForm productType(AdvertisingProductType productType) {
+        this.productType = productType;
+        return this;
+    }
+
+    @Override
+    public LineItemForm placedOn(AdvertisingPlacement... placements) {
+        if (placements != null)
+            for (AdvertisingPlacement placement : placements)
+                this.placements.add(placement);
         return this;
     }
 
@@ -139,28 +176,5 @@ public class LineItemFormBuilder extends AbstractTwitterFormBuilder implements L
     public LineItemFormBuilder active() {
         this.deleted = false;
         return this;
-    }
-
-    @Override
-    public MultiValueMap<String, String> toRequestBody() {
-        MultiValueMap<String, String> params = new LinkedMultiValueMap<String, String>();
-
-        appendParameter(params, "campaign_id", this.campaignId);
-        appendParameter(params, "name", this.name);
-
-        appendParameter(params, "placement_type", this.placementType);
-        appendParameter(params, "objective", this.objective);
-        appendParameter(params, "include_sentiment", this.includeSentiment);
-        appendParameter(params, "optimization", this.optimization);
-
-        appendParameter(params, "automatically_select_bid", this.automaticallySelectBid);
-        appendParameter(params, "paused", this.paused);
-        appendParameter(params, "deleted", this.deleted);
-
-        appendParameter(params, "bid_unit", this.bidUnit);
-        appendParameter(params, "total_budget_amount_local_micro", translateBigDecimalIntoMicro(this.totalBudgetAmount));
-        appendParameter(params, "bid_amount_local_micro", translateBigDecimalIntoMicro(this.bidAmount), true);
-
-        return params;
     }
 }

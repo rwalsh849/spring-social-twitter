@@ -7,7 +7,7 @@ package org.springframework.social.twitter.api.advertising;
  * @author Hudson Mendes
  *
  */
-public enum ProductType {
+public enum AdvertisingProductType {
     PROMOTED_ACCOUNT,
     PROMOTED_TWEETS
 }

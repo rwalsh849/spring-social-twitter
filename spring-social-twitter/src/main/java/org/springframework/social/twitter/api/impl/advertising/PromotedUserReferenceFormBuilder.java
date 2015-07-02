@@ -15,43 +15,38 @@
  */
 package org.springframework.social.twitter.api.impl.advertising;
 
-import java.util.ArrayList;
-import java.util.List;
-
-import org.springframework.social.twitter.api.advertising.PromotedTweetReference;
-import org.springframework.social.twitter.api.advertising.PromotedTweetReferenceForm;
+import org.springframework.social.twitter.api.advertising.PromotedUserReference;
+import org.springframework.social.twitter.api.advertising.PromotedUserReferenceForm;
 import org.springframework.util.LinkedMultiValueMap;
 import org.springframework.util.MultiValueMap;
 
 /**
- * Builder for {@link PromotedTweetReference} input form.
+ * Builder for {@link PromotedUserReference} input form.
  * 
  * @author Hudson Mendes
  */
-public class PromotedTweetReferenceFormBuilder extends AbstractTwitterFormBuilder implements PromotedTweetReferenceForm {
+public class PromotedUserReferenceFormBuilder extends AbstractTwitterFormBuilder implements PromotedUserReferenceForm {
 
-    private final List<Long> tweetIds = new ArrayList<>();
+    private String userId;
     private String lineItemId;
 
     @Override
     public MultiValueMap<String, String> toRequestBody() {
         MultiValueMap<String, String> params = new LinkedMultiValueMap<String, String>();
         appendParameter(params, "line_item_id", lineItemId);
-        appendParameter(params, "tweet_ids", this.tweetIds);
+        appendParameter(params, "user_id", this.userId);
         return params;
     }
 
     @Override
-    public PromotedTweetReferenceForm onLineItem(String lineItemId) {
+    public PromotedUserReferenceForm onLineItem(String lineItemId) {
         this.lineItemId = lineItemId;
         return this;
     }
 
     @Override
-    public PromotedTweetReferenceForm forTweets(Long... tweetIds) {
-        if (tweetIds != null)
-            for (Long tweetId : tweetIds)
-                this.tweetIds.add(tweetId);
+    public PromotedUserReferenceForm forUser(String userId) {
+        this.userId = userId;
         return this;
     }
 

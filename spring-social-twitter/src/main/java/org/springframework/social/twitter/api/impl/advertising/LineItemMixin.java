@@ -19,12 +19,12 @@ import java.math.BigDecimal;
 import java.time.LocalDateTime;
 
 import org.springframework.social.twitter.api.advertising.AdvertisingObjective;
-import org.springframework.social.twitter.api.advertising.AdvertisingPlacementType;
+import org.springframework.social.twitter.api.advertising.AdvertisingPlacement;
+import org.springframework.social.twitter.api.advertising.AdvertisingProductType;
 import org.springframework.social.twitter.api.advertising.AdvertisingSentiment;
 import org.springframework.social.twitter.api.advertising.BidUnit;
 import org.springframework.social.twitter.api.advertising.LineItem;
 import org.springframework.social.twitter.api.advertising.LineItemOptimization;
-import org.springframework.social.twitter.api.advertising.ProductType;
 import org.springframework.social.twitter.api.impl.LocalDateTimeDeserializer;
 import org.springframework.social.twitter.api.impl.TwitterObjectMixin;
 
@@ -47,12 +47,12 @@ public abstract class LineItemMixin extends TwitterObjectMixin {
             @JsonProperty("account_id") String accountId,
             @JsonProperty("campaign_id") String campaignId,
             @JsonProperty("name") String name,
-            @JsonProperty("product_type") ProductType productType,
             @JsonProperty("bid_unit") BidUnit bidUnit,
             @JsonProperty("optimization") LineItemOptimization optimization,
             @JsonProperty("objective") AdvertisingObjective objective,
             @JsonProperty("include_sentiment") AdvertisingSentiment includeSentiment,
-            @JsonProperty("placement_type") AdvertisingPlacementType placementType,
+            @JsonProperty("product_type") AdvertisingProductType productType,
+            @JsonProperty("placements") AdvertisingPlacement[] placements,
             @JsonProperty("currency") String currency,
             @JsonProperty("total_budget_amount_local_micro") @JsonDeserialize(using = BigDecimalMicroAmountDeserializer.class) BigDecimal totalBudgetAmount,
             @JsonProperty("bid_amount_local_micro") @JsonDeserialize(using = BigDecimalMicroAmountDeserializer.class) BigDecimal bidAmount,

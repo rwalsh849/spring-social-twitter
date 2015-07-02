@@ -80,4 +80,29 @@ public interface PromotionOperations {
      * @param promotedTweetId identifies the id of the promoted_tweet to be deleted.
      */
     void deletePromotedTweetReference(String accountId, String promotedTweetId);
+
+    /**
+     * Retrieves all {@link PromotedUserReference} that links a {@link LineItem} to a {@link PromotableUser} existing in the Twitter Ads system.
+     * 
+     * @param accountId identifies the account for which we will retrieve the links
+     * @param lineItemId is the line item for which we will query.
+     * @param query responsible for aditional parameters of the query, such as pagination.
+     * @return a cursored list of {@link PromotedUserReference}
+     */
+    DataListHolder<PromotedUserReference> getPromotedUserReferences(String accountId, String lineItemId, PromotedUserReferenceQuery query);
+
+    /**
+     * 
+     * @param accountId identifies the account for which we will create a link.
+     * @param input is the information of the link that we will create.
+     * @return a {@link PromotedUserReference} created for all {@link PromotableUser} passed.
+     */
+    PromotedUserReference createPromotedUserReferences(String accountId, PromotedUserReferenceForm input);
+
+    /**
+     * 
+     * @param accountId identifies the account for which we will delete the link.
+     * @param promotedUserId the link that shall be deleted.
+     */
+    void deletePromotedUserReference(String accountId, String promotedUserId);
 }

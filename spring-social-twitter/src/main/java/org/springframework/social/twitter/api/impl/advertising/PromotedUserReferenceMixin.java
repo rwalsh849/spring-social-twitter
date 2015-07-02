@@ -28,13 +28,13 @@ import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 /**
  * @author Hudson Mendes
  */
-public abstract class PromotedTweetReferenceMixin extends TwitterObjectMixin {
+public abstract class PromotedUserReferenceMixin extends TwitterObjectMixin {
 
     @JsonCreator
-    PromotedTweetReferenceMixin(
+    PromotedUserReferenceMixin(
             @JsonProperty("id") String id,
             @JsonProperty("line_item_id") String lineItemId,
-            @JsonProperty("tweet_id") Long tweetId,
+            @JsonProperty("user_id") String userId,
             @JsonProperty("paused") Boolean paused,
             @JsonProperty("deleted") Boolean deleted,
             @JsonProperty("created_at") @JsonDeserialize(using = LocalDateTimeDeserializer.class) LocalDateTime createdAt,

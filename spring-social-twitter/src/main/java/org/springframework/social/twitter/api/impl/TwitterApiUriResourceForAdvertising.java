@@ -13,6 +13,9 @@ public enum TwitterApiUriResourceForAdvertising {
     PROMOTED_TWEET_REFERENCES("accounts/:account_id/promoted_tweets"),
     PROMOTED_TWEET_REFERENCE("accounts/:account_id/promoted_tweets/:promoted_tweet_id"),
 
+    PROMOTED_USER_REFERENCES("accounts/:account_id/promoted_accounts"),
+    PROMOTED_USER_REFERENCE("accounts/:account_id/promoted_accounts/:promoted_account_id"),
+
     FUNDING_INSTRUMENTS("accounts/:account_id/funding_instruments"),
 
     LINE_ITEMS("accounts/:account_id/line_items"),

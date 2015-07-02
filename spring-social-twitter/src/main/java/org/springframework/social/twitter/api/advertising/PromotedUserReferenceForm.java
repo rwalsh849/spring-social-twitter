@@ -18,12 +18,13 @@ package org.springframework.social.twitter.api.advertising;
 import org.springframework.social.twitter.api.TwitterForm;
 
 /**
- * Input form through which we can create {@link PromotedTweetReference}.
+ * Allow posting data for the {@link PromotedUserReference} entity.
  * 
  * @author Hudson Mendes
  */
-public interface PromotedTweetReferenceForm extends TwitterForm {
-    public PromotedTweetReferenceForm onLineItem(String lineItemId);
+public interface PromotedUserReferenceForm extends TwitterForm {
 
-    public PromotedTweetReferenceForm forTweets(Long... tweetIds);
+    public PromotedUserReferenceForm onLineItem(String lineItemId);
+
+    public PromotedUserReferenceForm forUser(String userId);
 }
