@@ -23,6 +23,9 @@ import org.springframework.social.twitter.api.advertising.PromotableUserQuery;
 import org.springframework.social.twitter.api.advertising.PromotedTweetReference;
 import org.springframework.social.twitter.api.advertising.PromotedTweetReferenceForm;
 import org.springframework.social.twitter.api.advertising.PromotedTweetReferenceQuery;
+import org.springframework.social.twitter.api.advertising.PromotedUserReference;
+import org.springframework.social.twitter.api.advertising.PromotedUserReferenceForm;
+import org.springframework.social.twitter.api.advertising.PromotedUserReferenceQuery;
 import org.springframework.social.twitter.api.advertising.PromotionOperations;
 import org.springframework.social.twitter.api.advertising.SponsoredTweetForm;
 import org.springframework.social.twitter.api.advertising.SponsoredTweetQuery;
@@ -142,6 +145,47 @@ public class PromotionTemplate extends AbstractTwitterOperations implements Prom
                         .withResource(TwitterApiUriResourceForAdvertising.PROMOTED_TWEET_REFERENCE)
                         .withArgument("account_id", accountId)
                         .withArgument("promoted_tweet_id", promotedTweetId)
+                        .build());
+    }
+
+    @Override
+    public DataListHolder<PromotedUserReference> getPromotedUserReferences(String accountId, String lineItemId, PromotedUserReferenceQuery query) {
+        requireUserAuthorization();
+        return restTemplate.exchange(
+                new TwitterApiBuilderForUri()
+                        .withResource(TwitterApiUriResourceForAdvertising.PROMOTED_USER_REFERENCES)
+                        .withArgument("account_id", accountId)
+                        .withArgument("line_item_id", lineItemId)
+                        .withArgument(query.toQueryParameters())
+                        .build(),
+                HttpMethod.GET,
+                null,
+                new ParameterizedTypeReference<DataListHolder<PromotedUserReference>>() {}
+                ).getBody();
+    }
+
+    @Override
+    public PromotedUserReference createPromotedUserReferences(String accountId, PromotedUserReferenceForm input) {
+        requireUserAuthorization();
+        return restTemplate.exchange(
+                new TwitterApiBuilderForUri()
+                        .withResource(TwitterApiUriResourceForAdvertising.PROMOTED_USER_REFERENCES)
+                        .withArgument("account_id", accountId)
+                        .build(),
+                HttpMethod.POST,
+                new TwitterApiBuilderForHttpEntity<>(input.toRequestBody()).build(),
+                new ParameterizedTypeReference<DataSingleHolder<PromotedUserReference>>() {}
+                ).getBody().getData();
+    }
+
+    @Override
+    public void deletePromotedUserReference(String accountId, String promotedUserId) {
+        requireUserAuthorization();
+        restTemplate.delete(
+                new TwitterApiBuilderForUri()
+                        .withResource(TwitterApiUriResourceForAdvertising.PROMOTED_USER_REFERENCE)
+                        .withArgument("account_id", accountId)
+                        .withArgument("promoted_account_id", promotedUserId)
                         .build());
     }
 }

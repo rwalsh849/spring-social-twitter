@@ -17,29 +17,28 @@ package org.springframework.social.twitter.api.advertising;
 
 import java.time.LocalDateTime;
 
-import org.springframework.social.twitter.api.Tweet;
 import org.springframework.social.twitter.api.TwitterObject;
 
 /**
- * Represents a link between {@link LineItem} and {@link Tweet},
- * part of the creative namespace of the Twitter Ads Api.
+ * Represents a {@link PromotableUser} account that has been actually
+ * promoted through the Twitter Ads Api creatives namespace.
  * 
  * @author Hudson Mendes
  */
-public class PromotedTweetReference extends TwitterObject {
+public class PromotedUserReference extends TwitterObject {
     private final String id;
     private final String lineItemId;
-    private final Long tweetId;
+    private final String userId;
     private final Boolean paused;
     private final Boolean deleted;
     private final LocalDateTime createdAt;
     private final LocalDateTime updatedAt;
     private final ApprovalStatus approvalStatus;
 
-    public PromotedTweetReference(
+    public PromotedUserReference(
             String id,
             String lineItemId,
-            Long tweetId,
+            String userId,
             Boolean paused,
             Boolean deleted,
             LocalDateTime createdAt,
@@ -48,7 +47,7 @@ public class PromotedTweetReference extends TwitterObject {
 
         this.id = id;
         this.lineItemId = lineItemId;
-        this.tweetId = tweetId;
+        this.userId = userId;
         this.paused = paused;
         this.deleted = deleted;
         this.createdAt = createdAt;
@@ -64,16 +63,16 @@ public class PromotedTweetReference extends TwitterObject {
         return lineItemId;
     }
 
-    public Long getTweetId() {
-        return tweetId;
-    }
-
-    public Boolean isPaused() {
-        return paused;
+    public String getUserId() {
+        return userId;
     }
 
     public Boolean isDeleted() {
         return deleted;
+    }
+
+    public Boolean isPaused() {
+        return paused;
     }
 
     public LocalDateTime getCreatedAt() {

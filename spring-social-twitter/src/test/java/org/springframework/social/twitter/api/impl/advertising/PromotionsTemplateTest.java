@@ -34,6 +34,7 @@ import org.springframework.social.twitter.api.Tweet;
 import org.springframework.social.twitter.api.advertising.ApprovalStatus;
 import org.springframework.social.twitter.api.advertising.PromotableUser;
 import org.springframework.social.twitter.api.advertising.PromotedTweetReference;
+import org.springframework.social.twitter.api.advertising.PromotedUserReference;
 import org.springframework.social.twitter.api.impl.AbstractTwitterApiTest;
 
 /**
@@ -155,6 +156,8 @@ public class PromotionsTemplateTest extends AbstractTwitterApiTest {
         Assert.assertEquals("b51j", references.get(0).getLineItemId());
         Assert.assertEquals(Long.valueOf(614564626060062720L), references.get(0).getTweetId());
         Assert.assertEquals(ApprovalStatus.ACCEPTED, references.get(0).getApprovalStatus());
+        Assert.assertEquals(false, references.get(0).isPaused());
+        Assert.assertEquals(false, references.get(0).isDeleted());
         Assert.assertEquals("2015-06-27T00:21:53", references.get(0).getCreatedAt().toString());
         Assert.assertEquals("2015-06-30T00:21:53", references.get(0).getUpdatedAt().toString());
     }
@@ -176,7 +179,7 @@ public class PromotionsTemplateTest extends AbstractTwitterApiTest {
         List<PromotedTweetReference> references = twitter.promotionOperations().createPromotedTweetReference(
                 mockedAccountId,
                 new PromotedTweetReferenceFormBuilder()
-                        .onLineItemId(mockedLineItemId)
+                        .onLineItem(mockedLineItemId)
                         .forTweets(tweetId)).getList();
 
         Assert.assertNotEquals(0, references.size());
@@ -184,6 +187,8 @@ public class PromotionsTemplateTest extends AbstractTwitterApiTest {
         Assert.assertEquals("u4h4", references.get(0).getLineItemId());
         Assert.assertEquals(Long.valueOf(614564626060062720L), references.get(0).getTweetId());
         Assert.assertEquals(ApprovalStatus.ACCEPTED, references.get(0).getApprovalStatus());
+        Assert.assertEquals(false, references.get(0).isPaused());
+        Assert.assertEquals(false, references.get(0).isDeleted());
         Assert.assertEquals("2015-06-27T00:21:53", references.get(0).getCreatedAt().toString());
         Assert.assertEquals("2015-06-30T00:21:53", references.get(0).getUpdatedAt().toString());
     }
@@ -199,6 +204,76 @@ public class PromotionsTemplateTest extends AbstractTwitterApiTest {
                 .andRespond(withSuccess());
 
         twitter.promotionOperations().deletePromotedTweetReference(
+                mockedAccountId,
+                mockedPromotedTweetId);
+    }
+
+    @Test
+    public void getPromotedUserReferences() {
+        String mockedAccountId = "0ga0yn";
+        String mockedLineItemId = "u4h4";
+        mockServer
+                .expect(requestTo("https://ads-api.twitter.com/0/accounts/" + mockedAccountId + "/promoted_accounts?line_item_id=" + mockedLineItemId))
+                .andExpect(method(GET))
+                .andRespond(withSuccess(jsonResource("ad-promoted-accounts-reference"), APPLICATION_JSON));
+
+        List<PromotedUserReference> references = twitter.promotionOperations().getPromotedUserReferences(
+                mockedAccountId,
+                mockedLineItemId,
+                new PromotedUserReferenceQueryBuilder()).getList();
+
+        Assert.assertNotEquals(0, references.size());
+        Assert.assertEquals("3goc", references.get(0).getId());
+        Assert.assertEquals("b6im", references.get(0).getLineItemId());
+        Assert.assertEquals("390472547", references.get(0).getUserId());
+        Assert.assertEquals(false, references.get(0).isDeleted());
+        Assert.assertEquals(false, references.get(0).isPaused());
+        Assert.assertEquals("2015-07-02T00:51:44", references.get(0).getCreatedAt().toString());
+        Assert.assertEquals("2015-07-02T00:51:44", references.get(0).getUpdatedAt().toString());
+        Assert.assertEquals(ApprovalStatus.ACCEPTED, references.get(0).getApprovalStatus());
+    }
+
+    @Test
+    public void createPromotedUserReference() {
+        String mockedAccountId = "0ga0yn";
+        String mockedLineItemId = "u4h4";
+        String mockedUserId = "13phg";
+
+        String chainedPostContent = "line_item_id=" + mockedLineItemId + "&user_id=" + mockedUserId;
+
+        mockServer
+                .expect(requestTo("https://ads-api.twitter.com/0/accounts/" + mockedAccountId + "/promoted_accounts"))
+                .andExpect(method(POST))
+                .andExpect(content().string(chainedPostContent))
+                .andRespond(withSuccess(jsonResource("ad-promoted-accounts-reference-creation"), APPLICATION_JSON));
+
+        PromotedUserReference reference = twitter.promotionOperations().createPromotedUserReferences(
+                mockedAccountId,
+                new PromotedUserReferenceFormBuilder()
+                        .onLineItem(mockedLineItemId)
+                        .forUser(mockedUserId));
+
+        Assert.assertEquals("3goc", reference.getId());
+        Assert.assertEquals("b6im", reference.getLineItemId());
+        Assert.assertEquals("390472547", reference.getUserId());
+        Assert.assertEquals(false, reference.isDeleted());
+        Assert.assertEquals(false, reference.isPaused());
+        Assert.assertEquals("2015-07-02T00:51:44", reference.getCreatedAt().toString());
+        Assert.assertEquals("2015-07-02T00:51:44", reference.getUpdatedAt().toString());
+        Assert.assertEquals(ApprovalStatus.ACCEPTED, reference.getApprovalStatus());
+    }
+
+    @Test
+    public void deletePromotedUserReference() {
+        String mockedAccountId = "0ga0yn";
+        String mockedPromotedTweetId = "ak34";
+
+        mockServer
+                .expect(requestTo("https://ads-api.twitter.com/0/accounts/" + mockedAccountId + "/promoted_accounts/" + mockedPromotedTweetId))
+                .andExpect(method(DELETE))
+                .andRespond(withSuccess());
+
+        twitter.promotionOperations().deletePromotedUserReference(
                 mockedAccountId,
                 mockedPromotedTweetId);
     }

@@ -39,6 +39,7 @@ import org.springframework.social.twitter.api.advertising.GlobalOptOut;
 import org.springframework.social.twitter.api.advertising.LineItem;
 import org.springframework.social.twitter.api.advertising.PromotableUser;
 import org.springframework.social.twitter.api.advertising.PromotedTweetReference;
+import org.springframework.social.twitter.api.advertising.PromotedUserReference;
 import org.springframework.social.twitter.api.advertising.StatisticsSnapshot;
 import org.springframework.social.twitter.api.advertising.TailoredAudience;
 import org.springframework.social.twitter.api.advertising.TailoredAudienceChange;
@@ -54,6 +55,7 @@ import org.springframework.social.twitter.api.impl.advertising.GlobalOptOutMixin
 import org.springframework.social.twitter.api.impl.advertising.LineItemMixin;
 import org.springframework.social.twitter.api.impl.advertising.PromotableUserMixin;
 import org.springframework.social.twitter.api.impl.advertising.PromotedTweetReferenceMixin;
+import org.springframework.social.twitter.api.impl.advertising.PromotedUserReferenceMixin;
 import org.springframework.social.twitter.api.impl.advertising.StatisticsSnapshotMixin;
 import org.springframework.social.twitter.api.impl.advertising.TailoredAudienceChangeMixin;
 import org.springframework.social.twitter.api.impl.advertising.TailoredAudienceMixin;
@@ -96,6 +98,7 @@ public class TwitterModule extends SimpleModule {
 
         context.setMixInAnnotations(PromotableUser.class, PromotableUserMixin.class);
         context.setMixInAnnotations(PromotedTweetReference.class, PromotedTweetReferenceMixin.class);
+        context.setMixInAnnotations(PromotedUserReference.class, PromotedUserReferenceMixin.class);
         context.setMixInAnnotations(AdvertisingAccount.class, AdvertisingAccountMixin.class);
         context.setMixInAnnotations(FundingInstrument.class, FundingInstrumentMixin.class);
         context.setMixInAnnotations(LineItem.class, LineItemMixin.class);

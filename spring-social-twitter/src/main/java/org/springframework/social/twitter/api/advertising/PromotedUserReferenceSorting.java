@@ -15,15 +15,13 @@
  */
 package org.springframework.social.twitter.api.advertising;
 
-import org.springframework.social.twitter.api.TwitterForm;
-
 /**
- * Input form through which we can create {@link PromotedTweetReference}.
+ * Sorting option for {@link PromotedUserReferenceQuery}
  * 
  * @author Hudson Mendes
  */
-public interface PromotedTweetReferenceForm extends TwitterForm {
-    public PromotedTweetReferenceForm onLineItem(String lineItemId);
-
-    public PromotedTweetReferenceForm forTweets(Long... tweetIds);
+public enum PromotedUserReferenceSorting {
+    created_at,
+    updated_at,
+    deleted
 }
