@@ -18,10 +18,11 @@ package org.springframework.social.twitter.api.advertising;
 import org.springframework.social.twitter.api.TwitterQueryForEntity;
 
 /**
- * Defines the data that will be used to query a list of {@link TargetingCriteriaDiscoveryForTvShow}.
+ * Defines the data that will be used to query a list of {@link TargetingCriteriaDiscoveryForDevices}.
  * 
  * @author Hudson Mendes
  */
-public interface TargetingCriteriaDiscoveryForTvShowQuery extends TwitterQueryForEntity<TargetingCriteriaDiscoveryForTvShowQuery> {
-    TargetingCriteriaDiscoveryForTvShowQuery withLocale(String tvMarketLocale);
+public interface TargetingCriteriaDiscoveryForBehaviorsQuery extends TwitterQueryForEntity<TargetingCriteriaDiscoveryForBehaviorsQuery> {
+    public TargetingCriteriaDiscoveryForBehaviorsQuery ofBehaviors(String... behaviorIds);
+    public TargetingCriteriaDiscoveryForBehaviorsQuery sortBy(String field, String direction);
 }

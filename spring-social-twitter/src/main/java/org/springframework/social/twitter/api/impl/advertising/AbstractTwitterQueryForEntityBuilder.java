@@ -15,6 +15,8 @@
  */
 package org.springframework.social.twitter.api.impl.advertising;
 
+import java.net.URLEncoder;
+
 import org.springframework.social.twitter.api.TwitterQueryForData;
 import org.springframework.social.twitter.api.TwitterQueryForEntity;
 import org.springframework.util.LinkedMultiValueMap;
@@ -34,7 +36,7 @@ import org.springframework.util.StringUtils;
 public abstract class AbstractTwitterQueryForEntityBuilder<TBuilderInterface extends TwitterQueryForData<TBuilderInterface>>
         extends AbstractTwitterQueryForDataBuilder<TBuilderInterface>
         implements TwitterQueryForEntity<TBuilderInterface> {
-
+	private String query;
     private String cursor;
     private Integer pageSize;
 
@@ -43,6 +45,13 @@ public abstract class AbstractTwitterQueryForEntityBuilder<TBuilderInterface ext
     public TBuilderInterface pagedBy(String cursor, Integer pageSize) {
         this.cursor = cursor;
         this.pageSize = pageSize;
+        return (TBuilderInterface) this;
+    }
+
+    @Override
+    @SuppressWarnings("unchecked")
+    public TBuilderInterface withQuery(String query) {
+        this.query = query;
         return (TBuilderInterface) this;
     }
 
@@ -56,6 +65,13 @@ public abstract class AbstractTwitterQueryForEntityBuilder<TBuilderInterface ext
             if (parentMap.get(parentKey).size() != 0)
                 appendParameter(map, parentKey, parentMap.get(parentKey).get(0));
 
+        try {
+        if (this.query != null)
+            appendParameter(map, "q", URLEncoder.encode(this.query, "UTF-8"));
+        } catch(Exception e) {
+        	appendParameter(map, "q", this.query);
+        }
+        
         if (!StringUtils.isEmpty(this.cursor))
             appendParameter(map, "cursor", this.cursor);
 

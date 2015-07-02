@@ -17,6 +17,26 @@ package org.springframework.social.twitter.api.impl.advertising;
 
 import org.springframework.core.ParameterizedTypeReference;
 import org.springframework.http.HttpMethod;
+import org.springframework.social.twitter.api.advertising.TargetingCriteriaDiscoveryForAppStoreCategories;
+import org.springframework.social.twitter.api.advertising.TargetingCriteriaDiscoveryForAppStoreCategoriesQuery;
+import org.springframework.social.twitter.api.advertising.TargetingCriteriaDiscoveryForBehaviorTaxonomies;
+import org.springframework.social.twitter.api.advertising.TargetingCriteriaDiscoveryForBehaviorTaxonomiesQuery;
+import org.springframework.social.twitter.api.advertising.TargetingCriteriaDiscoveryForBehaviors;
+import org.springframework.social.twitter.api.advertising.TargetingCriteriaDiscoveryForBehaviorsQuery;
+import org.springframework.social.twitter.api.advertising.TargetingCriteriaDiscoveryForDevices;
+import org.springframework.social.twitter.api.advertising.TargetingCriteriaDiscoveryForDevicesQuery;
+import org.springframework.social.twitter.api.advertising.TargetingCriteriaDiscoveryForInterests;
+import org.springframework.social.twitter.api.advertising.TargetingCriteriaDiscoveryForInterestsQuery;
+import org.springframework.social.twitter.api.advertising.TargetingCriteriaDiscoveryForLanguages;
+import org.springframework.social.twitter.api.advertising.TargetingCriteriaDiscoveryForLanguagesQuery;
+import org.springframework.social.twitter.api.advertising.TargetingCriteriaDiscoveryForLocations;
+import org.springframework.social.twitter.api.advertising.TargetingCriteriaDiscoveryForLocationsQuery;
+import org.springframework.social.twitter.api.advertising.TargetingCriteriaDiscoveryForNetworkOperators;
+import org.springframework.social.twitter.api.advertising.TargetingCriteriaDiscoveryForNetworkOperatorsQuery;
+import org.springframework.social.twitter.api.advertising.TargetingCriteriaDiscoveryForPlatformVersions;
+import org.springframework.social.twitter.api.advertising.TargetingCriteriaDiscoveryForPlatformVersionsQuery;
+import org.springframework.social.twitter.api.advertising.TargetingCriteriaDiscoveryForPlatforms;
+import org.springframework.social.twitter.api.advertising.TargetingCriteriaDiscoveryForPlatformsQuery;
 import org.springframework.social.twitter.api.advertising.TargetingCriteriaDiscoveryForTvChannel;
 import org.springframework.social.twitter.api.advertising.TargetingCriteriaDiscoveryForTvChannelQuery;
 import org.springframework.social.twitter.api.advertising.TargetingCriteriaDiscoveryForTvGenre;
@@ -39,6 +59,146 @@ public class TargetingCriteriaDiscoveryTemplate extends AbstractTwitterOperation
         super(isUserAuthorized, isAppAuthorized);
         this.restTemplate = restTemplate;
     }
+
+	@Override
+	public DataListHolder<TargetingCriteriaDiscoveryForAppStoreCategories> appStoreCategories(TargetingCriteriaDiscoveryForAppStoreCategoriesQuery query) {
+        requireUserAuthorization();
+        return restTemplate.exchange(
+                new TwitterApiBuilderForUri()
+                        .withResource(TwitterApiUriResourceForAdvertising.TARGETINGS_DISCOVERY_APP_STORE_CATEGORIES)
+                        .withArgument(query.toQueryParameters())
+                        .build(),
+                HttpMethod.GET,
+                null,
+                new ParameterizedTypeReference<DataListHolder<TargetingCriteriaDiscoveryForAppStoreCategories>>() {}
+                ).getBody();
+	}
+
+	@Override
+	public DataListHolder<TargetingCriteriaDiscoveryForBehaviorTaxonomies> behaviorTaxonomies(TargetingCriteriaDiscoveryForBehaviorTaxonomiesQuery query) {
+        requireUserAuthorization();
+        return restTemplate.exchange(
+                new TwitterApiBuilderForUri()
+                        .withResource(TwitterApiUriResourceForAdvertising.TARGETINGS_DISCOVERY_BEHAVIOR_TAXONOMIES)
+                        .withArgument(query.toQueryParameters())
+                        .build(),
+                HttpMethod.GET,
+                null,
+                new ParameterizedTypeReference<DataListHolder<TargetingCriteriaDiscoveryForBehaviorTaxonomies>>() {}
+                ).getBody();
+	}
+
+	@Override
+	public DataListHolder<TargetingCriteriaDiscoveryForBehaviors> behaviors(TargetingCriteriaDiscoveryForBehaviorsQuery query) {
+        requireUserAuthorization();
+        return restTemplate.exchange(
+                new TwitterApiBuilderForUri()
+                        .withResource(TwitterApiUriResourceForAdvertising.TARGETINGS_DISCOVERY_BEHAVIORS)
+                        .withArgument(query.toQueryParameters())
+                        .build(),
+                HttpMethod.GET,
+                null,
+                new ParameterizedTypeReference<DataListHolder<TargetingCriteriaDiscoveryForBehaviors>>() {}
+                ).getBody();
+	}
+
+    @Override
+    public DataListHolder<TargetingCriteriaDiscoveryForDevices> devices(TargetingCriteriaDiscoveryForDevicesQuery query) {
+        requireUserAuthorization();
+        return restTemplate.exchange(
+                new TwitterApiBuilderForUri()
+                        .withResource(TwitterApiUriResourceForAdvertising.TARGETINGS_DISCOVERY_DEVICES)
+                        .withArgument(query.toQueryParameters())
+                        .build(),
+                HttpMethod.GET,
+                null,
+                new ParameterizedTypeReference<DataListHolder<TargetingCriteriaDiscoveryForDevices>>() {}
+                ).getBody();
+    }
+
+	@Override
+	public DataListHolder<TargetingCriteriaDiscoveryForInterests> interests(TargetingCriteriaDiscoveryForInterestsQuery query) {
+        requireUserAuthorization();
+        return restTemplate.exchange(
+                new TwitterApiBuilderForUri()
+                        .withResource(TwitterApiUriResourceForAdvertising.TARGETINGS_DISCOVERY_INTERESTS)
+                        .withArgument(query.toQueryParameters())
+                        .build(),
+                HttpMethod.GET,
+                null,
+                new ParameterizedTypeReference<DataListHolder<TargetingCriteriaDiscoveryForInterests>>() {}
+                ).getBody();
+	}
+
+	@Override
+	public DataListHolder<TargetingCriteriaDiscoveryForLanguages> languages(TargetingCriteriaDiscoveryForLanguagesQuery query) {
+        requireUserAuthorization();
+        return restTemplate.exchange(
+                new TwitterApiBuilderForUri()
+                        .withResource(TwitterApiUriResourceForAdvertising.TARGETINGS_DISCOVERY_LANGUAGES)
+                        .withArgument(query.toQueryParameters())
+                        .build(),
+                HttpMethod.GET,
+                null,
+                new ParameterizedTypeReference<DataListHolder<TargetingCriteriaDiscoveryForLanguages>>() {}
+                ).getBody();
+	}
+
+	@Override
+	public DataListHolder<TargetingCriteriaDiscoveryForLocations> locations(TargetingCriteriaDiscoveryForLocationsQuery query) {
+        requireUserAuthorization();
+        return restTemplate.exchange(
+                new TwitterApiBuilderForUri()
+                        .withResource(TwitterApiUriResourceForAdvertising.TARGETINGS_DISCOVERY_LOCATIONS)
+                        .withArgument(query.toQueryParameters())
+                        .build(),
+                HttpMethod.GET,
+                null,
+                new ParameterizedTypeReference<DataListHolder<TargetingCriteriaDiscoveryForLocations>>() {}
+                ).getBody();
+	}
+
+	@Override
+	public DataListHolder<TargetingCriteriaDiscoveryForNetworkOperators> networkOperators(TargetingCriteriaDiscoveryForNetworkOperatorsQuery query) {
+        requireUserAuthorization();
+        return restTemplate.exchange(
+                new TwitterApiBuilderForUri()
+                        .withResource(TwitterApiUriResourceForAdvertising.TARGETINGS_DISCOVERY_NETWORK_OPERATORS)
+                        .withArgument(query.toQueryParameters())
+                        .build(),
+                HttpMethod.GET,
+                null,
+                new ParameterizedTypeReference<DataListHolder<TargetingCriteriaDiscoveryForNetworkOperators>>() {}
+                ).getBody();
+	}
+
+	@Override
+	public DataListHolder<TargetingCriteriaDiscoveryForPlatformVersions> platformVersions(TargetingCriteriaDiscoveryForPlatformVersionsQuery query) {
+        requireUserAuthorization();
+        return restTemplate.exchange(
+                new TwitterApiBuilderForUri()
+                        .withResource(TwitterApiUriResourceForAdvertising.TARGETINGS_DISCOVERY_PLATFORM_VERSIONS)
+                        .withArgument(query.toQueryParameters())
+                        .build(),
+                HttpMethod.GET,
+                null,
+                new ParameterizedTypeReference<DataListHolder<TargetingCriteriaDiscoveryForPlatformVersions>>() {}
+                ).getBody();
+	}
+
+	@Override
+	public DataListHolder<TargetingCriteriaDiscoveryForPlatforms> platforms(TargetingCriteriaDiscoveryForPlatformsQuery query) {
+        requireUserAuthorization();
+        return restTemplate.exchange(
+                new TwitterApiBuilderForUri()
+                        .withResource(TwitterApiUriResourceForAdvertising.TARGETINGS_DISCOVERY_PLATFORMS)
+                        .withArgument(query.toQueryParameters())
+                        .build(),
+                HttpMethod.GET,
+                null,
+                new ParameterizedTypeReference<DataListHolder<TargetingCriteriaDiscoveryForPlatforms>>() {}
+                ).getBody();
+	}
 
     @Override
     public DataListHolder<TargetingCriteriaDiscoveryForTvShow> tvShow(TargetingCriteriaDiscoveryForTvShowQuery query) {
@@ -95,4 +255,5 @@ public class TargetingCriteriaDiscoveryTemplate extends AbstractTwitterOperation
                 new ParameterizedTypeReference<DataListHolder<TargetingCriteriaDiscoveryForTvChannel>>() {}
                 ).getBody();
     }
+
 }

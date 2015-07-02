@@ -31,4 +31,5 @@ public interface TwitterQueryForEntity<TBuilderInterface extends TwitterQueryFor
         TwitterQueryForData<TBuilderInterface> {
 
     public TBuilderInterface pagedBy(String cursor, Integer pageSize);
+    public TBuilderInterface withQuery(String query);
 }

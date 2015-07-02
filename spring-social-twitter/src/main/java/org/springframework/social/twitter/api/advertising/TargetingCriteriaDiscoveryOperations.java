@@ -25,6 +25,56 @@ import org.springframework.social.twitter.api.impl.DataListHolder;
 public interface TargetingCriteriaDiscoveryOperations {
 
     /**
+     * @return an instance of {@link TargetingCriteriaDiscoveryForAppStoreCategories}
+     */
+    DataListHolder<TargetingCriteriaDiscoveryForAppStoreCategories> appStoreCategories(TargetingCriteriaDiscoveryForAppStoreCategoriesQuery query);
+
+    /**
+     * @return an instance of {@link TargetingCriteriaDiscoveryForDevices}
+     */
+    DataListHolder<TargetingCriteriaDiscoveryForDevices> devices(TargetingCriteriaDiscoveryForDevicesQuery query);
+
+    /**
+     * @return an instance of {@link TargetingCriteriaDiscoveryForBehaviorTaxonomies}
+     */
+    DataListHolder<TargetingCriteriaDiscoveryForBehaviorTaxonomies> behaviorTaxonomies(TargetingCriteriaDiscoveryForBehaviorTaxonomiesQuery query);
+
+    /**
+     * @return an instance of {@link TargetingCriteriaDiscoveryForBehaviors}
+     */
+    DataListHolder<TargetingCriteriaDiscoveryForBehaviors> behaviors(TargetingCriteriaDiscoveryForBehaviorsQuery query);
+
+    /**
+     * @return an instance of {@link TargetingCriteriaDiscoveryForInterests}
+     */
+    DataListHolder<TargetingCriteriaDiscoveryForInterests> interests(TargetingCriteriaDiscoveryForInterestsQuery query);
+
+    /**
+     * @return an instance of {@link TargetingCriteriaDiscoveryForLanguages}
+     */
+    DataListHolder<TargetingCriteriaDiscoveryForLanguages> languages(TargetingCriteriaDiscoveryForLanguagesQuery query);
+
+    /**
+     * @return an instance of {@link TargetingCriteriaDiscoveryForLocations}
+     */
+    DataListHolder<TargetingCriteriaDiscoveryForLocations> locations(TargetingCriteriaDiscoveryForLocationsQuery query);
+
+    /**
+     * @return an instance of {@link TargetingCriteriaDiscoveryForNetworkOperators}
+     */
+    DataListHolder<TargetingCriteriaDiscoveryForNetworkOperators> networkOperators(TargetingCriteriaDiscoveryForNetworkOperatorsQuery query);
+
+    /**
+     * @return an instance of {@link TargetingCriteriaDiscoveryForPlatformVersions}
+     */
+    DataListHolder<TargetingCriteriaDiscoveryForPlatformVersions> platformVersions(TargetingCriteriaDiscoveryForPlatformVersionsQuery query);
+
+    /**
+     * @return an instance of {@link TargetingCriteriaDiscoveryForPlatforms}
+     */
+    DataListHolder<TargetingCriteriaDiscoveryForPlatforms> platforms(TargetingCriteriaDiscoveryForPlatformsQuery query);
+
+    /**
      * @return an instance of {@link TargetingCriteriaDiscoveryForTvShow}
      */
     DataListHolder<TargetingCriteriaDiscoveryForTvShow> tvShow(TargetingCriteriaDiscoveryForTvShowQuery query);
