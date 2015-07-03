@@ -1,12 +1,12 @@
 /*
  * Copyright 2014 the original author or authors.
- *
+ * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
- *
- *      http://www.apache.org/licenses/LICENSE-2.0
- *
+ * 
+ * http://www.apache.org/licenses/LICENSE-2.0
+ * 
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -22,25 +22,34 @@ import org.springframework.social.twitter.api.TwitterObject;
 
 /**
  * Represents a metric that has been retrieved by the Ads statistics endpoint.
+ * 
  * @author Hudson Mendes
  */
 public class StatisticsSnapshotMetric extends TwitterObject {
-	private final StatisticsMetric name;
-	private final List<Object> entries;
-	
-	public StatisticsSnapshotMetric(StatisticsMetric name, List<Object> entries) {
-		this.name = name;
-		this.entries = new ArrayList<>(entries);
-	}
+    private final StatisticsMetric name;
+    private final List<Object> entries;
 
-	public StatisticsMetric getName() {
-		return name;
-	}
+    public StatisticsSnapshotMetric(StatisticsMetric name, List<Object> entries) {
+        this.name = name;
+        this.entries = new ArrayList<>(entries);
+    }
 
-	@SuppressWarnings("unchecked")
-	public <TEntry> List<TEntry> entries() {
-		List<TEntry> casted = new ArrayList<>();
-		this.entries.forEach(i -> casted.add((TEntry) i));
-		return casted;
-	}
+    public StatisticsMetricFamily getFamily() {
+        return this.name.getFamily();
+    }
+
+    public StatisticsMetric getName() {
+        return name;
+    }
+
+    public String getDescription() {
+        return name.getDescription();
+    }
+
+    @SuppressWarnings("unchecked")
+    public <TEntry> List<TEntry> entries() {
+        List<TEntry> casted = new ArrayList<>();
+        this.entries.forEach(i -> casted.add((TEntry) i));
+        return casted;
+    }
 }
