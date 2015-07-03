@@ -15,15 +15,19 @@ public class TargetingCriteriaDiscoveryForBehaviorsQueryBuilder
 	
 	@Override
 	public TargetingCriteriaDiscoveryForBehaviorsQuery ofBehaviors(String... behaviorIds) {
-        for(String behaviorId: behaviorIds) {
-            this.behaviorIds.add(behaviorId);
-        }
-        return this;
+		if(behaviorIds!=null) {
+			for(String behaviorId: behaviorIds) {
+				this.behaviorIds.add(behaviorId);
+			}
+		}
+		return this;
 	}
 
 	@Override
 	public TargetingCriteriaDiscoveryForBehaviorsQuery sortBy(String field, String direction) {
-		this.condition = field + "-" + direction;
+		if(field!=null && direction!=null) {
+			this.condition = field + "-" + direction;
+		}
 		return this;
 	}
 

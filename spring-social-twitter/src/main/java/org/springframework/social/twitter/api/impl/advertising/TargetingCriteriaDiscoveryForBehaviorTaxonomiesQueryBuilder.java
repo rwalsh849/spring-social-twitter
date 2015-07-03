@@ -16,17 +16,21 @@ public class TargetingCriteriaDiscoveryForBehaviorTaxonomiesQueryBuilder
 
 	@Override
 	public TargetingCriteriaDiscoveryForBehaviorTaxonomiesQueryBuilder ofTaxonomyIds(String... taxonomyIds) {
-        for(String taxonomyId: taxonomyIds) {
-            this.taxonomyIds.add(taxonomyId);
-        }
+		if(taxonomyIds!=null) {
+			for(String taxonomyId: taxonomyIds) {
+				this.taxonomyIds.add(taxonomyId);
+			}
+		}
 		return this;
 	}
 
 	@Override
 	public TargetingCriteriaDiscoveryForBehaviorTaxonomiesQueryBuilder ofParentTaxonomyIds(String... parentIds) {
-        for(String parentId: parentIds) {
-            this.parentIds.add(parentId);
-        }
+		if(parentIds!=null) {
+			for(String parentId: parentIds) {
+				this.parentIds.add(parentId);
+			}
+		}
 		return this;
 	}
 
