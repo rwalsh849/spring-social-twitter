@@ -363,7 +363,6 @@ public class StatisticsTemplateTest extends AbstractTwitterApiTest {
         assertThat(metrics, hasItem(StatisticsMetric.promoted_account_profile_visits));
         assertThat(metrics, hasItem(StatisticsMetric.promoted_tweet_app_install_attempts));
         assertThat(metrics, hasItem(StatisticsMetric.promoted_tweet_app_open_attempts));
-        assertThat(metrics, hasItem(StatisticsMetric.promoted_tweet_search_card_engagements));
         assertThat(metrics, hasItem(StatisticsMetric.promoted_tweet_search_clicks));
         assertThat(metrics, hasItem(StatisticsMetric.promoted_tweet_search_engagement_rate));
         assertThat(metrics, hasItem(StatisticsMetric.promoted_tweet_search_engagements));
@@ -373,7 +372,6 @@ public class StatisticsTemplateTest extends AbstractTwitterApiTest {
         assertThat(metrics, hasItem(StatisticsMetric.promoted_tweet_search_replies));
         assertThat(metrics, hasItem(StatisticsMetric.promoted_tweet_search_retweets));
         assertThat(metrics, hasItem(StatisticsMetric.promoted_tweet_search_url_clicks));
-        assertThat(metrics, hasItem(StatisticsMetric.promoted_tweet_timeline_card_engagements));
         assertThat(metrics, hasItem(StatisticsMetric.promoted_tweet_timeline_clicks));
         assertThat(metrics, hasItem(StatisticsMetric.promoted_tweet_timeline_engagement_rate));
         assertThat(metrics, hasItem(StatisticsMetric.promoted_tweet_timeline_engagements));
@@ -393,10 +391,5 @@ public class StatisticsTemplateTest extends AbstractTwitterApiTest {
         assertThat(
                 snapshot.getMetric(StatisticsMetric.billed_follows).entries(),
                 hasItems(new Integer[] {0}));
-
-        assertNotNull(snapshot.getMetric(StatisticsMetric.promoted_account_follow_rate));
-        assertThat(
-                snapshot.getMetric(StatisticsMetric.promoted_account_follow_rate).entries(),
-                hasItems(new Double[] {0.0}));
     }
 }
