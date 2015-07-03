@@ -83,8 +83,9 @@ public abstract class AbstractTwitterQueryForStatsBuilder<TBuilderInterface>
     @SuppressWarnings("unchecked")
     public TBuilderInterface withStatisticalMetric(StatisticsMetric... metrics) {
         this.metrics = new ArrayList<StatisticsMetric>();
-        for (int i = 0; i < metrics.length; i++)
-            this.metrics.add(metrics[i]);
+        if (metrics != null)
+            for (int i = 0; i < metrics.length; i++)
+                this.metrics.add(metrics[i]);
         return (TBuilderInterface) this;
     }
 

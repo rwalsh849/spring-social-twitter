@@ -58,6 +58,9 @@ public class StatisticsSnapshotDeserializer extends JsonDeserializer<StatisticsS
         if (data == null)
             data = root;
 
+        if (data.size() == 0)
+            return null;
+
         return new StatisticsSnapshot(
                 extractId(data),
                 extractGranularity(data),
@@ -121,10 +124,10 @@ public class StatisticsSnapshotDeserializer extends JsonDeserializer<StatisticsS
             if (!entryValue.contains(".")) {
                 entries.add(new Integer(entryValue));
             }
-            else {
-                entries.add(new Float(entryValue));
-            }
-        });
+                else {
+                    entries.add(new Float(entryValue));
+                }
+            });
     }
 
     private void dumpEntriesAsHashes(Spliterator<JsonNode> iterator, List<Object> entries) {
