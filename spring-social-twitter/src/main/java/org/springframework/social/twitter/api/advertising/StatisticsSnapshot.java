@@ -30,6 +30,7 @@ import org.springframework.social.twitter.api.TwitterObject;
  */
 public class StatisticsSnapshot extends TwitterObject {
     private final String id;
+    private final StatisticsSegmentation segmentation;
     private final StatisticsGranularity granularity;
     private final Map<StatisticsMetric, StatisticsSnapshotMetric> metrics = new HashMap<StatisticsMetric, StatisticsSnapshotMetric>();
     private final LocalDateTime startTime;
@@ -37,12 +38,14 @@ public class StatisticsSnapshot extends TwitterObject {
 
     public StatisticsSnapshot(
             String id,
+            StatisticsSegmentation segmentation,
             StatisticsGranularity granularity,
             Map<StatisticsMetric, StatisticsSnapshotMetric> metrics,
             LocalDateTime startTime,
             LocalDateTime endTime) {
 
         this.id = id;
+        this.segmentation = segmentation;
         this.granularity = granularity;
         this.metrics.putAll(metrics);
         this.startTime = startTime;
@@ -51,6 +54,10 @@ public class StatisticsSnapshot extends TwitterObject {
 
     public String getId() {
         return id;
+    }
+
+    public StatisticsSegmentation getSegmentation() {
+        return segmentation;
     }
 
     public StatisticsGranularity getGranularity() {

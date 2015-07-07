@@ -24,49 +24,49 @@ package org.springframework.social.twitter.api.advertising;
 public enum StatisticsMetric {
     conversion_custom(
             StatisticsMetricFamily.CONVERSION,
-            StatisticsSegmentation.PLATFORMS,
+            StatisticsSegmentationType.PLATFORMS,
             true,
             Integer.class,
             "Count of conversions of type CUSTOM"),
 
     conversion_downloads(
             StatisticsMetricFamily.CONVERSION,
-            StatisticsSegmentation.PLATFORMS,
+            StatisticsSegmentationType.PLATFORMS,
             true,
             Integer.class,
             "Count of conversions of type DOWNLOAD"),
 
     conversion_order_quantity(
             StatisticsMetricFamily.CONVERSION,
-            StatisticsSegmentation.CONVERSION_TAGS,
+            StatisticsSegmentationType.CONVERSION_TAGS,
             true,
             Integer.class,
             "Count of tw_sale_quantity from web event tag"),
 
     conversion_purchases(
             StatisticsMetricFamily.CONVERSION,
-            StatisticsSegmentation.PLATFORMS,
+            StatisticsSegmentationType.PLATFORMS,
             true,
             Integer.class,
             "Count of conversions of type PURCHASE"),
 
     conversion_sale_amount(
             StatisticsMetricFamily.CONVERSION,
-            StatisticsSegmentation.CONVERSION_TAGS,
+            StatisticsSegmentationType.CONVERSION_TAGS,
             true,
             Integer.class,
             "Count of tw_sale_amount from web event tag"),
 
     conversion_sign_ups(
             StatisticsMetricFamily.CONVERSION,
-            StatisticsSegmentation.PLATFORMS,
+            StatisticsSegmentationType.PLATFORMS,
             true,
             Integer.class,
             "Count of conversions of type SIGN_UP"),
 
     conversion_site_visits(
             StatisticsMetricFamily.CONVERSION,
-            StatisticsSegmentation.PLATFORMS,
+            StatisticsSegmentationType.PLATFORMS,
             true,
             Integer.class,
             "Count of conversions of type SITE_VISIT"),
@@ -730,14 +730,14 @@ public enum StatisticsMetric {
             "");
 
     private final StatisticsMetricFamily family;
-    private final StatisticsSegmentation onlyForSegmentation;
+    private final StatisticsSegmentationType onlyForSegmentation;
     private final Boolean availableForPromotedAccounts;
     private final Class<?> valueType;
     private final String description;
 
     StatisticsMetric(
             StatisticsMetricFamily family,
-            StatisticsSegmentation onlyForSegmentation,
+            StatisticsSegmentationType onlyForSegmentation,
             Boolean availableForPromotedAccounts,
             Class<?> valueType,
             String description) {
@@ -753,7 +753,7 @@ public enum StatisticsMetric {
         return family;
     }
 
-    public StatisticsSegmentation getOnlyForSegmentation() {
+    public StatisticsSegmentationType getOnlyForSegmentation() {
         return onlyForSegmentation;
     }
 

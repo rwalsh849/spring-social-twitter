@@ -16,7 +16,10 @@
 package org.springframework.social.twitter.api.impl;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
+
+import org.springframework.social.twitter.api.TwitterObject;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
@@ -37,20 +40,21 @@ import com.fasterxml.jackson.annotation.JsonProperty;
  * @author Hudson Mendes
  */
 @JsonIgnoreProperties(ignoreUnknown = true)
-public class DataListHolder<TEntity> {
+public class DataListHolder<TEntity extends TwitterObject> {
     private final List<TEntity> list;
     private final String dataType;
     private final String nextCursor;
     private final Long totalCount;
 
+    @SafeVarargs
     @JsonCreator
     DataListHolder(
-            @JsonProperty("data") List<TEntity> list,
             @JsonProperty("data_type") String dataType,
             @JsonProperty("next_cursor") String nextCursor,
-            @JsonProperty("total_count") Long totalCount) {
+            @JsonProperty("total_count") Long totalCount,
+            @JsonProperty("data") TEntity... list) {
 
-        this.list = new ArrayList<TEntity>(list);
+        this.list = new ArrayList<>(Arrays.asList(list));
         this.dataType = dataType;
         this.nextCursor = nextCursor;
         this.totalCount = totalCount;

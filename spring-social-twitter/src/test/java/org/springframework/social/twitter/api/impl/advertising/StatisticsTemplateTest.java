@@ -55,7 +55,7 @@ public class StatisticsTemplateTest extends AbstractTwitterApiTest {
                 .andExpect(method(GET))
                 .andRespond(withSuccess(jsonResource("statistics-snapshot"), APPLICATION_JSON));
 
-        StatisticsSnapshot snapshots = twitter.statisticsOperations().byAccounts(
+        List<StatisticsSnapshot> snapshots = twitter.statisticsOperations().byAccounts(
                 mockedAccountId,
                 new StatisticsOfAccountQueryBuilder()
                         .withGranularity(StatisticsGranularity.DAY)
@@ -80,7 +80,7 @@ public class StatisticsTemplateTest extends AbstractTwitterApiTest {
                 .andExpect(method(GET))
                 .andRespond(withSuccess(jsonResource("statistics-snapshot"), APPLICATION_JSON));
 
-        StatisticsSnapshot snapshots = twitter.statisticsOperations().byCampaigns(
+        List<StatisticsSnapshot> snapshots = twitter.statisticsOperations().byCampaigns(
                 mockedAccountId,
                 new StatisticsOfCampaignQueryBuilder()
                         .withCampaigns(mockedCampaignId1, mockedCampaignId2)
@@ -110,7 +110,7 @@ public class StatisticsTemplateTest extends AbstractTwitterApiTest {
                 .andExpect(method(GET))
                 .andRespond(withSuccess(jsonResource("statistics-snapshot"), APPLICATION_JSON));
 
-        StatisticsSnapshot snapshot = twitter.statisticsOperations().byCampaign(
+        List<StatisticsSnapshot> snapshot = twitter.statisticsOperations().byCampaign(
                 mockedAccountId,
                 mockedCampaignId,
                 new StatisticsOfCampaignQueryBuilder()
@@ -142,7 +142,7 @@ public class StatisticsTemplateTest extends AbstractTwitterApiTest {
                 .andExpect(method(GET))
                 .andRespond(withSuccess(jsonResource("statistics-snapshot"), APPLICATION_JSON));
 
-        StatisticsSnapshot campaigns = twitter.statisticsOperations().byFundingInstruments(
+        List<StatisticsSnapshot> campaigns = twitter.statisticsOperations().byFundingInstruments(
                 mockedAccountId,
                 new StatisticsOfFundingInstrumentQueryBuilder()
                         .withFundingInstruments(mockedFundingInstrument1, mockedFundingInstrument2)
@@ -169,7 +169,7 @@ public class StatisticsTemplateTest extends AbstractTwitterApiTest {
                 .andExpect(method(GET))
                 .andRespond(withSuccess(jsonResource("statistics-snapshot"), APPLICATION_JSON));
 
-        StatisticsSnapshot snapshot = twitter.statisticsOperations().byFundingInstrument(
+        List<StatisticsSnapshot> snapshot = twitter.statisticsOperations().byFundingInstrument(
                 mockedAccountId,
                 mockedFundingInstrumentId,
                 new StatisticsOfFundingInstrumentQueryBuilder()
@@ -195,7 +195,7 @@ public class StatisticsTemplateTest extends AbstractTwitterApiTest {
                 .andExpect(method(GET))
                 .andRespond(withSuccess(jsonResource("statistics-snapshot"), APPLICATION_JSON));
 
-        StatisticsSnapshot snapshots = twitter.statisticsOperations().byLineItems(
+        List<StatisticsSnapshot> snapshots = twitter.statisticsOperations().byLineItems(
                 mockedAccountId,
                 new StatisticsOfLineItemQueryBuilder()
                         .withLineItems(mockedLineItemId1, mockedLineItemId2)
@@ -222,7 +222,7 @@ public class StatisticsTemplateTest extends AbstractTwitterApiTest {
                 .andExpect(method(GET))
                 .andRespond(withSuccess(jsonResource("statistics-snapshot"), APPLICATION_JSON));
 
-        StatisticsSnapshot snapshot = twitter.statisticsOperations().byLineItem(
+        List<StatisticsSnapshot> snapshot = twitter.statisticsOperations().byLineItem(
                 mockedAccountId,
                 mockedLineItemId,
                 new StatisticsOfLineItemQueryBuilder()
@@ -249,7 +249,7 @@ public class StatisticsTemplateTest extends AbstractTwitterApiTest {
                 .andExpect(method(GET))
                 .andRespond(withSuccess(jsonResource("statistics-snapshot"), APPLICATION_JSON));
 
-        StatisticsSnapshot snapshots = twitter.statisticsOperations().byPromotedAccounts(
+        List<StatisticsSnapshot> snapshots = twitter.statisticsOperations().byPromotedAccounts(
                 mockedAccountId,
                 new StatisticsOfPromotedAccountQueryBuilder()
                         .withPromotedAccounts(mockedPromotedAccountId1, mockedPromotedAccountId2)
@@ -277,7 +277,7 @@ public class StatisticsTemplateTest extends AbstractTwitterApiTest {
                 .andExpect(method(GET))
                 .andRespond(withSuccess(jsonResource("statistics-snapshot"), APPLICATION_JSON));
 
-        StatisticsSnapshot snapshot = twitter.statisticsOperations().byPromotedAccount(
+        List<StatisticsSnapshot> snapshot = twitter.statisticsOperations().byPromotedAccount(
                 mockedAccountId,
                 mockedPromotedAccountId,
                 new StatisticsOfPromotedAccountQueryBuilder()
@@ -304,7 +304,7 @@ public class StatisticsTemplateTest extends AbstractTwitterApiTest {
                 .andExpect(method(GET))
                 .andRespond(withSuccess(jsonResource("statistics-snapshot"), APPLICATION_JSON));
 
-        StatisticsSnapshot snapshots = twitter.statisticsOperations().byPromotedTweets(
+        List<StatisticsSnapshot> snapshots = twitter.statisticsOperations().byPromotedTweets(
                 mockedAccountId,
                 new StatisticsOfPromotedTweetQueryBuilder()
                         .withPromotedTweets(mockedPromotedTweetId1, mockedPromotedTweetId2)
@@ -332,7 +332,7 @@ public class StatisticsTemplateTest extends AbstractTwitterApiTest {
                 .andExpect(method(GET))
                 .andRespond(withSuccess(jsonResource("statistics-snapshot"), APPLICATION_JSON));
 
-        StatisticsSnapshot snapshot = twitter.statisticsOperations().byPromotedTweet(
+        List<StatisticsSnapshot> snapshot = twitter.statisticsOperations().byPromotedTweet(
                 mockedAccountId,
                 mockedPromotedTweetId,
                 new StatisticsOfPromotedTweetQueryBuilder()
@@ -343,7 +343,9 @@ public class StatisticsTemplateTest extends AbstractTwitterApiTest {
         assertSnapshotSingleContents(snapshot);
     }
 
-    private void assertSnapshotContents(StatisticsSnapshot snapshot) {
+    private void assertSnapshotContents(List<StatisticsSnapshot> snapshots) {
+
+        StatisticsSnapshot snapshot = snapshots.get(0);
 
         assertEquals("8484d", snapshot.getId());
         assertEquals(StatisticsGranularity.DAY, snapshot.getGranularity());
@@ -384,7 +386,9 @@ public class StatisticsTemplateTest extends AbstractTwitterApiTest {
 
     }
 
-    private void assertSnapshotSingleContents(StatisticsSnapshot snapshot) {
+    private void assertSnapshotSingleContents(List<StatisticsSnapshot> snapshots) {
+        StatisticsSnapshot snapshot = snapshots.get(0);
+
         assertEquals("8484d", snapshot.getId());
 
         assertNotNull(snapshot.getMetric(StatisticsMetric.billed_follows));

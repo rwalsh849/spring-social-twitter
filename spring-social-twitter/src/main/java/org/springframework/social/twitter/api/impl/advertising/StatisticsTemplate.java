@@ -16,6 +16,7 @@
 package org.springframework.social.twitter.api.impl.advertising;
 
 import java.net.URI;
+import java.util.List;
 
 import org.springframework.core.ParameterizedTypeReference;
 import org.springframework.http.HttpMethod;
@@ -28,7 +29,7 @@ import org.springframework.social.twitter.api.advertising.StatisticsOfPromotedTw
 import org.springframework.social.twitter.api.advertising.StatisticsOperations;
 import org.springframework.social.twitter.api.advertising.StatisticsSnapshot;
 import org.springframework.social.twitter.api.impl.AbstractTwitterOperations;
-import org.springframework.social.twitter.api.impl.DataSingleHolder;
+import org.springframework.social.twitter.api.impl.DataListHolder;
 import org.springframework.social.twitter.api.impl.TwitterApiBuilderForUri;
 import org.springframework.social.twitter.api.impl.TwitterApiUriResourceForAdvertising;
 import org.springframework.web.client.RestTemplate;
@@ -48,7 +49,7 @@ public class StatisticsTemplate extends AbstractTwitterOperations implements Sta
     }
 
     @Override
-    public StatisticsSnapshot byAccounts(String accountId, StatisticsOfAccountQuery query) {
+    public List<StatisticsSnapshot> byAccounts(String accountId, StatisticsOfAccountQuery query) {
         requireUserAuthorization();
         URI uri = new TwitterApiBuilderForUri()
                 .withResource(TwitterApiUriResourceForAdvertising.STATS_ACCOUNT)
@@ -60,12 +61,12 @@ public class StatisticsTemplate extends AbstractTwitterOperations implements Sta
                 uri,
                 HttpMethod.GET,
                 null,
-                new ParameterizedTypeReference<DataSingleHolder<StatisticsSnapshot>>() {}
-                ).getBody().getData();
+                new ParameterizedTypeReference<DataListHolder<StatisticsSnapshot>>() {}
+                ).getBody().getList();
     }
 
     @Override
-    public StatisticsSnapshot byCampaigns(String accountId, StatisticsOfCampaignQuery query) {
+    public List<StatisticsSnapshot> byCampaigns(String accountId, StatisticsOfCampaignQuery query) {
         requireUserAuthorization();
         return restTemplate.exchange(
                 new TwitterApiBuilderForUri()
@@ -75,26 +76,28 @@ public class StatisticsTemplate extends AbstractTwitterOperations implements Sta
                         .build(),
                 HttpMethod.GET,
                 null,
-                new ParameterizedTypeReference<DataSingleHolder<StatisticsSnapshot>>() {}
-                ).getBody().getData();
+                new ParameterizedTypeReference<DataListHolder<StatisticsSnapshot>>() {}
+                ).getBody().getList();
     }
 
     @Override
-    public StatisticsSnapshot byCampaign(String accountId, String campaignId, StatisticsOfCampaignQuery query) {
+    public List<StatisticsSnapshot> byCampaign(String accountId, String campaignId, StatisticsOfCampaignQuery query) {
         requireUserAuthorization();
-        return restTemplate.getForObject(
+        return restTemplate.exchange(
                 new TwitterApiBuilderForUri()
                         .withResource(TwitterApiUriResourceForAdvertising.STATS_CAMPAIGN)
                         .withArgument("account_id", accountId)
                         .withArgument("campaign_id", campaignId)
                         .withArgument(query.toQueryParameters())
                         .build(),
-                StatisticsSnapshot.class
-                );
+                HttpMethod.GET,
+                null,
+                new ParameterizedTypeReference<DataListHolder<StatisticsSnapshot>>() {}
+                ).getBody().getList();
     }
 
     @Override
-    public StatisticsSnapshot byFundingInstruments(String accountId, StatisticsOfFundingInstrumentQuery query) {
+    public List<StatisticsSnapshot> byFundingInstruments(String accountId, StatisticsOfFundingInstrumentQuery query) {
         requireUserAuthorization();
         return restTemplate.exchange(
                 new TwitterApiBuilderForUri()
@@ -104,26 +107,28 @@ public class StatisticsTemplate extends AbstractTwitterOperations implements Sta
                         .build(),
                 HttpMethod.GET,
                 null,
-                new ParameterizedTypeReference<DataSingleHolder<StatisticsSnapshot>>() {}
-                ).getBody().getData();
+                new ParameterizedTypeReference<DataListHolder<StatisticsSnapshot>>() {}
+                ).getBody().getList();
     }
 
     @Override
-    public StatisticsSnapshot byFundingInstrument(String accountId, String fundingInstrumentId, StatisticsOfFundingInstrumentQuery query) {
+    public List<StatisticsSnapshot> byFundingInstrument(String accountId, String fundingInstrumentId, StatisticsOfFundingInstrumentQuery query) {
         requireUserAuthorization();
-        return restTemplate.getForObject(
+        return restTemplate.exchange(
                 new TwitterApiBuilderForUri()
                         .withResource(TwitterApiUriResourceForAdvertising.STATS_FUNDING_INSTRUMENT)
                         .withArgument("account_id", accountId)
                         .withArgument("funding_instrument_id", fundingInstrumentId)
                         .withArgument(query.toQueryParameters())
                         .build(),
-                StatisticsSnapshot.class
-                );
+                HttpMethod.GET,
+                null,
+                new ParameterizedTypeReference<DataListHolder<StatisticsSnapshot>>() {}
+                ).getBody().getList();
     }
 
     @Override
-    public StatisticsSnapshot byLineItems(String accountId, StatisticsOfLineItemQuery query) {
+    public List<StatisticsSnapshot> byLineItems(String accountId, StatisticsOfLineItemQuery query) {
         requireUserAuthorization();
         return restTemplate.exchange(
                 new TwitterApiBuilderForUri()
@@ -133,26 +138,28 @@ public class StatisticsTemplate extends AbstractTwitterOperations implements Sta
                         .build(),
                 HttpMethod.GET,
                 null,
-                new ParameterizedTypeReference<DataSingleHolder<StatisticsSnapshot>>() {}
-                ).getBody().getData();
+                new ParameterizedTypeReference<DataListHolder<StatisticsSnapshot>>() {}
+                ).getBody().getList();
     }
 
     @Override
-    public StatisticsSnapshot byLineItem(String accountId, String lineItemId, StatisticsOfLineItemQuery query) {
+    public List<StatisticsSnapshot> byLineItem(String accountId, String lineItemId, StatisticsOfLineItemQuery query) {
         requireUserAuthorization();
-        return restTemplate.getForObject(
+        return restTemplate.exchange(
                 new TwitterApiBuilderForUri()
                         .withResource(TwitterApiUriResourceForAdvertising.STATS_LINE_ITEM)
                         .withArgument("account_id", accountId)
                         .withArgument("line_item_id", lineItemId)
                         .withArgument(query.toQueryParameters())
                         .build(),
-                StatisticsSnapshot.class
-                );
+                HttpMethod.GET,
+                null,
+                new ParameterizedTypeReference<DataListHolder<StatisticsSnapshot>>() {}
+                ).getBody().getList();
     }
 
     @Override
-    public StatisticsSnapshot byPromotedAccounts(String accountId, StatisticsOfPromotedAccountQuery query) {
+    public List<StatisticsSnapshot> byPromotedAccounts(String accountId, StatisticsOfPromotedAccountQuery query) {
         requireUserAuthorization();
         return restTemplate.exchange(
                 new TwitterApiBuilderForUri()
@@ -162,26 +169,28 @@ public class StatisticsTemplate extends AbstractTwitterOperations implements Sta
                         .build(),
                 HttpMethod.GET,
                 null,
-                new ParameterizedTypeReference<DataSingleHolder<StatisticsSnapshot>>() {}
-                ).getBody().getData();
+                new ParameterizedTypeReference<DataListHolder<StatisticsSnapshot>>() {}
+                ).getBody().getList();
     }
 
     @Override
-    public StatisticsSnapshot byPromotedAccount(String accountId, String promotedAccountId, StatisticsOfPromotedAccountQuery query) {
+    public List<StatisticsSnapshot> byPromotedAccount(String accountId, String promotedAccountId, StatisticsOfPromotedAccountQuery query) {
         requireUserAuthorization();
-        return restTemplate.getForObject(
+        return restTemplate.exchange(
                 new TwitterApiBuilderForUri()
                         .withResource(TwitterApiUriResourceForAdvertising.STATS_PROMOTED_ACCOUNT)
                         .withArgument("account_id", accountId)
                         .withArgument("promoted_account_id", promotedAccountId)
                         .withArgument(query.toQueryParameters())
                         .build(),
-                StatisticsSnapshot.class
-                );
+                HttpMethod.GET,
+                null,
+                new ParameterizedTypeReference<DataListHolder<StatisticsSnapshot>>() {}
+                ).getBody().getList();
     }
 
     @Override
-    public StatisticsSnapshot byPromotedTweets(String accountId, StatisticsOfPromotedTweetQuery query) {
+    public List<StatisticsSnapshot> byPromotedTweets(String accountId, StatisticsOfPromotedTweetQuery query) {
         requireUserAuthorization();
         return restTemplate.exchange(
                 new TwitterApiBuilderForUri()
@@ -191,20 +200,23 @@ public class StatisticsTemplate extends AbstractTwitterOperations implements Sta
                         .build(),
                 HttpMethod.GET,
                 null,
-                new ParameterizedTypeReference<DataSingleHolder<StatisticsSnapshot>>() {}
-                ).getBody().getData();
+                new ParameterizedTypeReference<DataListHolder<StatisticsSnapshot>>() {}
+                ).getBody().getList();
     }
 
     @Override
-    public StatisticsSnapshot byPromotedTweet(String accountId, String promotedTweetId, StatisticsOfPromotedTweetQuery query) {
+    public List<StatisticsSnapshot> byPromotedTweet(String accountId, String promotedTweetId, StatisticsOfPromotedTweetQuery query) {
         requireUserAuthorization();
-        return restTemplate.getForObject(
+        return restTemplate.exchange(
                 new TwitterApiBuilderForUri()
                         .withResource(TwitterApiUriResourceForAdvertising.STATS_PROMOTED_TWEET)
                         .withArgument("account_id", accountId)
                         .withArgument("promoted_tweet_id", promotedTweetId)
                         .withArgument(query.toQueryParameters())
                         .build(),
-                StatisticsSnapshot.class);
+                HttpMethod.GET,
+                null,
+                new ParameterizedTypeReference<DataListHolder<StatisticsSnapshot>>() {}
+                ).getBody().getList();
     }
 }
