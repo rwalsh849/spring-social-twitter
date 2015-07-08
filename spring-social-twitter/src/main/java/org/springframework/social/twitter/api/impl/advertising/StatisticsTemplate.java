@@ -18,7 +18,6 @@ package org.springframework.social.twitter.api.impl.advertising;
 import java.net.URI;
 import java.util.List;
 
-import org.springframework.core.ParameterizedTypeReference;
 import org.springframework.http.HttpMethod;
 import org.springframework.social.twitter.api.advertising.StatisticsOfAccountQuery;
 import org.springframework.social.twitter.api.advertising.StatisticsOfCampaignQuery;
@@ -29,7 +28,7 @@ import org.springframework.social.twitter.api.advertising.StatisticsOfPromotedTw
 import org.springframework.social.twitter.api.advertising.StatisticsOperations;
 import org.springframework.social.twitter.api.advertising.StatisticsSnapshot;
 import org.springframework.social.twitter.api.impl.AbstractTwitterOperations;
-import org.springframework.social.twitter.api.impl.DataListHolder;
+import org.springframework.social.twitter.api.impl.DataStatsHolder;
 import org.springframework.social.twitter.api.impl.TwitterApiBuilderForUri;
 import org.springframework.social.twitter.api.impl.TwitterApiUriResourceForAdvertising;
 import org.springframework.web.client.RestTemplate;
@@ -61,8 +60,7 @@ public class StatisticsTemplate extends AbstractTwitterOperations implements Sta
                 uri,
                 HttpMethod.GET,
                 null,
-                new ParameterizedTypeReference<DataListHolder<StatisticsSnapshot>>() {}
-                ).getBody().getList();
+                DataStatsHolder.class).getBody().getList();
     }
 
     @Override
@@ -76,8 +74,7 @@ public class StatisticsTemplate extends AbstractTwitterOperations implements Sta
                         .build(),
                 HttpMethod.GET,
                 null,
-                new ParameterizedTypeReference<DataListHolder<StatisticsSnapshot>>() {}
-                ).getBody().getList();
+                DataStatsHolder.class).getBody().getList();
     }
 
     @Override
@@ -92,8 +89,7 @@ public class StatisticsTemplate extends AbstractTwitterOperations implements Sta
                         .build(),
                 HttpMethod.GET,
                 null,
-                new ParameterizedTypeReference<DataListHolder<StatisticsSnapshot>>() {}
-                ).getBody().getList();
+                DataStatsHolder.class).getBody().getList();
     }
 
     @Override
@@ -107,8 +103,7 @@ public class StatisticsTemplate extends AbstractTwitterOperations implements Sta
                         .build(),
                 HttpMethod.GET,
                 null,
-                new ParameterizedTypeReference<DataListHolder<StatisticsSnapshot>>() {}
-                ).getBody().getList();
+                DataStatsHolder.class).getBody().getList();
     }
 
     @Override
@@ -123,8 +118,7 @@ public class StatisticsTemplate extends AbstractTwitterOperations implements Sta
                         .build(),
                 HttpMethod.GET,
                 null,
-                new ParameterizedTypeReference<DataListHolder<StatisticsSnapshot>>() {}
-                ).getBody().getList();
+                DataStatsHolder.class).getBody().getList();
     }
 
     @Override
@@ -138,8 +132,7 @@ public class StatisticsTemplate extends AbstractTwitterOperations implements Sta
                         .build(),
                 HttpMethod.GET,
                 null,
-                new ParameterizedTypeReference<DataListHolder<StatisticsSnapshot>>() {}
-                ).getBody().getList();
+                DataStatsHolder.class).getBody().getList();
     }
 
     @Override
@@ -154,8 +147,7 @@ public class StatisticsTemplate extends AbstractTwitterOperations implements Sta
                         .build(),
                 HttpMethod.GET,
                 null,
-                new ParameterizedTypeReference<DataListHolder<StatisticsSnapshot>>() {}
-                ).getBody().getList();
+                DataStatsHolder.class).getBody().getList();
     }
 
     @Override
@@ -169,8 +161,7 @@ public class StatisticsTemplate extends AbstractTwitterOperations implements Sta
                         .build(),
                 HttpMethod.GET,
                 null,
-                new ParameterizedTypeReference<DataListHolder<StatisticsSnapshot>>() {}
-                ).getBody().getList();
+                DataStatsHolder.class).getBody().getList();
     }
 
     @Override
@@ -185,8 +176,7 @@ public class StatisticsTemplate extends AbstractTwitterOperations implements Sta
                         .build(),
                 HttpMethod.GET,
                 null,
-                new ParameterizedTypeReference<DataListHolder<StatisticsSnapshot>>() {}
-                ).getBody().getList();
+                DataStatsHolder.class).getBody().getList();
     }
 
     @Override
@@ -200,8 +190,7 @@ public class StatisticsTemplate extends AbstractTwitterOperations implements Sta
                         .build(),
                 HttpMethod.GET,
                 null,
-                new ParameterizedTypeReference<DataListHolder<StatisticsSnapshot>>() {}
-                ).getBody().getList();
+                DataStatsHolder.class).getBody().getList();
     }
 
     @Override
@@ -216,7 +205,6 @@ public class StatisticsTemplate extends AbstractTwitterOperations implements Sta
                         .build(),
                 HttpMethod.GET,
                 null,
-                new ParameterizedTypeReference<DataListHolder<StatisticsSnapshot>>() {}
-                ).getBody().getList();
+                DataStatsHolder.class).getBody().getList();
     }
 }

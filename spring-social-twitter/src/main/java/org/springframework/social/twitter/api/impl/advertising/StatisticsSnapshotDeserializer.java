@@ -77,7 +77,7 @@ public class StatisticsSnapshotDeserializer extends JsonDeserializer<StatisticsS
     }
 
     private StatisticsSegmentation extractSegmentation(JsonNode data) {
-        JsonNode segmentationNode = data.get("segmentation");
+        JsonNode segmentationNode = data.get("segment");
         if (segmentationNode == null)
             return null;
 
@@ -121,7 +121,7 @@ public class StatisticsSnapshotDeserializer extends JsonDeserializer<StatisticsS
         if (metricType == BigDecimal.class)
             dumpEntriesAsDecimals(iterator, entries);
         else if (metricType == Integer.class)
-            dumpEntriesAsIntegers(iterator, entries);
+            dumpEntriesAsNumbers(iterator, entries);
         else if (metricType == Object.class)
             dumpEntriesAsHashes(iterator, entries);
     }
@@ -133,11 +133,11 @@ public class StatisticsSnapshotDeserializer extends JsonDeserializer<StatisticsS
         });
     }
 
-    private void dumpEntriesAsIntegers(Spliterator<JsonNode> iterator, List<Object> entries) {
+    private void dumpEntriesAsNumbers(Spliterator<JsonNode> iterator, List<Object> entries) {
         iterator.forEachRemaining(i -> {
             String entryValue = i.asText();
             if (!entryValue.contains(".")) {
-                entries.add(new Integer(entryValue));
+                entries.add(new Long(entryValue));
             }
                 else {
                     entries.add(new Float(entryValue));

@@ -30,19 +30,82 @@ import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
 import java.time.LocalDateTime;
 import java.time.Month;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
+import org.junit.Assert;
 import org.junit.Test;
 import org.springframework.social.twitter.api.advertising.StatisticsGranularity;
 import org.springframework.social.twitter.api.advertising.StatisticsMetric;
+import org.springframework.social.twitter.api.advertising.StatisticsSegmentationType;
 import org.springframework.social.twitter.api.advertising.StatisticsSnapshot;
+import org.springframework.social.twitter.api.advertising.StatisticsSnapshotMetric;
 import org.springframework.social.twitter.api.impl.AbstractTwitterApiTest;
+import org.springframework.test.web.client.MockRestServiceServer;
 
 /**
  * @author Hudson mendes
  */
 public class StatisticsTemplateTest extends AbstractTwitterApiTest {
+
+    @Test
+    public void segmentedAndUnsegmented() throws UnsupportedEncodingException {
+        String mockedAccountId = "0ga0yn";
+
+        mockServer
+                .expect(requestTo("https://ads-api.twitter.com/0/stats/accounts/" + mockedAccountId + "?granularity=DAY"))
+                .andExpect(method(GET))
+                .andRespond(withSuccess(jsonResource("ad-stats-non-segmented"), APPLICATION_JSON));
+
+        List<StatisticsSnapshot> snapshots1 = twitter.statisticsOperations().byAccounts(
+                mockedAccountId,
+                new StatisticsOfAccountQueryBuilder()
+                        .withGranularity(StatisticsGranularity.DAY));
+
+        MockRestServiceServer mockServer2 = MockRestServiceServer.createServer(twitter.getRestTemplate());
+        mockServer2
+                .expect(requestTo("https://ads-api.twitter.com/0/stats/accounts/" + mockedAccountId + "?segmentation_type=GENDER&granularity=DAY"))
+                .andExpect(method(GET))
+                .andRespond(withSuccess(jsonResource("ad-stats-segmented"), APPLICATION_JSON));
+
+        List<StatisticsSnapshot> snapshots2 = twitter.statisticsOperations().byAccounts(
+                mockedAccountId,
+                new StatisticsOfAccountQueryBuilder()
+                        .withGranularity(StatisticsGranularity.DAY)
+                        .withSegmentationType(StatisticsSegmentationType.GENDER));
+
+        Assert.assertNotEquals(snapshots1.size(), snapshots2.size());
+        Assert.assertEquals(1, snapshots1.size());
+
+        Assert.assertNotNull(snapshots2.get(0).getSegmentation());
+        Assert.assertEquals(StatisticsSegmentationType.GENDER, snapshots2.get(0).getSegmentation().getType());
+        Assert.assertEquals("f", snapshots2.get(0).getSegmentation().getValue());
+        Assert.assertEquals("Female", snapshots2.get(0).getSegmentation().getDescription());
+
+        Assert.assertNotNull(snapshots2.get(1).getSegmentation());
+        Assert.assertEquals(StatisticsSegmentationType.GENDER, snapshots2.get(1).getSegmentation().getType());
+        Assert.assertEquals("m", snapshots2.get(1).getSegmentation().getValue());
+        Assert.assertEquals("Male", snapshots2.get(1).getSegmentation().getDescription());
+
+        Assert.assertNotNull(snapshots2.get(2).getSegmentation());
+        Assert.assertEquals(StatisticsSegmentationType.GENDER, snapshots2.get(2).getSegmentation().getType());
+        Assert.assertEquals("unknown", snapshots2.get(2).getSegmentation().getValue());
+        Assert.assertEquals("Unknown", snapshots2.get(2).getSegmentation().getDescription());
+
+        List<StatisticsMetric> metrics1 = extractMetricsFromStatisticSnapshots(snapshots1);
+        List<StatisticsMetric> metrics2 = extractMetricsFromStatisticSnapshots(snapshots1);
+        Assert.assertEquals(metrics1.size(), metrics2.size());
+    }
+
+    private List<StatisticsMetric> extractMetricsFromStatisticSnapshots(List<StatisticsSnapshot> snapshots) {
+        List<StatisticsMetric> metrics = new ArrayList<>();
+        for (StatisticsSnapshot snapshot : snapshots)
+            for (StatisticsSnapshotMetric snapshotMetric : snapshot.getMetrics())
+                metrics.add(snapshotMetric.getName());
+        return metrics;
+    }
+
     @Test
     public void byAccounts() throws UnsupportedEncodingException {
         String mockedAccountId = "0ga0yn";
@@ -394,6 +457,6 @@ public class StatisticsTemplateTest extends AbstractTwitterApiTest {
         assertNotNull(snapshot.getMetric(StatisticsMetric.billed_follows));
         assertThat(
                 snapshot.getMetric(StatisticsMetric.billed_follows).entries(),
-                hasItems(new Integer[] {0}));
+                hasItems(new Long[] {0L}));
     }
 }
