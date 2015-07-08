@@ -22,6 +22,7 @@ import java.util.List;
 
 import org.springframework.social.twitter.api.advertising.StatisticsGranularity;
 import org.springframework.social.twitter.api.advertising.StatisticsMetric;
+import org.springframework.social.twitter.api.advertising.StatisticsSegmentationType;
 import org.springframework.util.LinkedMultiValueMap;
 import org.springframework.util.MultiValueMap;
 
@@ -40,6 +41,7 @@ public abstract class AbstractTwitterQueryForStatsBuilder<TBuilderInterface>
 
     private LocalDateTime startTime;
     private LocalDateTime endTime;
+    private StatisticsSegmentationType segmentation;
     private StatisticsGranularity granularity;
     private List<StatisticsMetric> metrics;
 
@@ -47,8 +49,13 @@ public abstract class AbstractTwitterQueryForStatsBuilder<TBuilderInterface>
         MultiValueMap<String, String> map = new LinkedMultiValueMap<String, String>();
 
         makeParameters(map);
+
+        appendParameter(map, "segmentation_type", this.segmentation);
+
         appendParameter(map, "granularity", this.granularity);
+
         appendParameter(map, "metrics", this.metrics);
+
         if (this.startTime != null)
             appendParameter(map, "start_time", this.startTime.toInstant(ZoneOffset.UTC));
         if (this.endTime != null)
@@ -77,6 +84,12 @@ public abstract class AbstractTwitterQueryForStatsBuilder<TBuilderInterface>
     @SuppressWarnings("unchecked")
     public TBuilderInterface withGranularity(StatisticsGranularity granularity) {
         this.granularity = granularity;
+        return (TBuilderInterface) this;
+    }
+
+    @SuppressWarnings("unchecked")
+    public TBuilderInterface withSegmentationType(StatisticsSegmentationType segmentation) {
+        this.segmentation = segmentation;
         return (TBuilderInterface) this;
     }
 

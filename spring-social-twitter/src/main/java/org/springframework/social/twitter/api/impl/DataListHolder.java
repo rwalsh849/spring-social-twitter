@@ -18,10 +18,11 @@ package org.springframework.social.twitter.api.impl;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.springframework.social.twitter.api.TwitterObject;
+
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
-
 
 /**
  * Most of the Twitter Ads API responses for <strong>SINGLE</strong>
@@ -37,20 +38,20 @@ import com.fasterxml.jackson.annotation.JsonProperty;
  * @author Hudson Mendes
  */
 @JsonIgnoreProperties(ignoreUnknown = true)
-public class DataListHolder<TEntity> {
+public class DataListHolder<TEntity extends TwitterObject> {
     private final List<TEntity> list;
     private final String dataType;
     private final String nextCursor;
     private final Long totalCount;
 
     @JsonCreator
-    DataListHolder(
-            @JsonProperty("data") List<TEntity> list,
+    public DataListHolder(
+            @JsonProperty("data") List<TEntity> data,
             @JsonProperty("data_type") String dataType,
             @JsonProperty("next_cursor") String nextCursor,
             @JsonProperty("total_count") Long totalCount) {
 
-        this.list = new ArrayList<TEntity>(list);
+        this.list = new ArrayList<TEntity>(data);
         this.dataType = dataType;
         this.nextCursor = nextCursor;
         this.totalCount = totalCount;

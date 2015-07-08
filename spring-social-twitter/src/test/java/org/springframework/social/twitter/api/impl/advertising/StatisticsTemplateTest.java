@@ -30,19 +30,82 @@ import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
 import java.time.LocalDateTime;
 import java.time.Month;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
+import org.junit.Assert;
 import org.junit.Test;
 import org.springframework.social.twitter.api.advertising.StatisticsGranularity;
 import org.springframework.social.twitter.api.advertising.StatisticsMetric;
+import org.springframework.social.twitter.api.advertising.StatisticsSegmentationType;
 import org.springframework.social.twitter.api.advertising.StatisticsSnapshot;
+import org.springframework.social.twitter.api.advertising.StatisticsSnapshotMetric;
 import org.springframework.social.twitter.api.impl.AbstractTwitterApiTest;
+import org.springframework.test.web.client.MockRestServiceServer;
 
 /**
  * @author Hudson mendes
  */
 public class StatisticsTemplateTest extends AbstractTwitterApiTest {
+
+    @Test
+    public void segmentedAndUnsegmented() throws UnsupportedEncodingException {
+        String mockedAccountId = "0ga0yn";
+
+        mockServer
+                .expect(requestTo("https://ads-api.twitter.com/0/stats/accounts/" + mockedAccountId + "?granularity=DAY"))
+                .andExpect(method(GET))
+                .andRespond(withSuccess(jsonResource("ad-stats-non-segmented"), APPLICATION_JSON));
+
+        List<StatisticsSnapshot> snapshots1 = twitter.statisticsOperations().byAccounts(
+                mockedAccountId,
+                new StatisticsOfAccountQueryBuilder()
+                        .withGranularity(StatisticsGranularity.DAY));
+
+        MockRestServiceServer mockServer2 = MockRestServiceServer.createServer(twitter.getRestTemplate());
+        mockServer2
+                .expect(requestTo("https://ads-api.twitter.com/0/stats/accounts/" + mockedAccountId + "?segmentation_type=GENDER&granularity=DAY"))
+                .andExpect(method(GET))
+                .andRespond(withSuccess(jsonResource("ad-stats-segmented"), APPLICATION_JSON));
+
+        List<StatisticsSnapshot> snapshots2 = twitter.statisticsOperations().byAccounts(
+                mockedAccountId,
+                new StatisticsOfAccountQueryBuilder()
+                        .withGranularity(StatisticsGranularity.DAY)
+                        .withSegmentationType(StatisticsSegmentationType.GENDER));
+
+        Assert.assertNotEquals(snapshots1.size(), snapshots2.size());
+        Assert.assertEquals(1, snapshots1.size());
+
+        Assert.assertNotNull(snapshots2.get(0).getSegmentation());
+        Assert.assertEquals(StatisticsSegmentationType.GENDER, snapshots2.get(0).getSegmentation().getType());
+        Assert.assertEquals("f", snapshots2.get(0).getSegmentation().getValue());
+        Assert.assertEquals("Female", snapshots2.get(0).getSegmentation().getDescription());
+
+        Assert.assertNotNull(snapshots2.get(1).getSegmentation());
+        Assert.assertEquals(StatisticsSegmentationType.GENDER, snapshots2.get(1).getSegmentation().getType());
+        Assert.assertEquals("m", snapshots2.get(1).getSegmentation().getValue());
+        Assert.assertEquals("Male", snapshots2.get(1).getSegmentation().getDescription());
+
+        Assert.assertNotNull(snapshots2.get(2).getSegmentation());
+        Assert.assertEquals(StatisticsSegmentationType.GENDER, snapshots2.get(2).getSegmentation().getType());
+        Assert.assertEquals("unknown", snapshots2.get(2).getSegmentation().getValue());
+        Assert.assertEquals("Unknown", snapshots2.get(2).getSegmentation().getDescription());
+
+        List<StatisticsMetric> metrics1 = extractMetricsFromStatisticSnapshots(snapshots1);
+        List<StatisticsMetric> metrics2 = extractMetricsFromStatisticSnapshots(snapshots1);
+        Assert.assertEquals(metrics1.size(), metrics2.size());
+    }
+
+    private List<StatisticsMetric> extractMetricsFromStatisticSnapshots(List<StatisticsSnapshot> snapshots) {
+        List<StatisticsMetric> metrics = new ArrayList<>();
+        for (StatisticsSnapshot snapshot : snapshots)
+            for (StatisticsSnapshotMetric snapshotMetric : snapshot.getMetrics())
+                metrics.add(snapshotMetric.getName());
+        return metrics;
+    }
+
     @Test
     public void byAccounts() throws UnsupportedEncodingException {
         String mockedAccountId = "0ga0yn";
@@ -55,7 +118,7 @@ public class StatisticsTemplateTest extends AbstractTwitterApiTest {
                 .andExpect(method(GET))
                 .andRespond(withSuccess(jsonResource("statistics-snapshot"), APPLICATION_JSON));
 
-        StatisticsSnapshot snapshots = twitter.statisticsOperations().byAccounts(
+        List<StatisticsSnapshot> snapshots = twitter.statisticsOperations().byAccounts(
                 mockedAccountId,
                 new StatisticsOfAccountQueryBuilder()
                         .withGranularity(StatisticsGranularity.DAY)
@@ -80,7 +143,7 @@ public class StatisticsTemplateTest extends AbstractTwitterApiTest {
                 .andExpect(method(GET))
                 .andRespond(withSuccess(jsonResource("statistics-snapshot"), APPLICATION_JSON));
 
-        StatisticsSnapshot snapshots = twitter.statisticsOperations().byCampaigns(
+        List<StatisticsSnapshot> snapshots = twitter.statisticsOperations().byCampaigns(
                 mockedAccountId,
                 new StatisticsOfCampaignQueryBuilder()
                         .withCampaigns(mockedCampaignId1, mockedCampaignId2)
@@ -110,7 +173,7 @@ public class StatisticsTemplateTest extends AbstractTwitterApiTest {
                 .andExpect(method(GET))
                 .andRespond(withSuccess(jsonResource("statistics-snapshot"), APPLICATION_JSON));
 
-        StatisticsSnapshot snapshot = twitter.statisticsOperations().byCampaign(
+        List<StatisticsSnapshot> snapshot = twitter.statisticsOperations().byCampaign(
                 mockedAccountId,
                 mockedCampaignId,
                 new StatisticsOfCampaignQueryBuilder()
@@ -142,7 +205,7 @@ public class StatisticsTemplateTest extends AbstractTwitterApiTest {
                 .andExpect(method(GET))
                 .andRespond(withSuccess(jsonResource("statistics-snapshot"), APPLICATION_JSON));
 
-        StatisticsSnapshot campaigns = twitter.statisticsOperations().byFundingInstruments(
+        List<StatisticsSnapshot> campaigns = twitter.statisticsOperations().byFundingInstruments(
                 mockedAccountId,
                 new StatisticsOfFundingInstrumentQueryBuilder()
                         .withFundingInstruments(mockedFundingInstrument1, mockedFundingInstrument2)
@@ -169,7 +232,7 @@ public class StatisticsTemplateTest extends AbstractTwitterApiTest {
                 .andExpect(method(GET))
                 .andRespond(withSuccess(jsonResource("statistics-snapshot"), APPLICATION_JSON));
 
-        StatisticsSnapshot snapshot = twitter.statisticsOperations().byFundingInstrument(
+        List<StatisticsSnapshot> snapshot = twitter.statisticsOperations().byFundingInstrument(
                 mockedAccountId,
                 mockedFundingInstrumentId,
                 new StatisticsOfFundingInstrumentQueryBuilder()
@@ -195,7 +258,7 @@ public class StatisticsTemplateTest extends AbstractTwitterApiTest {
                 .andExpect(method(GET))
                 .andRespond(withSuccess(jsonResource("statistics-snapshot"), APPLICATION_JSON));
 
-        StatisticsSnapshot snapshots = twitter.statisticsOperations().byLineItems(
+        List<StatisticsSnapshot> snapshots = twitter.statisticsOperations().byLineItems(
                 mockedAccountId,
                 new StatisticsOfLineItemQueryBuilder()
                         .withLineItems(mockedLineItemId1, mockedLineItemId2)
@@ -222,7 +285,7 @@ public class StatisticsTemplateTest extends AbstractTwitterApiTest {
                 .andExpect(method(GET))
                 .andRespond(withSuccess(jsonResource("statistics-snapshot"), APPLICATION_JSON));
 
-        StatisticsSnapshot snapshot = twitter.statisticsOperations().byLineItem(
+        List<StatisticsSnapshot> snapshot = twitter.statisticsOperations().byLineItem(
                 mockedAccountId,
                 mockedLineItemId,
                 new StatisticsOfLineItemQueryBuilder()
@@ -249,7 +312,7 @@ public class StatisticsTemplateTest extends AbstractTwitterApiTest {
                 .andExpect(method(GET))
                 .andRespond(withSuccess(jsonResource("statistics-snapshot"), APPLICATION_JSON));
 
-        StatisticsSnapshot snapshots = twitter.statisticsOperations().byPromotedAccounts(
+        List<StatisticsSnapshot> snapshots = twitter.statisticsOperations().byPromotedAccounts(
                 mockedAccountId,
                 new StatisticsOfPromotedAccountQueryBuilder()
                         .withPromotedAccounts(mockedPromotedAccountId1, mockedPromotedAccountId2)
@@ -277,7 +340,7 @@ public class StatisticsTemplateTest extends AbstractTwitterApiTest {
                 .andExpect(method(GET))
                 .andRespond(withSuccess(jsonResource("statistics-snapshot"), APPLICATION_JSON));
 
-        StatisticsSnapshot snapshot = twitter.statisticsOperations().byPromotedAccount(
+        List<StatisticsSnapshot> snapshot = twitter.statisticsOperations().byPromotedAccount(
                 mockedAccountId,
                 mockedPromotedAccountId,
                 new StatisticsOfPromotedAccountQueryBuilder()
@@ -304,7 +367,7 @@ public class StatisticsTemplateTest extends AbstractTwitterApiTest {
                 .andExpect(method(GET))
                 .andRespond(withSuccess(jsonResource("statistics-snapshot"), APPLICATION_JSON));
 
-        StatisticsSnapshot snapshots = twitter.statisticsOperations().byPromotedTweets(
+        List<StatisticsSnapshot> snapshots = twitter.statisticsOperations().byPromotedTweets(
                 mockedAccountId,
                 new StatisticsOfPromotedTweetQueryBuilder()
                         .withPromotedTweets(mockedPromotedTweetId1, mockedPromotedTweetId2)
@@ -332,7 +395,7 @@ public class StatisticsTemplateTest extends AbstractTwitterApiTest {
                 .andExpect(method(GET))
                 .andRespond(withSuccess(jsonResource("statistics-snapshot"), APPLICATION_JSON));
 
-        StatisticsSnapshot snapshot = twitter.statisticsOperations().byPromotedTweet(
+        List<StatisticsSnapshot> snapshot = twitter.statisticsOperations().byPromotedTweet(
                 mockedAccountId,
                 mockedPromotedTweetId,
                 new StatisticsOfPromotedTweetQueryBuilder()
@@ -343,7 +406,9 @@ public class StatisticsTemplateTest extends AbstractTwitterApiTest {
         assertSnapshotSingleContents(snapshot);
     }
 
-    private void assertSnapshotContents(StatisticsSnapshot snapshot) {
+    private void assertSnapshotContents(List<StatisticsSnapshot> snapshots) {
+
+        StatisticsSnapshot snapshot = snapshots.get(0);
 
         assertEquals("8484d", snapshot.getId());
         assertEquals(StatisticsGranularity.DAY, snapshot.getGranularity());
@@ -384,12 +449,14 @@ public class StatisticsTemplateTest extends AbstractTwitterApiTest {
 
     }
 
-    private void assertSnapshotSingleContents(StatisticsSnapshot snapshot) {
+    private void assertSnapshotSingleContents(List<StatisticsSnapshot> snapshots) {
+        StatisticsSnapshot snapshot = snapshots.get(0);
+
         assertEquals("8484d", snapshot.getId());
 
         assertNotNull(snapshot.getMetric(StatisticsMetric.billed_follows));
         assertThat(
                 snapshot.getMetric(StatisticsMetric.billed_follows).entries(),
-                hasItems(new Integer[] {0}));
+                hasItems(new Long[] {0L}));
     }
 }

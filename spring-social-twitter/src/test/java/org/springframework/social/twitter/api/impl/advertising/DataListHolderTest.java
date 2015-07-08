@@ -24,6 +24,7 @@ import org.springframework.social.twitter.api.advertising.Campaign;
 import org.springframework.social.twitter.api.impl.DataListHolder;
 
 import com.fasterxml.jackson.core.JsonParseException;
+import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
@@ -38,7 +39,9 @@ public class DataListHolderTest {
         mapper.addMixIn(Campaign.class, CampaignMixin.class);
         ClassPathResource resource = new ClassPathResource("ad-campaigns.json", getClass());
 
-        DataListHolder<?> holder = mapper.readValue(resource.getFile(), DataListHolder.class);
+        DataListHolder<Campaign> holder = mapper.readValue(
+                resource.getFile(),
+                new TypeReference<DataListHolder<Campaign>>() {});
 
         Assert.assertEquals(new Long("71"), holder.getTotalCount());
         Assert.assertEquals("18l3ms5c", holder.getNextCursor());

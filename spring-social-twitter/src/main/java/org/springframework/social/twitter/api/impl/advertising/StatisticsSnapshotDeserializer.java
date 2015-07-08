@@ -28,6 +28,8 @@ import java.util.Spliterator;
 
 import org.springframework.social.twitter.api.advertising.StatisticsGranularity;
 import org.springframework.social.twitter.api.advertising.StatisticsMetric;
+import org.springframework.social.twitter.api.advertising.StatisticsSegmentation;
+import org.springframework.social.twitter.api.advertising.StatisticsSegmentationType;
 import org.springframework.social.twitter.api.advertising.StatisticsSnapshot;
 import org.springframework.social.twitter.api.advertising.StatisticsSnapshotMetric;
 import org.springframework.social.twitter.api.impl.LocalDateTimeDeserializer;
@@ -63,6 +65,7 @@ public class StatisticsSnapshotDeserializer extends JsonDeserializer<StatisticsS
 
         return new StatisticsSnapshot(
                 extractId(data),
+                extractSegmentation(data),
                 extractGranularity(data),
                 extractMetrics(data),
                 extractStartTime(data),
@@ -71,6 +74,18 @@ public class StatisticsSnapshotDeserializer extends JsonDeserializer<StatisticsS
 
     private String extractId(JsonNode data) {
         return data.get("id").asText();
+    }
+
+    private StatisticsSegmentation extractSegmentation(JsonNode data) {
+        JsonNode segmentationNode = data.get("segment");
+        if (segmentationNode == null)
+            return null;
+
+        return new StatisticsSegmentation(
+                StatisticsSegmentationType.valueOf(segmentationNode.get("segmentation_type").asText()),
+                segmentationNode.get("segmentation_value").asText(),
+                segmentationNode.get("name").asText());
+
     }
 
     private StatisticsGranularity extractGranularity(JsonNode data) {
@@ -106,7 +121,7 @@ public class StatisticsSnapshotDeserializer extends JsonDeserializer<StatisticsS
         if (metricType == BigDecimal.class)
             dumpEntriesAsDecimals(iterator, entries);
         else if (metricType == Integer.class)
-            dumpEntriesAsIntegers(iterator, entries);
+            dumpEntriesAsNumbers(iterator, entries);
         else if (metricType == Object.class)
             dumpEntriesAsHashes(iterator, entries);
     }
@@ -118,11 +133,11 @@ public class StatisticsSnapshotDeserializer extends JsonDeserializer<StatisticsS
         });
     }
 
-    private void dumpEntriesAsIntegers(Spliterator<JsonNode> iterator, List<Object> entries) {
+    private void dumpEntriesAsNumbers(Spliterator<JsonNode> iterator, List<Object> entries) {
         iterator.forEachRemaining(i -> {
             String entryValue = i.asText();
             if (!entryValue.contains(".")) {
-                entries.add(new Integer(entryValue));
+                entries.add(new Long(entryValue));
             }
                 else {
                     entries.add(new Float(entryValue));

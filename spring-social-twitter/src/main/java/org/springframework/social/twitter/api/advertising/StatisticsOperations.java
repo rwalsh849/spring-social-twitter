@@ -15,6 +15,8 @@
  */
 package org.springframework.social.twitter.api.advertising;
 
+import java.util.List;
+
 import org.springframework.social.twitter.api.Tweet;
 
 
@@ -32,7 +34,7 @@ public interface StatisticsOperations {
      * @param query The query for which we shall retrieve statistics.
      * @return a list of {@link StatisticsSnapshot}
      */
-    StatisticsSnapshot byAccounts(String accountId, StatisticsOfAccountQuery query);
+    List<StatisticsSnapshot> byAccounts(String accountId, StatisticsOfAccountQuery query);
 
     /**
      * Snapshot of Advertising Statistics for Multiple {@link Campaign}.
@@ -41,7 +43,7 @@ public interface StatisticsOperations {
      * @param query The query for which we shall retrieve statistics.
      * @return a list of {@link StatisticsSnapshot}
      */
-    StatisticsSnapshot byCampaigns(String accountId, StatisticsOfCampaignQuery query);
+    List<StatisticsSnapshot> byCampaigns(String accountId, StatisticsOfCampaignQuery query);
 
     /**
      * Snapshot of Advertising Statistics by {@link Campaign}.
@@ -51,7 +53,7 @@ public interface StatisticsOperations {
      * @param query The query for which we shall retrieve statistics.
      * @return an instance of {@link StatisticsSnapshot}
      */
-    StatisticsSnapshot byCampaign(String accountId, String campaignId, StatisticsOfCampaignQuery query);
+    List<StatisticsSnapshot> byCampaign(String accountId, String campaignId, StatisticsOfCampaignQuery query);
 
     /**
      * Snapshot of Advertising Statistics for Multiple {@link FundingInstrument}.
@@ -60,7 +62,7 @@ public interface StatisticsOperations {
      * @param query The query for which we shall retrieve statistics.
      * @return a list of {@link StatisticsSnapshot}
      */
-    StatisticsSnapshot byFundingInstruments(String accountId, StatisticsOfFundingInstrumentQuery query);
+    List<StatisticsSnapshot> byFundingInstruments(String accountId, StatisticsOfFundingInstrumentQuery query);
 
     /**
      * Snapshot of Advertising Statistics by {@link Campaign}.
@@ -70,7 +72,7 @@ public interface StatisticsOperations {
      * @param query The query for which we shall retrieve statistics.
      * @return an instance of {@link StatisticsSnapshot}
      */
-    StatisticsSnapshot byFundingInstrument(String accountId, String fundingInstrumentId, StatisticsOfFundingInstrumentQuery query);
+    List<StatisticsSnapshot> byFundingInstrument(String accountId, String fundingInstrumentId, StatisticsOfFundingInstrumentQuery query);
 
     /**
      * Snapshot of Advertising Statistics for Multiple {@link LineItem}.
@@ -79,7 +81,7 @@ public interface StatisticsOperations {
      * @param query The query for which we shall retrieve statistics.
      * @return a list of {@link StatisticsSnapshot}
      */
-    StatisticsSnapshot byLineItems(String accountId, StatisticsOfLineItemQuery query);
+    List<StatisticsSnapshot> byLineItems(String accountId, StatisticsOfLineItemQuery query);
 
     /**
      * Snapshot of Advertising Statistics by {@link LineItem}.
@@ -89,7 +91,7 @@ public interface StatisticsOperations {
      * @param query The query for which we shall retrieve statistics.
      * @return an instance of {@link StatisticsSnapshot}
      */
-    StatisticsSnapshot byLineItem(String accountId, String lineItemId, StatisticsOfLineItemQuery query);
+    List<StatisticsSnapshot> byLineItem(String accountId, String lineItemId, StatisticsOfLineItemQuery query);
 
     /**
      * Snapshot of Advertising Statistics for Multiple promoted accounts.
@@ -98,7 +100,7 @@ public interface StatisticsOperations {
      * @param query The query for which we shall retrieve statistics.
      * @return a list of {@link StatisticsSnapshot}
      */
-    StatisticsSnapshot byPromotedAccounts(String accountId, StatisticsOfPromotedAccountQuery query);
+    List<StatisticsSnapshot> byPromotedAccounts(String accountId, StatisticsOfPromotedAccountQuery query);
 
     /**
      * Snapshot of Advertising Statistics for a promoted accounts.
@@ -108,7 +110,7 @@ public interface StatisticsOperations {
      * @param query The query for which we shall retrieve statistics.
      * @return an instance of {@link StatisticsSnapshot}
      */
-    StatisticsSnapshot byPromotedAccount(String accountId, String promotedAccountId, StatisticsOfPromotedAccountQuery query);
+    List<StatisticsSnapshot> byPromotedAccount(String accountId, String promotedAccountId, StatisticsOfPromotedAccountQuery query);
 
     /**
      * Snapshot of Advertising Statistics for Multiple promoted {@link Tweet}.
@@ -117,7 +119,7 @@ public interface StatisticsOperations {
      * @param query The query for which we shall retrieve statistics.
      * @return a list of {@link StatisticsSnapshot}
      */
-    StatisticsSnapshot byPromotedTweets(String accountId, StatisticsOfPromotedTweetQuery query);
+    List<StatisticsSnapshot> byPromotedTweets(String accountId, StatisticsOfPromotedTweetQuery query);
 
     /**
      * Snapshot of Advertising Statistics for a promoted {@link Tweet}.
@@ -127,5 +129,5 @@ public interface StatisticsOperations {
      * @param query The query for which we shall retrieve statistics.
      * @return an instance of {@link StatisticsSnapshot}
      */
-    StatisticsSnapshot byPromotedTweet(String accountId, String promotedTweetId, StatisticsOfPromotedTweetQuery query);
+    List<StatisticsSnapshot> byPromotedTweet(String accountId, String promotedTweetId, StatisticsOfPromotedTweetQuery query);
 }

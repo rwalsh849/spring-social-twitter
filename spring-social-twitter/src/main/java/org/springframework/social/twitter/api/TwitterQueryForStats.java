@@ -19,6 +19,7 @@ import java.time.LocalDateTime;
 
 import org.springframework.social.twitter.api.advertising.StatisticsGranularity;
 import org.springframework.social.twitter.api.advertising.StatisticsMetric;
+import org.springframework.social.twitter.api.advertising.StatisticsSegmentationType;
 import org.springframework.util.MultiValueMap;
 
 /**
@@ -42,6 +43,8 @@ public interface TwitterQueryForStats<TBuilderInterface extends TwitterQueryForS
     public TBuilderInterface withGranularity(StatisticsGranularity granularity);
 
     public TBuilderInterface withStatisticalMetric(StatisticsMetric... metrics);
+
+    public TBuilderInterface withSegmentationType(StatisticsSegmentationType segmentation);
 
     public MultiValueMap<String, String> toQueryParameters();
 }
