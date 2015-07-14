@@ -18,6 +18,7 @@ package org.springframework.social.twitter.api;
 import org.springframework.social.ApiBinding;
 import org.springframework.social.twitter.api.advertising.AdvertisingOperations;
 import org.springframework.social.twitter.api.advertising.CampaignOperations;
+import org.springframework.social.twitter.api.advertising.CreativeOperations;
 import org.springframework.social.twitter.api.advertising.LineItemOperations;
 import org.springframework.social.twitter.api.advertising.PromotionOperations;
 import org.springframework.social.twitter.api.advertising.StatisticsOperations;
@@ -126,6 +127,11 @@ public interface Twitter extends ApiBinding {
      * @return the Twitter Object Nest operations.
      */
     TonOperations tonOperations();
+    
+    /**
+     * @return the Twitter creative operations.
+     */
+    CreativeOperations creativeOperations();
 
     /**
      * Returns the underlying {@link RestOperations} object allowing for consumption of Twitter endpoints that may not be otherwise covered by the API

@@ -15,13 +15,14 @@
  */
 package org.springframework.social.twitter.api.advertising;
 
+import org.springframework.social.twitter.api.TwitterQueryForSortableEntity;
+
 /**
- * All sorting options for querying {@link CardQuery}.
+ * Defines the contract for any {@link Card} query.
  * @author Richard Walsh
  */
-public enum CampaignSorting {
-	created_at,
-	updated_at,
-	deleted,
-	name
+public interface CardQuery extends TwitterQueryForSortableEntity<CardQuery, CardSorting> {
+	public CardQuery withCards(String... cardIds);
+	public CardQuery withCount(Integer count);
+	public CardQuery withCursor(Integer cursor);
 }

@@ -55,7 +55,13 @@ public enum TwitterApiUriResourceForAdvertising {
     STATS_PROMOTED_ACCOUNTS("stats/accounts/:account_id/promoted_accounts"),
     STATS_PROMOTED_ACCOUNT("stats/accounts/:account_id/promoted_accounts/:promoted_account_id"),
     STATS_PROMOTED_TWEETS("stats/accounts/:account_id/promoted_tweets"),
-    STATS_PROMOTED_TWEET("stats/accounts/:account_id/promoted_tweets/:promoted_tweet_id");
+    STATS_PROMOTED_TWEET("stats/accounts/:account_id/promoted_tweets/:promoted_tweet_id"),
+    
+    CREATIVE_APP_DOWNLOAD_CARDS("accounts/:account_id/cards/app_download"),
+    CREATIVE_APP_DOWNLOAD_CARD("accounts/:account_id/cards/app_download/:card_id"),
+    CREATIVE_APP_DOWNLOAD_CARD_CREATE("accounts/:account_id/cards/app_download"),
+    CREATIVE_APP_DOWNLOAD_CARD_UPDATE("accounts/:account_id/cards/app_download/:card_id"),
+    CREATIVE_APP_DOWNLOAD_CARD_DELETE("accounts/:account_id/cards/app_download/:card_id");
 
     private final String name;
 

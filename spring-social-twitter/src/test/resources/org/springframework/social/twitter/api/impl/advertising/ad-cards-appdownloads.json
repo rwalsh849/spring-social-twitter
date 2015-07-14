@@ -1,0 +1,27 @@
+{
+  "total_count": 1,
+  "request": {
+    "params": {
+      "card_type": "app_download",
+      "account_id": "abc1"
+    }
+  },
+  "next_cursor": null,
+  "data": [
+    {
+      "updated_at": "2014-06-10T04:21:19Z",
+      "created_at": "2014-06-10T04:21:19Z",
+      "app_country_code": "US",
+      "card_type": "APP_DOWNLOAD",
+      "iphone_app_id": "333903271",
+      "googleplay_app_id": "com.twitter.android",
+      "ipad_app_id": "333903271",
+      "preview_url": "https://cards.twitter.com/cards/abc1/pfs",
+      "name": "Sample App Card",
+      "deleted": false,
+      "account_id": "abc1",
+      "id": "pfs"
+    }
+  ],
+  "data_type": "card"
+}

@@ -1,0 +1,24 @@
+{
+  "data_type": "card",
+  "data": {
+    "card_type": "APP_DOWNLOAD",
+    "account_id": "abc1",
+    "deleted": false,
+    "googleplay_app_id": "com.twitter.android",
+    "id": "pfs",
+    "ipad_app_id": "333903271",
+    "preview_url": "https://cards.twitter.com/cards/abc1/pfs",
+    "created_at": "2014-06-10T04:21:19Z",
+    "name": "Sample App Card",
+    "updated_at": "2014-06-10T04:21:19Z",
+    "app_country_code": "US",
+    "iphone_app_id": "333903271"
+  },
+  "request": {
+    "params": {
+      "account_id": "abc1",
+      "card_type": "app_download",
+      "card_id": "pfs"
+    }
+  }
+}

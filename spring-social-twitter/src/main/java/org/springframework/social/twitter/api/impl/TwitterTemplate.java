@@ -37,6 +37,7 @@ import org.springframework.social.twitter.api.Twitter;
 import org.springframework.social.twitter.api.UserOperations;
 import org.springframework.social.twitter.api.advertising.AdvertisingOperations;
 import org.springframework.social.twitter.api.advertising.CampaignOperations;
+import org.springframework.social.twitter.api.advertising.CreativeOperations;
 import org.springframework.social.twitter.api.advertising.LineItemOperations;
 import org.springframework.social.twitter.api.advertising.PromotionOperations;
 import org.springframework.social.twitter.api.advertising.StatisticsOperations;
@@ -45,6 +46,7 @@ import org.springframework.social.twitter.api.advertising.TargetingCriteriaDisco
 import org.springframework.social.twitter.api.advertising.TargetingCriteriaOperations;
 import org.springframework.social.twitter.api.impl.advertising.AdvertisingTemplate;
 import org.springframework.social.twitter.api.impl.advertising.CampaignTemplate;
+import org.springframework.social.twitter.api.impl.advertising.CreativeTemplate;
 import org.springframework.social.twitter.api.impl.advertising.LineItemTemplate;
 import org.springframework.social.twitter.api.impl.advertising.PromotionTemplate;
 import org.springframework.social.twitter.api.impl.advertising.StatisticsTemplate;
@@ -105,6 +107,8 @@ public class TwitterTemplate extends AbstractOAuth1ApiBinding implements Twitter
     private TailoredAudienceOperations tailoredAudienceOperations;
 
     private TonOperations tonOperations;
+    
+    private CreativeOperations creativeOperations;
 
     private RestTemplate clientRestTemplate = null;
 
@@ -275,6 +279,11 @@ public class TwitterTemplate extends AbstractOAuth1ApiBinding implements Twitter
     public TonOperations tonOperations() {
         return tonOperations;
     }
+   
+    @Override
+    public CreativeOperations creativeOperations() {
+        return creativeOperations;
+    }
 
     @Override
     public Settings settings() {
@@ -347,6 +356,7 @@ public class TwitterTemplate extends AbstractOAuth1ApiBinding implements Twitter
         this.targetingCriteriaDiscoveryOperations = new TargetingCriteriaDiscoveryTemplate(getRestTemplate(), isAuthorized(), isAuthorized());
         this.tailoredAudienceOperations = new TailoredAudienceTemplate(getRestTemplate(), isAuthorized(), isAuthorized());
         this.tonOperations = new TonTemplate(getRestTemplate(), isAuthorized(), isAuthorized());
+        this.creativeOperations = new CreativeTemplate(getRestTemplate(), isAuthorized(), isAuthorized());
 
         this.settings = new SettingsImpl();
     }

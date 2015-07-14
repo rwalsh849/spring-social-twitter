@@ -16,12 +16,9 @@
 package org.springframework.social.twitter.api.advertising;
 
 /**
- * All sorting options for querying {@link CardQuery}.
+ * Types that are associated with a {@link Card}
  * @author Richard Walsh
  */
-public enum CampaignSorting {
-	created_at,
-	updated_at,
-	deleted,
-	name
+public enum CardType {
+    APP_DOWNLOAD
 }

@@ -1,0 +1,22 @@
+{
+  "request": {
+    "params": {
+      "account_id": "abc1",
+      "card_type": "APP_DOWNLOAD",
+      "iphone_deep_link": "travelapp://hotel/xyz123?referrer=foo",
+      "name": "Sample App Card Twitter",
+      "card_id": "pfs"
+    }
+  },
+  "data_type": "card",
+  "data": {
+    "account_id": "abc1",
+    "card_type": "APP_DOWNLOAD",
+    "name": "Sample App Card Twitter",
+    "updated_at": "2014-06-10T04:50:52Z",
+    "created_at": "2014-06-10T04:21:19Z",
+    "deleted": false,
+    "id": "pfs",
+    "preview_url": "https://cards.twitter.com/cards/abc1/pfs"
+  }
+}

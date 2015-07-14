@@ -16,12 +16,14 @@
 package org.springframework.social.twitter.api.advertising;
 
 /**
- * All sorting options for querying {@link CardQuery}.
+ * The Call-to-Action (CTA) text for the {@link Card} button.
  * @author Richard Walsh
  */
-public enum CampaignSorting {
-	created_at,
-	updated_at,
-	deleted,
-	name
+public enum CardAppCallToAction {
+    INSTALL_OPEN,
+    PLAY,
+    SHOP,
+    BOOK,
+    CONNECT,
+    ORDER
 }
